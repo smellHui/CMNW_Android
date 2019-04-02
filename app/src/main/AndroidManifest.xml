@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name="com.tepia.ar.arscan.ARScanActivity"
+            android:name="com.tepia.cmnwsevice.view.main.MainActivity"
             android:configChanges="orientation|screenSize|uiMode|keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -145,6 +145,7 @@ dependencies {
 //    implementation project(':photopicker')
     implementation project(':base')
     implementation project(':ar')
+    implementation project(':cmnwsevice')
 //    implementation project(':main')
 //    implementation project(':voice')
 //    implementation project(':gaodelibrary')

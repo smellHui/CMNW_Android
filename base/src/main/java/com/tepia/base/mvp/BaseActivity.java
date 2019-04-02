@@ -54,7 +54,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mRootView = getLayoutInflater().inflate(this.getLayoutId(), null, false);
         super.setContentView(mRootView);
-
         AppManager.getInstance().addActivity(this);
         initToolBar();
         initData();
