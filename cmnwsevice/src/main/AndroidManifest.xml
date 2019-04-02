@@ -1,2 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tepia.cmnwsevice" />
+    package="com.tepia.cmnwsevice">
+
+    <application>
+        <!--主 tab 页面-->
+        <activity android:name=".view.main.MainActivity" />
+        <!--登录页面-->
+        <activity android:name=".view.login.LoginActivity" />
+    </application>
+</manifest>
