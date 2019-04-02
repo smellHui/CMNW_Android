@@ -1,0 +1,151 @@
+apply plugin: 'com.android.application'
+
+//定义时间
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+8"))
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+        resConfigs "zh"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        ndk {
+            abiFilters 'armeabi-v7a' //'armeabi-v7a' ,'armeabi'
+        }
+        //解决arcgis问题
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+        //极光推送
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : rootProject.ext.android.applicationId,
+                JPUSH_APPKEY : "459d527bb6df82bc88666df5", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
+    }
+    dataBinding {
+        enabled = true
+    }
+    // 禁止gradle严格检查图片的合法性
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
+
+
+    /*project.ext {
+        googlePlayServicesVersion = "15.0.0"
+    }*/
+
+    signingConfigs {
+        release {
+            try {
+                storeFile file("./tepia.jks")
+                storePassword "tepiacom"
+                keyAlias "tepia"
+                keyPassword "tepiacom"
+            } catch (ex) {
+                throw new Exception(ex.toString())
+            }
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/rxjava.properties'}
+
+    buildTypes {
+        release {
+            //混淆
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //其它
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
+        }
+        debug {
+            signingConfig signingConfigs.release
+            debuggable true
+            minifyEnabled false
+        }
+    }
+
+    //配置自定义打包名
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "ARDEMO_v${defaultConfig.versionName}_${releaseTime()}.apk"
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs', '../main/libs'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+        resolutionStrategy.force 'com.android.support:support-v4:26.1.0'
+    }
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.constraint
+    implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.support
+    implementation rootProject.ext.dependencies.constraint
+
+    implementation rootProject.ext.dependencies.litepal
+    implementation rootProject.ext.dependencies.Pgyer
+
+    implementation rootProject.ext.dependencies.jpush
+    implementation rootProject.ext.dependencies.jcore
+
+    implementation rootProject.ext.dependencies.Arouter
+    annotationProcessor rootProject.ext.dependencies.Arouter_compiler
+
+//    implementation project(':photopicker')
+    implementation project(':base')
+    implementation project(':ar')
+//    implementation project(':main')
+//    implementation project(':voice')
+//    implementation project(':gaodelibrary')
+}
