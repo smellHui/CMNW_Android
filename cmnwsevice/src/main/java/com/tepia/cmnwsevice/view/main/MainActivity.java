@@ -12,7 +12,7 @@ import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.view.fragment.DoingFragment;
-import com.tepia.cmnwsevice.view.fragment.MyAgentFragment;
+import com.tepia.cmnwsevice.view.fragment.myagent.MyAgentFragment;
 import com.tepia.cmnwsevice.view.fragment.OperateFragment;
 
 import java.util.ArrayList;

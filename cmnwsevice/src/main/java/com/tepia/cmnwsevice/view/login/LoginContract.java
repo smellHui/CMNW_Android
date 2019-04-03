@@ -16,11 +16,11 @@ import com.tepia.base.mvp.BaseView;
  **/
 
 public class LoginContract {
-    interface View extends BaseView {
+    public interface View extends BaseView {
         
     }
 
-    interface  Presenter extends BasePresenter<View> {
+    public interface  Presenter extends BasePresenter<View> {
         
     }
 }

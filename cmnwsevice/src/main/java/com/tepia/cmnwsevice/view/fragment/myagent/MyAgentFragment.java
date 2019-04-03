@@ -1,8 +1,8 @@
-package com.tepia.cmnwsevice.view.fragment;
+package com.tepia.cmnwsevice.view.fragment.myagent;
 
 import android.view.View;
 
-import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmnwsevice.R;
 
 /**
@@ -10,7 +10,9 @@ import com.tepia.cmnwsevice.R;
  * Date:2019/4/2
  * Do 我的代办
  */
-public class MyAgentFragment extends BaseCommonFragment {
+public class MyAgentFragment extends MVPBaseFragment<MyAgentContract.View,MyAgentPresenter> implements MyAgentContract.View{
+
+    private MyAgentPresenter myAgentPresenter;
 
     public static MyAgentFragment launch() {
         return new MyAgentFragment();
@@ -28,7 +30,7 @@ public class MyAgentFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View view) {
-
+        myAgentPresenter = new MyAgentPresenter();
     }
 
     @Override
