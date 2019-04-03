@@ -32,7 +32,8 @@ public class ApiManager {
     private ApiManager() {
         this.mRetrofitService = RetrofitManager.getRetrofit(Urls.ROOT_URL).create(ApiService.class);
     }
-    
+
+
     public Observable<BaseCommonResponse<List<RiverBean>>> queryList() {
         return mRetrofitService.getRiverList("")
                 .subscribeOn(Schedulers.io())
