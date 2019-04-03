@@ -4,13 +4,13 @@ package com.tepia.cmnwsevice.view.main;
 import android.support.v4.app.Fragment;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.cmnw.model.TabEntity;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.model.TabEntity;
 import com.tepia.cmnwsevice.view.fragment.DoingFragment;
 import com.tepia.cmnwsevice.view.fragment.myagent.MyAgentFragment;
 import com.tepia.cmnwsevice.view.fragment.OperateFragment;

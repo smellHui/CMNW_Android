@@ -1,8 +1,8 @@
 package com.tepia.cmnwsevice.view.api;
 
-import com.cmnw.model.RiverBean;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
+import com.tepia.cmnwsevice.model.RiverBean;
 
 import java.util.List;
 

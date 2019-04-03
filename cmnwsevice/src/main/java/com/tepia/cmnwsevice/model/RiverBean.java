@@ -1,4 +1,4 @@
-package com.cmnw.model;
+package com.tepia.cmnwsevice.model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -106,6 +106,6 @@ dependencies {
 
     implementation rootProject.ext.dependencies.androidWeakhandler
 
-    implementation rootProject.ext.dependencies.FlycoTabLayout
+
 
 }
