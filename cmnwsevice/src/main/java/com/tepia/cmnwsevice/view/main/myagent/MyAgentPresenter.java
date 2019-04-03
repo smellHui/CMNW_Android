@@ -1,11 +1,11 @@
-package com.tepia.cmnwsevice.view.fragment.myagent;
+package com.tepia.cmnwsevice.view.main.myagent;
 
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.cmnwsevice.model.RiverBean;
-import com.tepia.cmnwsevice.view.api.ApiManager;
+import com.tepia.cmnwsevice.model.api.ApiManager;
 
 import java.util.List;
 

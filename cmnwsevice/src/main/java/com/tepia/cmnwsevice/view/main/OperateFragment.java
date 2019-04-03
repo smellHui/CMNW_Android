@@ -1,4 +1,4 @@
-package com.tepia.cmnwsevice.view.fragment;
+package com.tepia.cmnwsevice.view.main;
 
 import android.view.View;
 
@@ -8,17 +8,17 @@ import com.tepia.cmnwsevice.R;
 /**
  * Author:xch
  * Date:2019/4/2
- * Do:处理中
+ * Do:运维记录
  */
-public class DoingFragment extends BaseCommonFragment {
+public class OperateFragment extends BaseCommonFragment {
 
-    public static DoingFragment launch() {
-        return new DoingFragment();
+    public static OperateFragment launch() {
+        return new OperateFragment();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_doing;
+        return R.layout.fragment_operate;
     }
 
     @Override

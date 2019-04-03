@@ -1,4 +1,4 @@
-package com.tepia.cmnwsevice.view.fragment.myagent;
+package com.tepia.cmnwsevice.view.main.myagent;
 
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;

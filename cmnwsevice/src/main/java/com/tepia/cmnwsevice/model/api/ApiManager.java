@@ -1,4 +1,4 @@
-package com.tepia.cmnwsevice.view.api;
+package com.tepia.cmnwsevice.model.api;
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
