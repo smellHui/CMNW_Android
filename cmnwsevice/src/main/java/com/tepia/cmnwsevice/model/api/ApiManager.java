@@ -29,7 +29,6 @@ public class ApiManager {
         return apiManager;
     }
 
-
     private ApiManager() {
         this.mRetrofitService = RetrofitManager.getRetrofit(Urls.ROOT_URL).create(ApiService.class);
     }

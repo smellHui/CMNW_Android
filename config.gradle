@@ -15,13 +15,16 @@ ext {
     ]
 
     libsVersion = [
-            supportLibraryVersion = "27.0.0",
+            supportLibraryVersion = "28.0.0",
             arouter_api = "1.3.1"
     ]
 
-
+    version = [
+            butterknifeSdkVersion   : "8.8.1",
+    ]
 
     dependencies = [
+            "annotations"              : "com.android.support:support-annotations:$rootProject.supportLibraryVersion",
             // support.
             appcompat                    : "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion",
             support                      : "com.android.support:support-v4:$rootProject.supportLibraryVersion",
@@ -41,9 +44,6 @@ ext {
             //沉浸式状态栏
             barlibrary                   : "com.gyf.barlibrary:barlibrary:2.3.0",
             MagicIndicator               : "com.github.hackware1993:MagicIndicator:1.5.0",
-            //ButterKnife
-            butterknife                  : "com.jakewharton:butterknife:8.5.0",
-            butterknife_compiler         : "com.jakewharton:butterknife-compiler:8.5.0",
             //logger日志
             logger                       : "com.orhanobut:logger:2.1.1",
 
@@ -117,5 +117,8 @@ ext {
             iFileSelected                : 'com.leon:lfilepickerlibrary:1.8.0',
 
             FlycoTabLayout               : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
+
+            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
+            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
     ]
 }

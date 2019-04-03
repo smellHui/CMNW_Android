@@ -10,10 +10,13 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.R2;
 import com.tepia.cmnwsevice.model.TabEntity;
 import com.tepia.cmnwsevice.view.main.myagent.MyAgentFragment;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
 
 /**
  * @author :       zhang xinhua
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View
         , OnTabSelectListener {
 
+    @BindView(R2.id.ly_tab)
     CommonTabLayout tabLayout;
 
     private String[] mTitles = {"我的代办", "处理中", "运维记录"};
