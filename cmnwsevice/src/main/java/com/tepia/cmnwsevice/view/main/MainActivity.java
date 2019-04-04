@@ -11,7 +11,9 @@ import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.model.TabEntity;
+import com.tepia.cmnwsevice.view.main.doing.DoingFragment;
 import com.tepia.cmnwsevice.view.main.myagent.MyAgentFragment;
+import com.tepia.cmnwsevice.view.main.operate.OperateFragment;
 
 import java.util.ArrayList;
 

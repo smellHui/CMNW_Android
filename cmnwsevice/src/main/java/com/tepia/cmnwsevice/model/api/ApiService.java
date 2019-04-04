@@ -1,9 +1,8 @@
 package com.tepia.cmnwsevice.model.api;
 
-import com.tepia.base.http.BaseCommonResponse;
+import com.tepia.base.model.BaseResp;
+import com.tepia.base.model.PageBean;
 import com.tepia.cmnwsevice.model.RiverBean;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -22,7 +21,7 @@ public interface ApiService {
      * @param token
      * @return
      */
-    @GET("app/river/riverList")
-    Observable<BaseCommonResponse<List<RiverBean>>> getRiverList(@Header("token") String token);
+    @GET("m/farm/queryFarmList")
+    Observable<BaseResp<PageBean<RiverBean>>> getRiverList(@Header("_gt") String token);
 
 }

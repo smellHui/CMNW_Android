@@ -1,4 +1,4 @@
-package com.tepia.cmnwsevice.view.main.myagent;
+package com.tepia.cmnwsevice.view.main.doing;
 
 
 import com.tepia.base.http.LoadingSubject;
@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * @功能描述 :
  **/
 
-public class MyAgentPresenter {
+public class DoingPresenter {
 
     private NetListListener<PageBean<RiverBean>> mView;
 

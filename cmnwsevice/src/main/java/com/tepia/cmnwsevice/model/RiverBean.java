@@ -1,9 +1,5 @@
 package com.tepia.cmnwsevice.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
 /**
  * Created by      android studio
  *
@@ -15,87 +11,58 @@ import java.util.List;
  **/
 public class RiverBean {
 
+
     /**
-     * riverId : 100000
-     * rcCd : CMQ001
-     * rvCd : CMQ001
-     * rcNm : 新建港
-     * rcBLv : 4001
-     * "mapId": "41934"  对应arcgis河流地图FID
+     * id : 2059
+     * name : 巢湖农场
+     * farmerType : 农场主
+     * flag : 0
+     * isDefault : 1
      */
 
-    private String riverId;
-    private String rcCd;
-    private String rvCd;
-    @SerializedName(value = "rcnm",alternate = {"rcNm"})
-    private String rcNm;
-    @SerializedName(value = "rcBLv",alternate = {"rcBlv"})
-    private String rcBLv;
-    private List<RiverBean> childList;
-    private String mapId;
-    private double distance;
+    private int id;
+    private String name;
+    private String farmerType;
+    private String flag;
+    private String isDefault;
 
-    public double getDistance() {
-        return distance;
+    public int getId() {
+        return id;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getRiverId() {
-        return riverId;
+    public String getName() {
+        return name;
     }
 
-    public void setRiverId(String riverId) {
-        this.riverId = riverId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRcCd() {
-        return rcCd;
+    public String getFarmerType() {
+        return farmerType;
     }
 
-    public void setRcCd(String rcCd) {
-        this.rcCd = rcCd;
+    public void setFarmerType(String farmerType) {
+        this.farmerType = farmerType;
     }
 
-    public String getRvCd() {
-        return rvCd;
+    public String getFlag() {
+        return flag;
     }
 
-    public void setRvCd(String rvCd) {
-        this.rvCd = rvCd;
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
-    public String getRcNm() {
-        return rcNm;
+    public String getIsDefault() {
+        return isDefault;
     }
 
-    public void setRcNm(String rcNm) {
-        this.rcNm = rcNm;
-    }
-
-    public String getRcBLv() {
-        return rcBLv;
-    }
-
-    public void setRcBLv(String rcBLv) {
-        this.rcBLv = rcBLv;
-    }
-
-    public List<RiverBean> getChildList() {
-        return childList;
-    }
-
-    public void setChildList(List<RiverBean> childList) {
-        this.childList = childList;
-    }
-
-    public String getMapId() {
-        return mapId;
-    }
-
-    public void setMapId(String mapId) {
-        this.mapId = mapId;
+    public void setIsDefault(String isDefault) {
+        this.isDefault = isDefault;
     }
 }

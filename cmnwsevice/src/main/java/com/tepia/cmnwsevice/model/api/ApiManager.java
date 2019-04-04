@@ -2,6 +2,8 @@ package com.tepia.cmnwsevice.model.api;
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
+import com.tepia.base.model.BaseResp;
+import com.tepia.base.model.PageBean;
 import com.tepia.cmnwsevice.model.RiverBean;
 
 import java.util.List;
@@ -34,8 +36,8 @@ public class ApiManager {
     }
 
 
-    public Observable<BaseCommonResponse<List<RiverBean>>> queryList() {
-        return mRetrofitService.getRiverList("")
+    public Observable<BaseResp<PageBean<RiverBean>>> queryList() {
+        return mRetrofitService.getRiverList("app-b32db62367144c919afc6a058a0f899a")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

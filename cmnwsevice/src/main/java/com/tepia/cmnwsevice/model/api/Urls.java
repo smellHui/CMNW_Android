@@ -5,7 +5,7 @@ package com.tepia.cmnwsevice.model.api;
  * Date:2019/4/3
  * Do:
  */
-public class Urls {
+public interface Urls {
 
-    public static final String ROOT_URL = "";
+    String ROOT_URL = "http://growhis2.1chemic.com/";
 }

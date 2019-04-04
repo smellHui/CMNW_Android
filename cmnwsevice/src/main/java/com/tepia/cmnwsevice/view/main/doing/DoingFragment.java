@@ -1,33 +1,32 @@
-package com.tepia.cmnwsevice.view.main.myagent;
+package com.tepia.cmnwsevice.view.main.doing;
 
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.tepia.base.model.PageBean;
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.BaseListFragment;
-import com.tepia.base.mvp.MVPBaseFragment;
-import com.tepia.base.mvp.NetListListener;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.model.RiverBean;
+import com.tepia.cmnwsevice.view.main.myagent.MyAgentAdapter;
+import com.tepia.cmnwsevice.view.main.myagent.MyAgentPresenter;
 
 /**
  * Author:xch
  * Date:2019/4/2
- * Do 我的代办
+ * Do:处理中
  */
-public class MyAgentFragment extends BaseListFragment<RiverBean> {
+public class DoingFragment extends BaseListFragment<RiverBean> {
 
-    private MyAgentPresenter myAgentPresenter;
+    private DoingPresenter doingPresenter;
 
-    public static MyAgentFragment launch() {
-        return new MyAgentFragment();
+    public static DoingFragment launch() {
+        return new DoingFragment();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_myagent;
+        return R.layout.fragment_doing;
     }
-
     @Override
     protected void initData() {
 
@@ -36,19 +35,18 @@ public class MyAgentFragment extends BaseListFragment<RiverBean> {
     @Override
     protected void initView(View view) {
         super.initView(view);
-        setCenterTitle("我的代办");
-        myAgentPresenter = new MyAgentPresenter();
-        myAgentPresenter.setmView(this);
+        setCenterTitle("处理中");
+        doingPresenter = new DoingPresenter();
+        doingPresenter.setmView(this);
     }
 
     @Override
     protected void initRequestData() {
-        myAgentPresenter.querylist();
+        doingPresenter.querylist();
     }
 
     @Override
     public BaseQuickAdapter getBaseQuickAdapter() {
         return new MyAgentAdapter();
     }
-
 }
