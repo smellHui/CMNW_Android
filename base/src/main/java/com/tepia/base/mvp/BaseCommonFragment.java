@@ -24,6 +24,7 @@
 package com.tepia.base.mvp;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -62,6 +64,9 @@ public abstract class BaseCommonFragment extends Fragment {
 
     TextView tvRightText;
     TextView tv_right_tianqi;
+
+    private ImageView leftImg;
+    private ImageView rightImg;
 
     private BaseActivity mActivity;
     /**
@@ -96,6 +101,9 @@ public abstract class BaseCommonFragment extends Fragment {
         loToolbarCommon = view.findViewById(R.id.lo_toolbar_common);
         tvCenterText = view.findViewById(R.id.tv_center_text);
 
+        leftImg = findView(R.id.img_left);
+        rightImg = findView(R.id.img_right);
+
         tvLeftText = view.findViewById(R.id.tv_left_text);
         tvRightText = view.findViewById(R.id.tv_right_text);
         tv_right_tianqi = view.findViewById(R.id.tv_right_tianqi);
@@ -110,6 +118,18 @@ public abstract class BaseCommonFragment extends Fragment {
         if (loToolbarCommon != null) {
             ImmersionBar.setTitleBar(getBaseActivity(), loToolbarCommon);
         }
+    }
+
+    public void setLeftImgEvent(@DrawableRes int imgRes, View.OnClickListener clickListener) {
+        leftImg.setVisibility(View.VISIBLE);
+        leftImg.setImageResource(imgRes);
+        leftImg.setOnClickListener(clickListener);
+    }
+
+    public void setRightImgEvent(@DrawableRes int imgRes, View.OnClickListener clickListener) {
+        rightImg.setVisibility(View.VISIBLE);
+        rightImg.setImageResource(imgRes);
+        rightImg.setOnClickListener(clickListener);
     }
 
     public boolean isFastClick() {
@@ -278,5 +298,8 @@ public abstract class BaseCommonFragment extends Fragment {
         }
     }
 
+    public void toast(String str){
+        ToastUtils.shortToast(str);
+    }
 
 }

@@ -39,9 +39,11 @@ public class DoingFragment extends BaseListFragment<RiverBean> {
     protected void initView(View view) {
         super.initView(view);
         setCenterTitle("处理中");
+        setLeftImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("左边"));
+        setRightImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("右边"));
         doingCountTv = findView(R.id.view_deal_text_first);
         doingCountTv.setTitle("处理中");
-        
+
         doingPresenter = new DoingPresenter();
         doingPresenter.setmView(this);
     }

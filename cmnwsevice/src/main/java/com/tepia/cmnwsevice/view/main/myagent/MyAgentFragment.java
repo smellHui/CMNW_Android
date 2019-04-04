@@ -37,6 +37,9 @@ public class MyAgentFragment extends BaseListFragment<RiverBean> {
     protected void initView(View view) {
         super.initView(view);
         setCenterTitle("我的代办");
+        setLeftImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("左边"));
+        setRightImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("右边"));
+
         myAgentPresenter = new MyAgentPresenter();
         myAgentPresenter.setmView(this);
     }

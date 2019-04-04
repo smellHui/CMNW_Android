@@ -41,6 +41,9 @@ public class OperateFragment extends BaseListFragment<RiverBean> {
     protected void initView(View view) {
         super.initView(view);
         setCenterTitle("运维记录");
+        setLeftImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("左边"));
+        setRightImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("右边"));
+
         pendTv = findView(R.id.view_deal_text_first);
         completeTv = findView(R.id.view_deal_text_second);
         pendTv.setTitle("待审核");
