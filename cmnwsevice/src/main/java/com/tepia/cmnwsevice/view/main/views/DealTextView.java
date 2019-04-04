@@ -41,7 +41,7 @@ public class DealTextView extends ViewBase {
     public void initData() {
         tipTv = findViewById(R.id.tv_tip);
         countTv = findViewById(R.id.tv_count);
-        Drawable dra = getResources().getDrawable(R.mipmap.img_agrc_service);
+        Drawable dra = getResources().getDrawable(R.mipmap.ic_mine_header_footprint);
         dra.setBounds(0, 0, dra.getMinimumWidth(), dra.getMinimumHeight());
         tipTv.setCompoundDrawables(dra, null, null, null);
     }
