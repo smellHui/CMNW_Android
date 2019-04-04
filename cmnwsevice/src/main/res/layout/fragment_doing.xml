@@ -26,15 +26,10 @@
             android:paddingLeft="15dp">
 
             <com.tepia.cmnwsevice.view.main.views.DealTextView
-                android:id="@+id/view_deal_text"
+                android:id="@+id/view_deal_text_first"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.tepia.cmnwsevice.view.main.views.DealTextView
-                android:id="@+id/view_return_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp" />
         </LinearLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout

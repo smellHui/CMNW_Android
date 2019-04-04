@@ -4,7 +4,6 @@
     android:id="@+id/lo_toolbar_common"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@mipmap/bg_top_title"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
     app:popupTheme="@style/AppTheme.PopupOverlay"

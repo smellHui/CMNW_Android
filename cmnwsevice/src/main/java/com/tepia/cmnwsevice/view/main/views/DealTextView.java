@@ -2,6 +2,7 @@ package com.tepia.cmnwsevice.view.main.views;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -44,4 +45,9 @@ public class DealTextView extends ViewBase {
         dra.setBounds(0, 0, dra.getMinimumWidth(), dra.getMinimumHeight());
         tipTv.setCompoundDrawables(dra, null, null, null);
     }
+
+    public void setTitle(@Nullable String title){
+        tipTv.setText(title);
+    }
+
 }
