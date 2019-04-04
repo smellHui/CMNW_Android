@@ -9,6 +9,9 @@ import com.tepia.cmnwsevice.model.api.ApiManager;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * @author :       zhang xinhua
  * @Version :       1.0
@@ -24,7 +27,7 @@ public class MyAgentPresenter extends BasePresenterImpl<MyAgentContract.View> im
     private int page = 1;
     private int pageSize = 20;
 
-    public void refresh(){
+    public void refresh() {
         page = 1;
         querylist();
     }
@@ -32,17 +35,17 @@ public class MyAgentPresenter extends BasePresenterImpl<MyAgentContract.View> im
     public void querylist() {
         ApiManager.getInstance()
                 .queryList()
+                .subscribeOn(Schedulers.io())
                 .safeSubscribe(new LoadingSubject<BaseCommonResponse<List<RiverBean>>>(true, "正在获取当前河道信息...") {
 
                     @Override
                     protected void _onNext(BaseCommonResponse<List<RiverBean>> baseCommonResponse) {
-                        //mView.getRiverListSuccess(baseCommonResponse.getData());
+
                     }
 
                     @Override
                     protected void _onError(String message) {
-                       // mView.getRiverListFailed(message);
-//                ToastUtils.shortToast(message);
+
                     }
                 });
 

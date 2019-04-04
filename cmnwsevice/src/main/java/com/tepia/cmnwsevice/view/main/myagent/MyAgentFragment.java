@@ -10,7 +10,7 @@ import com.tepia.cmnwsevice.R;
  * Date:2019/4/2
  * Do 我的代办
  */
-public class MyAgentFragment extends MVPBaseFragment<MyAgentContract.View,MyAgentPresenter> implements MyAgentContract.View{
+public class MyAgentFragment extends MVPBaseFragment<MyAgentContract.View, MyAgentPresenter> implements MyAgentContract.View {
 
     private MyAgentPresenter myAgentPresenter;
 
@@ -30,6 +30,7 @@ public class MyAgentFragment extends MVPBaseFragment<MyAgentContract.View,MyAgen
 
     @Override
     protected void initView(View view) {
+        setCenterTitle("我的代办");
         myAgentPresenter = new MyAgentPresenter();
     }
 
