@@ -1,18 +1,16 @@
 package com.tepia.cmnwsevice.view.login;
 
 
-import android.app.Activity;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.view.View;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.databinding.ActivityLoginBinding;
+
+import androidx.databinding.DataBindingUtil;
 
 
 /**

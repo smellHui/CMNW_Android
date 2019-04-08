@@ -1,9 +1,6 @@
 package com.tepia.ar;
 
-import android.app.Activity;
-import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -13,6 +10,10 @@ import com.tepia.ar.databinding.ActivityArscanResultBinding;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
+
+import androidx.databinding.DataBindingUtil;
+
+//import android.databinding.DataBindingUtil;
 
 
 /**
