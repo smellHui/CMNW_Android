@@ -56,6 +56,10 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
 
     }
 
+    public int getPage() {
+        return page;
+    }
+
     protected abstract void initRequestData();
 
     private void setVerModel() {
@@ -86,11 +90,19 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
             List<K> list = k.getResult();
             if (list != null && !list.isEmpty()) {
                 getList().addAll(list);
-                page++;
+                if (list.size() == 20) {
+                    page++;
+                    baseQuickAdapter.loadMoreComplete();
+                } else {
+                    baseQuickAdapter.loadMoreEnd();
+                }
+            } else {
+                baseQuickAdapter.loadMoreEnd();
             }
+        } else {
+            baseQuickAdapter.loadMoreEnd();
         }
         swipeRefreshLayout.setRefreshing(false);
-        baseQuickAdapter.loadMoreComplete();
     }
 
     @Override

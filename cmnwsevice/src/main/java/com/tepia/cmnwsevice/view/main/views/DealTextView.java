@@ -51,4 +51,8 @@ public class DealTextView extends ViewBase {
         tipTv.setText(title);
     }
 
+    public void setCount(String count){
+        countTv.setText(count);
+    }
+
 }
