@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.tepia.cmnwsevice.view.detail.action.ActionDetailActivity;
+import com.tepia.cmnwsevice.view.detail.edit.ConfirmSubmitActivity;
 import com.tepia.cmnwsevice.view.detail.edit.FillInActivity;
 import com.tepia.cmnwsevice.view.detail.tip.DoingTipActivity;
 
@@ -39,5 +40,14 @@ public class UiHelper {
      */
     public static void goToFillInView(Context ctx) {
         ctx.startActivity(new Intent(ctx, FillInActivity.class));
+    }
+
+    /**
+     * 确认提交页面
+     *
+     * @param ctx
+     */
+    public static void goToConfirmSubmitView(Context ctx) {
+        ctx.startActivity(new Intent(ctx, ConfirmSubmitActivity.class));
     }
 }

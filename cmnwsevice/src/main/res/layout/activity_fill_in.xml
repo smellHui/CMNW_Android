@@ -139,6 +139,7 @@
                         android:text="取消" />
 
                     <Button
+                        android:onClick="confirmSubmit"
                         style="@style/btn.small"
                         android:layout_marginLeft="40dp"
                         android:text="确认" />

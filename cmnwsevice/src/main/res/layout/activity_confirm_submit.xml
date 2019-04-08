@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:src="@color/theam_red" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@mipmap/img_agrc_service" />
+
+                <LinearLayout style="@style/hor_ll.action">
+
+                    <TextView
+                        style="@style/text.actionTitle"
+                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="问题类型" />
+
+                    <TextView
+                        style="@style/text.actionContent"
+                        android:text="主要生产设备故障" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/hor_ll.action">
+
+                    <TextView
+                        style="@style/text.actionTitle"
+                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="维修类型" />
+
+                    <TextView
+                        style="@style/text.actionContent"
+                        android:text="大修" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/hor_ll.action">
+
+                    <TextView
+                        style="@style/text.actionTitle"
+                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="是否使用备品备件" />
+
+                    <TextView
+                        style="@style/text.actionContent"
+                        android:text="否" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/ver_ll.confirm">
+
+                    <TextView
+                        style="@style/text.actionTitle"
+                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="维修详情" />
+
+                    <TextView
+                        style="@style/text.actionContent"
+                        android:layout_marginLeft="34dp"
+                        android:layout_marginTop="4dp"
+                        android:text="这是一段问题描述这是一段问题描述这是一段问题描述 这是一段问题描述。" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/ver_ll.confirm"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        style="@style/text.actionTitle"
+                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="上传现场照片" />
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@mipmap/img_agrc_service" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <Button
+                            style="@style/btn.small"
+                            android:text="修改" />
+
+                        <Button
+                            style="@style/btn.small"
+                            android:layout_marginLeft="40dp"
+                            android:onClick="confirmSubmit"
+                            android:text="提交" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>
