@@ -2,6 +2,7 @@ package com.tepia.cmnwsevice.view.main.views;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.LinearLayout;
 
 import com.tepia.base.utils.ToastUtils;
 
-import androidx.annotation.Nullable;
 
 /**
  * Author:xch

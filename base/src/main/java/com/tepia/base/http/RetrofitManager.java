@@ -28,6 +28,7 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.google.gson.Gson;
 import com.tepia.base.BaseApplication;
 import com.tepia.base.BuildConfig;
 import com.tepia.base.utils.LogUtil;
@@ -40,7 +41,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -147,7 +150,26 @@ public class RetrofitManager {
         }
     }
 
-
+    /**
+     * 将多个参数 转为json 请求body
+     *
+     * @param param
+     * @return
+     */
+    public static RequestBody convertToRequestBodyForJson(Object... param) {
+        Map<Object, Object> paramMap = new HashMap<>();
+        if (param.length % 2 == 0) {
+            for (int i = 0; i < param.length; i = i + 2) {
+                paramMap.put(param[i], param[i + 1]);
+            }
+        } else {
+            for (int i = 0; i < param.length - 1; i = i + 2) {
+                paramMap.put(param[i], param[i + 1]);
+            }
+        }
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(paramMap).toString());
+        return body;
+    }
 
     /**
      * @return

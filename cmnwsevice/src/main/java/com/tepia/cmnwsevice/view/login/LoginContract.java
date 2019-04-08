@@ -17,7 +17,8 @@ import com.tepia.base.mvp.BaseView;
 
 public class LoginContract {
     public interface View extends BaseView {
-        
+
+        void loginSuccess();
     }
 
     public interface  Presenter extends BasePresenter<View> {

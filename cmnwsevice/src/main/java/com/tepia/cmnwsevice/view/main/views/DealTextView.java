@@ -2,13 +2,14 @@ package com.tepia.cmnwsevice.view.main.views;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.tepia.cmnwsevice.R;
 
-import androidx.annotation.Nullable;
+
 
 /**
  * Author:xch

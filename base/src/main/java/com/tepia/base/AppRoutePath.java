@@ -18,13 +18,13 @@ public class AppRoutePath {
     /**
      * AR 扫描结果页面
      */
-    public final static String app_ar_scan_result = "/app/ar/scan/result";
+    public final static String app_ar_scan_result = "/ar/scan/result";
     /**
      * 登录页面
      */
-    public final static String app_cmnw_login = "/app/cmnw/login";
+    public final static String app_cmnw_login = "/cmnw/login";
     /**
      * 主 tab 页面
      */
-    public final static String app_cmnw_activity_tabmain = "/app/cmnw/activity/tabmain";
+    public final static String app_cmnw_activity_tabmain = "/ccmnw/activity/tabmain";
 }

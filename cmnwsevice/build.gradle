@@ -105,7 +105,7 @@ dependencies {
 
     implementation rootProject.ext.dependencies.FlycoTabLayout
 
-    api rootProject.ext.dependencies["annotations"]
+//    api rootProject.ext.dependencies["annotations"]
 //    api(rootProject.ext.dependencies["butterknife"]) {
 //        exclude module: 'support-annotations'
 //        exclude module: 'support-compat'

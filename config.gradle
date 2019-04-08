@@ -24,7 +24,7 @@ ext {
     ]
 
     dependencies = [
-            "annotations"              : "com.android.support:support-annotations:$rootProject.supportLibraryVersion",
+//            "annotations"              : "com.android.support:support-annotations:$rootProject.supportLibraryVersion",
             // support.
             appcompat                    : "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion",
             support                      : "com.android.support:support-v4:$rootProject.supportLibraryVersion",
@@ -118,7 +118,7 @@ ext {
 
             FlycoTabLayout               : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
 
-            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
-            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
+//            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
+//            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
     ]
 }
