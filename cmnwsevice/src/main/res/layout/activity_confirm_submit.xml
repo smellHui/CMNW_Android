@@ -120,8 +120,9 @@
                         <Button
                             style="@style/btn.small"
                             android:layout_marginLeft="40dp"
-                            android:onClick="confirmSubmit"
+                            android:onClick="submit"
                             android:text="提交" />
+
                     </LinearLayout>
                 </LinearLayout>
 

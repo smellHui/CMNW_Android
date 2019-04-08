@@ -1,25 +1,23 @@
-package com.tepia.cmnwsevice.view.detail.edit;
-
-import android.view.View;
+package com.tepia.cmnwsevice.view.feedback;
 
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.cmnwsevice.R;
-import com.tepia.cmnwsevice.manager.UiHelper;
 
 /**
  * Author:xch
  * Date:2019/4/8
- * Do:确认提交页面
+ * Do:反馈成功页面
  */
-public class ConfirmSubmitActivity extends BaseActivity {
+public class FeedBackSucActivity extends BaseActivity {
+
     @Override
     public int getLayoutId() {
-        return R.layout.activity_confirm_submit;
+        return R.layout.activity_feed_back_suc;
     }
 
     @Override
     public void initView() {
-        setCenterTitle("2019-3-31卫星村1号站");
+        setCenterTitle("反馈成功");
         showBack();
     }
 
@@ -36,9 +34,5 @@ public class ConfirmSubmitActivity extends BaseActivity {
     @Override
     protected void initRequestData() {
 
-    }
-
-    public void submit(View view) {
-        UiHelper.goToFeedBackSucView(this);
     }
 }
