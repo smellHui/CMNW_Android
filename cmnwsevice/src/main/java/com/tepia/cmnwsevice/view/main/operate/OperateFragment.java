@@ -68,7 +68,7 @@ public class OperateFragment extends BaseListFragment<RiverBean> {
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
         ARouter.getInstance().build(AppRoutePath.app_cmnw_activity_order_operate)
-                .withString("orderId","fasd")
+                .withString("orderId", "1114816161280811009")
                 .navigation();
     }
 }

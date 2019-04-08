@@ -8,6 +8,9 @@ import com.tepia.cmnwsevice.model.user.UserBean;
 import com.tepia.cmnwsevice.model.user.UserManager;
 import com.tepia.cmnwsevice.model.user.UserService;
 
+import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -40,7 +43,7 @@ public class OrderManager {
      * @param params
      * @return
      */
-    public Observable<BaseCommonResponse> getOrderList(Object... params) {
+    public Observable<BaseCommonResponse<List<OrderBean>>> getOrderList(Object... params) {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getOrderList(token, body)
@@ -50,13 +53,21 @@ public class OrderManager {
 
     /**
      * 【查询】统计工单状态数
+     *
      * @param params
-     * @return
+     * @return {"code":0,"msg":"处理成功","data":{"toExamine":1,"toSend":112,"onExecute":0,"toExecute":1,"done":0,"toBack":0}}
      */
-    public  Observable<BaseCommonResponse> getOrderCount(Object... params) {
+    public Observable<BaseCommonResponse<OrderCountBean>> getOrderCount(Object... params) {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getOrderCount(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseCommonResponse<OrderBean>> getOrderDetail(String orderId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getOrderDetail(token, orderId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

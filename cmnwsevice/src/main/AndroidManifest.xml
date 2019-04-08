@@ -12,5 +12,6 @@
         <activity android:name=".view.detail.edit.FillInActivity" />
         <activity android:name=".view.detail.edit.ConfirmSubmitActivity" />
         <activity android:name=".view.feedback.FeedBackSucActivity" />
+        <activity android:name=".view.detail.operationdetail.OperationDetailActivty" />
     </application>
 </manifest>

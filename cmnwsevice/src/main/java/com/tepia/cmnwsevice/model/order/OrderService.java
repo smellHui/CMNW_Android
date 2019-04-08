@@ -17,6 +17,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 
 /**
  * Created by      android studio
@@ -37,7 +38,7 @@ public interface OrderService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("order/page")
-    Observable<BaseCommonResponse> getOrderList(@Header("token") String token, @Body RequestBody body);
+    Observable<BaseCommonResponse<List<OrderBean>>> getOrderList(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 统计工单状态数
@@ -48,7 +49,7 @@ public interface OrderService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("order/count")
-    Observable<BaseCommonResponse> getOrderCount(@Header("token") String token, @Body RequestBody body);
+    Observable<BaseCommonResponse<OrderCountBean>> getOrderCount(@Header("token") String token, @Body RequestBody body);
 
 
     /**
@@ -60,7 +61,7 @@ public interface OrderService {
      */
 
     @GET("order/{orderId}")
-    Observable<BaseCommonResponse> getOrderDetail(@Header("token") String token, @Part("orderId") String orderId);
+    Observable<BaseCommonResponse<OrderBean>> getOrderDetail(@Header("token") String token, @Path("orderId") String orderId);
 
     /**
      * 【查询】获取派单操作详情（同处理中提示页面）
@@ -71,7 +72,7 @@ public interface OrderService {
      */
 
     @GET("order/working/{orderId}")
-    Observable<BaseCommonResponse> getOrderOperationDetail(@Header("token") String token, @Part("orderId") String orderId);
+    Observable<BaseCommonResponse> getOrderOperationDetail(@Header("token") String token, @Path("orderId") String orderId);
 
     /**
      * 【查询】查询工单运维详情
@@ -82,7 +83,7 @@ public interface OrderService {
      */
 
     @GET("order/operation/{orderId}")
-    Observable<BaseCommonResponse> getOrderWorkingDetail(@Header("token") String token, @Part("orderId") String orderId);
+    Observable<BaseCommonResponse> getOrderWorkingDetail(@Header("token") String token, @Path("orderId") String orderId);
 
     /**
      * 【查询】查询工单审核记录
@@ -93,7 +94,7 @@ public interface OrderService {
      */
 
     @GET("order/examineList/{orderId}")
-    Observable<BaseCommonResponse> getOrderExamineList(@Header("token") String token, @Part("orderId") String orderId);
+    Observable<BaseCommonResponse> getOrderExamineList(@Header("token") String token, @Path("orderId") String orderId);
 
     /**
      * 【查询】查询工单下发候选用户列表
@@ -104,7 +105,7 @@ public interface OrderService {
      */
 
     @GET("order/getUserList/{orderId}")
-    Observable<BaseCommonResponse> getOrderUserList(@Header("token") String token, @Part("orderId") String orderId);
+    Observable<BaseCommonResponse> getOrderUserList(@Header("token") String token, @Path("orderId") String orderId);
 
     /**
      * 【下发】下发工单
@@ -172,5 +173,5 @@ public interface OrderService {
     @Multipart
     @POST("file/upload")
     Observable<BaseCommonResponse> uploadFile(@Header("token") String token,
-                                                      @Part List<MultipartBody.Part> pathList);
+                                              @Part List<MultipartBody.Part> pathList);
 }

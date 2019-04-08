@@ -1,6 +1,7 @@
 package com.tepia.cmnwsevice.view.main.operate;
 
 
+import com.esri.core.tasks.query.Order;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.model.BaseResp;
@@ -8,7 +9,10 @@ import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.NetListListener;
 import com.tepia.cmnwsevice.model.RiverBean;
 import com.tepia.cmnwsevice.model.api.ApiManager;
+import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.model.order.OrderManager;
+
+import java.util.List;
 
 import io.reactivex.schedulers.Schedulers;
 
@@ -31,7 +35,7 @@ public class OperatePresenter {
     }
 
     public void querylist(Object... params) {
-        OrderManager.getInstance().getOrderList(params).safeSubscribe(new LoadingSubject<BaseCommonResponse>() {
+        OrderManager.getInstance().getOrderList(params).safeSubscribe(new LoadingSubject<BaseCommonResponse<List<OrderBean>>>() {
             @Override
             protected void _onNext(BaseCommonResponse baseCommonResponse) {
 
@@ -42,21 +46,20 @@ public class OperatePresenter {
 
             }
         });
-      /*  ApiManager.getInstance()
-                .queryList()
-                .subscribeOn(Schedulers.io())
-                .safeSubscribe(new LoadingSubject<BaseResp<PageBean<RiverBean>>>(true, "正在获取当前河道信息...") {
-
-                    @Override
-                    protected void _onNext(BaseResp<PageBean<RiverBean>> pageBean) {
-                        mView.success(pageBean.getData());
-                    }
-
-                    @Override
-                    protected void _onError(String message) {
-                        mView.error();
-                    }
-                });
-*/
+//        ApiManager.getInstance()
+//                .queryList()
+//                .subscribeOn(Schedulers.io())
+//                .safeSubscribe(new LoadingSubject<BaseResp<PageBean<RiverBean>>>(true, "正在获取当前河道信息...") {
+//
+//                    @Override
+//                    protected void _onNext(BaseResp<PageBean<RiverBean>> pageBean) {
+//                        mView.success(pageBean.getData());
+//                    }
+//
+//                    @Override
+//                    protected void _onError(String message) {
+//                        mView.error();
+//                    }
+//                });
     }
 }

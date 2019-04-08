@@ -14,10 +14,20 @@ import com.google.gson.annotations.SerializedName;
 public class BaseCommonResponse<T> extends BaseResponse {
     @SerializedName(value = "data", alternate = {"result", "datalist"})
     private T data;
-    private  Integer total;
-    private  Integer pageNum;
-    private  Integer pageSize;
+    @SerializedName(value = "total", alternate = {"totals"})
+    private Integer total;
+    private Integer pageNum;
+    private Integer pageIndex;
+    private Integer pageSize;
     private Integer page;
+
+    public Integer getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(Integer pageIndex) {
+        this.pageIndex = pageIndex;
+    }
 
     public Integer getPage() {
         return page;

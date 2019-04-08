@@ -3,6 +3,7 @@ package com.tepia.cmnwsevice.view.main;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 
 /**
@@ -18,9 +19,9 @@ import com.tepia.cmnwsevice.model.order.OrderManager;
 public class MainPresenter extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter{
 
     public void getOrderCount(Object... params) {
-        OrderManager.getInstance().getOrderCount(params).safeSubscribe(new LoadingSubject<BaseCommonResponse>() {
+        OrderManager.getInstance().getOrderDetail("1114816161280811009").safeSubscribe(new LoadingSubject<BaseCommonResponse<OrderBean>>() {
             @Override
-            protected void _onNext(BaseCommonResponse baseCommonResponse) {
+            protected void _onNext(BaseCommonResponse<OrderBean> baseCommonResponse) {
 
             }
 
