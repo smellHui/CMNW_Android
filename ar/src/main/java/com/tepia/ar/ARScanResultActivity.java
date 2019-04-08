@@ -11,9 +11,9 @@ import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
 
-import androidx.databinding.DataBindingUtil;
+//import androidx.databinding.DataBindingUtil;
 
-//import android.databinding.DataBindingUtil;
+import android.databinding.DataBindingUtil;
 
 
 /**

@@ -13,5 +13,7 @@ import com.tepia.base.mvp.BasePresenterImpl;
  **/
 
 public class WorkingDetailPresenter extends BasePresenterImpl<WorkingDetailContract.View> implements WorkingDetailContract.Presenter{
-    
+
+    public void getOrderWorkingDetail(String orderId) {
+    }
 }

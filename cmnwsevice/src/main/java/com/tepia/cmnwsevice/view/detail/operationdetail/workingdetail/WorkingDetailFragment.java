@@ -8,16 +8,18 @@ import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmnwsevice.R;
 
 /**
- * @author        :       zhang xinhua
- * @Version       :       1.0
- * @创建人         ：      zhang xinhua
- * @创建时间       :       2019/4/8 17:34
- * @修改人         ：
- * @修改时间       :       2019/4/8 17:34
- * @功能描述       :
+ * @author :       zhang xinhua
+ * @Version :       1.0
+ * @创建人 ：      zhang xinhua
+ * @创建时间 :       2019/4/8 17:34
+ * @修改人 ：
+ * @修改时间 :       2019/4/8 17:34
+ * @功能描述 :
  **/
 @Route(path = "")
 public class WorkingDetailFragment extends MVPBaseFragment<WorkingDetailContract.View, WorkingDetailPresenter> implements WorkingDetailContract.View {
+
+    String orderId = "1";
 
     @Override
     protected int getLayoutId() {
@@ -36,6 +38,6 @@ public class WorkingDetailFragment extends MVPBaseFragment<WorkingDetailContract
 
     @Override
     protected void initRequestData() {
-
+        mPresenter.getOrderWorkingDetail(orderId);
     }
 }

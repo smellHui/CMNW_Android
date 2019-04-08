@@ -1,6 +1,7 @@
 package com.tepia.cmnwsevice.view.login;
 
 
+import android.databinding.DataBindingUtil;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -10,7 +11,7 @@ import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.databinding.ActivityLoginBinding;
 
-import androidx.databinding.DataBindingUtil;
+
 
 
 /**

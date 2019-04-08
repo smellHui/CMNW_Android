@@ -1,11 +1,12 @@
 package com.tepia.cmnwsevice.view.main.views;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 import com.tepia.cmnwsevice.R;
 
-import androidx.annotation.Nullable;
+
 
 /**
  * Author:xch

@@ -11,21 +11,44 @@ package com.tepia.cmnwsevice.model.order;
  **/
 public class OrderBean {
 
+
     /**
-     * areaName : 向化镇
-     * executeStatus : 0
-     * createdTime : 2019-04-07 17:04:20
      * id : 1114816161280811009
-     * source : 3
      * orderName : 向化示范处理站
+     * areaName : 向化镇
+     * createdTime : 2019-04-07
+     * source : 3
+     * deviceCode : null
+     * deviceName : null
+     * factor : null
+     * partsUse : null
      */
 
-    private String areaName;
-    private int executeStatus;
-    private String createdTime;
-    private String id;
-    private int source;
+    private long id;
     private String orderName;
+    private String areaName;
+    private String createdTime;
+    private int source;
+    private Object deviceCode;
+    private Object deviceName;
+    private Object factor;
+    private Object partsUse;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
 
     public String getAreaName() {
         return areaName;
@@ -33,14 +56,6 @@ public class OrderBean {
 
     public void setAreaName(String areaName) {
         this.areaName = areaName;
-    }
-
-    public int getExecuteStatus() {
-        return executeStatus;
-    }
-
-    public void setExecuteStatus(int executeStatus) {
-        this.executeStatus = executeStatus;
     }
 
     public String getCreatedTime() {
@@ -51,14 +66,6 @@ public class OrderBean {
         this.createdTime = createdTime;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public int getSource() {
         return source;
     }
@@ -67,11 +74,35 @@ public class OrderBean {
         this.source = source;
     }
 
-    public String getOrderName() {
-        return orderName;
+    public Object getDeviceCode() {
+        return deviceCode;
     }
 
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
+    public void setDeviceCode(Object deviceCode) {
+        this.deviceCode = deviceCode;
+    }
+
+    public Object getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(Object deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public Object getFactor() {
+        return factor;
+    }
+
+    public void setFactor(Object factor) {
+        this.factor = factor;
+    }
+
+    public Object getPartsUse() {
+        return partsUse;
+    }
+
+    public void setPartsUse(Object partsUse) {
+        this.partsUse = partsUse;
     }
 }
