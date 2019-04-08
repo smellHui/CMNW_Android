@@ -32,7 +32,6 @@ import com.tepia.cmnwsevice.R;
   * Version :1.0
   * 功能描述 :圆形图片
  **/
-
 @SuppressLint("AppCompatCustomView")
 public class CircleImageView extends ImageView {
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;

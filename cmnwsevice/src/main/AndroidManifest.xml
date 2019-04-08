@@ -16,4 +16,5 @@
         <!--我的页面-->
         <activity android:name=".view.setting.MineActivity" />
     </application>
+
 </manifest>

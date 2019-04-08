@@ -22,5 +22,4 @@
         android:layout_below="@+id/iv_mine_event"
         android:layout_centerHorizontal="true"
         android:textSize="13sp" />
-
 </RelativeLayout>

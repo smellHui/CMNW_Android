@@ -26,7 +26,6 @@ import static com.tepia.base.view.BadgeView.POSITION_TOP_RIGHT;
   * Version :1.0
   * 功能描述 : 我的
  **/
-
 public class MineActivity extends BaseActivity {
 
     private LinearLayout llEventList;

@@ -24,4 +24,5 @@
         <!-- 背景圆弧宽度 -->
         <attr name="bgArcWidth" />
     </declare-styleable>
+
 </resources>

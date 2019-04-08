@@ -16,7 +16,6 @@ import android.widget.ImageView;
   * Version :1.0
   * 功能描述 : 实现在图片右上角显示消息条数
  **/
-
 @SuppressLint("AppCompatCustomView")
 public class PointImageView extends ImageView {
     /**

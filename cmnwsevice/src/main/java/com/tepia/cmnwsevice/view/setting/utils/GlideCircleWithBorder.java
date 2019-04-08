@@ -20,7 +20,6 @@ import java.security.MessageDigest;
   * Version :1.0
   * 功能描述 : 加载圆形头像带白色边框
  **/
-
 public class GlideCircleWithBorder extends BitmapTransformation {
     private Paint mBorderPaint;
     private float mBorderWidth;

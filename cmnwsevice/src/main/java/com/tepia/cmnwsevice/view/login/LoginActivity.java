@@ -221,6 +221,5 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     public void loginSuccess() {
         ARouter.getInstance().build(AppRoutePath.app_cmnw_activity_tabmain).navigation();
         finish();
-//        ToastUtils.longToast("登陆成功");
     }
 }
