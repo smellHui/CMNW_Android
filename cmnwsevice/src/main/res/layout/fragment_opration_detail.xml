@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            style="@style/hor_ll.action"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="执行人" />
+
+            <TextView
+                android:id="@+id/tv_worker_name"
+                style="@style/text.actionContent"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="电话" />
+
+            <TextView
+                android:id="@+id/tv_worker_phone"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="运维开始时间" />
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="响应时长" />
+
+            <TextView
+                android:id="@+id/tv_delay_hours"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="运维结束时间" />
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="处理时长" />
+
+            <TextView
+                android:id="@+id/tv_handler_time"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="是否超时" />
+
+            <TextView
+                android:id="@+id/tv_over_time"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="问题类型" />
+
+            <TextView
+                android:id="@+id/tv_problem_type"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="维修类型" />
+
+            <TextView
+                android:id="@+id/tv_repair_type"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="是否使用备品备件" />
+
+            <TextView
+                android:id="@+id/tv_parts_use"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="维修详情" />
+
+            <TextView
+                android:id="@+id/tv_handle_des"
+                style="@style/text.actionContent"
+                android:text="暂无" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

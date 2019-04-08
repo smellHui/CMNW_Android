@@ -62,10 +62,10 @@ public class OperateFragment extends BaseListFragment<RiverBean> {
     @Override
     protected void initRequestData() {
         List<String> list = new ArrayList<>();
-        list.add("1");
+        list.add("0");
         list.add("2");
         list.add("3");
-        operatePresenter.querylist("stcd", "0","pageIndex",1,"executeStatusArray",list);
+        operatePresenter.querylist("pageIndex",1,"executeStatusArray",list);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class OperateFragment extends BaseListFragment<RiverBean> {
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
         ARouter.getInstance().build(AppRoutePath.app_cmnw_activity_order_operate)
-                .withString("orderId", "1114816161280811009")
+                .withString("orderId", "1114816059724128258")
                 .navigation();
     }
 }

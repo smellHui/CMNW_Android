@@ -1,9 +1,8 @@
-package com.tepia.cmnwsevice.view.detail.operationdetail.workingdetail;
-
-import android.content.Context;
+package com.tepia.cmnwsevice.view.detail.operationdetail.operationdetail;
 
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
+import com.tepia.cmnwsevice.model.order.OperationBean;
 
 /**
  * @author        :       zhang xinhua
@@ -15,9 +14,10 @@ import com.tepia.base.mvp.BaseView;
  * @功能描述       :
  **/
 
-public class WorkingDetailContract {
+public class OprationDetailContract {
     interface View extends BaseView {
-        
+
+        void getOrderOprationDetailSuccess(OperationBean data);
     }
 
     interface  Presenter extends BasePresenter<View> {

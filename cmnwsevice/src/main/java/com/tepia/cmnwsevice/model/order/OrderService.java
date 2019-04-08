@@ -72,7 +72,7 @@ public interface OrderService {
      */
 
     @GET("order/working/{orderId}")
-    Observable<BaseCommonResponse> getOrderOperationDetail(@Header("token") String token, @Path("orderId") String orderId);
+    Observable<BaseCommonResponse> getOrderWorkingDetail(@Header("token") String token, @Path("orderId") String orderId);
 
     /**
      * 【查询】查询工单运维详情
@@ -83,7 +83,7 @@ public interface OrderService {
      */
 
     @GET("order/operation/{orderId}")
-    Observable<BaseCommonResponse> getOrderWorkingDetail(@Header("token") String token, @Path("orderId") String orderId);
+    Observable<BaseCommonResponse<OperationBean>> getOrderOperationDetail(@Header("token") String token, @Path("orderId") String orderId);
 
     /**
      * 【查询】查询工单审核记录

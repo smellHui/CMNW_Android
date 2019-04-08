@@ -97,7 +97,7 @@ public class OrderManager {
      * @param orderId
      * @return
      */
-    public Observable<BaseCommonResponse> getOrderOperationDetail(String orderId) {
+    public Observable<BaseCommonResponse<OperationBean>> getOrderOperationDetail(String orderId) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getOrderOperationDetail(token, orderId)
                 .subscribeOn(Schedulers.io())
@@ -110,7 +110,7 @@ public class OrderManager {
      * @param orderId
      * @return
      */
-    public Observable<BaseCommonResponse> getOrderExamineList(String orderId) {
+    public Observable<BaseCommonResponse> getorderexaminelist(String orderId) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getOrderExamineList(token, orderId)
                 .subscribeOn(Schedulers.io())
@@ -136,7 +136,7 @@ public class OrderManager {
      * @param params
      * @return
      */
-    public Observable<BaseCommonResponse> getOrderUserList(Object... params) {
+    public Observable<BaseCommonResponse> sendOrder(Object... params) {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.sendOrder(token, body)

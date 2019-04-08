@@ -4,6 +4,7 @@ package com.tepia.cmnwsevice.view.login;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
@@ -23,7 +24,7 @@ import com.tepia.cmnwsevice.databinding.ActivityLoginBinding;
  * @修改时间 :       2019/4/2 15:41
  * @功能描述 :        登录页面
  **/
-//@Route(path = AppRoutePath.app_cmnw_login)
+@Route(path = AppRoutePath.app_cmnw_login)
 public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPresenter> implements LoginContract.View {
 
     private ActivityLoginBinding mBinding;
@@ -51,7 +52,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
-                mPresenter.login("username", "admin", "password", "123456");
+                mPresenter.login("username", "wanger", "password", "123456");
             }
         });
     }

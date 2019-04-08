@@ -35,17 +35,17 @@ public class OperatePresenter {
     }
 
     public void querylist(Object... params) {
-//        OrderManager.getInstance().getOrderList(params).safeSubscribe(new LoadingSubject<BaseCommonResponse<List<OrderBean>>>() {
-//            @Override
-//            protected void _onNext(BaseCommonResponse baseCommonResponse) {
-//
-//            }
-//
-//            @Override
-//            protected void _onError(String message) {
-//
-//            }
-//        });
+        OrderManager.getInstance().getOrderList(params).safeSubscribe(new LoadingSubject<BaseCommonResponse<List<OrderBean>>>() {
+            @Override
+            protected void _onNext(BaseCommonResponse baseCommonResponse) {
+
+            }
+
+            @Override
+            protected void _onError(String message) {
+
+            }
+        });
         ApiManager.getInstance()
                 .queryList()
                 .subscribeOn(Schedulers.io())
