@@ -2,6 +2,7 @@ package com.tepia.cmnwsevice.model.order;
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
+import com.tepia.base.model.PageBean;
 import com.tepia.cmnwsevice.APPConst;
 import com.tepia.cmnwsevice.model.user.LoginBean;
 import com.tepia.cmnwsevice.model.user.UserBean;
@@ -43,7 +44,7 @@ public class OrderManager {
      * @param params
      * @return
      */
-    public Observable<BaseCommonResponse<List<OrderBean>>> getOrderList(Object... params) {
+    public Observable<PageBean<OrderBean>> getOrderList(Object... params) {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getOrderList(token, body)

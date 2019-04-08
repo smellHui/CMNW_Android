@@ -2,6 +2,7 @@ package com.tepia.cmnwsevice.model.order;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.tepia.base.http.BaseCommonResponse;
+import com.tepia.base.model.PageBean;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public interface OrderService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("order/page")
-    Observable<BaseCommonResponse<List<OrderBean>>> getOrderList(@Header("token") String token, @Body RequestBody body);
+    Observable<PageBean<OrderBean>> getOrderList(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 统计工单状态数

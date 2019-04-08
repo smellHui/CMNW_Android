@@ -20,58 +20,70 @@ public class OrderCountBean {
      * toBack : 0
      */
 
-    private int toExamine;
-    private int toSend;
-    private int onExecute;
-    private int toExecute;
-    private int done;
-    private int toBack;
+    private String toExamine;
+    private String toSend;
+    private String onExecute;
+    private String toExecute;
+    private String done;
+    private String toBack;
 
-    public int getToExamine() {
+    public String getToExamine() {
         return toExamine;
     }
 
-    public void setToExamine(int toExamine) {
+    public void setToExamine(String toExamine) {
         this.toExamine = toExamine;
     }
 
-    public int getToSend() {
+    public String getToSend() {
         return toSend;
     }
 
-    public void setToSend(int toSend) {
+    public void setToSend(String toSend) {
         this.toSend = toSend;
     }
 
-    public int getOnExecute() {
+    public String getOnExecute() {
         return onExecute;
     }
 
-    public void setOnExecute(int onExecute) {
+    public void setOnExecute(String onExecute) {
         this.onExecute = onExecute;
     }
 
-    public int getToExecute() {
+    public String getToExecute() {
         return toExecute;
     }
 
-    public void setToExecute(int toExecute) {
+    public void setToExecute(String toExecute) {
         this.toExecute = toExecute;
     }
 
-    public int getDone() {
+    public String getDone() {
         return done;
     }
 
-    public void setDone(int done) {
+    public void setDone(String done) {
         this.done = done;
     }
 
-    public int getToBack() {
+    public String getToBack() {
         return toBack;
     }
 
-    public void setToBack(int toBack) {
+    public void setToBack(String toBack) {
         this.toBack = toBack;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderCountBean{" +
+                "toExamine='" + toExamine + '\'' +
+                ", toSend='" + toSend + '\'' +
+                ", onExecute='" + onExecute + '\'' +
+                ", toExecute='" + toExecute + '\'' +
+                ", done='" + done + '\'' +
+                ", toBack='" + toBack + '\'' +
+                '}';
     }
 }

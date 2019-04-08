@@ -3,12 +3,11 @@ package com.tepia.cmnwsevice.view.main.doing;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.cmnwsevice.R;
-import com.tepia.cmnwsevice.model.RiverBean;
-import com.tepia.cmnwsevice.view.main.myagent.MyAgentAdapter;
-import com.tepia.cmnwsevice.view.main.myagent.MyAgentPresenter;
+import com.tepia.cmnwsevice.model.order.OrderBean;
+import com.tepia.cmnwsevice.view.main.OrderAdapter;
+import com.tepia.cmnwsevice.view.main.OrderPresenter;
 import com.tepia.cmnwsevice.view.main.views.DealTextView;
 
 /**
@@ -16,10 +15,10 @@ import com.tepia.cmnwsevice.view.main.views.DealTextView;
  * Date:2019/4/2
  * Do:处理中
  */
-public class DoingFragment extends BaseListFragment<RiverBean> {
+public class DoingFragment extends BaseListFragment<OrderBean> {
 
     private DealTextView doingCountTv;
-    private DoingPresenter doingPresenter;
+    private OrderPresenter orderPresenter;
 
     public static DoingFragment launch() {
         return new DoingFragment();
@@ -44,17 +43,24 @@ public class DoingFragment extends BaseListFragment<RiverBean> {
         doingCountTv = findView(R.id.view_deal_text_first);
         doingCountTv.setTitle("处理中");
 
-        doingPresenter = new DoingPresenter();
-        doingPresenter.setmView(this);
+        orderPresenter = OrderPresenter.getInstance(2, this);
     }
 
     @Override
     protected void initRequestData() {
-        doingPresenter.querylist();
+        orderPresenter.querylist(getPage(), 20);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        orderPresenter.getOrderCount(orderCount -> {
+            doingCountTv.setCount(orderCount.getOnExecute());
+        });
     }
 
     @Override
     public BaseQuickAdapter getBaseQuickAdapter() {
-        return new MyAgentAdapter();
+        return new OrderAdapter();
     }
 }

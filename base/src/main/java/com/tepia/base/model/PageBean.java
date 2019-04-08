@@ -9,12 +9,12 @@ import java.util.List;
  * Date:2019/4/4
  * Do:
  */
-public class PageBean<T> {
+public class PageBean<T> extends BaseResponse {
 
     private int pageIndex;
     private int pageSize;
     private int totals;
-    private List<T> list;
+    private List<T> data;
     private int total;
 
     public int getPageIndex() {
@@ -42,11 +42,11 @@ public class PageBean<T> {
     }
 
     public List<T> getResult() {
-        return list;
+        return data;
     }
 
-    public void setResult(List<T> list) {
-        this.list = list;
+    public void setResult(List<T> data) {
+        this.data = data;
     }
 
     public int getTotal() {
@@ -63,7 +63,7 @@ public class PageBean<T> {
                 "pageIndex=" + pageIndex +
                 ", pageSize=" + pageSize +
                 ", totals=" + totals +
-                ", list=" + list +
+                ", data=" + data +
                 ", total=" + total +
                 '}';
     }

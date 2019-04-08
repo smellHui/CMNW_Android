@@ -4,30 +4,25 @@ import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
-import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.cmnwsevice.R;
-import com.tepia.cmnwsevice.model.RiverBean;
-import com.tepia.cmnwsevice.view.main.doing.DoingPresenter;
-import com.tepia.cmnwsevice.view.main.myagent.MyAgentAdapter;
+import com.tepia.cmnwsevice.model.order.OrderBean;
+import com.tepia.cmnwsevice.view.main.OrderAdapter;
+import com.tepia.cmnwsevice.view.main.OrderPresenter;
 import com.tepia.cmnwsevice.view.main.views.DealTextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Author:xch
  * Date:2019/4/2
  * Do:运维记录
  */
-public class OperateFragment extends BaseListFragment<RiverBean> {
+public class OperateFragment extends BaseListFragment<OrderBean> {
 
     private DealTextView pendTv;
     private DealTextView completeTv;
 
-    private OperatePresenter operatePresenter;
+    private OrderPresenter orderPresenter;
 
     public static OperateFragment launch() {
         return new OperateFragment();
@@ -55,28 +50,32 @@ public class OperateFragment extends BaseListFragment<RiverBean> {
         pendTv.setTitle("待审核");
         completeTv.setTitle("已完结");
 
-        operatePresenter = new OperatePresenter();
-        operatePresenter.setmView(this);
+        orderPresenter = new OrderPresenter(2, this);
     }
 
     @Override
     protected void initRequestData() {
-        List<String> list = new ArrayList<>();
-        list.add("0");
-        list.add("2");
-        list.add("3");
-        operatePresenter.querylist("pageIndex",1,"executeStatusArray",list);
+        orderPresenter.querylist(getPage(), 20);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        orderPresenter.getOrderCount(orderCount -> {
+            pendTv.setCount(orderCount.getToExamine());
+            completeTv.setCount(orderCount.getDone());
+        });
     }
 
     @Override
     public BaseQuickAdapter getBaseQuickAdapter() {
-        return new MyAgentAdapter();
+        return new OrderAdapter();
     }
 
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
         ARouter.getInstance().build(AppRoutePath.app_cmnw_activity_order_operate)
-                .withString("orderId", "1114816059724128258")
+                .withString("orderId", "1114816161280811009")
                 .navigation();
     }
 }
