@@ -9,5 +9,8 @@
 
         <activity android:name=".view.detail.action.ActionDetailActivity" />
         <activity android:name=".view.detail.tip.DoingTipActivity" />
+        <activity android:name=".view.detail.edit.FillInActivity" />
+        <activity android:name=".view.detail.edit.ConfirmSubmitActivity" />
+        <activity android:name=".view.feedback.FeedBackSucActivity" />
     </application>
 </manifest>
