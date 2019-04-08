@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:background="@color/white"
+    >
+
+    <ImageView
+        android:id="@+id/iv_setting"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/img_agrc_service"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        />
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="#666666"
+         android:textSize="15sp"
+         android:layout_centerVertical="true"
+         android:layout_toEndOf="@+id/iv_setting"
+         android:text="电话"/>
+    <ImageView
+        android:layout_width="6dp"
+        android:layout_height="12dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/add_more"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#DDDDDD"
+        android:layout_marginStart="50dp"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

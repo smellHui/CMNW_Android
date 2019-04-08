@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CMNWSevice</string>
+    <string name="app_login_title">崇明农污运维上报</string>
+    <string name="login_username">账号</string>
+    <string name="login_password">密码</string>
+    <string name="login_btn">登陆</string>
+    <string name="no_network">请先连接网络</string>
+    <string name="setting_title">我的</string>
 </resources>

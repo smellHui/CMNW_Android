@@ -4,6 +4,8 @@
     <color name="color_333333">#333333</color>
     <color name="color_666666">#666666</color>
     <color name="color_AAAAAA">#AAAAAA</color>
+    <!--editText下划线颜色-->
+    <color name="chartreuse">#CCCCCC</color>
     <color name="color_F3D760">#F3D760</color>
     <color name="color_FBFBFD">#FBFBFD</color>
     <color name="color_62C08D">#62C08D</color>

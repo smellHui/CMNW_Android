@@ -100,4 +100,17 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/btn_corner</item>
     </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--改变TextInputLayout 里面的EditText默认下划线和点击时下划线的颜色-->
+    <style name="TextAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/chartreuse</item><!--默认显示下划线的颜色-->
+        <!--<item name="colorControlActivated">@color/orangered</item>&lt;!&ndash;点击后下划线的颜色&ndash;&gt;-->
+        <!--<item name="colorAccent">@color/ivory</item>-->
+    </style>
 </resources>
