@@ -2,7 +2,9 @@ package com.tepia.cmnwsevice.view.main.operate;
 
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.cmnwsevice.R;
@@ -55,11 +57,18 @@ public class OperateFragment extends BaseListFragment<RiverBean> {
 
     @Override
     protected void initRequestData() {
-        operatePresenter.querylist();
+        operatePresenter.querylist("executeStatus", "0");
     }
 
     @Override
     public BaseQuickAdapter getBaseQuickAdapter() {
         return new MyAgentAdapter();
+    }
+
+    @Override
+    public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
+        ARouter.getInstance().build(AppRoutePath.app_cmnw_activity_order_operate)
+                .withString("orderId","fasd")
+                .navigation();
     }
 }

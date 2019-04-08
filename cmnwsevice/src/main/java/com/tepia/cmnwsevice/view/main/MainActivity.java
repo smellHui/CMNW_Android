@@ -65,7 +65,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     protected void initRequestData() {
-
+        mPresenter.getOrderCount();
     }
 
     private void addFragmnet() {

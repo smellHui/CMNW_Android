@@ -26,5 +26,10 @@ public class AppRoutePath {
     /**
      * 主 tab 页面
      */
-    public final static String app_cmnw_activity_tabmain = "/ccmnw/activity/tabmain";
+    public final static String app_cmnw_activity_tabmain = "/cmnw/activity/tabmain";
+
+    /**
+     * 运维工单页
+     */
+    public final static String app_cmnw_activity_order_operate = "/cmnw/activity/order/operate";
 }
