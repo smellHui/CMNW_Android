@@ -26,7 +26,7 @@ public class OrderBean {
      * partsUse : null
      */
 
-    private long id;
+    private String id;
     private String orderName;
     private String areaName;
     private String createdTime;
@@ -36,11 +36,11 @@ public class OrderBean {
     private Object factor;
     private Object partsUse;
 
-    public long getId() {
-        return id;
+    public String getId() {
+        return Strings.nullToEmpty(id);
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

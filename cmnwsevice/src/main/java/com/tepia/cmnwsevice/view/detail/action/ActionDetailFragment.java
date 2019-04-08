@@ -1,5 +1,6 @@
 package com.tepia.cmnwsevice.view.detail.action;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.tepia.base.mvp.BaseCommonFragment;
@@ -15,9 +16,14 @@ import com.tepia.cmnwsevice.view.main.views.ActionInfoView;
 public class ActionDetailFragment extends BaseCommonFragment {
 
     private ActionInfoView actionInfoView;
+    private String orderId;
 
-    public static ActionDetailFragment launch() {
-        return new ActionDetailFragment();
+    public static ActionDetailFragment launch(String orderId) {
+        ActionDetailFragment fragment = new ActionDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("orderId", orderId);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -27,13 +33,15 @@ public class ActionDetailFragment extends BaseCommonFragment {
 
     @Override
     protected void initData() {
-
+        Bundle bundle = getArguments();
+        if (bundle != null)
+            orderId = bundle.getString("orderId");
     }
 
     @Override
     protected void initView(View view) {
         actionInfoView = findView(R.id.view_action_info);
-        actionInfoView.setOnClickListener(v -> UiHelper.goToDoingTipView(getContext()));
+        actionInfoView.setOnClickListener(v -> UiHelper.goToDoingTipView(getContext(), orderId));
     }
 
     @Override

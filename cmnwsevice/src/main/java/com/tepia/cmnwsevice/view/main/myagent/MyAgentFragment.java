@@ -74,6 +74,8 @@ public class MyAgentFragment extends BaseListFragment<OrderBean> {
 
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
-        UiHelper.goToActionDetailView(getContext());
+        OrderBean orderBean = (OrderBean) adapter.getItem(position);
+        if (orderBean == null) return;
+        UiHelper.goToActionDetailView(getContext(), orderBean.getId());
     }
 }

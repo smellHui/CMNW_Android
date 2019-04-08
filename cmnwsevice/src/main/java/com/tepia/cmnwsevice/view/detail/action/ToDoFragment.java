@@ -1,5 +1,6 @@
 package com.tepia.cmnwsevice.view.detail.action;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.tepia.base.mvp.BaseCommonFragment;
@@ -12,8 +13,14 @@ import com.tepia.cmnwsevice.R;
  */
 public class ToDoFragment extends BaseCommonFragment {
 
-    public static ToDoFragment launch() {
-        return new ToDoFragment();
+    private String orderId;
+
+    public static ToDoFragment launch(String orderId) {
+        ToDoFragment fragment = new ToDoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("orderId", orderId);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -23,7 +30,9 @@ public class ToDoFragment extends BaseCommonFragment {
 
     @Override
     protected void initData() {
-
+        Bundle bundle = getArguments();
+        if(bundle != null)
+            orderId = bundle.getString("orderId");
     }
 
     @Override
