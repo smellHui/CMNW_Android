@@ -9,7 +9,7 @@
         android:layout_height="200dp"
         android:src="@color/theam_red" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/trans"
@@ -37,6 +37,6 @@
                 android:layout_marginLeft="30dp" />
         </LinearLayout>
 
-        <include layout="@layout/fragment_base_list"/>
+        <include layout="@layout/fragment_base_list" />
     </LinearLayout>
 </FrameLayout>

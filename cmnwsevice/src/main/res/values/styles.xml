@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="linearlayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="hor_ll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="hor_ll.action">
+        <item name="android:layout_height">44dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="text.actionTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_333333</item>
+    </style>
+
+    <style name="text.actionContent">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:layout_marginLeft">15dp</item>
+    </style>
+</resources>

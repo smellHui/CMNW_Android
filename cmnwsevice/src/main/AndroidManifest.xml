@@ -6,5 +6,7 @@
         <activity android:name=".view.main.MainActivity" />
         <!--登录页面-->
         <activity android:name=".view.login.LoginActivity" />
+
+        <activity android:name=".view.detail.action.ActionDetailActivity"/>
     </application>
 </manifest>

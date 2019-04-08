@@ -2,5 +2,9 @@
 <resources>
     <color name="background">#F1F1F1</color>
     <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
     <color name="color_AAAAAA">#AAAAAA</color>
+    <color name="color_F3D760">#F3D760</color>
+    <color name="color_FBFBFD">#FBFBFD</color>
+
 </resources>

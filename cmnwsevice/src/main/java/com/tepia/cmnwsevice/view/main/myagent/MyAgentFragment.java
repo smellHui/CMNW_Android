@@ -8,6 +8,7 @@ import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.mvp.NetListListener;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.RiverBean;
 
 /**
@@ -54,4 +55,8 @@ public class MyAgentFragment extends BaseListFragment<RiverBean> {
         return new MyAgentAdapter();
     }
 
+    @Override
+    public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
+        UiHelper.goToActionDetailView(getContext());
+    }
 }

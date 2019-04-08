@@ -24,7 +24,7 @@ import com.tepia.cmnwsevice.databinding.ActivityLoginBinding;
  * @修改时间 :       2019/4/2 15:41
  * @功能描述 :        登录页面
  **/
-@Route(path = AppRoutePath.app_cmnw_login)
+//@Route(path = AppRoutePath.app_cmnw_login)
 public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPresenter> implements LoginContract.View {
 
     private ActivityLoginBinding mBinding;
