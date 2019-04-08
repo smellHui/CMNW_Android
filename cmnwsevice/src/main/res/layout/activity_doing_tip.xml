@@ -55,6 +55,7 @@
     <Button
         style="@style/btn.tip"
         android:layout_marginTop="30dp"
+        android:onClick="fillIn"
         android:text="已完成，去填报" />
 
 </LinearLayout>

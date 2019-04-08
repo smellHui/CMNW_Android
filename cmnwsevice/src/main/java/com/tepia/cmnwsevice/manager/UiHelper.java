@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.tepia.cmnwsevice.view.detail.action.ActionDetailActivity;
+import com.tepia.cmnwsevice.view.detail.edit.FillInActivity;
 import com.tepia.cmnwsevice.view.detail.tip.DoingTipActivity;
 
 /**
@@ -29,5 +30,14 @@ public class UiHelper {
      */
     public static void goToDoingTipView(Context ctx) {
         ctx.startActivity(new Intent(ctx, DoingTipActivity.class));
+    }
+
+    /**
+     * 工单填报
+     *
+     * @param ctx
+     */
+    public static void goToFillInView(Context ctx) {
+        ctx.startActivity(new Intent(ctx, FillInActivity.class));
     }
 }

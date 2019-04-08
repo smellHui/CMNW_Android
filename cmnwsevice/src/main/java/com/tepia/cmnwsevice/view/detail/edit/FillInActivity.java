@@ -1,26 +1,22 @@
-package com.tepia.cmnwsevice.view.detail.tip;
-
-import android.view.View;
+package com.tepia.cmnwsevice.view.detail.edit;
 
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.cmnwsevice.R;
-import com.tepia.cmnwsevice.manager.UiHelper;
 
 /**
  * Author:xch
  * Date:2019/4/8
- * Do:处理中提示页
+ * Do:工单填报
  */
-public class DoingTipActivity extends BaseActivity {
-
+public class FillInActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
-        return R.layout.activity_doing_tip;
+        return R.layout.activity_fill_in;
     }
 
     @Override
     public void initView() {
-        setCenterTitle("2019-3-31卫星村1号站");
+        setCenterTitle("工单填报");
         showBack();
     }
 
@@ -37,9 +33,5 @@ public class DoingTipActivity extends BaseActivity {
     @Override
     protected void initRequestData() {
 
-    }
-
-    public void fillIn(View view) {
-        UiHelper.goToFillInView(this);
     }
 }
