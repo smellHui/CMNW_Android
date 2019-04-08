@@ -20,6 +20,12 @@ import retrofit2.http.POST;
  * 功能描述        :        用户相关接口
  **/
 public interface UserService {
+    /**
+     * 用户登录
+     *
+     * @param body
+     * @return
+     */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("/user/appLogin")
     Observable<BaseCommonResponse<LoginBean>> appLogin(@Body RequestBody body);

@@ -1,11 +1,10 @@
 package com.tepia.cmnwsevice.view.login;
 
-import android.widget.Toast;
-
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.cmnwsevice.model.dict.DictManager;
 import com.tepia.cmnwsevice.model.user.LoginBean;
 import com.tepia.cmnwsevice.model.user.UserManager;
 
@@ -27,6 +26,22 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
             protected void _onNext(BaseCommonResponse<LoginBean> baseCommonResponse) {
                 UserManager.getInstance().saveToken(baseCommonResponse.getData().getToken());
                 UserManager.getInstance().saveUserInfo(baseCommonResponse.getData().getUser());
+                getDictArray();
+
+            }
+
+            @Override
+            protected void _onError(String message) {
+                ToastUtils.shortToast(message);
+            }
+        });
+    }
+
+    private void getDictArray() {
+        DictManager.getInstance().getServerDict().safeSubscribe(new LoadingSubject<BaseCommonResponse>(true, "获取数据字典中...") {
+            @Override
+            protected void _onNext(BaseCommonResponse baseCommonResponse) {
+
                 mView.loginSuccess();
             }
 

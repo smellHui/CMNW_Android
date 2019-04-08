@@ -22,7 +22,7 @@ import okhttp3.RequestBody;
  * Date            :       2019/4/4
  * Time            :       17:02
  * Version         :       1.0
- * 功能描述        :
+ * 功能描述        :        用户相关数据管理
  **/
 public class UserManager {
     private static final UserManager ourInstance = new UserManager();
