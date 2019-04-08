@@ -10,5 +10,28 @@
 
         <include layout="@layout/toolbar" />
 
+        <LinearLayout
+            style="@style/hor_ll.action"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="工单来源" />
+
+            <TextView
+                style="@style/text.actionContent"
+                android:text="工单来源" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/hor_ll.action">
+
+            <TextView
+                style="@style/text.actionTitle"
+                android:text="报警时间" />
+
+            <TextView
+                style="@style/text.actionContent"
+                android:text="工单来源" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

@@ -16,6 +16,8 @@ import com.tepia.cmnwsevice.R;
  **/
 @Route(path = AppRoutePath.app_cmnw_activity_order_operate)
 public class OperationDetailActivty extends BaseActivity {
+    private String orderId;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_operation_detail;
@@ -28,7 +30,7 @@ public class OperationDetailActivty extends BaseActivity {
 
     @Override
     public void initData() {
-
+        orderId = getIntent().getStringExtra("orderId");
     }
 
     @Override

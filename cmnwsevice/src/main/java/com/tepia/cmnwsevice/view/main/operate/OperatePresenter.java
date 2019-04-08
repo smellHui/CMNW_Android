@@ -35,31 +35,31 @@ public class OperatePresenter {
     }
 
     public void querylist(Object... params) {
-        OrderManager.getInstance().getOrderList(params).safeSubscribe(new LoadingSubject<BaseCommonResponse<List<OrderBean>>>() {
-            @Override
-            protected void _onNext(BaseCommonResponse baseCommonResponse) {
-
-            }
-
-            @Override
-            protected void _onError(String message) {
-
-            }
-        });
-//        ApiManager.getInstance()
-//                .queryList()
-//                .subscribeOn(Schedulers.io())
-//                .safeSubscribe(new LoadingSubject<BaseResp<PageBean<RiverBean>>>(true, "正在获取当前河道信息...") {
+//        OrderManager.getInstance().getOrderList(params).safeSubscribe(new LoadingSubject<BaseCommonResponse<List<OrderBean>>>() {
+//            @Override
+//            protected void _onNext(BaseCommonResponse baseCommonResponse) {
 //
-//                    @Override
-//                    protected void _onNext(BaseResp<PageBean<RiverBean>> pageBean) {
-//                        mView.success(pageBean.getData());
-//                    }
+//            }
 //
-//                    @Override
-//                    protected void _onError(String message) {
-//                        mView.error();
-//                    }
-//                });
+//            @Override
+//            protected void _onError(String message) {
+//
+//            }
+//        });
+        ApiManager.getInstance()
+                .queryList()
+                .subscribeOn(Schedulers.io())
+                .safeSubscribe(new LoadingSubject<BaseResp<PageBean<RiverBean>>>(true, "正在获取当前河道信息...") {
+
+                    @Override
+                    protected void _onNext(BaseResp<PageBean<RiverBean>> pageBean) {
+                        mView.success(pageBean.getData());
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.error();
+                    }
+                });
     }
 }
