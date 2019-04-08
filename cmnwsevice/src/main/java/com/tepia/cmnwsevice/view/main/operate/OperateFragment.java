@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.BaseListFragment;
@@ -12,6 +13,9 @@ import com.tepia.cmnwsevice.model.RiverBean;
 import com.tepia.cmnwsevice.view.main.doing.DoingPresenter;
 import com.tepia.cmnwsevice.view.main.myagent.MyAgentAdapter;
 import com.tepia.cmnwsevice.view.main.views.DealTextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author:xch
@@ -57,7 +61,11 @@ public class OperateFragment extends BaseListFragment<RiverBean> {
 
     @Override
     protected void initRequestData() {
-        operatePresenter.querylist("executeStatus", "0");
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        operatePresenter.querylist("stcd", "0","pageIndex",1,"executeStatusArray",list);
     }
 
     @Override

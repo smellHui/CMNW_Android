@@ -65,9 +65,137 @@ public class OrderManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 【查询】查询工单详情
+     *
+     * @param orderId
+     * @return
+     */
     public Observable<BaseCommonResponse<OrderBean>> getOrderDetail(String orderId) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getOrderDetail(token, orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】获取派单操作详情（同处理中提示页面）
+     *
+     * @param orderId
+     * @return
+     */
+    public Observable<BaseCommonResponse> getOrderWorkingDetail(String orderId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getOrderWorkingDetail(token, orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】查询工单运维详情
+     *
+     * @param orderId
+     * @return
+     */
+    public Observable<BaseCommonResponse> getOrderOperationDetail(String orderId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getOrderOperationDetail(token, orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】查询工单审核记录
+     *
+     * @param orderId
+     * @return
+     */
+    public Observable<BaseCommonResponse> getOrderExamineList(String orderId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getOrderExamineList(token, orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】查询工单下发候选用户列表
+     *
+     * @param orderId
+     * @return
+     */
+    public Observable<BaseCommonResponse> getOrderUserList(String orderId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getOrderUserList(token, orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【下发】下发工单
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse> getOrderUserList(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.sendOrder(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【执行】点击导航前往执行工单
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse> startToExeOrder(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.startToExeOrder(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【执行】开始执行工单
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse> startOrder(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.startOrder(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【执行】完成执行工单
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse> doneOrder(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.doneOrder(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【执行】完成执行工单
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse> examineOrder(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.examineOrder(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
