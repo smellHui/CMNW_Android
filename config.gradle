@@ -118,7 +118,10 @@ ext {
 
             FlycoTabLayout               : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
 
-            roundbutton:'com.github.czy1121:roundbutton:1.1.0'
+            roundbutton:'com.github.czy1121:roundbutton:1.1.0',
+
+            //guava
+            guava                   : "com.google.guava:guava:26.0-android",
 //            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
 //            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
     ]

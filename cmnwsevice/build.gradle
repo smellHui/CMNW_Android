@@ -116,6 +116,8 @@ dependencies {
 //    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
 //        exclude module: 'support-annotations'
 //    }
+    //guava
+    api rootProject.ext.dependencies.guava
 
     implementation project(':base')
     implementation project(':common_datamodel')

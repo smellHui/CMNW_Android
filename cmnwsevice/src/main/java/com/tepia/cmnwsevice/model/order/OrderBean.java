@@ -1,5 +1,7 @@
 package com.tepia.cmnwsevice.model.order;
 
+import com.google.common.base.Strings;
+
 /**
  * Created by      android studio
  *
@@ -30,7 +32,7 @@ public class OrderBean {
     private String createdTime;
     private int source;
     private Object deviceCode;
-    private Object deviceName;
+    private String deviceName;
     private Object factor;
     private Object partsUse;
 
@@ -43,7 +45,7 @@ public class OrderBean {
     }
 
     public String getOrderName() {
-        return orderName;
+        return Strings.nullToEmpty(orderName);
     }
 
     public void setOrderName(String orderName) {
@@ -51,7 +53,7 @@ public class OrderBean {
     }
 
     public String getAreaName() {
-        return areaName;
+        return Strings.nullToEmpty(areaName);
     }
 
     public void setAreaName(String areaName) {
@@ -82,11 +84,11 @@ public class OrderBean {
         this.deviceCode = deviceCode;
     }
 
-    public Object getDeviceName() {
-        return deviceName;
+    public String getDeviceName() {
+        return Strings.nullToEmpty(deviceName);
     }
 
-    public void setDeviceName(Object deviceName) {
+    public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
     }
 
