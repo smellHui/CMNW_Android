@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/theam_red">
+
+        <include layout="@layout/toolbar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/color_666666" />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/hor_ll.action">
+
+        <TextView
+            style="@style/text.actionTitle"
+            android:text="派单时间" />
+
+        <TextView
+            style="@style/text.actionContent"
+            android:text="2019-04-04 00:00:00" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/hor_ll.action">
+
+        <TextView
+            style="@style/text.actionTitle"
+            android:text="执行时限" />
+
+        <TextView
+            style="@style/text.actionContent"
+            android:text="2019-04-04 00:00:00" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/hor_ll.action">
+
+        <TextView
+            style="@style/text.actionTitle"
+            android:text="当前时间" />
+
+        <TextView
+            style="@style/text.actionContent"
+            android:text="2019-04-04 00:00:00" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:text="已完成，去填报"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</LinearLayout>

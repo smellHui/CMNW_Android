@@ -7,6 +7,7 @@
         <!--登录页面-->
         <activity android:name=".view.login.LoginActivity" />
 
-        <activity android:name=".view.detail.action.ActionDetailActivity"/>
+        <activity android:name=".view.detail.action.ActionDetailActivity" />
+        <activity android:name=".view.detail.tip.DoingTipActivity" />
     </application>
 </manifest>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.tepia.cmnwsevice.view.detail.action.ActionDetailActivity;
+import com.tepia.cmnwsevice.view.detail.tip.DoingTipActivity;
 
 /**
  * Author:xch
@@ -19,5 +20,14 @@ public class UiHelper {
      */
     public static void goToActionDetailView(Context ctx) {
         ctx.startActivity(new Intent(ctx, ActionDetailActivity.class));
+    }
+
+    /**
+     * 处理中提示页
+     *
+     * @param ctx
+     */
+    public static void goToDoingTipView(Context ctx) {
+        ctx.startActivity(new Intent(ctx, DoingTipActivity.class));
     }
 }

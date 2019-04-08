@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.manager.UiHelper;
+import com.tepia.cmnwsevice.view.main.views.ActionInfoView;
 
 /**
  * Author:xch
@@ -11,6 +13,8 @@ import com.tepia.cmnwsevice.R;
  * Do:
  */
 public class ActionDetailFragment extends BaseCommonFragment {
+
+    private ActionInfoView actionInfoView;
 
     public static ActionDetailFragment launch() {
         return new ActionDetailFragment();
@@ -28,7 +32,8 @@ public class ActionDetailFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View view) {
-
+        actionInfoView = findView(R.id.view_action_info);
+        actionInfoView.setOnClickListener(v -> UiHelper.goToDoingTipView(getContext()));
     }
 
     @Override
