@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data class="ActionDetailView">
 
         <variable
             name="orderBean"
             type="com.tepia.cmnwsevice.model.order.OrderBean" />
+
+        <variable
+            name="workDetailBean"
+            type="com.tepia.cmnwsevice.model.order.WorkDetailBean" />
     </data>
 
     <ScrollView
@@ -103,7 +106,7 @@
 
                 <TextView
                     style="@style/text.actionContent"
-                    android:text="工单来源" />
+                    android:text="@{workDetailBean.getUserName()}" />
             </LinearLayout>
 
             <LinearLayout style="@style/hor_ll.action">
@@ -114,7 +117,7 @@
 
                 <TextView
                     style="@style/text.actionContent"
-                    android:text="工单来源" />
+                    android:text="@{workDetailBean.getPhone()}" />
             </LinearLayout>
 
             <LinearLayout style="@style/hor_ll.action">
@@ -125,7 +128,7 @@
 
                 <TextView
                     style="@style/text.actionContent"
-                    android:text="工单来源" />
+                    android:text="@{workDetailBean.getSendTime()}" />
             </LinearLayout>
 
             <LinearLayout style="@style/hor_ll.action">
@@ -136,7 +139,7 @@
 
                 <TextView
                     style="@style/text.actionContent"
-                    android:text="工单来源" />
+                    android:text="@{workDetailBean.getLimitHours()+`小时`}" />
             </LinearLayout>
 
         </LinearLayout>

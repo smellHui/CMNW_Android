@@ -99,6 +99,9 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
                     baseQuickAdapter.loadMoreEnd();
                 }
             } else {
+                if (page == 1){
+                    getList().clear();
+                }
                 baseQuickAdapter.loadMoreEnd();
             }
         } else {

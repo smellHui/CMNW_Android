@@ -12,6 +12,7 @@ import com.tepia.cmnwsevice.databinding.ActionDetailView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.model.order.OrderManager;
+import com.tepia.cmnwsevice.model.order.WorkDetailBean;
 import com.tepia.cmnwsevice.view.main.views.ActionInfoView;
 
 /**
@@ -61,6 +62,23 @@ public class ActionDetailFragment extends BaseCommonFragment {
                         if (orderBean == null) return;
                         mView.setOrderBean(orderBean);
                         mView.viewActionInfo.setData(orderBean.getOrderName(), orderBean.getAreaName());
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+
+                    }
+                });
+
+        OrderManager.getInstance().getOrderWorkingDetail(orderId)
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse<WorkDetailBean>>() {
+
+                    @Override
+                    protected void _onNext(BaseCommonResponse<WorkDetailBean> workDetail) {
+                        if (workDetail == null) return;
+                        WorkDetailBean workDetailBean = workDetail.getData();
+                        if (workDetailBean == null) return;
+                        mView.setWorkDetailBean(workDetailBean);
                     }
 
                     @Override
