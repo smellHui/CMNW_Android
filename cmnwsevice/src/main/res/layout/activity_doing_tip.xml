@@ -32,30 +32,70 @@
 
             <include layout="@layout/toolbar" />
 
-        <com.tepia.common_view.ColorArcProgressBar
-            android:id="@+id/cb_tip_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            app:back_color="#ff80daaa"
-            app:back_width="3dp"
-            app:current_value="100"
-            app:is_need_content="true"
-            app:is_need_dial="false"
-            app:is_need_title="true"
-            app:is_need_unit="true"
-            app:max_value="100"
-            app:progress_color="@color/white"
-            app:progress_width="3dp"
-            app:string_content_textsize="60dp"
-            app:string_title="剩余时间"
-            app:string_title_textsize="18dp"
-            app:string_unit="小时"
-            app:string_unit_textsize="18dp"
-            app:total_engle="270"
-            app:width_weight="0.66" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <com.tepia.common_view.ColorArcProgressBar
+                    android:id="@+id/cb_tip_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    app:back_color="#ff80daaa"
+                    app:back_width="3dp"
+                    app:current_value="100"
+                    app:is_need_content="true"
+                    app:is_need_dial="false"
+                    app:is_need_title="true"
+                    app:is_need_unit="true"
+                    app:max_value="100"
+                    app:progress_color="@color/white"
+                    app:progress_width="3dp"
+                    app:string_content_textsize="60dp"
+                    app:string_title="剩余时间"
+                    app:string_title_textsize="18dp"
+                    app:string_unit="小时"
+                    app:string_unit_textsize="18dp"
+                    app:total_engle="270"
+                    app:width_weight="0.66" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/bg_limit_time"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="执行时限"
+                        android:textColor="#ff333333"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="@{workDetail.getLimitHours()}"
+                        android:textColor="#ff4fb97e"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="小时"
+                        android:textColor="#ff333333"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </FrameLayout>
 
 
         </LinearLayout>

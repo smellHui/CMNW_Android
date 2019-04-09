@@ -2,12 +2,14 @@ package com.tepia.cmnwsevice.view.detail.tip;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.databinding.DoingTipView;
 import com.tepia.cmnwsevice.manager.UiHelper;
@@ -19,6 +21,7 @@ import com.tepia.common_view.ColorArcProgressBar;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -53,7 +56,7 @@ public class DoingTipActivity extends BaseActivity implements View.OnClickListen
         limitTv = findViewById(R.id.tv_limitTime);
         currectTv = findViewById(R.id.tv_currectTime);
         cbTipBar.setMaxValues(100);
-        cbTipBar.setCurrentValues(40);
+
     }
 
     @Override
@@ -80,6 +83,19 @@ public class DoingTipActivity extends BaseActivity implements View.OnClickListen
                         WorkDetailBean workDetailBean = workDetail.getData();
                         if (workDetailBean == null) return;
                         mView.setWorkDetail(workDetailBean);
+                        cbTipBar.setCurValuesStr(workDetailBean.getLimitHours());
+                        long timeInMillis = System.currentTimeMillis() - TimeFormatUtils.getTimeInMillis(workDetailBean.getSendTime());
+                        long timeinHour = timeInMillis / 3600 / 1000;
+                        String temp = String.format("%.0f", Float.parseFloat(workDetailBean.getLimitHours()) - timeinHour);
+
+                        if (Float.parseFloat(workDetailBean.getLimitHours()) - timeinHour > 0) {
+                            cbTipBar.setCurValuesStr(temp);
+                        } else {
+                            cbTipBar.setCurValuesStr(temp);
+                        }
+                        int tempint = (int) (Float.parseFloat(temp) * 100 / Float.parseFloat(workDetailBean.getLimitHours()));
+                        cbTipBar.setCurrentValues(tempint);
+
                     }
 
                     @Override
@@ -103,8 +119,8 @@ public class DoingTipActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_fill){
-            UiHelper.goToFillInView(this,orderId);
+        if (id == R.id.btn_fill) {
+            UiHelper.goToFillInView(this, orderId);
         }
     }
 }

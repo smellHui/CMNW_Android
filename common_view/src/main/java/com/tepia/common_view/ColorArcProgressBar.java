@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -55,6 +56,7 @@ public class ColorArcProgressBar extends View {
     private int[] colors = new int[]{Color.GREEN, Color.YELLOW, Color.RED, Color.RED};
     private float maxValues = 100;
     private float curValues = 0;
+    private String curValuesStr = "";
     /**
      * 背景圆环的宽度
      */
@@ -289,9 +291,14 @@ public class ColorArcProgressBar extends View {
         canvas.drawCircle((float) (centerX + diameter / 2 * Math.cos((360 - startAngle - currentAngle) * Math.PI / 180)),
                 (float) (centerY - diameter / 2 * Math.sin((360 - startAngle - currentAngle) * Math.PI / 180)), thumbRadis, progressPaint2);
         if (isNeedContent) {
-            canvas.drawText(String.format("%.0f", curValues), centerX - String.format("%.0f", curValues).length() * textSize / 4, centerY, vTextPaint);
+            if (TextUtils.isEmpty(curValuesStr)) {
+                canvas.drawText(String.format("%.0f", curValues), centerX - String.format("%.0f", curValues).length() * textSize / 4, centerY, vTextPaint);
+            } else{
+                canvas.drawText(curValuesStr, centerX - curValuesStr.length() * textSize / 4, centerY, vTextPaint);
+            }
         }
         if (isNeedUnit) {
+
             canvas.drawText(unitString, centerX + String.format("%.0f", curValues).length() * unitSize, centerY, unitPaint);
         }
         if (isNeedTitle) {
@@ -327,6 +334,11 @@ public class ColorArcProgressBar extends View {
         this.curValues = currentValues;
         lastAngle = currentAngle;
         setAnimation(lastAngle, currentValues * k, aniSpeed);
+    }
+
+    public void setCurValuesStr(String curValuesStr) {
+        this.curValuesStr = curValuesStr;
+        invalidate();
     }
 
     /**
