@@ -107,6 +107,7 @@ dependencies {
 
     //圆角按钮
     implementation rootProject.ext.dependencies.roundbutton
+    implementation rootProject.ext.dependencies.PickerView
 
 //    api rootProject.ext.dependencies["annotations"]
 //    api(rootProject.ext.dependencies["butterknife"]) {

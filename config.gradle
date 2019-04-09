@@ -120,6 +120,8 @@ ext {
 
             roundbutton:'com.github.czy1121:roundbutton:1.1.0',
 
+            PickerView: 'com.contrarywind:Android-PickerView:4.1.7',
+
             //guava
             guava                   : "com.google.guava:guava:26.0-android",
 //            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
