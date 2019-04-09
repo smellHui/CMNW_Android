@@ -5,13 +5,19 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theam_red">
+
+        <include layout="@layout/toolbar" />
+    </FrameLayout>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:src="@mipmap/img_agrc_service" />
+        android:src="@mipmap/tjh_picture_emptystates" />
 
     <TextView
         android:layout_width="wrap_content"

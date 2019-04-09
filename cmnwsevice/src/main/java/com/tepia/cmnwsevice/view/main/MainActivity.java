@@ -35,11 +35,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     private String[] mTitles = {"我的代办", "处理中", "运维记录"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private int[] mIconUnselectIds = {                                              //
-            R.mipmap.img_agrc_service, R.mipmap.img_agrc_service,
-            R.mipmap.img_agrc_service};
+            R.mipmap.tabbar_icn_dbsx_normal, R.mipmap.tabbar_icn_clz_normal,
+            R.mipmap.tabbar_icn_ywjl_normal};
     private int[] mIconSelectIds = {
-            R.mipmap.img_agrc_service_select, R.mipmap.img_agrc_service_select,
-            R.mipmap.img_agrc_service_select};
+            R.mipmap.tabbar_icn_dbsx_selected, R.mipmap.tabbar_icn_clz_selected,
+            R.mipmap.tabbar_icn_ywjl_selected};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override

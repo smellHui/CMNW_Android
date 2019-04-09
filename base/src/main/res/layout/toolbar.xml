@@ -6,7 +6,6 @@
     android:layout_height="48dp"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
-    android:background="@color/theam_red"
     app:popupTheme="@style/AppTheme.PopupOverlay"
     app:titleTextAppearance="@style/Toolbar">
 

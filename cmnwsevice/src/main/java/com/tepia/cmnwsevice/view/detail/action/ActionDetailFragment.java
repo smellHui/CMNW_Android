@@ -3,9 +3,13 @@ package com.tepia.cmnwsevice.view.detail.action;
 import android.os.Bundle;
 import android.view.View;
 
+import com.tepia.base.http.BaseCommonResponse;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.manager.UiHelper;
+import com.tepia.cmnwsevice.model.order.OrderBean;
+import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.view.main.views.ActionInfoView;
 
 /**
@@ -46,6 +50,17 @@ public class ActionDetailFragment extends BaseCommonFragment {
 
     @Override
     protected void initRequestData() {
+        OrderManager.getInstance().getOrderDetail(orderId)
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse<OrderBean>>() {
+                    @Override
+                    protected void _onNext(BaseCommonResponse<OrderBean> orderBeanBaseCommonResponse) {
+                        System.out.println(orderBeanBaseCommonResponse.toString());
+                    }
 
+                    @Override
+                    protected void _onError(String message) {
+
+                    }
+                });
     }
 }

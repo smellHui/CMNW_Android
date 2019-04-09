@@ -11,7 +11,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/img_agrc_service" />
+        android:src="@mipmap/tjqr_picture_photo" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -43,7 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:drawableRight="@mipmap/download"
+        android:drawableRight="@mipmap/gdxq_icn_more"
         android:drawablePadding="5dp"
         android:gravity="center"
         android:paddingLeft="@dimen/dp_10"

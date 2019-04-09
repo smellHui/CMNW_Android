@@ -47,7 +47,7 @@
 
                         <TextView
                             style="@style/text.editTitle"
-                            android:drawableLeft="@mipmap/img_agrc_service"
+                            android:drawableLeft="@mipmap/tjqr_icn_question"
                             android:text="问题类型" />
 
                         <TextView
@@ -61,7 +61,7 @@
 
                         <TextView
                             style="@style/text.editTitle"
-                            android:drawableLeft="@mipmap/img_agrc_service"
+                            android:drawableLeft="@mipmap/tjqr_icn_service"
                             android:text="维修类型" />
 
                         <TextView
@@ -75,7 +75,7 @@
 
                         <TextView
                             style="@style/text.editTitle"
-                            android:drawableLeft="@mipmap/img_agrc_service"
+                            android:drawableLeft="@mipmap/tjqr_icn_device"
                             android:text="是否使用备品备件" />
 
                         <TextView
@@ -90,7 +90,7 @@
                         <TextView
                             style="@style/text.editTitle"
                             android:layout_width="match_parent"
-                            android:drawableLeft="@mipmap/img_agrc_service"
+                            android:drawableLeft="@mipmap/tjqr_icn_detailed"
                             android:text="维修详情" />
 
                         <EditText
@@ -116,7 +116,7 @@
                         <TextView
                             style="@style/text.editTitle"
                             android:layout_width="match_parent"
-                            android:drawableLeft="@mipmap/img_agrc_service"
+                            android:drawableLeft="@mipmap/tjqr_icn_detailed"
                             android:text="上传现场照片" />
 
                         <ImageView

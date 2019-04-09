@@ -34,7 +34,7 @@
 
                     <TextView
                         style="@style/text.actionTitle"
-                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawableLeft="@mipmap/tjqr_icn_question"
                         android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="问题类型" />
@@ -48,7 +48,7 @@
 
                     <TextView
                         style="@style/text.actionTitle"
-                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawableLeft="@mipmap/tjqr_icn_service"
                         android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="维修类型" />
@@ -62,7 +62,7 @@
 
                     <TextView
                         style="@style/text.actionTitle"
-                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawableLeft="@mipmap/tjqr_icn_device"
                         android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="是否使用备品备件" />
@@ -76,7 +76,7 @@
 
                     <TextView
                         style="@style/text.actionTitle"
-                        android:drawableLeft="@mipmap/img_agrc_service"
+                        android:drawableLeft="@mipmap/tjqr_icn_detailed"
                         android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="维修详情" />
@@ -104,7 +104,7 @@
                         android:layout_height="60dp"
                         android:layout_marginLeft="14dp"
                         android:layout_marginTop="8dp"
-                        android:src="@mipmap/img_agrc_service" />
+                        android:src="@mipmap/tjqr_picture_photo" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
