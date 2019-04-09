@@ -3,6 +3,7 @@ package com.tepia.cmnwsevice.manager;
 import android.content.Context;
 import android.content.Intent;
 
+import com.google.common.base.Strings;
 import com.tepia.cmnwsevice.view.detail.action.ActionDetailActivity;
 import com.tepia.cmnwsevice.view.detail.edit.ConfirmSubmitActivity;
 import com.tepia.cmnwsevice.view.detail.edit.FillInActivity;
@@ -43,8 +44,10 @@ public class UiHelper {
      *
      * @param ctx
      */
-    public static void goToFillInView(Context ctx) {
-        ctx.startActivity(new Intent(ctx, FillInActivity.class));
+    public static void goToFillInView(Context ctx, String orderId) {
+        Intent intent = new Intent(ctx, FillInActivity.class);
+        intent.putExtra("orderId", orderId);
+        ctx.startActivity(intent);
     }
 
     /**

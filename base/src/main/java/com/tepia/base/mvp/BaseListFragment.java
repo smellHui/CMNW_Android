@@ -49,11 +49,16 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
         setVerModel();
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            page = 1;
-            getList().clear();
-            initRequestData();
+            refresh();
         });
 
+    }
+
+    public void refresh(){
+        swipeRefreshLayout.setRefreshing(true);
+        page = 1;
+        getList().clear();
+        initRequestData();
     }
 
     public int getPage() {

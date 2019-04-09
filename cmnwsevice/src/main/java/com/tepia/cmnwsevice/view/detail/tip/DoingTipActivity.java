@@ -76,6 +76,6 @@ public class DoingTipActivity extends BaseActivity {
     }
 
     public void fillIn(View view) {
-        UiHelper.goToFillInView(this);
+        UiHelper.goToFillInView(this,orderId);
     }
 }

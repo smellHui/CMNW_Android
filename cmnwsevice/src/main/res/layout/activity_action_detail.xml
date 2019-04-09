@@ -16,16 +16,15 @@
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/ly_tab"
             android:layout_width="wrap_content"
-            android:layout_height="52dp"
+            android:layout_height="44dp"
             android:layout_gravity="center"
-            tl:tl_iconHeight="23dp"
-            tl:tl_iconWidth="23dp"
-            tl:tl_indicator_color="@color/color_F3D760"
-            tl:tl_indicator_height="1dp"
-            tl:tl_textSelectColor="@color/color_F3D760"
+            android:layout_marginTop="10dp"
+            tl:tl_indicator_color="@color/color_F0D660"
+            tl:tl_indicator_height="2dp"
+            tl:tl_indicator_width="56dp"
+            tl:tl_textSelectColor="@color/color_F0D660"
             tl:tl_textUnselectColor="@color/white"
-            tl:tl_textsize="12sp"
-            tl:tl_underline_height="0dp" />
+            tl:tl_textsize="15sp" />
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

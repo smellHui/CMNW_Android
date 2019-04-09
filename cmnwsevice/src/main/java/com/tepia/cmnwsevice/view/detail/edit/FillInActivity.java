@@ -1,5 +1,6 @@
 package com.tepia.cmnwsevice.view.detail.edit;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.EditText;
@@ -54,6 +55,10 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
+        Intent intent = getIntent();
+        if (intent != null)
+            orderId = intent.getStringExtra("orderId");
+
         dict = DictManager.getInstance().getDictMap();
         if (dict != null) {
             problemTypes = forMap(dict.get("source"));

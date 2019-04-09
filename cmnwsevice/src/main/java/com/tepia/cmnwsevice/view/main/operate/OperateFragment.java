@@ -1,5 +1,6 @@
 package com.tepia.cmnwsevice.view.main.operate;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -11,6 +12,7 @@ import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.view.main.OrderAdapter;
 import com.tepia.cmnwsevice.view.main.OrderPresenter;
 import com.tepia.cmnwsevice.view.main.views.DealTextView;
+import com.tepia.cmnwsevice.view.setting.MineActivity;
 
 /**
  * Author:xch
@@ -43,8 +45,8 @@ public class OperateFragment extends BaseListFragment<OrderBean> {
     protected void initView(View view) {
         super.initView(view);
         setCenterTitle("运维记录");
-        setLeftImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("左边"));
-        setRightImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("右边"));
+        setLeftImgEvent(R.mipmap.wddb_icn_weather, v -> toast("天气"));
+        setRightImgEvent(R.mipmap.wddb_icn_mine, v -> startActivity(new Intent(getActivity(), MineActivity.class)));
 
         pendTv = findView(R.id.view_deal_text_first);
         completeTv = findView(R.id.view_deal_text_second);

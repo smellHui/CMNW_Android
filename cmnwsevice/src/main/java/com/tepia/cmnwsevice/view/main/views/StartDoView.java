@@ -13,7 +13,13 @@ import com.tepia.cmnwsevice.R;
  * Date:2019/4/8
  * Do:
  */
-public class StartDoView extends ViewBase{
+public class StartDoView extends ViewBase {
+
+    private StartClickListener listener;
+
+    public void setListener(StartClickListener listener) {
+        this.listener = listener;
+    }
 
     public StartDoView(Context context) {
         super(context);
@@ -34,6 +40,14 @@ public class StartDoView extends ViewBase{
 
     @Override
     public void initData() {
+        findViewById(R.id.btn_start)
+                .setOnClickListener(v -> {
+                    if (listener == null) return;
+                    listener.startClick();
+                });
+    }
 
+    public interface StartClickListener {
+        void startClick();
     }
 }

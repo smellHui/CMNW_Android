@@ -9,6 +9,7 @@
         android:background="@color/color_666666" />
 
     <com.tepia.cmnwsevice.view.main.views.StartDoView
+        android:id="@+id/view_start_do"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom" />

@@ -11,7 +11,11 @@ import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.adapter.PageAdapter;
+import com.tepia.cmnwsevice.model.event.StartDoCallbackEvent;
 import com.tepia.cmnwsevice.view.main.myagent.MyAgentFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -52,6 +56,7 @@ public class ActionDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         if (intent != null)
             orderId = intent.getStringExtra("orderId");
@@ -65,5 +70,16 @@ public class ActionDetailActivity extends BaseActivity {
     @Override
     protected void initRequestData() {
 
+    }
+
+    @Subscribe
+    public void StartDoCallbackEvent(StartDoCallbackEvent event) {
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
