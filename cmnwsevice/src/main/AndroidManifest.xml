@@ -8,6 +8,7 @@
         <activity android:name=".view.login.LoginActivity" />
 
         <activity android:name=".view.detail.action.ActionDetailActivity" />
+        <activity android:name=".view.detail.action.OrderDetailActivity" />
         <activity android:name=".view.detail.tip.DoingTipActivity" />
         <activity android:name=".view.detail.edit.FillInActivity" />
         <activity android:name=".view.detail.edit.ConfirmSubmitActivity" />

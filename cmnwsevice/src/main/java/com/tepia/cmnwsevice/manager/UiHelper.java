@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.google.common.base.Strings;
 import com.tepia.cmnwsevice.model.order.OrderParamBean;
 import com.tepia.cmnwsevice.view.detail.action.ActionDetailActivity;
+import com.tepia.cmnwsevice.view.detail.action.OrderDetailActivity;
 import com.tepia.cmnwsevice.view.detail.edit.ConfirmSubmitActivity;
 import com.tepia.cmnwsevice.view.detail.edit.FillInActivity;
 import com.tepia.cmnwsevice.view.detail.tip.DoingTipActivity;
@@ -52,13 +53,25 @@ public class UiHelper {
     }
 
     /**
+     * 工单详情
+     *
+     * @param ctx
+     * @param orderId
+     */
+    public static void goToOrderDetailView(Context ctx, String orderId) {
+        Intent intent = new Intent(ctx, OrderDetailActivity.class);
+        intent.putExtra("orderId", orderId);
+        ctx.startActivity(intent);
+    }
+
+    /**
      * 确认提交页面
      *
      * @param ctx
      */
     public static void goToConfirmSubmitView(Context ctx, OrderParamBean orderParamBean) {
         Intent intent = new Intent(ctx, ConfirmSubmitActivity.class);
-        intent.putExtra("orderParamBean",orderParamBean);
+        intent.putExtra("orderParamBean", orderParamBean);
         ctx.startActivity(intent);
     }
 

@@ -91,7 +91,11 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
         if (k != null) {
             List<K> list = k.getResult();
             if (list != null) {
-                getList().addAll(list);
+                if (page == 1 && list.isEmpty()){
+                    getList().clear();
+                }else {
+                    getList().addAll(list);
+                }
                 if (list.size() == 20) {
                     page++;
                     baseQuickAdapter.loadMoreComplete();
@@ -99,9 +103,6 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
                     baseQuickAdapter.loadMoreEnd();
                 }
             } else {
-                if (page == 1){
-                    getList().clear();
-                }
                 baseQuickAdapter.loadMoreEnd();
             }
         } else {

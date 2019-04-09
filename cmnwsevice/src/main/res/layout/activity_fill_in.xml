@@ -26,6 +26,32 @@
 
             <include layout="@layout/toolbar" />
 
+
+            <com.tepia.common_view.ColorArcProgressBar
+                android:id="@+id/cb_tip_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                app:back_color="#ff80daaa"
+                app:back_width="2dp"
+                app:current_value="100"
+                app:is_need_content="true"
+                app:is_need_dial="false"
+                app:is_need_title="true"
+                app:is_need_unit="true"
+                app:max_value="100"
+                app:progress_color="@color/white"
+                app:progress_width="2dp"
+                app:string_content_textsize="40dp"
+                app:string_title="剩余时间"
+                app:string_title_textsize="14dp"
+                app:string_unit="小时"
+                app:string_unit_textsize="14dp"
+                app:thumb_radis="2.5dp"
+                app:total_engle="270"
+                app:width_weight="0.5" />
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -34,32 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <com.tepia.common_view.ColorArcProgressBar
-                        android:id="@+id/cb_tip_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        app:back_color="#ff80daaa"
-                        app:back_width="2dp"
-                        app:current_value="100"
-                        app:is_need_content="true"
-                        app:is_need_dial="false"
-                        app:is_need_title="true"
-                        app:is_need_unit="true"
-                        app:max_value="100"
-                        app:progress_color="@color/white"
-                        app:progress_width="2dp"
-                        app:string_content_textsize="40dp"
-                        app:string_title="剩余时间"
-                        app:string_title_textsize="14dp"
-                        app:string_unit="小时"
-                        app:string_unit_textsize="14dp"
-                        app:thumb_radis="2.5dp"
-                        app:total_engle="270"
-                        app:width_weight="0.5" />
+                    android:orientation="vertical"
+                    android:paddingBottom="30dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"

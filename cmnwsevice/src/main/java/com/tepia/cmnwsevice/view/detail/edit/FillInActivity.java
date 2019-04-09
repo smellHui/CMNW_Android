@@ -101,6 +101,8 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
             orderParamBean.setPartsUse(partsUse);
             orderParamBean.setPartsUseName(partsUses.get(options1));
         });
+
+        setRightTextEvent("工单详情", v -> UiHelper.goToOrderDetailView(this, orderId));
     }
 
     @Override

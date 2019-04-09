@@ -57,11 +57,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
             android:gravity="center_vertical"
             android:text="--"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/gdxq_icn_more"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:visibility="gone" />
 
         <TextView

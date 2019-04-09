@@ -13,7 +13,6 @@ import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.WorkDetailBean;
-import com.tepia.cmnwsevice.view.main.views.ActionInfoView;
 
 /**
  * Author:xch
@@ -49,7 +48,7 @@ public class ActionDetailFragment extends BaseCommonFragment {
     @Override
     protected void initView(View view) {
         mView = DataBindingUtil.bind(view);
-        mView.viewActionInfo.setOnClickListener(v -> UiHelper.goToDoingTipView(getContext(), orderId));
+//        mView.viewActionInfo.setOnClickListener(v -> UiHelper.goToDoingTipView(getContext(), orderId));
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PersistableBundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -99,6 +100,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (loToolbarCommon != null) {
             mImmersionBar.titleBar(loToolbarCommon).init();
         }
+    }
+
+    public void setRightTextEvent(String str, View.OnClickListener clickListener) {
+        tvRightText.setVisibility(View.VISIBLE);
+        tvRightText.setText(str);
+        tvRightText.setOnClickListener(clickListener);
     }
 
 
