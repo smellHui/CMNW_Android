@@ -35,6 +35,15 @@ public class OrderBean {
     private String deviceName;
     private String factor;
     private String partsUse;
+    private int executeStatus;
+
+    public int getExecuteStatus() {
+        return executeStatus;
+    }
+
+    public void setExecuteStatus(int executeStatus) {
+        this.executeStatus = executeStatus;
+    }
 
     public String getId() {
         return Strings.nullToEmpty(id);
@@ -120,6 +129,7 @@ public class OrderBean {
                 ", deviceName='" + deviceName + '\'' +
                 ", factor='" + factor + '\'' +
                 ", partsUse='" + partsUse + '\'' +
+                ", executeStatus=" + executeStatus +
                 '}';
     }
 }

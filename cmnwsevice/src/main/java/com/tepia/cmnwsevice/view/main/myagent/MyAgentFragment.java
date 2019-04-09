@@ -52,7 +52,7 @@ public class MyAgentFragment extends BaseListFragment<OrderBean> {
         pendingTv = findView(R.id.view_deal_text_first);
         returnTv = findView(R.id.view_deal_text_second);
         pendingTv.setTitle("待处理",R.mipmap.wddb_icn_todo);
-        returnTv.setTitle("已退回",R.mipmap.wddb_icn_todo);
+        returnTv.setTitle("已退回",R.mipmap.wddb_icn_return);
         orderPresenter = new OrderPresenter(0, this);
 
     }

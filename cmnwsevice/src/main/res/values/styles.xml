@@ -61,6 +61,11 @@
         <item name="android:textColor">@color/color_333333</item>
     </style>
 
+    <style name="text.orderTitle" parent="text.actionTitle">
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">5dp</item>
+    </style>
+
     <style name="text.actionContent">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/color_666666</item>
@@ -79,7 +84,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/color_AAAAAA</item>
         <item name="android:drawablePadding">8dp</item>
-        <item name="android:drawableRight">@mipmap/img_agrc_service</item>
+        <item name="android:drawableRight">@mipmap/tbxq_icn_pulldown</item>
     </style>
 
     <style name="btn">

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:background="@color/white"
@@ -21,23 +22,25 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="wuhan"
             android:textColor="@color/color_333333"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="wuhan" />
 
         <TextView
+            android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="wuhan"
             android:textColor="@color/color_333333"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:text="wuhan" />
     </LinearLayout>
 
     <TextView

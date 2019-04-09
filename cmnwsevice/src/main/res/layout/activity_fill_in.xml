@@ -1,159 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
+    <data class="FillInDataBindView">
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@color/theam_red" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <include layout="@layout/toolbar" />
-
-        <ScrollView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="200dp"
+            android:src="@color/theam_red" />
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/toolbar" />
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@color/color_666666" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
-                    android:background="@drawable/white_round"
-                    android:orientation="vertical"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="10dp">
-
-                    <LinearLayout style="@style/hor_ll.edit">
-
-                        <TextView
-                            style="@style/text.editTitle"
-                            android:drawableLeft="@mipmap/tjqr_icn_question"
-                            android:text="问题类型" />
-
-                        <TextView
-                            android:id="@+id/tv_problemType"
-                            style="@style/text.editContent"
-                            android:text="请选择" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/hor_ll.edit"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-                            style="@style/text.editTitle"
-                            android:drawableLeft="@mipmap/tjqr_icn_service"
-                            android:text="维修类型" />
-
-                        <TextView
-                            android:id="@+id/tv_repairType"
-                            style="@style/text.editContent"
-                            android:text="请选择" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/hor_ll.edit"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-                            style="@style/text.editTitle"
-                            android:drawableLeft="@mipmap/tjqr_icn_device"
-                            android:text="是否使用备品备件" />
-
-                        <TextView
-                            android:id="@+id/tv_partsUse"
-                            style="@style/text.editContent"
-                            android:text="请选择" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/ver_ll.edit_6"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-                            style="@style/text.editTitle"
-                            android:layout_width="match_parent"
-                            android:drawableLeft="@mipmap/tjqr_icn_detailed"
-                            android:text="维修详情" />
-
-                        <EditText
-                            android:id="@+id/et_handleDes"
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"
-                            android:layout_marginLeft="10dp"
-                            android:background="@null"
-                            android:gravity="top"
-                            android:hint="请描述您的问题"
-                            android:padding="10dp"
-                            android:textColor="@color/color_333333"
-                            android:textColorHint="@color/color_AAAAAA"
-                            android:textCursorDrawable="@null"
-                            android:textSize="14sp" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/ver_ll.edit_6"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-                            style="@style/text.editTitle"
-                            android:layout_width="match_parent"
-                            android:drawableLeft="@mipmap/tjqr_icn_detailed"
-                            android:text="上传现场照片" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_marginTop="10dp"
-                            android:src="@mipmap/img_agrc_service" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
-                        style="@style/btn.small"
-                        android:text="取消" />
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/color_666666" />
 
-                    <Button
-                        android:onClick="confirmSubmit"
-                        style="@style/btn.small"
-                        android:layout_marginLeft="40dp"
-                        android:text="确认" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/white_round"
+                        android:orientation="vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="10dp">
+
+                        <LinearLayout style="@style/hor_ll.edit">
+
+                            <TextView
+                                style="@style/text.editTitle"
+                                android:drawableLeft="@mipmap/tjqr_icn_question"
+                                android:text="问题类型" />
+
+                            <TextView
+                                android:id="@+id/tv_problemType"
+                                style="@style/text.editContent"
+                                android:onClickListener="@{onClickListener}"
+                                android:text="请选择" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/hor_ll.edit"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                style="@style/text.editTitle"
+                                android:drawableLeft="@mipmap/tjqr_icn_service"
+                                android:text="维修类型" />
+
+                            <TextView
+                                android:id="@+id/tv_repairType"
+                                style="@style/text.editContent"
+                                android:onClickListener="@{onClickListener}"
+                                android:text="请选择" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/hor_ll.edit"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                style="@style/text.editTitle"
+                                android:drawableLeft="@mipmap/tjqr_icn_device"
+                                android:text="是否使用备品备件" />
+
+                            <TextView
+                                android:id="@+id/tv_partsUse"
+                                style="@style/text.editContent"
+                                android:onClickListener="@{onClickListener}"
+                                android:text="请选择" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/ver_ll.edit_6"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                style="@style/text.editTitle"
+                                android:layout_width="match_parent"
+                                android:drawableLeft="@mipmap/tjqr_icn_detailed"
+                                android:text="维修详情" />
+
+                            <EditText
+                                android:id="@+id/et_handleDes"
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@null"
+                                android:gravity="top"
+                                android:hint="请描述您的问题"
+                                android:padding="10dp"
+                                android:textColor="@color/color_333333"
+                                android:textColorHint="@color/color_AAAAAA"
+                                android:textCursorDrawable="@null"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/ver_ll.edit_6"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                style="@style/text.editTitle"
+                                android:layout_width="match_parent"
+                                android:drawableLeft="@mipmap/tjqr_icn_picture"
+                                android:text="上传现场照片" />
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@mipmap/img_agrc_service" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <Button
+                            style="@style/btn.small"
+                            android:onClickListener="@{onClickListener}"
+                            android:text="取消" />
+
+                        <Button
+                            style="@style/btn.small"
+                            android:layout_marginLeft="40dp"
+                            android:onClickListener="@{onClickListener}"
+                            android:text="确认" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
+            </ScrollView>
 
-        </ScrollView>
-
-    </LinearLayout>
+        </LinearLayout>
 
 
-</FrameLayout>
+    </FrameLayout>
+</layout>

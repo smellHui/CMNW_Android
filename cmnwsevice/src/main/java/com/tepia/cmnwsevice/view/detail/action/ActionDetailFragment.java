@@ -21,7 +21,6 @@ import com.tepia.cmnwsevice.view.main.views.ActionInfoView;
  */
 public class ActionDetailFragment extends BaseCommonFragment {
 
-    private ActionInfoView actionInfoView;
     private String orderId;
 
     private ActionDetailView mView;
@@ -49,8 +48,7 @@ public class ActionDetailFragment extends BaseCommonFragment {
     @Override
     protected void initView(View view) {
         mView = DataBindingUtil.bind(view);
-        actionInfoView = findView(R.id.view_action_info);
-        actionInfoView.setOnClickListener(v -> UiHelper.goToDoingTipView(getContext(), orderId));
+        mView.viewActionInfo.setOnClickListener(v -> UiHelper.goToDoingTipView(getContext(), orderId));
     }
 
     @Override
@@ -59,8 +57,10 @@ public class ActionDetailFragment extends BaseCommonFragment {
                 .safeSubscribe(new LoadingSubject<BaseCommonResponse<OrderBean>>() {
                     @Override
                     protected void _onNext(BaseCommonResponse<OrderBean> orderBeanBaseCommonResponse) {
-                        System.out.println(orderBeanBaseCommonResponse.toString());
-                        mView.setOrderBean(orderBeanBaseCommonResponse.getData());
+                        OrderBean orderBean = orderBeanBaseCommonResponse.getData();
+                        if (orderBean == null) return;
+                        mView.setOrderBean(orderBean);
+                        mView.viewActionInfo.setData(orderBean.getOrderName(), orderBean.getAreaName());
                     }
 
                     @Override

@@ -45,7 +45,7 @@ public class DoingFragment extends BaseListFragment<OrderBean> {
         secondTv.setVisibility(View.GONE);
         doingCountTv.setTitle("处理中", R.mipmap.wddb_icn_todo);
 
-        orderPresenter = OrderPresenter.getInstance(2, this);
+        orderPresenter = OrderPresenter.getInstance(1, this);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.tepia.cmnwsevice.view.detail.edit;
 
+import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.databinding.FillInDataBindView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.dict.DictManager;
 import com.tepia.cmnwsevice.model.order.OrderManager;
@@ -26,21 +28,16 @@ import javax.annotation.Nullable;
  * Date:2019/4/8
  * Do:工单填报
  */
-public class FillInActivity extends BaseActivity {
+public class FillInActivity extends BaseActivity implements View.OnClickListener {
 
     private String orderId;
 
-    private TextView tv_problemType;
-    private TextView tv_repairType;
-    private TextView tv_partsUse;
-    private EditText et_handleDes;
-
+    private FillInDataBindView mView;
     private OptionsPickerView problemPickerView, repairPickerView, partsUsesPickerView;
 
     private Map<String, Map<String, String>> dict;
     private List<String> problemTypes, repairTypes, partsUses;
     private String handleDes, repairType, problemType, partsUse;
-
 
     @Override
     public int getLayoutId() {
@@ -49,18 +46,10 @@ public class FillInActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mView = DataBindingUtil.bind(mRootView);
+        mView.setOnClickListener(this);
         setCenterTitle("工单填报");
         showBack();
-
-        tv_problemType = findViewById(R.id.tv_problemType);
-        tv_repairType = findViewById(R.id.tv_repairType);
-        tv_partsUse = findViewById(R.id.tv_partsUse);
-        et_handleDes = findViewById(R.id.et_handleDes);
-
-        tv_problemType.setOnClickListener(v -> problemPickerView.show());
-        tv_repairType.setOnClickListener(v -> repairPickerView.show());
-        tv_partsUse.setOnClickListener(v -> partsUsesPickerView.show());
-
     }
 
     @Override
@@ -78,15 +67,15 @@ public class FillInActivity extends BaseActivity {
     @Override
     protected void initListener() {
         problemPickerView = initNoLinkOptionsPicker(problemTypes, (options1, options2, options3, v) -> {
-            tv_problemType.setText(problemTypes.get(options1));
+            mView.tvProblemType.setText(problemTypes.get(options1));
             problemType = options1 + "";
         });
         repairPickerView = initNoLinkOptionsPicker(repairTypes, (options1, options2, options3, v) -> {
-            tv_repairType.setText(repairTypes.get(options1));
+            mView.tvRepairType.setText(repairTypes.get(options1));
             repairType = options1 + "";
         });
         partsUsesPickerView = initNoLinkOptionsPicker(partsUses, (options1, options2, options3, v) -> {
-            tv_partsUse.setText(partsUses.get(options1));
+            mView.tvPartsUse.setText(partsUses.get(options1));
             partsUse = options1 + "";
         });
     }
@@ -130,5 +119,20 @@ public class FillInActivity extends BaseActivity {
         pvNoLinkOptions.setNPicker(list, null, null);
         pvNoLinkOptions.setSelectOptions(0, 1, 1);
         return pvNoLinkOptions;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        int i = v.getId();
+        if (i == R.id.tv_problemType) {
+            problemPickerView.show();
+        }
+        if (i == R.id.tv_repairType) {
+            repairPickerView.show();
+        }
+        if (i == R.id.tv_partsUse) {
+            partsUsesPickerView.show();
+        }
     }
 }

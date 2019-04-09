@@ -33,10 +33,8 @@
                 <LinearLayout style="@style/hor_ll.action">
 
                     <TextView
-                        style="@style/text.actionTitle"
+                        style="@style/text.orderTitle"
                         android:drawableLeft="@mipmap/tjqr_icn_question"
-                        android:drawablePadding="10dp"
-                        android:gravity="center"
                         android:text="问题类型" />
 
                     <TextView
@@ -47,10 +45,9 @@
                 <LinearLayout style="@style/hor_ll.action">
 
                     <TextView
-                        style="@style/text.actionTitle"
+                        style="@style/text.orderTitle"
                         android:drawableLeft="@mipmap/tjqr_icn_service"
-                        android:drawablePadding="10dp"
-                        android:gravity="center"
+
                         android:text="维修类型" />
 
                     <TextView
@@ -61,10 +58,8 @@
                 <LinearLayout style="@style/hor_ll.action">
 
                     <TextView
-                        style="@style/text.actionTitle"
+                        style="@style/text.orderTitle"
                         android:drawableLeft="@mipmap/tjqr_icn_device"
-                        android:drawablePadding="10dp"
-                        android:gravity="center"
                         android:text="是否使用备品备件" />
 
                     <TextView
@@ -75,10 +70,8 @@
                 <LinearLayout style="@style/ver_ll.confirm">
 
                     <TextView
-                        style="@style/text.actionTitle"
+                        style="@style/text.orderTitle"
                         android:drawableLeft="@mipmap/tjqr_icn_detailed"
-                        android:drawablePadding="10dp"
-                        android:gravity="center"
                         android:text="维修详情" />
 
                     <TextView
@@ -93,10 +86,8 @@
                     android:layout_marginTop="15dp">
 
                     <TextView
-                        style="@style/text.actionTitle"
-                        android:drawableLeft="@mipmap/img_agrc_service"
-                        android:drawablePadding="10dp"
-                        android:gravity="center"
+                        style="@style/text.orderTitle"
+                        android:drawableLeft="@mipmap/tjqr_icn_picture"
                         android:text="上传现场照片" />
 
                     <ImageView
