@@ -1,5 +1,6 @@
 package com.tepia.cmnwsevice.view.main.myagent;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -11,6 +12,7 @@ import com.tepia.cmnwsevice.model.order.OrderCountBean;
 import com.tepia.cmnwsevice.view.main.OrderAdapter;
 import com.tepia.cmnwsevice.view.main.OrderPresenter;
 import com.tepia.cmnwsevice.view.main.views.DealTextView;
+import com.tepia.cmnwsevice.view.setting.MineActivity;
 
 /**
  * Author:xch
@@ -42,8 +44,10 @@ public class MyAgentFragment extends BaseListFragment<OrderBean> {
     protected void initView(View view) {
         super.initView(view);
         setCenterTitle("我的代办");
-        setLeftImgEvent(R.mipmap.wddb_icn_weather, v -> toast("左边"));
-        setRightImgEvent(R.mipmap.wddb_icn_mine, v -> toast("右边"));
+        setLeftImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("左边"));
+        setRightImgEvent(R.mipmap.ic_mine_header_footprint, v -> {
+            startActivity(new Intent(getActivity(),MineActivity.class));
+        });
 
         pendingTv = findView(R.id.view_deal_text_first);
         returnTv = findView(R.id.view_deal_text_second);

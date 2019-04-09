@@ -6,4 +6,5 @@
     <string name="login_btn">登陆</string>
     <string name="no_network">请先连接网络</string>
     <string name="setting_title">我的</string>
+    <string name="exit_message">是否确定退出登录？</string>
 </resources>

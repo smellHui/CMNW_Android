@@ -66,7 +66,7 @@ public class PointImageView extends ImageView {
 
         paintText= new TextPaint();
         paintText.setColor(0xffffffff);//白色
-        paintText.setTextSize(20);//设置显示条数的文本大小
+        paintText.setTextSize(25);//设置显示条数的文本大小
         paintText.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);//实心
     }

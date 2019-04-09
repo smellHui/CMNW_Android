@@ -11,25 +11,25 @@ package com.tepia.cmnwsevice.model.user;
  **/
 public  class UserBean {
     /**
-     * userId : 1
-     * nickName : admin
-     * username : admin
-     * password : it's a secret
-     * deptId : 1
-     * email : mrbird123@hotmail.com
-     * mobile : 13455533233
-     * status : 1
-     * createTime : 2019-04-04 21:08:11
-     * modifyTime : 2019-01-17 02:34:19
-     * lastLoginTime : 2019-01-28 01:53:58
-     * sex : 2
-     * description : 我是mrbird
-     * avatar : ubnKSIfAJTxIgXOKlciN.png
-     * roleId : null
-     * areaCode : 310230000
-     * roles : null
+     * userId : 1   用户ID
+     * nickName : admin 昵称
+     * username : admin 用户名
+     * password : it's a secret   密码
+     * deptId : 1       部门ID
+     * email : mrbird123@hotmail.com    邮箱
+     * mobile : 13455533233 手机号
+     * status : 1   状态 (0=锁定,1=有效)
+     * createTime : 2019-04-04 21:08:11 创建时间
+     * modifyTime : 2019-01-17 02:34:19 修改时间
+     * lastLoginTime : 2019-01-28 01:53:58  最后一次登录时间
+     * sex : 2  性别 (0=男,1=女,2=保密)
+     * description : 我是mrbird   描述
+     * avatar : ubnKSIfAJTxIgXOKlciN.png    头像地址
+     * roleId : null    角色ID
+     * areaCode : 310230000 行政区域code
+     * roles : null 角色集合
      * roleIds : null
-     * permissions : null
+     * permissions : null   权限集合
      */
 
     private int userId;

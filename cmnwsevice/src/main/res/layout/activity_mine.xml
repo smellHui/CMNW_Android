@@ -14,7 +14,7 @@
             android:layout_height="181dp"
             android:contentDescription="TODO"
             android:scaleType="fitXY"
-            android:src="@color/theam_red" />
+            android:src="@mipmap/tjqr_pic_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,25 +37,26 @@
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="94dp"
                         android:layout_marginTop="7dp"
                         android:layout_marginEnd="15dp"
                         android:orientation="vertical">
                         <TextView
+                            android:id="@+id/tv_username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="张三"
+                            android:text="--"
                             android:textColor="#333333"
                             android:singleLine="true"
                             android:maxLines="1"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/tv_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="企业名称"
+                            android:text="--"
                             android:singleLine="true"
                             android:maxLines="1"
                             android:layout_marginTop="5dp"
@@ -68,11 +69,131 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:orientation="horizontal">
-                        <include layout="@layout/mine_event_item"/>
-                        <include layout="@layout/mine_event_item"/>
-                        <include layout="@layout/mine_event_item"/>
-                        <include layout="@layout/mine_event_item"/>
-                        <include layout="@layout/mine_event_item"/>
+                        <!--<include layout="@layout/mine_event_item" android:id="@+id/layout_toExecute"/>-->
+                        <!--<include layout="@layout/mine_event_item" android:id="@+id/layout_toBack"/>-->
+                        <!--<include layout="@layout/mine_event_item" android:id="@+id/layout_onExecute"/>-->
+                        <!--<include layout="@layout/mine_event_item" android:id="@+id/layout_toExamine"/>-->
+                        <!--<include layout="@layout/mine_event_item" android:id="@+id/layout_done"/>-->
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <com.tepia.cmnwsevice.view.setting.view.PointImageView
+                                android:id="@+id/iv_toExecute_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/mine_icn_todo"
+                                android:padding="8dp"
+                                android:layout_centerHorizontal="true"/>
+
+                            <TextView
+                                android:id="@+id/tv_toExecute_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="待处理"
+                                android:textColor="#333333"
+                                android:layout_below="@+id/iv_toExecute_event"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="13sp" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <com.tepia.cmnwsevice.view.setting.view.PointImageView
+                                android:id="@+id/iv_toBack_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/mine_icn_return"
+                                android:padding="8dp"
+                                android:layout_centerHorizontal="true"/>
+
+                            <TextView
+                                android:id="@+id/tv_toBack_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="已退回"
+                                android:textColor="#333333"
+                                android:layout_below="@+id/iv_toBack_event"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="13sp" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <com.tepia.cmnwsevice.view.setting.view.PointImageView
+                                android:id="@+id/iv_onExecute_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/mine_icn_doing"
+                                android:padding="8dp"
+                                android:layout_centerHorizontal="true"/>
+
+                            <TextView
+                                android:id="@+id/tv_onExecute_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="处理中"
+                                android:textColor="#333333"
+                                android:layout_below="@+id/iv_onExecute_event"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="13sp" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <com.tepia.cmnwsevice.view.setting.view.PointImageView
+                                android:id="@+id/iv_toExamine_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/mine_icn_dsh"
+                                android:padding="8dp"
+                                android:layout_centerHorizontal="true"/>
+
+                            <TextView
+                                android:id="@+id/tv_toExamine_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="待审核"
+                                android:textColor="#333333"
+                                android:layout_below="@+id/iv_toExamine_event"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="13sp" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <com.tepia.cmnwsevice.view.setting.view.PointImageView
+                                android:id="@+id/iv_done_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/mine_icn_finish"
+                                android:padding="8dp"
+                                android:layout_centerHorizontal="true"/>
+
+                            <TextView
+                                android:id="@+id/tv_done_event"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="已完结"
+                                android:textColor="#333333"
+                                android:layout_below="@+id/iv_done_event"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="13sp" />
+                        </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -93,11 +214,167 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+      <!--              <include layout="@layout/mine_setting_item"/>
                     <include layout="@layout/mine_setting_item"/>
                     <include layout="@layout/mine_setting_item"/>
-                    <include layout="@layout/mine_setting_item"/>
-                    <include layout="@layout/mine_setting_item"/>
+                    <include layout="@layout/mine_setting_item"/>-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:background="@color/white"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_phone"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@mipmap/mine_icn_phone" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#666666"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/iv_phone"
+                            android:text="电话"/>
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="12dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="10dp"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/add_more"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#DDDDDD"
+                            android:layout_marginStart="50dp"
+                            android:layout_alignParentBottom="true"
+                            />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:background="@color/white"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_icn_user"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/mine_icn_user"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#666666"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/iv_icn_user"
+                            android:text="账户管理"/>
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="12dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="10dp"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/add_more"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#DDDDDD"
+                            android:layout_marginStart="50dp"
+                            android:layout_alignParentBottom="true"
+                            />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:background="@color/white"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_clock"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/mine_icn_clock"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#666666"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/iv_clock"
+                            android:text="处理提醒"/>
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="12dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="10dp"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/add_more"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#DDDDDD"
+                            android:layout_marginStart="50dp"
+                            android:layout_alignParentBottom="true"
+                            />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:background="@color/white"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_setting"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/mine_icn_preferences"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#666666"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/iv_setting"
+                            android:text="设置"/>
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="12dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="10dp"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/add_more"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#DDDDDD"
+                            android:layout_marginStart="50dp"
+                            android:layout_alignParentBottom="true"
+                            />
+
+                    </RelativeLayout>
                     <TextView
+                        android:id="@+id/tv_logout"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:text="退出登陆"
