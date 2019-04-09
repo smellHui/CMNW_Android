@@ -16,8 +16,12 @@ import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.databinding.FillInDataBindView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.dict.DictManager;
+import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.OrderParamBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,7 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         if (intent != null)
             orderId = intent.getStringExtra("orderId");
@@ -134,10 +139,22 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
             partsUsesPickerView.show();
         }
         if (i == R.id.btn_query) {
+            orderParamBean.setHandleDes(mView.etHandleDes.getText().toString().trim());
             UiHelper.goToConfirmSubmitView(FillInActivity.this, orderParamBean);
         }
         if (i == R.id.btn_cancel) {
             finish();
         }
+    }
+
+    @Subscribe
+    public void CompleteCallbackEvent(CompleteCallbackEvent event){
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

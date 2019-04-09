@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.manager.UiHelper;
+import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
 import com.tepia.cmnwsevice.model.event.StartDoCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.view.main.OrderAdapter;
@@ -80,6 +81,11 @@ public class DoingFragment extends BaseListFragment<OrderBean> {
 
     @Subscribe
     public void StartDoCallbackEvent(StartDoCallbackEvent event) {
+        refresh();
+    }
+
+    @Subscribe
+    public void CompleteCallbackEvent(CompleteCallbackEvent event) {
         refresh();
     }
 

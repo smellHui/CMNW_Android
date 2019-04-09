@@ -5,6 +5,10 @@
     <data class="DoingTipView">
 
         <variable
+            name="OnClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
             name="date"
             type="java.util.Date" />
 
@@ -93,9 +97,10 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_fill"
+            android:onClickListener="@{OnClickListener}"
             style="@style/btn.tip"
             android:layout_marginTop="30dp"
-            android:onClick="fillIn"
             android:text="已完成，去填报" />
 
     </LinearLayout>

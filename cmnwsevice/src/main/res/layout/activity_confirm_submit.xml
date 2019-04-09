@@ -90,7 +90,7 @@
 
                         <TextView
                             style="@style/text.actionContent"
-                            android:layout_marginLeft="34dp"
+                            android:layout_marginLeft="22dp"
                             android:layout_marginTop="4dp"
                             android:text="@{OrderParamBean.getHandleDes()}" />
                     </LinearLayout>
@@ -119,13 +119,16 @@
                             android:orientation="horizontal">
 
                             <Button
+                                android:id="@+id/btn_revise"
                                 style="@style/btn.small"
+                                android:onClickListener="@{OnClickListener}"
                                 android:text="修改" />
 
                             <Button
+                                android:id="@+id/btn_submit"
                                 style="@style/btn.small"
                                 android:layout_marginLeft="40dp"
-                                android:onClick="submit"
+                                android:onClickListener="@{OnClickListener}"
                                 android:text="提交" />
 
                         </LinearLayout>

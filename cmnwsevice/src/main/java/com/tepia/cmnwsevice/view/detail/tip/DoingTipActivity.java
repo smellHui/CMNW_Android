@@ -11,9 +11,13 @@ import com.tepia.base.mvp.BaseActivity;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.databinding.DoingTipView;
 import com.tepia.cmnwsevice.manager.UiHelper;
+import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.WorkDetailBean;
 import com.tepia.common_view.ColorArcProgressBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Date;
 
@@ -22,7 +26,7 @@ import java.util.Date;
  * Date:2019/4/8
  * Do:处理中提示页
  */
-public class DoingTipActivity extends BaseActivity {
+public class DoingTipActivity extends BaseActivity implements View.OnClickListener {
 
     private String orderId;
     private TextView sendTimeTv;
@@ -40,6 +44,7 @@ public class DoingTipActivity extends BaseActivity {
     @Override
     public void initView() {
         mView = DataBindingUtil.bind(mRootView);
+        mView.setOnClickListener(this);
         mView.setDate(new Date());
         setCenterTitle("2019-3-31卫星村1号站");
         showBack();
@@ -53,6 +58,7 @@ public class DoingTipActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         if (intent != null)
             orderId = intent.getStringExtra("orderId");
@@ -83,7 +89,22 @@ public class DoingTipActivity extends BaseActivity {
                 });
     }
 
-    public void fillIn(View view) {
-        UiHelper.goToFillInView(this,orderId);
+    @Subscribe
+    public void CompleteCallbackEvent(CompleteCallbackEvent event) {
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.btn_fill){
+            UiHelper.goToFillInView(this,orderId);
+        }
     }
 }

@@ -48,9 +48,7 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
             throw new RuntimeException("not found RecyclerView");
 
         setVerModel();
-
         swipeRefreshLayout.setOnRefreshListener(this::refresh);
-
     }
 
     public void refresh() {
@@ -74,7 +72,7 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
         int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
         rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
         rv.setAdapter(baseQuickAdapter);
-
+        baseQuickAdapter.setEmptyView(R.layout.view_empty_list_view);
         baseQuickAdapter.setOnItemClickListener(this::setOnItemClickListener);
     }
 

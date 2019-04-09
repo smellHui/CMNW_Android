@@ -8,11 +8,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.view.main.OrderAdapter;
 import com.tepia.cmnwsevice.view.main.OrderPresenter;
 import com.tepia.cmnwsevice.view.main.views.DealTextView;
 import com.tepia.cmnwsevice.view.setting.MineActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Author:xch
@@ -37,7 +41,7 @@ public class OperateFragment extends BaseListFragment<OrderBean> {
 
     @Override
     protected void initData() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -80,5 +84,16 @@ public class OperateFragment extends BaseListFragment<OrderBean> {
         ARouter.getInstance().build(AppRoutePath.app_cmnw_activity_order_operate)
                 .withString("orderId", orderBean.getId() + "")
                 .navigation();
+    }
+
+    @Subscribe
+    public void CompleteCallbackEvent(CompleteCallbackEvent event) {
+        refresh();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
