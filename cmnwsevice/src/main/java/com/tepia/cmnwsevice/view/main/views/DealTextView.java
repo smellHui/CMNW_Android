@@ -2,13 +2,13 @@ package com.tepia.cmnwsevice.view.main.views;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.tepia.cmnwsevice.R;
-
 
 
 /**
@@ -42,17 +42,19 @@ public class DealTextView extends ViewBase {
     public void initData() {
         tipTv = findViewById(R.id.tv_tip);
         countTv = findViewById(R.id.tv_count);
-        Drawable dra = getResources().getDrawable(R.mipmap.ic_mine_header_footprint);
+    }
+
+    public void setTitle(@Nullable String title, @DrawableRes int id) {
+        tipTv.setText(title);
+        if (id == -1) id = R.mipmap.wddb_icn_todo;
+        Drawable dra = getResources().getDrawable(id);
         dra.setBounds(0, 0, dra.getMinimumWidth(), dra.getMinimumHeight());
         tipTv.setCompoundDrawables(dra, null, null, null);
     }
 
-    public void setTitle(@Nullable String title){
-        tipTv.setText(title);
-    }
-
-    public void setCount(String count){
+    public void setCount(String count) {
         countTv.setText(count);
     }
+
 
 }

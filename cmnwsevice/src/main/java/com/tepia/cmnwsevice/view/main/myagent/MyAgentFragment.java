@@ -42,13 +42,13 @@ public class MyAgentFragment extends BaseListFragment<OrderBean> {
     protected void initView(View view) {
         super.initView(view);
         setCenterTitle("我的代办");
-        setLeftImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("左边"));
-        setRightImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("右边"));
+        setLeftImgEvent(R.mipmap.wddb_icn_weather, v -> toast("左边"));
+        setRightImgEvent(R.mipmap.wddb_icn_mine, v -> toast("右边"));
 
-        pendingTv = findView(R.id.view_deal_text);
-        returnTv = findView(R.id.view_return_text);
-        pendingTv.setTitle("待处理");
-        returnTv.setTitle("已退回");
+        pendingTv = findView(R.id.view_deal_text_first);
+        returnTv = findView(R.id.view_deal_text_second);
+        pendingTv.setTitle("待处理",R.mipmap.wddb_icn_todo);
+        returnTv.setTitle("已退回",R.mipmap.wddb_icn_todo);
         orderPresenter = new OrderPresenter(0, this);
 
     }

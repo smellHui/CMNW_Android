@@ -17,7 +17,7 @@ import com.tepia.cmnwsevice.view.main.views.DealTextView;
  */
 public class DoingFragment extends BaseListFragment<OrderBean> {
 
-    private DealTextView doingCountTv;
+    private DealTextView doingCountTv, secondTv;
     private OrderPresenter orderPresenter;
 
     public static DoingFragment launch() {
@@ -26,7 +26,7 @@ public class DoingFragment extends BaseListFragment<OrderBean> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_doing;
+        return R.layout.fragment_myagent;
     }
 
     @Override
@@ -41,7 +41,9 @@ public class DoingFragment extends BaseListFragment<OrderBean> {
         setLeftImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("左边"));
         setRightImgEvent(R.mipmap.ic_mine_header_footprint, v -> toast("右边"));
         doingCountTv = findView(R.id.view_deal_text_first);
-        doingCountTv.setTitle("处理中");
+        secondTv = findView(R.id.view_deal_text_second);
+        secondTv.setVisibility(View.GONE);
+        doingCountTv.setTitle("处理中", R.mipmap.wddb_icn_todo);
 
         orderPresenter = OrderPresenter.getInstance(2, this);
     }

@@ -30,7 +30,7 @@ public class OperateFragment extends BaseListFragment<OrderBean> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_operate;
+        return R.layout.fragment_myagent;
     }
 
     @Override
@@ -47,8 +47,8 @@ public class OperateFragment extends BaseListFragment<OrderBean> {
 
         pendTv = findView(R.id.view_deal_text_first);
         completeTv = findView(R.id.view_deal_text_second);
-        pendTv.setTitle("待审核");
-        completeTv.setTitle("已完结");
+        pendTv.setTitle("待审核", R.mipmap.ywjl_icn_dsc);
+        completeTv.setTitle("已完结", R.mipmap.ywjl_icn_finish);
 
         orderPresenter = new OrderPresenter(2, this);
     }
