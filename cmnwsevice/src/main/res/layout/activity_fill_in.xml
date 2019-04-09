@@ -151,11 +151,13 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/btn_cancel"
                             style="@style/btn.small"
                             android:onClickListener="@{onClickListener}"
                             android:text="取消" />
 
                         <Button
+                            android:id="@+id/btn_query"
                             style="@style/btn.small"
                             android:layout_marginLeft="40dp"
                             android:onClickListener="@{onClickListener}"

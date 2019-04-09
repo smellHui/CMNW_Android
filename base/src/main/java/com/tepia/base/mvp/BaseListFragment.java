@@ -8,6 +8,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.R;
 import com.tepia.base.model.PageBean;
+import com.tepia.base.view.WrapLayoutManager;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 
 import java.util.List;
@@ -48,13 +49,11 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
 
         setVerModel();
 
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            refresh();
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::refresh);
 
     }
 
-    public void refresh(){
+    public void refresh() {
         swipeRefreshLayout.setRefreshing(true);
         page = 1;
         getList().clear();
@@ -71,7 +70,7 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
         baseQuickAdapter = getBaseQuickAdapter();
         baseQuickAdapter.setEnableLoadMore(true);
         baseQuickAdapter.setOnLoadMoreListener(this::initRequestData, rv);
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setLayoutManager(new WrapLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
         rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
         rv.setAdapter(baseQuickAdapter);
@@ -93,7 +92,7 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
     public void success(PageBean<K> k) {
         if (k != null) {
             List<K> list = k.getResult();
-            if (list != null && !list.isEmpty()) {
+            if (list != null) {
                 getList().addAll(list);
                 if (list.size() == 20) {
                     page++;

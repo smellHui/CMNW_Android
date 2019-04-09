@@ -26,20 +26,9 @@ import java.util.List;
 
 public class OrderPresenter {
 
-    private static OrderPresenter orderPresenter;
-
     private List<Integer> executeStatusArray;
 
     private NetListListener<PageBean<OrderBean>> netListListener;
-
-    public static OrderPresenter getInstance(int type, NetListListener<PageBean<OrderBean>> netListListener) {
-        synchronized (ApiManager.class) {
-            if (orderPresenter == null) {
-                orderPresenter = new OrderPresenter(type, netListListener);
-            }
-        }
-        return orderPresenter;
-    }
 
     /**
      * @param type            {0,1,2 代表第几个页面}

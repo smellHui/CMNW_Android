@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.common.base.Strings;
+import com.tepia.cmnwsevice.model.order.OrderParamBean;
 import com.tepia.cmnwsevice.view.detail.action.ActionDetailActivity;
 import com.tepia.cmnwsevice.view.detail.edit.ConfirmSubmitActivity;
 import com.tepia.cmnwsevice.view.detail.edit.FillInActivity;
@@ -55,8 +56,10 @@ public class UiHelper {
      *
      * @param ctx
      */
-    public static void goToConfirmSubmitView(Context ctx) {
-        ctx.startActivity(new Intent(ctx, ConfirmSubmitActivity.class));
+    public static void goToConfirmSubmitView(Context ctx, OrderParamBean orderParamBean) {
+        Intent intent = new Intent(ctx, ConfirmSubmitActivity.class);
+        intent.putExtra("orderParamBean",orderParamBean);
+        ctx.startActivity(intent);
     }
 
     /**

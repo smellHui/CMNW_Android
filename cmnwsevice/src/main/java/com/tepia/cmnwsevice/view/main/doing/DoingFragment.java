@@ -52,7 +52,7 @@ public class DoingFragment extends BaseListFragment<OrderBean> {
         secondTv.setVisibility(View.GONE);
         doingCountTv.setTitle("处理中", R.mipmap.wddb_icn_todo);
 
-        orderPresenter = OrderPresenter.getInstance(1, this);
+        orderPresenter = new OrderPresenter(1, this);
     }
 
     @Override
@@ -63,9 +63,7 @@ public class DoingFragment extends BaseListFragment<OrderBean> {
     @Override
     public void onResume() {
         super.onResume();
-        orderPresenter.getOrderCount(orderCount -> {
-            doingCountTv.setCount(orderCount.getOnExecute());
-        });
+        orderPresenter.getOrderCount(orderCount -> doingCountTv.setCount(orderCount.getOnExecute()));
     }
 
     @Override

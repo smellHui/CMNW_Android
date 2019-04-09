@@ -50,19 +50,20 @@ public class ToDoFragment extends BaseCommonFragment {
         startDoView = findView(R.id.view_start_do);
 
         startDoView.setListener(() -> {
-            EventBus.getDefault().post(new StartDoCallbackEvent());
-//                    OrderManager.getInstance().startOrder()
-//                            .safeSubscribe(new LoadingSubject<BaseResponse>() {
-//                                @Override
-//                                protected void _onNext(BaseResponse baseResponse) {
-//                                    EventBus.getDefault().post(new StartDoCallbackEvent());
-//                                }
-//
-//                                @Override
-//                                protected void _onError(String message) {
-//                                    ToastUtils.shortToast(message);
-//                                }
-//                            });
+//            EventBus.getDefault().post(new StartDoCallbackEvent());
+                    OrderManager.getInstance().startOrder("id", orderId
+                            , "lgtd", "", "lttd", "")
+                            .safeSubscribe(new LoadingSubject<BaseResponse>() {
+                                @Override
+                                protected void _onNext(BaseResponse baseResponse) {
+                                    EventBus.getDefault().post(new StartDoCallbackEvent());
+                                }
+
+                                @Override
+                                protected void _onError(String message) {
+                                    ToastUtils.shortToast(message);
+                                }
+                            });
                 }
         );
     }

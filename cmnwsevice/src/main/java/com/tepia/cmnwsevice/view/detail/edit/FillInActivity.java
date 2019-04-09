@@ -17,6 +17,7 @@ import com.tepia.cmnwsevice.databinding.FillInDataBindView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.dict.DictManager;
 import com.tepia.cmnwsevice.model.order.OrderManager;
+import com.tepia.cmnwsevice.model.order.OrderParamBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
     private Map<String, Map<String, String>> dict;
     private List<String> problemTypes, repairTypes, partsUses;
     private String handleDes, repairType, problemType, partsUse;
+    private OrderParamBean orderParamBean;
 
     @Override
     public int getLayoutId() {
@@ -67,6 +69,9 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
         partsUses = new ArrayList<>();
         partsUses.add("未使用");
         partsUses.add("使用");
+
+        orderParamBean = new OrderParamBean();
+        orderParamBean.setId(orderId);
     }
 
     @Override
@@ -74,36 +79,25 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
         problemPickerView = initNoLinkOptionsPicker(problemTypes, (options1, options2, options3, v) -> {
             mView.tvProblemType.setText(problemTypes.get(options1));
             problemType = options1 + "";
+            orderParamBean.setProblemType(problemType);
+            orderParamBean.setProblemName(problemTypes.get(options1));
         });
         repairPickerView = initNoLinkOptionsPicker(repairTypes, (options1, options2, options3, v) -> {
             mView.tvRepairType.setText(repairTypes.get(options1));
             repairType = options1 + "";
+            orderParamBean.setRepairType(repairType);
+            orderParamBean.setRepairName(repairTypes.get(options1));
         });
         partsUsesPickerView = initNoLinkOptionsPicker(partsUses, (options1, options2, options3, v) -> {
             mView.tvPartsUse.setText(partsUses.get(options1));
             partsUse = options1 + "";
+            orderParamBean.setPartsUse(partsUse);
+            orderParamBean.setPartsUseName(partsUses.get(options1));
         });
     }
 
     @Override
     protected void initRequestData() {
-
-    }
-
-    public void confirmSubmit(View view) {
-        OrderManager.getInstance().doneOrder("id", orderId, "handleDes", handleDes
-                , "repairType", repairType, "problemType", problemType, "partsUse", partsUse)
-                .safeSubscribe(new LoadingSubject<BaseCommonResponse>() {
-                    @Override
-                    protected void _onNext(BaseCommonResponse baseCommonResponse) {
-                        UiHelper.goToConfirmSubmitView(FillInActivity.this);
-                    }
-
-                    @Override
-                    protected void _onError(String message) {
-
-                    }
-                });
 
     }
 
@@ -138,6 +132,12 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
         }
         if (i == R.id.tv_partsUse) {
             partsUsesPickerView.show();
+        }
+        if (i == R.id.btn_query) {
+            UiHelper.goToConfirmSubmitView(FillInActivity.this, orderParamBean);
+        }
+        if (i == R.id.btn_cancel) {
+            finish();
         }
     }
 }
