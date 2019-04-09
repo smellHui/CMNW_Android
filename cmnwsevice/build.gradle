@@ -121,6 +121,7 @@ dependencies {
 
     implementation project(':base')
     implementation project(':common_datamodel')
+    implementation project(':photopicker')
 
     implementation rootProject.ext.dependencies.design
 

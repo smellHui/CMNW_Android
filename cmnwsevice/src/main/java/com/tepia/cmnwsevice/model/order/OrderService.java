@@ -95,7 +95,7 @@ public interface OrderService {
      */
 
     @GET("order/examineList/{orderId}")
-    Observable<BaseCommonResponse> getOrderExamineList(@Header("token") String token, @Path("orderId") String orderId);
+    Observable<BaseCommonResponse<List<ExamineBean>>> getOrderExamineList(@Header("token") String token, @Path("orderId") String orderId);
 
     /**
      * 【查询】查询工单下发候选用户列表

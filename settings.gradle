@@ -1,1 +1,1 @@
-include ':app', ':base', ':ar', ':common_datamodel', ':common_view', ':cmnwsevice'
+include ':app', ':base', ':ar', ':common_datamodel', ':common_view', ':cmnwsevice', ':photopicker'

@@ -23,6 +23,7 @@ public class OperateFragment extends BaseListFragment<OrderBean> {
     private DealTextView completeTv;
 
     private OrderPresenter orderPresenter;
+    private OrderAdapter orderAdapter;
 
     public static OperateFragment launch() {
         return new OperateFragment();
@@ -69,13 +70,15 @@ public class OperateFragment extends BaseListFragment<OrderBean> {
 
     @Override
     public BaseQuickAdapter getBaseQuickAdapter() {
-        return new OrderAdapter();
+        orderAdapter = new OrderAdapter();
+        return orderAdapter;
     }
 
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
+        OrderBean orderBean = orderAdapter.getData().get(position);
         ARouter.getInstance().build(AppRoutePath.app_cmnw_activity_order_operate)
-                .withString("orderId", "1114816161280811009")
+                .withString("orderId", orderBean.getId() + "")
                 .navigation();
     }
 }

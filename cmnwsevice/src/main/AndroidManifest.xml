@@ -12,6 +12,7 @@
         <activity android:name=".view.detail.edit.FillInActivity" />
         <activity android:name=".view.detail.edit.ConfirmSubmitActivity" />
         <activity android:name=".view.feedback.FeedBackSucActivity" />
+        <!--运维工单页-->
         <activity android:name=".view.detail.operationdetail.OperationDetailActivty" />
         <!--我的页面-->
         <activity android:name=".view.setting.MineActivity" />

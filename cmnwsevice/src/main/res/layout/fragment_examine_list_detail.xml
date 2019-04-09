@@ -8,29 +8,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            style="@style/hor_ll.action"
-            android:layout_marginTop="12dp">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_examine"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="工单来源" />
 
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="报警时间" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
     </LinearLayout>
 </layout>

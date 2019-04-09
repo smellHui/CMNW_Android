@@ -20,7 +20,7 @@ import com.tepia.cmnwsevice.model.order.OrderManager;
 public class OptationDetailPresenter extends BasePresenterImpl<OprationDetailContract.View> implements OprationDetailContract.Presenter{
 
     public void getOrderOprationDetail(String orderId) {
-        OrderManager.getInstance().getOrderOperationDetail(orderId).safeSubscribe(new LoadingSubject<BaseCommonResponse<OperationBean>>() {
+        OrderManager.getInstance().getOrderOperationDetail(orderId).safeSubscribe(new LoadingSubject<BaseCommonResponse<OperationBean>>(true,"正在加载运维详情...") {
             @Override
             protected void _onNext(BaseCommonResponse<OperationBean> baseCommonResponse) {
                 mView.getOrderOprationDetailSuccess(baseCommonResponse.getData());

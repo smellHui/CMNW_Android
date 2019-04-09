@@ -111,7 +111,7 @@ public class OrderManager {
      * @param orderId
      * @return
      */
-    public Observable<BaseCommonResponse> getorderexaminelist(String orderId) {
+    public Observable<BaseCommonResponse<List<ExamineBean>>> getOrderExamineList(String orderId) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getOrderExamineList(token, orderId)
                 .subscribeOn(Schedulers.io())
