@@ -1,134 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <data class="ActionDetailView">
 
-        <com.tepia.cmnwsevice.view.main.views.ActionInfoView
+        <variable
+            name="orderBean"
+            type="com.tepia.cmnwsevice.model.order.OrderBean" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/view_action_info"
-            android:layout_marginTop="12dp" />
+            android:orientation="vertical">
 
-        <LinearLayout
-            style="@style/hor_ll.action"
-            android:layout_marginTop="12dp">
+            <com.tepia.cmnwsevice.view.main.views.ActionInfoView
+                android:id="@+id/view_action_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
 
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="工单来源" />
+            <LinearLayout
+                style="@style/hor_ll.action"
+                android:layout_marginTop="12dp">
 
-            <TextView
-                android:id="@+id/tv"
-                style="@style/text.actionContent"
-                tools:text="工单来源" />
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="工单来源" />
+
+                <TextView
+                    android:id="@+id/tv_source"
+                    style="@style/text.actionContent"
+                    android:text="@{orderBean.getSource()+``}" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/hor_ll.action">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="报警时间" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="@{orderBean.getCreatedTime()}" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/hor_ll.action">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="报警类型" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="工单来源" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/hor_ll.action">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="设备编号" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="@{orderBean.getDeviceCode()}" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/hor_ll.action">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="设备名称" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="@{orderBean.getDeviceName()}" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/hor_ll.action">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="是否需要备品备件" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="@{orderBean.getPartsUse().equals(`0`) ? `未使用`:`使用`}" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/hor_ll.action"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="派单人" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="工单来源" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/hor_ll.action">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="联系电话" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="工单来源" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/hor_ll.action">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="派单时间" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="工单来源" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/hor_ll.action">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="执行时限" />
+
+                <TextView
+                    style="@style/text.actionContent"
+                    android:text="工单来源" />
+            </LinearLayout>
+
         </LinearLayout>
+    </ScrollView>
+</layout>
 
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="报警时间" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="报警类型" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="设备故障" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="设备编号" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="设备名称" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/hor_ll.action"
-            android:layout_marginTop="12dp">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="派单人" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="联系电话" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="派单时间" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/hor_ll.action">
-
-            <TextView
-                style="@style/text.actionTitle"
-                android:text="执行时限" />
-
-            <TextView
-                style="@style/text.actionContent"
-                android:text="工单来源" />
-        </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>

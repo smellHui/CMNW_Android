@@ -31,10 +31,10 @@ public class OrderBean {
     private String areaName;
     private String createdTime;
     private int source;
-    private Object deviceCode;
+    private String deviceCode;
     private String deviceName;
-    private Object factor;
-    private Object partsUse;
+    private String factor;
+    private String partsUse;
 
     public String getId() {
         return Strings.nullToEmpty(id);
@@ -76,11 +76,11 @@ public class OrderBean {
         this.source = source;
     }
 
-    public Object getDeviceCode() {
+    public String getDeviceCode() {
         return deviceCode;
     }
 
-    public void setDeviceCode(Object deviceCode) {
+    public void setDeviceCode(String deviceCode) {
         this.deviceCode = deviceCode;
     }
 
@@ -92,19 +92,34 @@ public class OrderBean {
         this.deviceName = deviceName;
     }
 
-    public Object getFactor() {
+    public String getFactor() {
         return factor;
     }
 
-    public void setFactor(Object factor) {
+    public void setFactor(String factor) {
         this.factor = factor;
     }
 
-    public Object getPartsUse() {
-        return partsUse;
+    public String getPartsUse() {
+        return Strings.nullToEmpty(partsUse);
     }
 
-    public void setPartsUse(Object partsUse) {
+    public void setPartsUse(String partsUse) {
         this.partsUse = partsUse;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderBean{" +
+                "id='" + id + '\'' +
+                ", orderName='" + orderName + '\'' +
+                ", areaName='" + areaName + '\'' +
+                ", createdTime='" + createdTime + '\'' +
+                ", source=" + source +
+                ", deviceCode='" + deviceCode + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", factor='" + factor + '\'' +
+                ", partsUse='" + partsUse + '\'' +
+                '}';
     }
 }

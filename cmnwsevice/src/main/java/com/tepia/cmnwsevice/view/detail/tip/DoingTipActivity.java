@@ -1,6 +1,7 @@
 package com.tepia.cmnwsevice.view.detail.tip;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,9 +9,12 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.databinding.DoingTipView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.WorkDetailBean;
+
+import java.util.Date;
 
 /**
  * Author:xch
@@ -24,6 +28,8 @@ public class DoingTipActivity extends BaseActivity {
     private TextView limitTv;
     private TextView currectTv;
 
+    private DoingTipView mView;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_doing_tip;
@@ -31,12 +37,10 @@ public class DoingTipActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mView = DataBindingUtil.bind(mRootView);
+        mView.setDate(new Date());
         setCenterTitle("2019-3-31卫星村1号站");
         showBack();
-
-        sendTimeTv = findViewById(R.id.tv_sendTime);
-        limitTv = findViewById(R.id.tv_limitTime);
-        currectTv = findViewById(R.id.tv_currectTime);
     }
 
     @Override
@@ -61,9 +65,7 @@ public class DoingTipActivity extends BaseActivity {
                         if (workDetail == null) return;
                         WorkDetailBean workDetailBean = workDetail.getData();
                         if (workDetailBean == null) return;
-                        sendTimeTv.setText(workDetailBean.getSendTime());
-                        limitTv.setText(workDetailBean.getLimitHours());
-                        currectTv.setText(System.currentTimeMillis() + "");
+                        mView.setWorkDetail(workDetailBean);
                     }
 
                     @Override
