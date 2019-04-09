@@ -16,6 +16,7 @@
         <activity android:name=".view.detail.operationdetail.OperationDetailActivty" />
         <!--我的页面-->
         <activity android:name=".view.setting.MineActivity" />
+        <activity android:name=".view.TokenActivity" />
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import com.tepia.cmnwsevice.databinding.DoingTipView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.WorkDetailBean;
+import com.tepia.common_view.ColorArcProgressBar;
 
 import java.util.Date;
 
@@ -27,6 +28,7 @@ public class DoingTipActivity extends BaseActivity {
     private TextView sendTimeTv;
     private TextView limitTv;
     private TextView currectTv;
+    private ColorArcProgressBar cbTipBar;
 
     private DoingTipView mView;
 
@@ -41,6 +43,12 @@ public class DoingTipActivity extends BaseActivity {
         mView.setDate(new Date());
         setCenterTitle("2019-3-31卫星村1号站");
         showBack();
+        cbTipBar = findViewById(R.id.cb_tip_bar);
+        sendTimeTv = findViewById(R.id.tv_sendTime);
+        limitTv = findViewById(R.id.tv_limitTime);
+        currectTv = findViewById(R.id.tv_currectTime);
+        cbTipBar.setMaxValues(100);
+        cbTipBar.setCurrentValues(40);
     }
 
     @Override

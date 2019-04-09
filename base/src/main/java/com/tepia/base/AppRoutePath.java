@@ -8,7 +8,7 @@ package com.tepia.base;
 
 public class AppRoutePath {
 
-    public final static String token = "/app/token";
+    public final static String token = "/cmnw/token";
     public final static String app_speak = "/app/speak";
     /**
      * 天气预报

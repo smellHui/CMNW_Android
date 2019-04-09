@@ -53,6 +53,7 @@ dependencies {
     implementation rootProject.ext.dependencies.support
     implementation rootProject.ext.dependencies.constraint
     implementation rootProject.ext.dependencies.cardview
+
     // json 解析.
     implementation rootProject.ext.dependencies.gson
     implementation rootProject.ext.dependencies.barlibrary
@@ -98,11 +99,11 @@ dependencies {
     implementation rootProject.ext.dependencies.Tiny
     /** arcgis  */
     implementation rootProject.ext.dependencies.arcgisandroid
+
     /** ARouter  */
     implementation rootProject.ext.dependencies.Arouter
     annotationProcessor rootProject.ext.dependencies.Arouter_compiler
     implementation rootProject.ext.dependencies.androidWeakhandler
-
     implementation rootProject.ext.dependencies.FlycoTabLayout
 
     //圆角按钮
@@ -122,11 +123,9 @@ dependencies {
 //    }
     //guava
     api rootProject.ext.dependencies.guava
-
     implementation project(':base')
     implementation project(':common_datamodel')
     implementation project(':photopicker')
-
     implementation rootProject.ext.dependencies.design
-
+    implementation project(':common_view')
 }

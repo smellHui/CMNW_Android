@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class="DoingTipView">
 
@@ -27,10 +28,31 @@
 
             <include layout="@layout/toolbar" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/color_666666" />
+        <com.tepia.common_view.ColorArcProgressBar
+            android:id="@+id/cb_tip_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            app:back_color="#ff80daaa"
+            app:back_width="3dp"
+            app:current_value="100"
+            app:is_need_content="true"
+            app:is_need_dial="false"
+            app:is_need_title="true"
+            app:is_need_unit="true"
+            app:max_value="100"
+            app:progress_color="@color/white"
+            app:progress_width="3dp"
+            app:string_content_textsize="60dp"
+            app:string_title="剩余时间"
+            app:string_title_textsize="18dp"
+            app:string_unit="小时"
+            app:string_unit_textsize="18dp"
+            app:total_engle="270"
+            app:width_weight="0.66" />
+
+
 
         </LinearLayout>
 

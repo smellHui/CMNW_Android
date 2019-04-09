@@ -64,4 +64,9 @@ public class UserManager {
             return userBean;
         }
     }
+
+    public void clearData() {
+        SPUtils.getInstance().putString("token", "");
+        SPUtils.getInstance().putString("UserInfo", "");
+    }
 }

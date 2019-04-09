@@ -98,7 +98,8 @@ public abstract class LoadingSubject<T extends BaseResponse> implements io.react
             if (0 == o.getCode() || 200 == o.getCode()) {
                 _onNext(o);
 
-            } else if (-403 == o.getCode()) {
+
+            } else if (-105 == o.getCode()) {
 
                 ARouter.getInstance().build(AppRoutePath.token).navigation();
             } else {
