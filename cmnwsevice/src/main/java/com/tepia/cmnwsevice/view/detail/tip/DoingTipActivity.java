@@ -83,7 +83,6 @@ public class DoingTipActivity extends BaseActivity implements View.OnClickListen
                         WorkDetailBean workDetailBean = workDetail.getData();
                         if (workDetailBean == null) return;
                         mView.setWorkDetail(workDetailBean);
-                        cbTipBar.setCurValuesStr(workDetailBean.getLimitHours());
                         long timeInMillis = System.currentTimeMillis() - TimeFormatUtils.getTimeInMillis(workDetailBean.getSendTime());
                         long timeinHour = timeInMillis / 3600 / 1000;
                         String temp = String.format("%.0f", Float.parseFloat(workDetailBean.getLimitHours()) - timeinHour);
