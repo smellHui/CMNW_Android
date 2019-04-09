@@ -7,12 +7,14 @@ import android.view.View;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.databinding.ConfirmSubmitDataBindView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.OrderParamBean;
+import com.tepia.cmnwsevice.model.order.WorkDetailBean;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -55,7 +57,35 @@ public class ConfirmSubmitActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initRequestData() {
+        OrderManager.getInstance().getOrderWorkingDetail(orderParamBean.getId())
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse<WorkDetailBean>>() {
 
+                    @Override
+                    protected void _onNext(BaseCommonResponse<WorkDetailBean> workDetail) {
+                        if (workDetail == null) return;
+                        WorkDetailBean workDetailBean = workDetail.getData();
+                        if (workDetailBean == null) return;
+
+
+                        long timeInMillis = System.currentTimeMillis() - TimeFormatUtils.getTimeInMillis(workDetailBean.getSendTime());
+                        long timeinHour = timeInMillis / 3600 / 1000;
+                        String temp = String.format("%.0f", Float.parseFloat(workDetailBean.getLimitHours()) - timeinHour);
+
+                        if (Float.parseFloat(workDetailBean.getLimitHours()) - timeinHour > 0) {
+                            mView.cbTipBar.setCurValuesStr(temp);
+                        } else {
+                            mView.cbTipBar.setCurValuesStr(temp);
+                        }
+                        int tempint = (int) (Float.parseFloat(temp) * 100 / Float.parseFloat(workDetailBean.getLimitHours()));
+                        mView.cbTipBar.setCurrentValues(tempint);
+
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+
+                    }
+                });
     }
 
     public void submit() {

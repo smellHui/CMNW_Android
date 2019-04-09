@@ -15,8 +15,9 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@color/theam_red" />
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/clz_pic_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,20 +52,19 @@
                         app:max_value="100"
                         app:progress_color="@color/white"
                         app:progress_width="2dp"
-                        app:thumb_radis="2.5dp"
                         app:string_content_textsize="40dp"
                         app:string_title="剩余时间"
                         app:string_title_textsize="14dp"
                         app:string_unit="小时"
                         app:string_unit_textsize="14dp"
+                        app:thumb_radis="2.5dp"
                         app:total_engle="270"
-                        app:width_weight="0.33" />
+                        app:width_weight="0.5" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
-                        android:layout_marginTop="15dp"
                         android:layout_marginRight="30dp"
                         android:background="@drawable/white_round"
                         android:orientation="vertical"
