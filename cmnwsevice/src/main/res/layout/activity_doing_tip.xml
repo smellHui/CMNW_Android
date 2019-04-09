@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -26,8 +27,9 @@
             android:text="派单时间" />
 
         <TextView
+            android:id="@+id/tv_sendTime"
             style="@style/text.actionContent"
-            android:text="2019-04-04 00:00:00" />
+            tools:text="2019-04-04 00:00:00" />
     </LinearLayout>
 
     <LinearLayout style="@style/hor_ll.action">
@@ -37,8 +39,9 @@
             android:text="执行时限" />
 
         <TextView
+            android:id="@+id/tv_limitTime"
             style="@style/text.actionContent"
-            android:text="2019-04-04 00:00:00" />
+            tools:text="2019-04-04 00:00:00" />
     </LinearLayout>
 
     <LinearLayout style="@style/hor_ll.action">
@@ -48,8 +51,9 @@
             android:text="当前时间" />
 
         <TextView
+            android:id="@+id/tv_currectTime"
             style="@style/text.actionContent"
-            android:text="2019-04-04 00:00:00" />
+            tools:text="2019-04-04 00:00:00" />
     </LinearLayout>
 
     <Button

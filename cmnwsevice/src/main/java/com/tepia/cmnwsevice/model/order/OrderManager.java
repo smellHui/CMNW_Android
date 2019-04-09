@@ -85,7 +85,7 @@ public class OrderManager {
      * @param orderId
      * @return
      */
-    public Observable<BaseCommonResponse> getOrderWorkingDetail(String orderId) {
+    public Observable<BaseCommonResponse<WorkDetailBean>> getOrderWorkingDetail(String orderId) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getOrderWorkingDetail(token, orderId)
                 .subscribeOn(Schedulers.io())
