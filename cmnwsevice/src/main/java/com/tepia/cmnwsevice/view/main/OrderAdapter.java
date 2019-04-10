@@ -21,9 +21,9 @@ public class OrderAdapter extends BaseQuickAdapter<OrderBean, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, OrderBean item) {
-        helper.setText(R.id.tv_orderName, item.getOrderName());
+        helper.setText(R.id.tv_orderName, item.getCreateData() + "   " + item.getOrderName());
         helper.setText(R.id.tv_areaName, "行政区划：" + item.getAreaName());
-        helper.setText(R.id.tv_deviceName, "故障类型：" + item.getDeviceName());
+        helper.setText(R.id.tv_deviceName, "故障类型：" + item.getSourceName());
         ImageView tagImg = helper.getView(R.id.img_tag);
         int executeStatus = item.getExecuteStatus();
         tagImg.setImageResource(getTagImg(executeStatus));

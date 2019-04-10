@@ -1,6 +1,7 @@
 package com.tepia.cmnwsevice.model.order;
 
 import com.google.common.base.Strings;
+import com.tepia.cmnwsevice.utils.StringUtil;
 
 /**
  * Author:xch
@@ -22,7 +23,7 @@ public class WorkDetailBean {
     private String sendTime;
 
     public String getLimitHours() {
-        return Strings.nullToEmpty(limitHours);
+        return StringUtil.nullToDefault(limitHours);
     }
 
     public void setLimitHours(String limitHours) {
@@ -30,7 +31,7 @@ public class WorkDetailBean {
     }
 
     public String getUserName() {
-        return Strings.nullToEmpty(userName);
+        return StringUtil.nullToDefault(userName);
     }
 
     public void setUserName(String userName) {
@@ -38,7 +39,7 @@ public class WorkDetailBean {
     }
 
     public String getPhone() {
-        return Strings.nullToEmpty(phone);
+        return StringUtil.nullToDefault(phone);
     }
 
     public void setPhone(String phone) {
@@ -46,7 +47,7 @@ public class WorkDetailBean {
     }
 
     public String getSendTime() {
-        return Strings.nullToEmpty(sendTime);
+        return StringUtil.nullToDefault(sendTime);
     }
 
     public void setSendTime(String sendTime) {

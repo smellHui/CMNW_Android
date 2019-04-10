@@ -2,6 +2,7 @@ package com.tepia.cmnwsevice.model.order;
 
 import com.google.common.base.Strings;
 import com.tepia.cmnwsevice.model.dict.DictManager;
+import com.tepia.cmnwsevice.utils.StringUtil;
 
 import java.util.Map;
 
@@ -40,6 +41,12 @@ public class OrderBean {
     private String partsUse;
     private int executeStatus;
 
+    public String getCreateData() {
+        if (Strings.isNullOrEmpty(createdTime)) return "";
+        String[] arr = createdTime.split("\\s+");
+        return arr[0];
+    }
+
     public int getExecuteStatus() {
         return executeStatus;
     }
@@ -65,7 +72,7 @@ public class OrderBean {
     }
 
     public String getAreaName() {
-        return Strings.nullToEmpty(areaName);
+        return StringUtil.nullToDefault(areaName);
     }
 
     public void setAreaName(String areaName) {
@@ -73,7 +80,7 @@ public class OrderBean {
     }
 
     public String getCreatedTime() {
-        return createdTime;
+        return StringUtil.nullToDefault(createdTime);
     }
 
     public void setCreatedTime(String createdTime) {
@@ -89,7 +96,7 @@ public class OrderBean {
     }
 
     public String getDeviceCode() {
-        return deviceCode;
+        return StringUtil.nullToDefault(deviceCode);
     }
 
     public void setDeviceCode(String deviceCode) {
@@ -97,7 +104,7 @@ public class OrderBean {
     }
 
     public String getDeviceName() {
-        return Strings.nullToEmpty(deviceName);
+        return StringUtil.nullToDefault(deviceName);
     }
 
     public void setDeviceName(String deviceName) {
@@ -105,7 +112,7 @@ public class OrderBean {
     }
 
     public String getFactor() {
-        return factor;
+        return StringUtil.nullToDefault(factor);
     }
 
     public void setFactor(String factor) {
