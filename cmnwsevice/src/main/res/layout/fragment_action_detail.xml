@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data class="ActionDetailView">
 
@@ -38,7 +39,7 @@
                 <TextView
                     android:id="@+id/tv_source"
                     style="@style/text.actionContent"
-                    android:text="@{orderBean.getSource()+``}" />
+                    android:text="@{orderBean.getSourceName()}" />
             </LinearLayout>
 
             <LinearLayout style="@style/hor_ll.action">
@@ -60,7 +61,7 @@
 
                 <TextView
                     style="@style/text.actionContent"
-                    android:text="工单来源" />
+                    android:text="@{orderBean.getSourceName()}" />
             </LinearLayout>
 
             <LinearLayout style="@style/hor_ll.action">

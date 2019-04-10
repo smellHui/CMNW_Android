@@ -1,6 +1,9 @@
 package com.tepia.cmnwsevice.model.order;
 
 import com.google.common.base.Strings;
+import com.tepia.cmnwsevice.model.dict.DictManager;
+
+import java.util.Map;
 
 /**
  * Created by      android studio
@@ -115,6 +118,12 @@ public class OrderBean {
 
     public void setPartsUse(String partsUse) {
         this.partsUse = partsUse;
+    }
+
+    public String getSourceName() {
+        Map<String, String> sourceMap = DictManager.getInstance().getDictMap().get("source");
+        if (sourceMap == null) return "";
+        return sourceMap.get(source + "");
     }
 
     @Override

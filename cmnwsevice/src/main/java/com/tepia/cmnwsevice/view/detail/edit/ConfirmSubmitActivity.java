@@ -40,6 +40,8 @@ public class ConfirmSubmitActivity extends BaseActivity implements View.OnClickL
         mView.setOrderParamBean(orderParamBean);
         setCenterTitle("2019-3-31卫星村1号站");
         showBack();
+
+        setRightTextEvent("工单详情", v -> UiHelper.goToOrderDetailView(this, orderParamBean.getId()));
     }
 
     @Override

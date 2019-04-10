@@ -48,7 +48,7 @@ public class OperationDetailActivty extends BaseActivity {
     }
 
     private void initTLandViewPager() {
-        ActionDetailFragment actionDetailFragment = new ActionDetailFragment();
+        ActionDetailFragment actionDetailFragment = ActionDetailFragment.launch(orderId);
         mFragments.add(actionDetailFragment);
         OprationDetailFragment oprationDetailFragment = new OprationDetailFragment();
         oprationDetailFragment.orderId = orderId;
