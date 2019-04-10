@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.tepia.base.R;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.SPUtils;
+import com.tepia.base.utils.SoftHideKeyBoardUtil;
 import com.tepia.base.view.floatview.FloatUtil;
 
 
@@ -53,6 +55,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //让布局向上移来显示软键盘
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mRootView = getLayoutInflater().inflate(this.getLayoutId(), null, false);
         super.setContentView(mRootView);
         AppManager.getInstance().addActivity(this);
@@ -62,6 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initListener();
         //初始化沉浸式
         initImmersionBar();
+        SoftHideKeyBoardUtil.assistActivity(this);
         ARouter.getInstance().inject(this);
 //        setStatusBarTextDark();
         if (SPUtils.getInstance().getBoolean("ISSHOWFLOATVIEW", false)) {

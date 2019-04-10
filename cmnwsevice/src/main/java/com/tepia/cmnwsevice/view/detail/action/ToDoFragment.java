@@ -8,6 +8,7 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.event.StartDoCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.view.main.views.StartDoView;
@@ -56,6 +57,7 @@ public class ToDoFragment extends BaseCommonFragment {
                             .safeSubscribe(new LoadingSubject<BaseResponse>() {
                                 @Override
                                 protected void _onNext(BaseResponse baseResponse) {
+                                    UiHelper.goToDoingTipView(getActivity(), orderId, "");
                                     EventBus.getDefault().post(new StartDoCallbackEvent());
                                 }
 
