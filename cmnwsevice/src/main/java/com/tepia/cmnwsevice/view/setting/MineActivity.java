@@ -166,7 +166,7 @@ public class MineActivity extends BaseActivity {
                             .diskCacheStrategy(DiskCacheStrategy.NONE))
                     .into(ivUser);
             tvUsername.setText(userInfo.getUsername().isEmpty()?"--":userInfo.getUsername().trim());
-            tvDescription.setText(userInfo.getDescription().isEmpty()?"--":userInfo.getDescription().trim());
+            tvDescription.setText(userInfo.getNickName().isEmpty()?"--":userInfo.getNickName().trim());
         }
 
     }
