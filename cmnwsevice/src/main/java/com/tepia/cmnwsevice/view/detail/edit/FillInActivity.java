@@ -1,7 +1,10 @@
 package com.tepia.cmnwsevice.view.detail.edit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +24,10 @@ import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.OrderParamBean;
 import com.tepia.cmnwsevice.model.order.WorkDetailBean;
+import com.tepia.cmnwsevice.view.common.PhotoRecycleViewAdapter;
+import com.tepia.cmnwsevice.view.common.RecyclerItemClickListener;
+import com.tepia.photo_picker.PhotoPicker;
+import com.tepia.photo_picker.PhotoPreview;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,6 +45,8 @@ import javax.annotation.Nullable;
  */
 public class FillInActivity extends BaseActivity implements View.OnClickListener {
 
+    private PhotoRecycleViewAdapter photoAdapter;
+    private ArrayList<String> selectedPhotos = new ArrayList<>();
     private String orderId;
 
     private FillInDataBindView mView;
@@ -59,6 +68,50 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
         mView.setOnClickListener(this);
         setCenterTitle("工单填报");
         showBack();
+        initPhotoView();
+    }
+
+    private void initPhotoView() {
+        mView.rvPhotos.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), (view, position) -> {
+            if (photoAdapter.getItemViewType(position) == PhotoRecycleViewAdapter.TYPE_ADD) {
+                PhotoPicker.builder()
+                        .setPhotoCount(PhotoRecycleViewAdapter.MAX)
+                        .setShowCamera(true)
+                        .setPreviewEnabled(true)
+                        .setSelected(selectedPhotos)
+                        .start((Activity) getContext());
+            } else {
+                PhotoPreview.builder()
+                        .setPhotos(selectedPhotos)
+                        .setCurrentItem(position)
+                        .start((Activity) getContext());
+            }
+
+        }));
+
+        photoAdapter = new PhotoRecycleViewAdapter(getContext(), selectedPhotos);
+        mView.rvPhotos.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
+        mView.rvPhotos.setAdapter(photoAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        if (resultCode == RESULT_OK && (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+            List<String> photos = null;
+            if (data != null) {
+                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+                if (photos != null) {
+                    selectedPhotos.clear();
+                    selectedPhotos.addAll(photos);
+                }
+                photoAdapter.notifyDataSetChanged();
+            }
+
+        }
     }
 
     @Override

@@ -158,11 +158,13 @@
                                 android:drawableLeft="@mipmap/tjqr_icn_picture"
                                 android:text="上传现场照片" />
 
-                            <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_photos"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:src="@mipmap/img_agrc_service" />
+                                android:layout_marginBottom="10dp" />
+
                         </LinearLayout>
                     </LinearLayout>
 

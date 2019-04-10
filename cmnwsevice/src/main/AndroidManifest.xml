@@ -18,6 +18,13 @@
         <!--我的页面-->
         <activity android:name=".view.setting.MineActivity" />
         <activity android:name=".view.TokenActivity" />
+        <!-- 图片添加 -->
+        <activity
+            android:name="com.tepia.photo_picker.PhotoPickerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tepia.photo_picker.PhotoPagerActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

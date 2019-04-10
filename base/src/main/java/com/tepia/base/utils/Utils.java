@@ -1,6 +1,7 @@
 package com.tepia.base.utils;
 
 import android.content.Context;
+import android.view.View;
 
 
 /**
@@ -41,5 +42,10 @@ public final class Utils {
         }
         throw new NullPointerException("u should init first");
     }
-
+    /**
+     * 加载布局文件
+     */
+    public static View inflate(int id) {
+        return View.inflate(getContext(), id, null);
+    }
 }

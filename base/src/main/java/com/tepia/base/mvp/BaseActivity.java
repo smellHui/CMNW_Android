@@ -49,6 +49,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
     }
+    public Context getContext() {
+        return this;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
