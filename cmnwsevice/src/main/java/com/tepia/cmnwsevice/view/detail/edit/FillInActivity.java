@@ -45,8 +45,14 @@ import javax.annotation.Nullable;
  */
 public class FillInActivity extends BaseActivity implements View.OnClickListener {
 
-    private PhotoRecycleViewAdapter photoAdapter;
+    private static final int BEROR_PHOTOS = 0;//处理前标识
+    private static final int AFTER_PHOTOS = 1;//处理后标识
+
+    private int photoTag;
+
+    private PhotoRecycleViewAdapter photoAdapter, photoAfterAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
+    private ArrayList<String> selectedAfterPhotos = new ArrayList<>();
     private String orderId;
 
     private FillInDataBindView mView;
@@ -72,26 +78,38 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initPhotoView() {
-        mView.rvPhotos.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), (view, position) -> {
-            if (photoAdapter.getItemViewType(position) == PhotoRecycleViewAdapter.TYPE_ADD) {
-                PhotoPicker.builder()
-                        .setPhotoCount(PhotoRecycleViewAdapter.MAX)
-                        .setShowCamera(true)
-                        .setPreviewEnabled(true)
-                        .setSelected(selectedPhotos)
-                        .start((Activity) getContext());
-            } else {
-                PhotoPreview.builder()
-                        .setPhotos(selectedPhotos)
-                        .setCurrentItem(position)
-                        .start((Activity) getContext());
-            }
-
-        }));
 
         photoAdapter = new PhotoRecycleViewAdapter(getContext(), selectedPhotos);
         mView.rvPhotos.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
         mView.rvPhotos.setAdapter(photoAdapter);
+        mView.rvPhotos.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), (view, position) -> {
+            photoTag = BEROR_PHOTOS;
+            openPhotoPicker(photoAdapter, selectedPhotos, position);
+        }));
+
+        photoAfterAdapter = new PhotoRecycleViewAdapter(getContext(), selectedAfterPhotos);
+        mView.rvAfterPhotos.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
+        mView.rvAfterPhotos.setAdapter(photoAfterAdapter);
+        mView.rvAfterPhotos.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), (view, position) -> {
+            photoTag = AFTER_PHOTOS;
+            openPhotoPicker(photoAfterAdapter, selectedAfterPhotos, position);
+        }));
+    }
+
+    private void openPhotoPicker(PhotoRecycleViewAdapter adapter, ArrayList<String> photos, int position) {
+        if (adapter.getItemViewType(position) == PhotoRecycleViewAdapter.TYPE_ADD) {
+            PhotoPicker.builder()
+                    .setPhotoCount(4)
+                    .setShowCamera(true)
+                    .setPreviewEnabled(true)
+                    .setSelected(photos)
+                    .start((Activity) getContext());
+        } else {
+            PhotoPreview.builder()
+                    .setPhotos(photos)
+                    .setCurrentItem(position)
+                    .start((Activity) getContext());
+        }
     }
 
     @Override
@@ -101,15 +119,15 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
             return;
         }
         if (resultCode == RESULT_OK && (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
-            List<String> photos = null;
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-                if (photos != null) {
-                    selectedPhotos.clear();
-                    selectedPhotos.addAll(photos);
-                }
-                photoAdapter.notifyDataSetChanged();
+            List<String> photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+            boolean isBefor = photoTag == BEROR_PHOTOS;
+            if (photos != null) {
+                ArrayList<String> photoList = isBefor ? selectedPhotos : selectedAfterPhotos;
+                photoList.clear();
+                photoList.addAll(photos);
             }
+            PhotoRecycleViewAdapter adapter = isBefor ? photoAdapter : photoAfterAdapter;
+            adapter.notifyDataSetChanged();
 
         }
     }
@@ -225,6 +243,8 @@ public class FillInActivity extends BaseActivity implements View.OnClickListener
         }
         if (i == R.id.btn_query) {
             orderParamBean.setHandleDes(mView.etHandleDes.getText().toString().trim());
+            orderParamBean.setBeforPhotos(selectedPhotos);
+            orderParamBean.setAfterPhotos(selectedAfterPhotos);
             UiHelper.goToConfirmSubmitView(FillInActivity.this, orderParamBean);
         }
         if (i == R.id.btn_cancel) {

@@ -1,6 +1,7 @@
 package com.tepia.cmnwsevice.model.order;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Author:xch
@@ -18,6 +19,24 @@ public class OrderParamBean implements Serializable {
     private String problemName;
     private String partsUse;
     private String partsUseName;
+    private ArrayList<String> beforPhotos;
+    private ArrayList<String> afterPhotos;
+
+    public ArrayList<String> getBeforPhotos() {
+        return beforPhotos;
+    }
+
+    public void setBeforPhotos(ArrayList<String> beforPhotos) {
+        this.beforPhotos = beforPhotos;
+    }
+
+    public ArrayList<String> getAfterPhotos() {
+        return afterPhotos;
+    }
+
+    public void setAfterPhotos(ArrayList<String> afterPhotos) {
+        this.afterPhotos = afterPhotos;
+    }
 
     public String getId() {
         return id;
@@ -103,6 +122,8 @@ public class OrderParamBean implements Serializable {
                 ", problemName='" + problemName + '\'' +
                 ", partsUse='" + partsUse + '\'' +
                 ", partsUseName='" + partsUseName + '\'' +
+                ", beforPhotos=" + beforPhotos +
+                ", afterPhotos=" + afterPhotos +
                 '}';
     }
 }

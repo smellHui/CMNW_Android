@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:padding="10dp"
         android:scaleType="centerCrop"
-        android:src="#333333" />
+        android:src="@mipmap/tbxq_icn_add" />
 
 </LinearLayout>
 

@@ -61,7 +61,7 @@
             android:gravity="center_vertical"
             android:text="--"
             android:drawablePadding="5dp"
-            android:drawableRight="@mipmap/gdxq_icn_more"
+            android:drawableRight="@mipmap/tjqr_icn_more"
             android:textColor="#ffffff"
             android:textSize="14sp"
             android:visibility="gone" />
