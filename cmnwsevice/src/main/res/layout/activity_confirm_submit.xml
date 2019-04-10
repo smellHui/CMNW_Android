@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class="ConfirmSubmitDataBindView">
@@ -126,12 +125,35 @@
                             android:drawableLeft="@mipmap/tjqr_icn_picture"
                             android:text="上传现场照片" />
 
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_marginLeft="14dp"
-                            android:layout_marginTop="8dp"
-                            android:src="@mipmap/tjqr_picture_photo" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_befor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="处理前"
+                            android:textColor="@color/color_333333"
+                            android:textSize="14sp" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_after"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="处理后"
+                            android:textColor="@color/color_333333"
+                            android:textSize="14sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

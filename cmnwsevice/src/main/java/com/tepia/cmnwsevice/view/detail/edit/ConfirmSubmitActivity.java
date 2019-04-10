@@ -2,6 +2,8 @@ package com.tepia.cmnwsevice.view.detail.edit;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.tepia.base.http.BaseCommonResponse;
@@ -9,12 +11,14 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.adapter.OrderPhotoAdapter;
 import com.tepia.cmnwsevice.databinding.ConfirmSubmitDataBindView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.OrderParamBean;
 import com.tepia.cmnwsevice.model.order.WorkDetailBean;
+import com.tepia.cmnwsevice.view.common.PhotoRecycleViewAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,6 +31,8 @@ public class ConfirmSubmitActivity extends BaseActivity implements View.OnClickL
 
     private ConfirmSubmitDataBindView mView;
     private OrderParamBean orderParamBean;
+
+    private OrderPhotoAdapter photoAdapter, afterAdapter;
 
     @Override
     public int getLayoutId() {
@@ -42,6 +48,14 @@ public class ConfirmSubmitActivity extends BaseActivity implements View.OnClickL
         showBack();
 
         setRightTextEvent("工单详情", v -> UiHelper.goToOrderDetailView(this, orderParamBean.getId()));
+
+        photoAdapter = new OrderPhotoAdapter(orderParamBean.getBeforPhotos());
+        mView.rvBefor.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
+        mView.rvBefor.setAdapter(photoAdapter);
+
+        afterAdapter = new OrderPhotoAdapter(orderParamBean.getAfterPhotos());
+        mView.rvAfter.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
+        mView.rvAfter.setAdapter(afterAdapter);
     }
 
     @Override
