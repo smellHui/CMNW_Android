@@ -24,6 +24,8 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        setCenterTitle("工单详情");
+        showBack();
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.container, ActionDetailFragment.launch(orderId))   // 此处的R.id.fragment_container是要盛放fragment的父容器

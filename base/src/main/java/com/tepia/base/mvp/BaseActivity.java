@@ -7,8 +7,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PersistableBundle;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.gyf.barlibrary.ImmersionBar;
@@ -27,7 +24,6 @@ import com.tepia.base.R;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.SPUtils;
-import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.floatview.FloatUtil;
 
 
@@ -49,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
     }
+
     public Context getContext() {
         return this;
     }
@@ -251,6 +248,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置app不跟随系统变化
+     *
      * @return
      */
     @Override

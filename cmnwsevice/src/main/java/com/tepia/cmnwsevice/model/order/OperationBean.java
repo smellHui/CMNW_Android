@@ -1,5 +1,7 @@
 package com.tepia.cmnwsevice.model.order;
 
+import com.tepia.cmnwsevice.utils.StringUtil;
+
 import java.util.List;
 
 /**
@@ -74,7 +76,7 @@ public class OperationBean {
     }
 
     public String getExecuteUserPhone() {
-        return executeUserPhone;
+        return StringUtil.nullToDefault(executeUserPhone);
     }
 
     public void setExecuteUserPhone(String executeUserPhone) {
@@ -82,7 +84,7 @@ public class OperationBean {
     }
 
     public String getExecuteStartTime() {
-        return executeStartTime;
+        return StringUtil.nullToDefault(executeStartTime);
     }
 
     public void setExecuteStartTime(String executeStartTime) {

@@ -47,6 +47,10 @@ public class OrderBean {
         return arr[0];
     }
 
+    public String getDataAndName() {
+        return getCreateData() + "  " + getOrderName();
+    }
+
     public int getExecuteStatus() {
         return executeStatus;
     }

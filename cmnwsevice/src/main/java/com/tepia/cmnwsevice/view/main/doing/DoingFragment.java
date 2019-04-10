@@ -76,7 +76,7 @@ public class DoingFragment extends BaseListFragment<OrderBean> {
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
         OrderBean orderBean = (OrderBean) adapter.getItem(position);
         if (orderBean == null) return;
-        UiHelper.goToDoingTipView(getContext(), orderBean.getId());
+        UiHelper.goToDoingTipView(getContext(), orderBean.getId(), orderBean.getDataAndName());
     }
 
     @Subscribe

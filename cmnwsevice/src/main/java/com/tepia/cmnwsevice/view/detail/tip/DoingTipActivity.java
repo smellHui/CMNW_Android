@@ -10,12 +10,14 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.TimeFormatUtils;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.databinding.DoingTipView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.WorkDetailBean;
+import com.tepia.cmnwsevice.utils.StringUtil;
 import com.tepia.common_view.ColorArcProgressBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,6 +34,8 @@ import java.util.Date;
 public class DoingTipActivity extends BaseActivity implements View.OnClickListener {
 
     private String orderId;
+    private String topTitle;
+
     private TextView sendTimeTv;
     private TextView limitTv;
     private TextView currectTv;
@@ -49,7 +53,7 @@ public class DoingTipActivity extends BaseActivity implements View.OnClickListen
         mView = DataBindingUtil.bind(mRootView);
         mView.setOnClickListener(this);
         mView.setDate(new Date());
-        setCenterTitle("2019-3-31卫星村1号站");
+        setCenterTitle(StringUtil.nullToDefault(topTitle, "工单进度").trim());
         showBack();
         cbTipBar = findViewById(R.id.cb_tip_bar);
         sendTimeTv = findViewById(R.id.tv_sendTime);
@@ -63,8 +67,10 @@ public class DoingTipActivity extends BaseActivity implements View.OnClickListen
     public void initData() {
         EventBus.getDefault().register(this);
         Intent intent = getIntent();
-        if (intent != null)
+        if (intent != null) {
             orderId = intent.getStringExtra("orderId");
+            topTitle = intent.getStringExtra("topTitle");
+        }
     }
 
     @Override
@@ -99,7 +105,7 @@ public class DoingTipActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     protected void _onError(String message) {
-
+                        ToastUtils.shortToast(message);
                     }
                 });
     }

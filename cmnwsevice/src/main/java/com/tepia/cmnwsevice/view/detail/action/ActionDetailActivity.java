@@ -12,6 +12,7 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.adapter.PageAdapter;
 import com.tepia.cmnwsevice.model.event.StartDoCallbackEvent;
+import com.tepia.cmnwsevice.utils.StringUtil;
 import com.tepia.cmnwsevice.view.main.myagent.MyAgentFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,6 +36,7 @@ public class ActionDetailActivity extends BaseActivity {
     private PageAdapter pageAdapter;
 
     private String orderId;
+    private String topTitle;
 
     @Override
     public int getLayoutId() {
@@ -43,7 +45,7 @@ public class ActionDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setCenterTitle("工单详情");
+        setCenterTitle(StringUtil.nullToDefault(topTitle, "工单详情").trim());
         showBack();
         tabLayout = findViewById(R.id.ly_tab);
         viewPager = findViewById(R.id.view_pager);
@@ -58,8 +60,10 @@ public class ActionDetailActivity extends BaseActivity {
     public void initData() {
         EventBus.getDefault().register(this);
         Intent intent = getIntent();
-        if (intent != null)
+        if (intent != null) {
             orderId = intent.getStringExtra("orderId");
+            topTitle = intent.getStringExtra("topTitle");
+        }
     }
 
     @Override

@@ -24,9 +24,10 @@ public class UiHelper {
      *
      * @param ctx
      */
-    public static void goToActionDetailView(Context ctx, String orderId) {
+    public static void goToActionDetailView(Context ctx, String orderId, String topTitle) {
         Intent intent = new Intent(ctx, ActionDetailActivity.class);
         intent.putExtra("orderId", orderId);
+        intent.putExtra("topTitle", topTitle);
         ctx.startActivity(intent);
     }
 
@@ -35,9 +36,10 @@ public class UiHelper {
      *
      * @param ctx
      */
-    public static void goToDoingTipView(Context ctx, String orderId) {
+    public static void goToDoingTipView(Context ctx, String orderId, String topTitle) {
         Intent intent = new Intent(ctx, DoingTipActivity.class);
         intent.putExtra("orderId", orderId);
+        intent.putExtra("topTitle", topTitle);
         ctx.startActivity(intent);
     }
 
