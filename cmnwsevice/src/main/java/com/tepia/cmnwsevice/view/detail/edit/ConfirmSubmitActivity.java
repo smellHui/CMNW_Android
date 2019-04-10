@@ -10,17 +10,23 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.TimeFormatUtils;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.adapter.OrderPhotoAdapter;
 import com.tepia.cmnwsevice.databinding.ConfirmSubmitDataBindView;
 import com.tepia.cmnwsevice.manager.UiHelper;
 import com.tepia.cmnwsevice.model.event.CompleteCallbackEvent;
+import com.tepia.cmnwsevice.model.order.FileBean;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.order.OrderParamBean;
 import com.tepia.cmnwsevice.model.order.WorkDetailBean;
 import com.tepia.cmnwsevice.view.common.PhotoRecycleViewAdapter;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author:xch
@@ -31,6 +37,7 @@ public class ConfirmSubmitActivity extends BaseActivity implements View.OnClickL
 
     private ConfirmSubmitDataBindView mView;
     private OrderParamBean orderParamBean;
+    private ArrayList<FileBean> fileList;
 
     private OrderPhotoAdapter photoAdapter, afterAdapter;
 
@@ -107,9 +114,22 @@ public class ConfirmSubmitActivity extends BaseActivity implements View.OnClickL
     public void submit() {
 //        UiHelper.goToFeedBackSucView(this);
         System.out.println("orderParamBean-->" + orderParamBean.toString());
+        ArrayList<String> fileList = new ArrayList<>();
+        fileList.addAll(orderParamBean.getBeforPhotos());
+        fileList.addAll(orderParamBean.getAfterPhotos());
+        if (!CollectionsUtil.isEmpty(fileList)) {
+            this.fileList = new ArrayList<>();
+            uploadFile(fileList, 0);
+        } else {
+            doneOrder(null);
+        }
+    }
+
+    public void doneOrder(ArrayList<FileBean> fileList) {
         OrderManager.getInstance().doneOrder("id", orderParamBean.getId(), "handleDes", orderParamBean.getHandleDes()
-                , "repairType", orderParamBean.getRepairType(), "problemType", orderParamBean.getProblemType(), "partsUse", orderParamBean.getPartsUse())
-                .safeSubscribe(new LoadingSubject<BaseCommonResponse>() {
+                , "repairType", orderParamBean.getRepairType(), "problemType", orderParamBean.getProblemType(),
+                "partsUse", orderParamBean.getPartsUse(), "fileList", fileList)
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse>(true, "正在上传处理结果") {
                     @Override
                     protected void _onNext(BaseCommonResponse baseCommonResponse) {
                         UiHelper.goToFeedBackSucView(ConfirmSubmitActivity.this);
@@ -119,9 +139,40 @@ public class ConfirmSubmitActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     protected void _onError(String message) {
-
+                        ToastUtils.shortToast(message);
                     }
                 });
+    }
+
+    public void uploadFile(List<String> paths, int count) {
+        OrderManager.getInstance().uploadFile(paths.get(count)).safeSubscribe(new LoadingSubject<BaseCommonResponse<String>>(true, "正在上传第" + (count + 1) + "张照片") {
+            @Override
+            protected void _onNext(BaseCommonResponse<String> baseCommonResponse) {
+                FileBean fileBean = new FileBean();
+                fileBean.setSrc(baseCommonResponse.getData());
+                if (!CollectionsUtil.isEmpty(orderParamBean.getBeforPhotos())) {
+                    if (count < orderParamBean.getBeforPhotos().size()) {
+                        fileBean.setBizType("start");
+                    } else {
+                        fileBean.setBizType("end");
+                    }
+                } else {
+                    fileBean.setBizType("end");
+                }
+                fileBean.setFileType("png");
+                fileList.add(fileBean);
+                if (count + 1 < paths.size()) {
+                    uploadFile(paths, count + 1);
+                } else {
+                    doneOrder(fileList);
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                ToastUtils.shortToast(message);
+            }
+        });
     }
 
     @Override

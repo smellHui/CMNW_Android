@@ -1,20 +1,26 @@
 package com.tepia.cmnwsevice.model.order;
 
 import com.tepia.base.http.BaseCommonResponse;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.model.PageBean;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmnwsevice.APPConst;
 import com.tepia.cmnwsevice.model.user.LoginBean;
 import com.tepia.cmnwsevice.model.user.UserBean;
 import com.tepia.cmnwsevice.model.user.UserManager;
 import com.tepia.cmnwsevice.model.user.UserService;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -188,7 +194,7 @@ public class OrderManager {
     }
 
     /**
-     * 【执行】完成执行工单
+     * 【审核】审核工单
      *
      * @param params
      * @return
@@ -200,4 +206,18 @@ public class OrderManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<BaseCommonResponse<String>> uploadFile(String path) {
+        File file = new File(path);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), file);
+        MultipartBody.Part params = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.uploadFile(token, params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+
+
 }

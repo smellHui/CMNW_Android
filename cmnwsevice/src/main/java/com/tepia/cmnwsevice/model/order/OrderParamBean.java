@@ -122,8 +122,6 @@ public class OrderParamBean implements Serializable {
                 ", problemName='" + problemName + '\'' +
                 ", partsUse='" + partsUse + '\'' +
                 ", partsUseName='" + partsUseName + '\'' +
-                ", beforPhotos=" + beforPhotos +
-                ", afterPhotos=" + afterPhotos +
                 '}';
     }
 }

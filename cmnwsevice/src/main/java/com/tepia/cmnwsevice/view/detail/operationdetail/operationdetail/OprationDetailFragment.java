@@ -2,14 +2,26 @@ package com.tepia.cmnwsevice.view.detail.operationdetail.operationdetail;
 
 
 import android.databinding.DataBindingUtil;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.databinding.FragmentOprationDetailBinding;
 import com.tepia.cmnwsevice.model.dict.DictManager;
+import com.tepia.cmnwsevice.model.order.FileBean;
 import com.tepia.cmnwsevice.model.order.OperationBean;
+import com.tepia.cmnwsevice.view.common.AdapterPhotoShow;
+import com.tepia.photo_picker.PhotoPreview;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author :       zhang xinhua
@@ -51,6 +63,7 @@ public class OprationDetailFragment extends MVPBaseFragment<OprationDetailContra
         refreshView(data);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void refreshView(OperationBean data) {
         mBinding.tvWorkerName.setText(data.getExecuteUserName());
         mBinding.tvWorkerPhone.setText(data.getExecuteUserPhone());
@@ -71,5 +84,55 @@ public class OprationDetailFragment extends MVPBaseFragment<OprationDetailContra
             mBinding.tvPartsUse.setText("未使用");
         }
         mBinding.tvHandleDes.setText(data.getHandleDes());
+        try {
+            List<FileBean> fileList = data.getFileList();
+            Map<String, List<FileBean>> map = fileList.stream().collect(Collectors.groupingBy(FileBean::getBizType));
+            {
+                List<FileBean> templist = map.get("start");
+                ArrayList<String> list = new ArrayList<>();
+                for (FileBean temp : templist) {
+                    list.add(temp.getSrc());
+                }
+                mBinding.rvPhotos.setLayoutManager(new GridLayoutManager(getContext(), 4));
+                AdapterPhotoShow adapterPhotoShow = new AdapterPhotoShow(getContext(), R.layout.item_photos, list);
+                adapterPhotoShow.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+
+                        PhotoPreview.builder()
+                                .setPhotos(list)
+                                .setShowDeleteButton(false)
+                                .setCurrentItem(position)
+                                .start(getBaseActivity());
+
+                    }
+                });
+                mBinding.rvPhotos.setAdapter(adapterPhotoShow);
+            }
+            {
+                List<FileBean> templist = map.get("end");
+                ArrayList<String> list = new ArrayList<>();
+                for (FileBean temp : templist) {
+                    list.add(temp.getSrc());
+                }
+                mBinding.rvAfterPhotos.setLayoutManager(new GridLayoutManager(getContext(), 4));
+                AdapterPhotoShow adapterPhotoShow = new AdapterPhotoShow(getContext(), R.layout.item_photos, list);
+                adapterPhotoShow.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        PhotoPreview.builder()
+                                .setPhotos(list)
+                                .setShowDeleteButton(false)
+                                .setCurrentItem(position)
+                                .start(getBaseActivity());
+
+                    }
+                });
+                mBinding.rvAfterPhotos.setAdapter(adapterPhotoShow);
+            }
+        } catch (Exception e) {
+        }
+
     }
 }

@@ -31,7 +31,7 @@ public class PhotoRecycleViewAdapter extends RecyclerView.Adapter<PhotoRecycleVi
     private ArrayList<String> photoPaths = new ArrayList<>();
     public final static int TYPE_ADD = 1;
     public final static int TYPE_PHOTO = 2;
-    public final static int MAX = 8;
+    public final static int MAX = 4;
 
     private OnItemClickListener onItemClickListener;
 

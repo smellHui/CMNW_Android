@@ -173,6 +173,6 @@ public interface OrderService {
      */
     @Multipart
     @POST("file/upload")
-    Observable<BaseCommonResponse> uploadFile(@Header("token") String token,
-                                              @Part List<MultipartBody.Part> pathList);
+    Observable<BaseCommonResponse<String>> uploadFile(@Header("token") String token,
+                                                      @Part MultipartBody.Part pathList);
 }

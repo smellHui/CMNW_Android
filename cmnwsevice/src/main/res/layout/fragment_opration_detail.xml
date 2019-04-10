@@ -146,6 +146,32 @@
                     style="@style/text.actionContent"
                     android:text="暂无" />
             </LinearLayout>
+
+            <LinearLayout style="@style/ver_ll.confirm">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="处理前照片" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/ver_ll.confirm">
+
+                <TextView
+                    style="@style/text.actionTitle"
+                    android:text="处理后照片" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_after_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
