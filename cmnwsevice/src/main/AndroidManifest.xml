@@ -10,9 +10,8 @@
         <activity android:name=".view.detail.action.ActionDetailActivity" />
         <activity android:name=".view.detail.action.OrderDetailActivity" />
         <activity android:name=".view.detail.tip.DoingTipActivity" />
-        <activity
-            android:name=".view.detail.edit.FillInActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".view.detail.edit.FillInActivity" />
+        <activity android:name=".view.orderlist.OrderListActivity" />
         <activity android:name=".view.detail.edit.ConfirmSubmitActivity" />
         <activity android:name=".view.feedback.FeedBackSucActivity" />
         <!--运维工单页-->

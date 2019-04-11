@@ -2,6 +2,7 @@ package com.tepia.cmnwsevice.view.setting;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -19,6 +20,9 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.AppManager;
 import com.tepia.cmnwsevice.R;
+import com.tepia.cmnwsevice.databinding.MindDataBindView;
+import com.tepia.cmnwsevice.manager.UiHelper;
+import com.tepia.cmnwsevice.model.ExecuteStatus;
 import com.tepia.cmnwsevice.model.order.OrderCountBean;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.user.UserBean;
@@ -39,13 +43,9 @@ import java.util.List;
  * Version :1.0
  * 功能描述 : 我的
  **/
-public class MineActivity extends BaseActivity {
+public class MineActivity extends BaseActivity implements View.OnClickListener {
 
-    private LinearLayout llEventList;
-    private ImageView ivUser;
-    private TextView tvUsername;
-    private TextView tvDescription;
-    private TextView tvLogout;
+    private MindDataBindView mView;
 
     @Override
     public int getLayoutId() {
@@ -54,19 +54,16 @@ public class MineActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mView = DataBindingUtil.bind(mRootView);
+        mView.setOnClickListener(this);
         setCenterTitle(getString(R.string.setting_title));
-        llEventList = findViewById(R.id.ll_event_list);
-        ivUser = findViewById(R.id.iv_user);
-        tvUsername = findViewById(R.id.tv_username);
-        tvDescription = findViewById(R.id.tv_description);
-        tvLogout = findViewById(R.id.tv_logout);
         initUserMessage();
         initEventItems();
         initClick();
     }
 
     private void initClick() {
-        tvLogout.setOnClickListener(v -> {
+        mView.tvLogout.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.exit_message);
             builder.setCancelable(false);
@@ -95,12 +92,6 @@ public class MineActivity extends BaseActivity {
      */
     private void initEventItems() {
         //设置消息数角标
-//         RelativeLayout childAt = (RelativeLayout) llEventList.getChildAt(0);
-        PointImageView ivToExecute = findViewById(R.id.iv_toExecute_event);
-        PointImageView ivToBack = findViewById(R.id.iv_toBack_event);
-        PointImageView ivOnExecute = findViewById(R.id.iv_onExecute_event);
-        PointImageView ivToExamine = findViewById(R.id.iv_toExamine_event);
-        PointImageView ivDone = findViewById(R.id.iv_done_event);
         OrderManager.getInstance().getOrderCount()
                 .safeSubscribe(new LoadingSubject<BaseCommonResponse<OrderCountBean>>() {
 
@@ -109,16 +100,16 @@ public class MineActivity extends BaseActivity {
                         OrderCountBean data = orderCount.getData();
                         try {
                             int toExecute = Integer.parseInt(data.getToExecute());
-                            setPointImage(ivToExecute,toExecute);
+                            setPointImage(mView.ivToExecuteEvent, toExecute);
                             int toBack = Integer.parseInt(data.getToBack());
-                            setPointImage(ivToBack,toBack);
+                            setPointImage(mView.ivToBackEvent, toBack);
                             int onExecute = Integer.parseInt(data.getOnExecute());
-                            setPointImage(ivOnExecute,onExecute);
+                            setPointImage(mView.ivOnExecuteEvent, onExecute);
                             int toExamine = Integer.parseInt(data.getToExamine());
-                            setPointImage(ivToExamine,toExamine);
+                            setPointImage(mView.ivToExamineEvent, toExamine);
                             int done = Integer.parseInt(data.getDone());
-                            setPointImage(ivDone,done);
-                        }catch (Exception e){
+                            setPointImage(mView.ivDoneEvent, done);
+                        } catch (Exception e) {
 
                         }
 
@@ -133,11 +124,12 @@ public class MineActivity extends BaseActivity {
 
     /**
      * 设置角标
+     *
      * @param img
      * @param size
      */
-    private void setPointImage(PointImageView img,int size){
-        if (size>0){
+    private void setPointImage(PointImageView img, int size) {
+        if (size > 0) {
             img.setMessageNum(size);//设置消息条数
             img.setPointMode(PointImageView.NUMBER_POINT);
             img.setHaveMesage(true);
@@ -164,9 +156,9 @@ public class MineActivity extends BaseActivity {
                             .error(R.mipmap.tag_role_manager)
                             .priority(Priority.HIGH)
                             .diskCacheStrategy(DiskCacheStrategy.NONE))
-                    .into(ivUser);
-            tvUsername.setText(userInfo.getUsername().isEmpty()?"--":userInfo.getUsername().trim());
-            tvDescription.setText(userInfo.getNickName().isEmpty()?"--":userInfo.getNickName().trim());
+                    .into(mView.ivUser);
+            mView.tvUsername.setText(userInfo.getUsername().isEmpty() ? "--" : userInfo.getUsername().trim());
+            mView.tvDescription.setText(userInfo.getNickName().isEmpty() ? "--" : userInfo.getNickName().trim());
         }
 
     }
@@ -184,5 +176,25 @@ public class MineActivity extends BaseActivity {
     @Override
     protected void initRequestData() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.rl_to_execute) {
+            UiHelper.goToOrderListView(this, ExecuteStatus.PENDING);
+        }
+        if (id == R.id.rl_to_back) {
+            UiHelper.goToOrderListView(this, ExecuteStatus.RETURNED);
+        }
+        if (id == R.id.rl_on_execute) {
+            UiHelper.goToOrderListView(this, ExecuteStatus.EXECUTING);
+        }
+        if (id == R.id.rl_to_examine) {
+            UiHelper.goToOrderListView(this, ExecuteStatus.WAITCONFIRM);
+        }
+        if (id == R.id.rl_done) {
+            UiHelper.goToOrderListView(this, ExecuteStatus.COMPLETE);
+        }
     }
 }

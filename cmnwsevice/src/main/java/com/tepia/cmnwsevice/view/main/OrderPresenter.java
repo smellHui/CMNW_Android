@@ -6,7 +6,6 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.NetListListener;
 import com.tepia.cmnwsevice.model.ExecuteStatus;
-import com.tepia.cmnwsevice.model.api.ApiManager;
 import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.model.order.OrderCountBean;
 import com.tepia.cmnwsevice.model.order.OrderManager;
@@ -31,13 +30,13 @@ public class OrderPresenter {
     private NetListListener<PageBean<OrderBean>> netListListener;
 
     /**
-     * @param type            {0,1,2 代表第几个页面}
+     * @param tabPage         {0,1,2 代表第几个页面}
      * @param netListListener
      */
-    public OrderPresenter(int type, NetListListener<PageBean<OrderBean>> netListListener) {
+    public OrderPresenter(int tabPage, NetListListener<PageBean<OrderBean>> netListListener) {
         this.netListListener = netListListener;
         executeStatusArray = new ArrayList<>();
-        switch (type) {
+        switch (tabPage) {
             case 0:
                 executeStatusArray.add(ExecuteStatus.PENDING.getType());
                 executeStatusArray.add(ExecuteStatus.RETURNED.getType());
@@ -50,6 +49,16 @@ public class OrderPresenter {
                 executeStatusArray.add(ExecuteStatus.COMPLETE.getType());
                 break;
         }
+    }
+
+    /**
+     * @param executeStatus
+     * @param netListListener
+     */
+    public OrderPresenter(ExecuteStatus executeStatus, NetListListener<PageBean<OrderBean>> netListListener) {
+        this.netListListener = netListListener;
+        executeStatusArray = new ArrayList<>();
+        executeStatusArray.add(executeStatus.getType());
     }
 
     /**

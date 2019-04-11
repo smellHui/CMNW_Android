@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.common.base.Strings;
+import com.tepia.cmnwsevice.model.ExecuteStatus;
 import com.tepia.cmnwsevice.model.order.OrderParamBean;
 import com.tepia.cmnwsevice.view.detail.action.ActionDetailActivity;
 import com.tepia.cmnwsevice.view.detail.action.OrderDetailActivity;
@@ -11,6 +12,7 @@ import com.tepia.cmnwsevice.view.detail.edit.ConfirmSubmitActivity;
 import com.tepia.cmnwsevice.view.detail.edit.FillInActivity;
 import com.tepia.cmnwsevice.view.detail.tip.DoingTipActivity;
 import com.tepia.cmnwsevice.view.feedback.FeedBackSucActivity;
+import com.tepia.cmnwsevice.view.orderlist.OrderListActivity;
 
 /**
  * Author:xch
@@ -51,6 +53,18 @@ public class UiHelper {
     public static void goToFillInView(Context ctx, String orderId) {
         Intent intent = new Intent(ctx, FillInActivity.class);
         intent.putExtra("orderId", orderId);
+        ctx.startActivity(intent);
+    }
+
+    /**
+     * 工单列表
+     *
+     * @param ctx
+     * @param status
+     */
+    public static void goToOrderListView(Context ctx, ExecuteStatus status) {
+        Intent intent = new Intent(ctx, OrderListActivity.class);
+        intent.putExtra("status", status);
         ctx.startActivity(intent);
     }
 
