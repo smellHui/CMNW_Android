@@ -1,23 +1,49 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tepia.cmnwsevice">
-
+    <!-- 写内存 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--android 8 安装应用-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <application>
         <!--主 tab 页面-->
-        <activity android:name=".view.main.MainActivity" />
+        <activity
+            android:name=".view.main.MainActivity"
+            android:screenOrientation="portrait" />
         <!--登录页面-->
-        <activity android:name=".view.login.LoginActivity" />
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".view.detail.action.ActionDetailActivity" />
-        <activity android:name=".view.detail.action.OrderDetailActivity" />
-        <activity android:name=".view.detail.tip.DoingTipActivity" />
-        <activity android:name=".view.detail.edit.FillInActivity" />
-        <activity android:name=".view.orderlist.OrderListActivity" />
+        <activity
+            android:name=".view.orderlist.OrderListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.detail.action.ActionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.detail.action.OrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.detail.tip.DoingTipActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.detail.edit.FillInActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".view.detail.edit.ConfirmSubmitActivity" />
         <activity android:name=".view.feedback.FeedBackSucActivity" />
         <!--运维工单页-->
-        <activity android:name=".view.detail.operationdetail.OperationDetailActivty" />
+        <activity
+            android:name=".view.detail.operationdetail.OperationDetailActivty"
+            android:screenOrientation="portrait" />
         <!--我的页面-->
-        <activity android:name=".view.setting.MineActivity" />
+        <activity
+            android:name=".view.setting.MineActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.TokenActivity" />
         <!-- 图片添加 -->
         <activity
@@ -26,6 +52,10 @@
         <activity
             android:name="com.tepia.photo_picker.PhotoPagerActivity"
             android:screenOrientation="portrait" />
+        <!-- 蒲公英 -->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="4ed6f204fa12730544d56fd5f9ad07af" />
     </application>
 
 </manifest>

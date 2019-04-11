@@ -1,14 +1,26 @@
 package com.tepia.cmnwsevice.view.main;
 
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.pgyersdk.javabean.AppBean;
+import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.Utils;
 import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.model.TabEntity;
 import com.tepia.cmnwsevice.view.main.doing.DoingFragment;
@@ -41,6 +53,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             R.mipmap.tabbar_icn_dbsx_selected, R.mipmap.tabbar_icn_clz_selected,
             R.mipmap.tabbar_icn_ywjl_selected};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    private AppBean appBean;
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
 
     @Override
     public int getLayoutId() {
@@ -55,7 +69,51 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     public void initData() {
+        PgyUpdateManager.register(this, new UpdateManagerListener() {
+            @Override
+            public void onNoUpdateAvailable() {
+                LogUtil.d("fkldskfl");
+            }
 
+            @Override
+            public void onUpdateAvailable(String result) {
+                // 将新版本信息封装到AppBean中
+                appBean = getAppBeanFromString(result);
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("更新")
+                        .setMessage("" + appBean.getReleaseNote())
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton(
+                                "确定",
+                                new DialogInterface.OnClickListener() {
+
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //android 6.0动态申请权限
+                                        if (ContextCompat.checkSelfPermission(Utils.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                != PackageManager.PERMISSION_GRANTED) {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                                            }
+                                            ActivityCompat.requestPermissions(MainActivity.this,
+                                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                                        } else {
+                                            startDownloadTask(MainActivity.this, appBean.getDownloadURL());
+
+                                        }
+                                    }
+                                }).show();
+
+            }
+        });
     }
 
     @Override

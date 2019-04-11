@@ -96,7 +96,7 @@ dependencies {
     /** 图片压缩  */
     implementation rootProject.ext.dependencies.Tiny
     /** arcgis  */
-    implementation rootProject.ext.dependencies.arcgisandroid
+//    implementation rootProject.ext.dependencies.arcgisandroid
     /** ARouter  */
     implementation rootProject.ext.dependencies.Arouter
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
