@@ -67,9 +67,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             @Override
             public void run() {
                 if (!TextUtils.isEmpty(UserManager.getInstance().getToken())) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    LoginActivity.this.finish();
+                    ARouter.getInstance().build(AppRoutePath.app_cmdb_main_tab).navigation();
+                    finish();
                 }
             }
         }, 0);
@@ -219,7 +218,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
     @Override
     public void loginSuccess() {
-        ARouter.getInstance().build(AppRoutePath.app_cmnw_activity_tabmain).navigation();
+        ARouter.getInstance().build(AppRoutePath.app_cmdb_main_tab).navigation();
         finish();
     }
 }

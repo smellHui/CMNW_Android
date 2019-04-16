@@ -32,4 +32,9 @@ public class AppRoutePath {
      * 运维工单页
      */
     public final static String app_cmnw_activity_order_operate = "/cmnw/activity/order/operate";
+
+    /**
+     * 督办App 主页
+     */
+    public final static String app_cmdb_main_tab = "/cmdb/man/tab";
 }
