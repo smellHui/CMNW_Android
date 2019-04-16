@@ -128,6 +128,8 @@ dependencies {
     implementation rootProject.ext.dependencies.roundbutton
     implementation rootProject.ext.dependencies.PickerView
     implementation rootProject.ext.dependencies.eventbus
+    implementation rootProject.ext.dependencies.xpopup
+    implementation rootProject.ext.dependencies.flowlayout
 
     //    api rootProject.ext.dependencies["annotations"]
 

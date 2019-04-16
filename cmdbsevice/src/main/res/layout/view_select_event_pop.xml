@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingTop="45dp"
+            android:paddingBottom="5dp"
+            android:text="站点选择"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/id_flowlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            zhy:max_select="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="运维企业"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/flowlayout_compty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            zhy:max_select="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="报警类型"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/flowlayout_cate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            zhy:max_select="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="状态"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/flowlayout_state"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            zhy:max_select="1" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingRight="25dp">
+
+            <Button
+                style="@style/btn.supter"
+                android:text="重 置" />
+
+            <Button
+                style="@style/btn.supter"
+                android:layout_marginLeft="15dp"
+                android:text="确 定" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

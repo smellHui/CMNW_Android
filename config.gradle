@@ -125,6 +125,10 @@ ext {
             //guava
             guava                   : "com.google.guava:guava:26.0-android",
             eventbus :'org.greenrobot:eventbus:3.1.1',
+
+            xpopup:"com.lxj:xpopup:1.6.8",
+
+            flowlayout:"com.hyman:flowlayout-lib:1.1.2",
 //            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
 //            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
     ]
