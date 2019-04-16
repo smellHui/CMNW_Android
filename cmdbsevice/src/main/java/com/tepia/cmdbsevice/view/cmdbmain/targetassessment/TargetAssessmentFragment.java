@@ -13,7 +13,7 @@ import com.tepia.cmdbsevice.R;
  * @创建时间       :       2019/4/15 14:44
  * @修改人         ：
  * @修改时间       :       2019/4/15 14:44
- * @功能描述       :        tab -
+ * @功能描述       :        tab - 任务考核
  **/
 
 public class TargetAssessmentFragment extends MVPBaseFragment<TargetAssessmentContract.View, TargetAssessmentPresenter> implements TargetAssessmentContract.View {

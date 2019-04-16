@@ -12,168 +12,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/fl_map_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@color/black" />
 
-                <include layout="@layout/toolbar" />
+            <include
+                android:id="@+id/lo_map_opt_layer"
+                layout="@layout/layout_map_opt_layer" />
 
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="94dp"
-                        android:layout_height="2dp"
-                        android:layout_above="@id/lo_status_list"
-                        android:layout_marginLeft="8dp"
-                        android:background="@drawable/bg_top_status_list" />
-
-                    <LinearLayout
-                        android:id="@+id/lo_status_list"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginBottom="40dp"
-                        android:background="@drawable/bg_status_list"
-                        android:orientation="vertical"
-                        android:padding="20dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="10dp"
-                                android:layout_height="3dp"
-                                android:src="@drawable/icon_dl_normal" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="正常"
-                                android:textColor="#ff333333"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="10dp"
-                                android:layout_height="3dp"
-                                android:src="@drawable/icon_dl_exeception" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="异常"
-                                android:textColor="#ff333333"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="10dp"
-                                android:layout_height="3dp"
-                                android:src="@drawable/icon_dl_error" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="故障"
-                                android:textColor="#ff333333"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="10dp"
-                                android:layout_height="3dp"
-                                android:src="@drawable/icon_dl_event" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="报警"
-                                android:textColor="#ff333333"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/bg_select_station"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="12dp"
-                            android:text="提升井"
-                            android:textColor="#ffffffff"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="12dp"
-                            android:text="处理站"
-                            android:textColor="#ffffffff"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginRight="12dp"
-                        android:background="@drawable/bg_search">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </LinearLayout>
-
-                </RelativeLayout>
-            </LinearLayout>
+            <include
+                android:id="@+id/lo_search"
+                layout="@layout/layout_search" />
         </FrameLayout>
 
         <!-- The navigation drawer -->
         <include
             android:id="@+id/lo_right"
-            layout="@layout/fragment_dialog_list_select" />
+            layout="@layout/layout_map_rightview_select" />
     </android.support.v4.widget.DrawerLayout>
 
 

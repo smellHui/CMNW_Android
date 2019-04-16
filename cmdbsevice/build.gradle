@@ -116,7 +116,7 @@ dependencies {
 
     /** arcgis  */
 
-    //    implementation rootProject.ext.dependencies.arcgisandroid
+    implementation rootProject.ext.dependencies.arcgisandroid
 
     /** ARouter  */
     implementation rootProject.ext.dependencies.Arouter

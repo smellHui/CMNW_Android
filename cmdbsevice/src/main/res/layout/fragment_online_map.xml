@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.esri.android.map.MapView
+                    android:id="@+id/mv_arcgis_river_log"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+                <include
+                    android:id="@+id/layoutLoading"
+                    layout="@layout/loading_layout" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
