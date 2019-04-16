@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="乡镇统计"
+            android:textColor="@color/color_333333"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:src="@mipmap/add_more" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_E3FAEE"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/text.statics"
+            android:text="行政区划"/>
+
+        <TextView
+            style="@style/text.statics"
+            android:text="运维企业"/>
+
+        <TextView
+            style="@style/text.statics"
+            android:text="站点总数"/>
+
+        <TextView
+            style="@style/text.statics"
+            android:text="报警总数"/>
+
+        <TextView
+            style="@style/text.statics"
+            android:text="故障总数"/>
+
+    </LinearLayout>
+
+</LinearLayout>

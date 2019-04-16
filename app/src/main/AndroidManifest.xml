@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.tepia.cmnwsevice.view.login.LoginActivity"
+            android:name="com.tepia.cmdbsevice.view.cmdbmain.CmdbMainActivity"
             android:configChanges="orientation|screenSize|uiMode|keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>

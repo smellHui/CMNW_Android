@@ -3,6 +3,8 @@ package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision;
 
 import android.view.View;
 
+import com.flyco.tablayout.SegmentTabLayout;
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmdbsevice.R;
 
@@ -16,7 +18,9 @@ import com.tepia.cmdbsevice.R;
  * @功能描述       :        tab-事件督办
  **/
 
-public class EventSupervisionFragment extends MVPBaseFragment<EventSupervisionContract.View, EventSupervisionPresenter> implements EventSupervisionContract.View {
+public class EventSupervisionFragment extends BaseCommonFragment {
+
+    private String[] mTitles = {"日", "周", "月", "年"};
 
     @Override
     protected int getLayoutId() {
@@ -30,11 +34,13 @@ public class EventSupervisionFragment extends MVPBaseFragment<EventSupervisionCo
 
     @Override
     protected void initView(View view) {
-
+           setCenterTitle("事件督办");
+        SegmentTabLayout tabLayout_1 = findView(R.id.tl_1);
+        tabLayout_1.setTabData(mTitles);
     }
 
     @Override
     protected void initRequestData() {
-        mPresenter.topTotal();
+
     }
 }
