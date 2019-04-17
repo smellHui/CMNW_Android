@@ -56,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //让布局向上移来显示软键盘
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mRootView = getLayoutInflater().inflate(this.getLayoutId(), null, false);
         super.setContentView(mRootView);
         AppManager.getInstance().addActivity(this);
@@ -66,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initListener();
         //初始化沉浸式
         initImmersionBar();
-        SoftHideKeyBoardUtil.assistActivity(this);
+//        SoftHideKeyBoardUtil.assistActivity(this);
         ARouter.getInstance().inject(this);
 //        setStatusBarTextDark();
         if (SPUtils.getInstance().getBoolean("ISSHOWFLOATVIEW", false)) {

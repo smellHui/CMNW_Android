@@ -4,9 +4,13 @@ import com.tepia.base.http.BaseCommonResponse;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Created by      android studio
@@ -24,7 +28,39 @@ public interface StationService {
      * @param token
      * @return
      */
-    @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("app/station/listStationList")
+
+    @GET("station/listStationList")
     Observable<BaseCommonResponse> getStationList(@Header("token") String token);
+
+    /**
+     * 【查询】根据code获取站点详情
+     *
+     * @param token
+     * @param code
+     * @return
+     */
+    @GET("station/getStationByCode/{code}")
+    Observable<BaseCommonResponse> getStationByCode(@Header("token") String token, @Path("code") String code);
+
+    /**
+     * 【查询】历史运行
+     *
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("station/getHistoryRunStatus")
+    Observable<BaseCommonResponse> getHistoryRunStatus(@Header("token") String token, @Body RequestBody body);
+
+    /**
+     * 【查询】历史水质
+     *
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("station/historyWaterQuality")
+    Observable<BaseCommonResponse> historyWaterQuality(@Header("token") String token, @Body RequestBody body);
 }

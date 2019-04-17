@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="12dp">
+
+            <TextView
+                android:id="@+id/tv_station_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="城桥镇1号处理站 "
+                android:textColor="#ff010101"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tv_station_name"
+                android:background="@drawable/bg_station_organ_type"
+                android:padding="4dp"
+                android:text="上海电气"
+                android:textColor="#fff1891f"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_station_name"
+                android:layout_marginTop="12dp"
+                android:text="上海市浦东新区其新连路128号"
+                android:textColor="#ff555555"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/setting_rightarrow" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="16dp"
+            android:background="#E8E8E8" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_add_black_24dp"
+                android:gravity="center"
+                android:text="图片"
+                android:textColor="#ff555555"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_add_black_24dp"
+                android:gravity="center"
+                android:text="图片"
+                android:textColor="#ff555555"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_add_black_24dp"
+                android:gravity="center"
+                android:text="图片"
+                android:textColor="#ff555555"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="#E8E8E8" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_cur_water_q_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="25dp"
+                android:text="当前水质"
+                android:textColor="#ff333333"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="异常"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="25dp"
+                android:layout_toRightOf="@id/tv_cur_water_q_tip"
+                android:textColor="#ff888888"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="30dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/setting_rightarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
