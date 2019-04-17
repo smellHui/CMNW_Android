@@ -46,7 +46,6 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
             throw new RuntimeException("not found swipeRefreshLayout");
         if (rv == null)
             throw new RuntimeException("not found RecyclerView");
-
         setVerModel();
         swipeRefreshLayout.setOnRefreshListener(this::refresh);
     }
@@ -72,8 +71,19 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
         int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
         rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
         rv.setAdapter(baseQuickAdapter);
-        baseQuickAdapter.setEmptyView(R.layout.view_empty_list_view);
+
+        //headView和emptyView不共存
+        addHeadView();
+        setEmptyDefauleView();
+
         baseQuickAdapter.setOnItemClickListener(this::setOnItemClickListener);
+    }
+
+    public void setEmptyDefauleView(){
+        baseQuickAdapter.setEmptyView(R.layout.view_empty_list_view);
+    }
+
+    public void addHeadView() {
     }
 
     public List<K> getList() {
@@ -81,6 +91,10 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
     }
 
     public abstract BaseQuickAdapter getBaseQuickAdapter();
+
+    public BaseQuickAdapter getAdapter() {
+        return baseQuickAdapter;
+    }
 
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
 
@@ -91,9 +105,9 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
         if (k != null) {
             List<K> list = k.getResult();
             if (list != null) {
-                if (page == 1 && list.isEmpty()){
+                if (page == 1 && list.isEmpty()) {
                     getList().clear();
-                }else {
+                } else {
                     getList().addAll(list);
                 }
                 if (list.size() == 20) {
@@ -113,7 +127,9 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
 
     @Override
     public void error() {
-        baseQuickAdapter.loadMoreFail();
-        swipeRefreshLayout.setRefreshing(false);
+        if (baseQuickAdapter != null)
+            baseQuickAdapter.loadMoreFail();
+        if (swipeRefreshLayout != null)
+            swipeRefreshLayout.setRefreshing(false);
     }
 }
