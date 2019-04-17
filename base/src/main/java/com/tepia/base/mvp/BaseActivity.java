@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -38,6 +40,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private TextView tvCenterText;
     private TextView tvLeftText;
     private TextView tvRightText;
+    private ImageView leftImg;
+    private ImageView rightImg;
     private long lastClick;
     public ImmersionBar mImmersionBar;
     public View mRootView;
@@ -73,6 +77,18 @@ public abstract class BaseActivity extends AppCompatActivity {
             FloatUtil.getInstance().addActivity(this);
         }
 
+    }
+
+    public void setLeftImgEvent(@DrawableRes int imgRes, View.OnClickListener clickListener) {
+        leftImg.setVisibility(View.VISIBLE);
+        leftImg.setImageResource(imgRes);
+        leftImg.setOnClickListener(clickListener);
+    }
+
+    public void setRightImgEvent(@DrawableRes int imgRes, View.OnClickListener clickListener) {
+        rightImg.setVisibility(View.VISIBLE);
+        rightImg.setImageResource(imgRes);
+        rightImg.setOnClickListener(clickListener);
     }
 
     @Override
@@ -120,6 +136,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initToolBar() {
         loToolbarCommon = findViewById(R.id.lo_toolbar_common);
         tvCenterText = findViewById(R.id.tv_center_text);
+
+        leftImg = findViewById(R.id.img_left);
+        rightImg = findViewById(R.id.img_right);
+
         tvLeftText = findViewById(R.id.tv_left_text);
         tvRightText = findViewById(R.id.tv_right_text);
         if (loToolbarCommon != null) {
