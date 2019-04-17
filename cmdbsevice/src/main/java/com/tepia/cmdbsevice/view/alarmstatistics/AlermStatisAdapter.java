@@ -1,4 +1,4 @@
-package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.adapter;
+package com.tepia.cmdbsevice.view.alarmstatistics;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -8,15 +8,15 @@ import com.tepia.cmnwsevice.model.order.OrderBean;
 /**
  * Author:xch
  * Date:2019/4/17
- * Description:事件adapter
+ * Description:报警adapter
  */
-public class CityCountAdapter extends BaseQuickAdapter<OrderBean, BaseViewHolder> {
-    public CityCountAdapter() {
-        super(R.layout.item_city_count);
+public class AlermStatisAdapter extends BaseQuickAdapter<OrderBean, BaseViewHolder> {
+    public AlermStatisAdapter() {
+        super(R.layout.item_site_state);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, OrderBean item) {
-
+        helper.addOnClickListener(R.id.btn_look);
     }
 }

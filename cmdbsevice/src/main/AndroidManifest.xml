@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tepia.cmdbsevice">
+    package="com.tepia.cmdbsevice" >
 
     <application>
         <!-- 主 tab 页 -->
+        <activity android:name=".view.alarmstatistics.AlarmStatisticsActivity" />
         <activity android:name=".view.cmdbmain.CmdbMainActivity"
             android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"/>

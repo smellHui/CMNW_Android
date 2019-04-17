@@ -50,6 +50,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/fl_alarm"
         android:layout_width="0dp"
         android:layout_height="90dp"
         android:layout_marginLeft="2dp"
