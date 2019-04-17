@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_station_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="城桥镇2号处理站"
+            android:textColor="#ff010101"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_station_adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_station_name"
+            android:layout_marginTop="10dp"
+            android:text="789m | 上海市浦东新区其新连路128号"
+            android:textColor="#ff888888"
+            android:textSize="14sp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="确定"
+            android:textColor="#ff333333"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_station_adress"
+            android:layout_marginTop="12dp"
+            android:background="#ffe8e8e8" />
+
+    </RelativeLayout>
+</layout>

@@ -37,4 +37,8 @@ public class AppRoutePath {
      * 督办App 主页
      */
     public final static String app_cmdb_main_tab = "/cmdb/man/tab";
+    /**
+     *   测站 —— 基础信息
+     */
+    public final static String app_cmdb_station_base_info = "/cmdb/station/base/info";
 }

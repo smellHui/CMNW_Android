@@ -1,22 +1,18 @@
-package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationlist;
+package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationbaseinfodetail;
 
 import android.content.Context;
 
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
-import com.tepia.cmdbsevice.model.station.StationBean;
-
-import java.util.ArrayList;
 
 /**
  * MVPPlugin
  *  邮箱 784787081@qq.com
  */
 
-public class StationListContract {
+public class StationBaseInfoDetailContract {
     interface View extends BaseView {
-
-        void getStationListSuccess(ArrayList<StationBean> list);
+        
     }
 
     interface  Presenter extends BasePresenter<View> {

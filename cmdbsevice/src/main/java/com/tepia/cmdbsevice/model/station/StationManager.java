@@ -5,6 +5,8 @@ import com.tepia.base.http.RetrofitManager;
 import com.tepia.cmdbsevice.APPConst;
 import com.tepia.cmnwsevice.model.user.UserManager;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -31,7 +33,7 @@ public class StationManager {
         this.mRetrofitService = RetrofitManager.getRetrofit(APPConst.ROOT_URL).create(StationService.class);
     }
 
-    public Observable<BaseCommonResponse> getStationList() {
+    public Observable<BaseCommonResponse<List<StationBean>>> getStationList() {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getStationList(token)
                 .subscribeOn(Schedulers.io())

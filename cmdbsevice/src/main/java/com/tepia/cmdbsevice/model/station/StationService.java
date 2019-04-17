@@ -2,6 +2,8 @@ package com.tepia.cmdbsevice.model.station;
 
 import com.tepia.base.http.BaseCommonResponse;
 
+import java.util.List;
+
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -30,7 +32,7 @@ public interface StationService {
      */
 
     @GET("station/listStationList")
-    Observable<BaseCommonResponse> getStationList(@Header("token") String token);
+    Observable<BaseCommonResponse<List<StationBean>>> getStationList(@Header("token") String token);
 
     /**
      * 【查询】根据code获取站点详情

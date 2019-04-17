@@ -18,41 +18,24 @@
                 android:layout_height="match_parent"
                 android:background="@color/black" />
 
-            <include layout="@layout/fl_search_content"/>
-            <include
-                android:id="@+id/lo_search"
-
-                layout="@layout/layout_search" />
 
             <include
                 android:id="@+id/lo_map_opt_layer"
                 layout="@layout/layout_map_opt_layer" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <include
+                android:id="@+id/fl_search_content"
+                layout="@layout/fl_search_content" />
 
-                <LinearLayout
-                    android:id="@+id/lo_bt_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="12dp"
-                    android:background="@drawable/bg_search"
-                    android:gravity="center"
-                    android:minWidth="40dp"
-                    android:orientation="horizontal">
+            <include
+                android:id="@+id/lo_search_tip"
+                layout="@layout/layout_search_tip" />
+
+            <include
+                android:id="@+id/lo_search_header"
+                layout="@layout/layout_search_header"/>
 
 
-                    <ImageView
-                        android:id="@+id/iv_search"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_add_black_24dp" />
-                </LinearLayout>
-            </RelativeLayout>
 
         </FrameLayout>
 

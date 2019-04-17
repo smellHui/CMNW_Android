@@ -6,5 +6,7 @@
         <activity android:name=".view.cmdbmain.CmdbMainActivity"
             android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"/>
+        <!-- 测站 —— 基础信息-->
+        <activity android:name=".view.cmdbmain.onlinemonitor.stationbaseinfodetail.StationBaseInfoDetailActivity" />
     </application>
 </manifest>

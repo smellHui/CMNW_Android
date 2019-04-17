@@ -4,8 +4,11 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.model.station.StationBean;
 import com.tepia.cmdbsevice.model.station.StationManager;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +26,14 @@ import java.util.List;
 public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContract.View> implements OnlineMonitorContract.Presenter {
 
     public void getStationList() {
-        StationManager.getInstance().getStationList().safeSubscribe(new LoadingSubject<BaseCommonResponse>() {
+        StationManager.getInstance().getStationList().safeSubscribe(new LoadingSubject<BaseCommonResponse<List<StationBean>>>() {
             @Override
-            protected void _onNext(BaseCommonResponse baseCommonResponse) {
-
+            protected void _onNext(BaseCommonResponse<List<StationBean>> baseCommonResponse) {
+                if (!CollectionsUtil.isEmpty(baseCommonResponse.getData())) {
+                    for (StationBean bean : baseCommonResponse.getData()) {
+                        bean.save();
+                    }
+                }
             }
 
             @Override
@@ -44,8 +51,9 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
     }
 
     public ArrayList<StationBean> getSearchTipList(String temp) {
-        ArrayList <StationBean> list = new ArrayList<>();
-        list.add(new StationBean());
-        return list;
+        List<StationBean> list = DataSupport.where("name like ?", "%" + temp + "%").find(StationBean.class);
+        ArrayList<StationBean> list2 = new ArrayList<>();
+        list2.addAll(list);
+        return list2;
     }
 }

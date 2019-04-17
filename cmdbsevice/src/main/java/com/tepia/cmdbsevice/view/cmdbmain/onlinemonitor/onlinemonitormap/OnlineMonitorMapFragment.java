@@ -15,19 +15,26 @@ import com.esri.core.geometry.Point;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.ConfigConst;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.FragmentOnlineMapBinding;
+import com.tepia.cmdbsevice.model.station.StationBean;
+import com.tepia.cmdbsevice.util.ARCGISUTIL;
 import com.tepia.cmnwsevice.databinding.FragmentExamineListDetailBinding;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 /**
- * @author        :       zhang xinhua
- * @Version       :       1.0
- * @创建人         ：      zhang xinhua
- * @创建时间       :       2019/4/16 9:57
- * @修改人         ：
- * @修改时间       :       2019/4/16 9:57
- * @功能描述       :       在线监测中的地图
+ * @author :       zhang xinhua
+ * @Version :       1.0
+ * @创建人 ：      zhang xinhua
+ * @创建时间 :       2019/4/16 9:57
+ * @修改人 ：
+ * @修改时间 :       2019/4/16 9:57
+ * @功能描述 :       在线监测中的地图
  **/
 
 public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapContract.View, OnlineMonitorMapPresenter> implements OnlineMonitorMapContract.View {
@@ -46,6 +53,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     private boolean has_loading;
     private FragmentOnlineMapBinding mBinding;
+    private int count = 0;
 
     @Override
     protected int getLayoutId() {
@@ -62,6 +70,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         mBinding = DataBindingUtil.bind(mRootView);
         initArcgisMap();
     }
+
     /**
      * 配置arcgis地图
      */
@@ -89,7 +98,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 }
                 if (status == STATUS.LAYER_LOADED) {
                     mBinding.layoutLoading.loadingLayout.setVisibility(View.GONE);
-
+                    drawMapPoint();
                 }
                 if (status == STATUS.LAYER_LOADING_FAILED) {
                     mBinding.layoutLoading.tvLoading.setText("地图加载失败");
@@ -98,10 +107,37 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         });
 
 
-
-
-
     }
+
+    private void drawMapPoint() {
+        List<StationBean> stationList = DataSupport.findAll(StationBean.class);
+
+        if (!CollectionsUtil.isEmpty(stationList)) {
+            mBinding.mvArcgisRiverLog.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (count < stationList.size()) {
+                        StationBean bean = stationList.get(count++);
+                        Double lttdrv = Double.parseDouble(bean.getLttd());
+                        Double lgtdrv = Double.parseDouble(bean.getLgtd());
+                        if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {
+                            ToastUtils.shortToast("测试阶段的部分数据不标准");
+                            mBinding.mvArcgisRiverLog.centerAt(new Point(ConfigConst.LNG, ConfigConst.LAT), true);
+                            mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
+                            return;
+                        }
+                        ARCGISUTIL.addPic(R.mipmap.home_ic_h_normal, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                        if (count == 1){
+                            mBinding.mvArcgisRiverLog.centerAt(new Point(lgtdrv, lttdrv), true);
+                            mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
+                        }
+                        mBinding.mvArcgisRiverLog.postDelayed(this,100);
+                    }
+                }
+            });
+        }
+    }
+
     @Override
     protected void initRequestData() {
 

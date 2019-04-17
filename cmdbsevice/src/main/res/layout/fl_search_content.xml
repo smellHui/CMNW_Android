@@ -6,15 +6,19 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/fl_search_content"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <com.tepia.base.view.ScrollLayout.ScrollLayout
+            android:tag="scroll_down_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:visibility="visible">
 
             <com.tepia.base.view.ScrollLayout.ContentScrollView
+                android:tag="item_scroll_view_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="none">
@@ -22,7 +26,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/white"
                     android:orientation="vertical">
 
                     <FrameLayout

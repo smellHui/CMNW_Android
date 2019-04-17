@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_station_search"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/ic_clear_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_station_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/iv_station_search"
+            android:text="城桥镇1号处理站"
+            android:textColor="#ff010101"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_station_adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_station_name"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="8dp"
+            android:text="城桥镇新城绿海路与新华路交叉口"
+            android:textColor="#ff555555"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_station_adress"
+            android:layout_marginLeft="40dp"
+            android:background="#e8e8e8"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp" />
+    </RelativeLayout>
+</layout>

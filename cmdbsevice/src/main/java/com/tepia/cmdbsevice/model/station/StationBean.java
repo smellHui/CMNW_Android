@@ -1,5 +1,8 @@
 package com.tepia.cmdbsevice.model.station;
 
+import org.litepal.annotation.Column;
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by      android studio
  *
@@ -9,7 +12,8 @@ package com.tepia.cmdbsevice.model.station;
  * Version         :       1.0
  * 功能描述        :
  **/
-public class StationBean {
+public class StationBean extends DataSupport {
+    @Column(unique = true)
     private String code;
     private String address;
     private String name;
