@@ -34,6 +34,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:background="@drawable/yel_round_4"
+                android:paddingLeft="7dp"
+                android:paddingTop="2dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="2dp"
                 android:text="上海电气"
                 android:textColor="@color/color_FF934A"
                 android:textSize="14sp" />
@@ -105,6 +110,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:background="@drawable/yel_round_4"
+                        android:paddingLeft="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingRight="7dp"
+                        android:paddingBottom="2dp"
                         android:text="提升井"
                         android:textColor="@color/color_FF934A"
                         android:textSize="14sp"
@@ -155,7 +165,7 @@
             android:paddingBottom="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="剩余时间"
                 android:textColor="@color/color_333333"
@@ -188,9 +198,9 @@
             android:paddingBottom="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="状态          "
+                android:text="状态 "
                 android:textColor="@color/color_333333"
                 android:textSize="14sp" />
 
@@ -213,11 +223,12 @@
 
         <Button
             android:id="@+id/btn_look"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
             android:layout_gravity="end"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
+            android:background="@drawable/btn_stroke_selector"
             android:text="查看"
             android:textColor="@color/color_4FB97E"
             android:textSize="13sp" />

@@ -6,7 +6,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.enums.PopupPosition;
-import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.tepia.base.mvp.BaseListActivity;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmdbsevice.R;
@@ -33,7 +32,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<OrderBean> {
     @Override
     public void initView() {
         super.initView();
-        setCenterTitle("事件督办");
+        setCenterTitle("报警统计");
         showBack();
         setRightImgEvent(R.mipmap.img_agrc_service, (v) -> {
             new XPopup.Builder(getContext())
