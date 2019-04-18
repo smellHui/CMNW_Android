@@ -18,7 +18,7 @@ public class SpssCountAdapter extends BaseQuickAdapter<OrderBean, BaseViewHolder
     private Resources resources;
 
     public SpssCountAdapter(Context ctx) {
-        super(R.layout.item_city_count);
+        super(R.layout.item_spss_count);
         resources = ctx.getResources();
     }
 

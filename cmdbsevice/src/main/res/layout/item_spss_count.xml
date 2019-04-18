@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="32dp"
+    android:orientation="horizontal">
+
+    <TextView
+        style="@style/text.item_spss"
+        android:text="成桥镇" />
+
+    <TextView
+        style="@style/text.item_spss"
+        android:text="114" />
+
+    <TextView
+        style="@style/text.item_spss"
+        android:text="114" />
+
+    <TextView
+        style="@style/text.item_spss"
+        android:text="114" />
+
+</LinearLayout>

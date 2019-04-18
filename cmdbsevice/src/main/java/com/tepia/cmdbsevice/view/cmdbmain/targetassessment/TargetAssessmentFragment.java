@@ -1,19 +1,17 @@
 package com.tepia.cmdbsevice.view.cmdbmain.targetassessment;
 
 
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.gyf.barlibrary.ImmersionBar;
 import com.tepia.base.mvp.BaseCommonFragment;
-import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssFragment;
 import com.tepia.cmnwsevice.adapter.PageAdapter;
-import com.tepia.cmnwsevice.view.detail.action.ActionDetailFragment;
-import com.tepia.cmnwsevice.view.detail.action.ToDoFragment;
 
 import java.util.ArrayList;
 
