@@ -19,4 +19,15 @@
         <item name="android:paddingRight">10dp</item>
         <item name="android:paddingLeft">10dp</item>
     </style>
+
+    <style name="text.title">
+        <item name="android:width">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_8993A9</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

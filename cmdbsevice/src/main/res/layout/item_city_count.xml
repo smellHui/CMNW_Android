@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
     android:layout_height="36dp"
     android:orientation="horizontal">
 
     <TextView
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:layout_height="match_parent"
-        android:textSize="14sp"
+        android:text="成桥镇"
         android:textColor="@color/color_333333"
-        android:text="成桥镇"/>
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:layout_height="match_parent"
-        android:textSize="14sp"
+        android:text="上海电气"
         android:textColor="@color/color_333333"
-        android:text="上海电气"/>
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:layout_height="match_parent"
-        android:textSize="14sp"
+        android:text="114"
         android:textColor="@color/color_333333"
-        android:text="114"/>
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:layout_height="match_parent"
-        android:textSize="14sp"
+        android:text="114"
         android:textColor="@color/color_333333"
-        android:text="114"/>
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:layout_height="match_parent"
-        android:textSize="14sp"
+        android:text="114"
         android:textColor="@color/color_333333"
-        android:text="114"/>
+        android:textSize="14sp" />
 
 </LinearLayout>

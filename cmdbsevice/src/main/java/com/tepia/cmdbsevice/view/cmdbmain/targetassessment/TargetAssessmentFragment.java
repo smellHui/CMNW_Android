@@ -1,22 +1,34 @@
 package com.tepia.cmdbsevice.view.cmdbmain.targetassessment;
 
 
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.flyco.tablayout.SegmentTabLayout;
+import com.flyco.tablayout.SlidingTabLayout;
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssFragment;
+import com.tepia.cmnwsevice.adapter.PageAdapter;
+import com.tepia.cmnwsevice.view.detail.action.ActionDetailFragment;
+import com.tepia.cmnwsevice.view.detail.action.ToDoFragment;
+
+import java.util.ArrayList;
 
 /**
- * @author        :       zhang xinhua
- * @Version       :       1.0
- * @创建人         ：      zhang xinhua
- * @创建时间       :       2019/4/15 14:44
- * @修改人         ：
- * @修改时间       :       2019/4/15 14:44
- * @功能描述       :        tab - 任务考核
- **/
+ * Author:xch
+ * Date:2019/4/17
+ * Description:tab-统计分析
+ */
+public class TargetAssessmentFragment extends BaseCommonFragment {
 
-public class TargetAssessmentFragment extends MVPBaseFragment<TargetAssessmentContract.View, TargetAssessmentPresenter> implements TargetAssessmentContract.View {
+    private String[] mTitles = {"故障率统计", "人工水质", "在线水质"};
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private SlidingTabLayout tabLayout;
+    private ViewPager viewPager;
+    private PageAdapter pageAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -30,7 +42,14 @@ public class TargetAssessmentFragment extends MVPBaseFragment<TargetAssessmentCo
 
     @Override
     protected void initView(View view) {
-
+        tabLayout = findView(R.id.ly_tab);
+        viewPager = findView(R.id.vp);
+        mFragments.add(SpssFragment.launch());
+        mFragments.add(SpssFragment.launch());
+        mFragments.add(SpssFragment.launch());
+        pageAdapter = new PageAdapter(getChildFragmentManager(), mFragments, mTitles);
+        viewPager.setAdapter(pageAdapter);
+        tabLayout.setViewPager(viewPager);
     }
 
     @Override

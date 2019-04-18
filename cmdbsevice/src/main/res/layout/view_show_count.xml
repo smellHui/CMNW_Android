@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="64"
+                    android:text="135"
                     android:textColor="@color/color_333333"
                     android:textSize="28sp"
                     android:textStyle="bold" />
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="故障总数"
+                    android:text="报警统计"
                     android:textColor="@color/color_333333"
                     android:textSize="14sp" />
             </LinearLayout>
