@@ -126,10 +126,12 @@ dependencies {
 
     //圆角按钮
     implementation rootProject.ext.dependencies.roundbutton
+
     implementation rootProject.ext.dependencies.PickerView
     implementation rootProject.ext.dependencies.eventbus
     implementation rootProject.ext.dependencies.xpopup
     implementation rootProject.ext.dependencies.flowlayout
+    implementation rootProject.ext.dependencies.MPAndroidChart
 
     //    api rootProject.ext.dependencies["annotations"]
 

@@ -129,6 +129,8 @@ ext {
             xpopup:"com.lxj:xpopup:1.6.8",
 
             flowlayout:"com.hyman:flowlayout-lib:1.1.2",
+            //图表
+            MPAndroidChart:"com.github.PhilJay:MPAndroidChart:v3.1.0",
 //            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
 //            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
     ]

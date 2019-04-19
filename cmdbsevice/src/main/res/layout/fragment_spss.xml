@@ -20,14 +20,14 @@
 
         <com.flyco.tablayout.SegmentTabLayout
             android:id="@+id/tl_1"
-            android:layout_width="wrap_content"
+            android:layout_width="156dp"
             android:layout_height="26dp"
             tl:tl_bar_color="@color/color_EAEFF9"
             tl:tl_indicator_anim_enable="true"
-            tl:tl_indicator_bounce_enable="false"
+            tl:tl_indicator_bounce_enable="true"
             tl:tl_indicator_color="@color/color_4DB07A"
             tl:tl_indicator_corner_radius="13dp"
-            tl:tl_tab_padding="20dp"
+            tl:tl_bar_stroke_color="@color/trans"
             tl:tl_textSelectColor="@color/white"
             tl:tl_textUnselectColor="@color/color_5C626E"
             tl:tl_textsize="13sp" />
