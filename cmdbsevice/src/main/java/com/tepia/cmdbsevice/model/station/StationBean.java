@@ -1,5 +1,7 @@
 package com.tepia.cmdbsevice.model.station;
 
+import com.google.common.base.Strings;
+
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
@@ -45,7 +47,7 @@ public class StationBean extends DataSupport {
     }
 
     public String getLgtd() {
-        return lgtd;
+        return Strings.isNullOrEmpty(lgtd) ? "0" : lgtd;
     }
 
     public void setLgtd(String lgtd) {
@@ -53,7 +55,7 @@ public class StationBean extends DataSupport {
     }
 
     public String getLttd() {
-        return lttd;
+        return Strings.isNullOrEmpty(lttd) ? "0" : lttd;
     }
 
     public void setLttd(String lttd) {

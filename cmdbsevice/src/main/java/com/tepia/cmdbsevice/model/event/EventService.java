@@ -3,6 +3,8 @@ package com.tepia.cmdbsevice.model.event;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.cmnwsevice.model.order.OrderCountBean;
 
+import java.util.List;
+
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -30,7 +32,7 @@ public interface EventService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/topTotal")
-    Observable<BaseCommonResponse> topTotal(@Header("token") String token, @Body RequestBody body);
+    Observable<BaseCommonResponse<TopTotalBean>> topTotal(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 【查询】实时督办-企业报警、故障数
@@ -41,7 +43,7 @@ public interface EventService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/countByVendor")
-    Observable<BaseCommonResponse> countByVendor(@Header("token") String token, @Body RequestBody body);
+    Observable<BaseCommonResponse<List<TopTotalBean>>> countByVendor(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 【查询】实时督办-乡镇报警、故障数
@@ -52,7 +54,7 @@ public interface EventService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/countByTown")
-    Observable<BaseCommonResponse> countByTown(@Header("token") String token, @Body RequestBody body);
+    Observable<BaseCommonResponse<List<TopTotalBean>>> countByTown(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 【查询】实时督办报警、故障统计列表
@@ -63,7 +65,7 @@ public interface EventService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/listByWarning")
-    Observable<BaseCommonResponse> listByWarning(@Header("token") String token, @Body RequestBody body);
+    Observable<BaseCommonResponse<List<WarnBean>>> listByWarning(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 【查询】故障类型分析统计

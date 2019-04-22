@@ -3,8 +3,9 @@ package com.tepia.cmdbsevice.model.event;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.cmdbsevice.APPConst;
-import com.tepia.cmdbsevice.model.station.StationService;
 import com.tepia.cmnwsevice.model.user.UserManager;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,10 +33,52 @@ public class EventManager {
         this.mRetrofitService = RetrofitManager.getRetrofit(APPConst.ROOT_URL).create(EventService.class);
     }
 
-    public Observable<BaseCommonResponse> topTotal(Object... params) {
+    public Observable<BaseCommonResponse<TopTotalBean>> topTotal(Object... params) {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.topTotal(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】实时督办-乡镇报警、故障数
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<TopTotalBean>>> countByTown(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.countByTown(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】实时督办-企业报警、故障数
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<TopTotalBean>>> countByVendor(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.countByVendor(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】实时督办报警、故障统计列表
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<WarnBean>>> listByWarning(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.listByWarning(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

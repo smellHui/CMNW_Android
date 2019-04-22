@@ -1,5 +1,6 @@
 package com.tepia.base.utils;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -521,6 +522,7 @@ public class TimeFormatUtils {
         Date d = new Date(millseconds);
         return sf.format(d);
     }
+
     public static String getDatePoor(Date endDate, Date newDate) {
         long nd = 1000 * 24 * 60 * 60;
         long nh = 1000 * 60 * 60;
@@ -538,10 +540,31 @@ public class TimeFormatUtils {
         // long sec = diff % nd % nh % nm / ns;
         if (day == 0) {
             return Math.abs(hour) + "时" + Math.abs(min) + "分";
-        }else {
-            return Math.abs(day)+"天"+Math.abs(hour) + "时" + Math.abs(min) + "分";
+        } else {
+            return Math.abs(day) + "天" + Math.abs(hour) + "时" + Math.abs(min) + "分";
         }
     }
 
+    /**
+     * 与当前时间差
+     *
+     * @param oldTime
+     * @return
+     */
+    public static long coverMinutes(String oldTime) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long minutes = 0l;
+        try {
+            Date d1 = new Date();
+            Date d2 = df.parse(oldTime);
+            long diff = d1.getTime() - d2.getTime();//这样得到的差值是微秒级别
+            long days = diff / (1000 * 60 * 60 * 24);
+            long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+            minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+            System.out.println("" + days + "天" + hours + "小时" + minutes + "分");
+        } catch (Exception e) {
+        }
+        return minutes;
+    }
 
 }

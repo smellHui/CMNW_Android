@@ -217,7 +217,4 @@ public class OrderManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-
-
-
 }

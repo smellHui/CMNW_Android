@@ -61,7 +61,7 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setTextColor(Color.parseColor("#666666"));;
+        l.setTextColor(Color.parseColor("#666666"));
         l.setDrawInside(false);
         l.setTypeface(tfLight);
         l.setYOffset(0f);

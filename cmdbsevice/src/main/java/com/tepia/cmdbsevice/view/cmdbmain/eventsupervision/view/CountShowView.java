@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsActivity;
@@ -13,6 +14,7 @@ import com.tepia.cmnwsevice.view.main.views.ViewBase;
 public class CountShowView extends ViewBase {
 
     private FrameLayout alarmFl;
+    private TextView tv_alarmNum, tv_faultNum;
 
     public CountShowView(Context context) {
         super(context);
@@ -33,7 +35,14 @@ public class CountShowView extends ViewBase {
 
     @Override
     public void initData() {
+        tv_faultNum = findViewById(R.id.tv_faultNum);
+        tv_alarmNum = findViewById(R.id.tv_alarmNum);
         alarmFl = findViewById(R.id.fl_alarm);
         alarmFl.setOnClickListener((v) -> mContext.startActivity(new Intent(mContext, AlarmStatisticsActivity.class)));
+    }
+
+    public void setDate(String faultNum, String alarmNum) {
+        tv_faultNum.setText(faultNum);
+        tv_alarmNum.setText(alarmNum);
     }
 }

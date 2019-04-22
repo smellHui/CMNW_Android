@@ -118,6 +118,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 public void run() {
                     if (count < stationList.size()) {
                         StationBean bean = stationList.get(count++);
+                        if (bean == null) return;
                         Double lttdrv = Double.parseDouble(bean.getLttd());
                         Double lgtdrv = Double.parseDouble(bean.getLgtd());
                         if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {

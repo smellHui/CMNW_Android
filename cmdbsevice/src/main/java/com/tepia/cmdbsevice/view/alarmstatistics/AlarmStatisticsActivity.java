@@ -1,27 +1,42 @@
 package com.tepia.cmdbsevice.view.alarmstatistics;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.enums.PopupPosition;
+import com.tepia.base.http.BaseCommonResponse;
+import com.tepia.base.http.LoadingSubject;
+import com.tepia.base.mvp.BaseActivity;
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.BaseListActivity;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.WrapLayoutManager;
+import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmdbsevice.model.event.EventManager;
+import com.tepia.cmdbsevice.model.event.TopTotalBean;
+import com.tepia.cmdbsevice.model.event.WarnBean;
+import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.adapter.CityCountAdapter;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.SelectEventPopView;
 import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.view.main.OrderPresenter;
+
+import java.util.List;
 
 /**
  * Author:xch
  * Date:2019/4/17
  * Description:报警统计
  */
-public class AlarmStatisticsActivity extends BaseListActivity<OrderBean> {
+public class AlarmStatisticsActivity extends BaseActivity {
 
-    private String[] mTitles = {"日", "周", "月", "年"};
-    private OrderPresenter orderPresenter;
+    private RecyclerView rv;
+    private AlermStatisAdapter alermStatisAdapter;
+    private List<WarnBean> warnBeans;
     private SelectEventPopView selectEventPopView;
 
     @Override
@@ -31,7 +46,6 @@ public class AlarmStatisticsActivity extends BaseListActivity<OrderBean> {
 
     @Override
     public void initView() {
-        super.initView();
         setCenterTitle("报警统计");
         showBack();
         setRightImgEvent(R.mipmap.img_agrc_service, (v) -> {
@@ -42,9 +56,22 @@ public class AlarmStatisticsActivity extends BaseListActivity<OrderBean> {
                     .show();
         });
         selectEventPopView = new SelectEventPopView(getContext());
-        SegmentTabLayout tabLayout_1 = findViewById(R.id.tl_1);
-        tabLayout_1.setTabData(mTitles);
-        orderPresenter = new OrderPresenter(1, this);
+        setVerModel();
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    private void setVerModel() {
+        rv = findViewById(R.id.rv);
+        alermStatisAdapter = new AlermStatisAdapter();
+        alermStatisAdapter.setOnItemChildClickListener(this::setOnItemChildClickListener);
+        rv.setLayoutManager(new WrapLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
+        rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
+        rv.setAdapter(alermStatisAdapter);
     }
 
     @Override
@@ -54,15 +81,9 @@ public class AlarmStatisticsActivity extends BaseListActivity<OrderBean> {
 
     @Override
     protected void initRequestData() {
-        orderPresenter.querylist(getPage(), 20);
+        listByWarning("2019-03-01 00:00:00", "2019-04-30 00:00:00");
     }
 
-    @Override
-    public BaseQuickAdapter getBaseQuickAdapter() {
-        return new AlermStatisAdapter();
-    }
-
-    @Override
     public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
         int i = view.getId();
         if (i == R.id.btn_look) {
@@ -72,5 +93,22 @@ public class AlarmStatisticsActivity extends BaseListActivity<OrderBean> {
                             (position1, text) -> ToastUtils.shortToast("click " + text))
                     .show();
         }
+    }
+
+    private void listByWarning(String startTime, String endTime) {
+        EventManager.getInstance().listByWarning("startTime", startTime, "endTime", endTime)
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse<List<WarnBean>>>() {
+
+                    @Override
+                    protected void _onNext(BaseCommonResponse<List<WarnBean>> baseCommonResponse) {
+                        warnBeans = baseCommonResponse.getData();
+                        alermStatisAdapter.setNewData(warnBeans);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+
+                    }
+                });
     }
 }

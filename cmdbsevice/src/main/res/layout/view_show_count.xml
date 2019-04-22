@@ -31,6 +31,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_faultNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="64"
@@ -77,6 +78,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_alarmNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="135"
