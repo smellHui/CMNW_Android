@@ -4,6 +4,7 @@
     android:layout_height="40dp">
 
     <TextView
+        android:id="@+id/tv_foot_view"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"

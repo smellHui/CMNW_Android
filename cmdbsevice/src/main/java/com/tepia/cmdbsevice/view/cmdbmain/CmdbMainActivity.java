@@ -47,8 +47,8 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
 
     private String[] mTitles = {"在线监测", "事件督办", "目标考核"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private int[] mIconUnselectIds = {R.mipmap.tab_icn_zxjc_normal, R.mipmap.tab_icn_sjdb_normal, R.mipmap.home_ic_h_normal,};
-    private int[] mIconSelectIds = {R.mipmap.tab_icn_zxjc_selected, R.mipmap.tab_icn_sjdb_selected, R.mipmap.home_ic_h_selected,};
+    private int[] mIconUnselectIds = {R.mipmap.tab_icn_zxjc_normal, R.mipmap.tab_icn_sjdb_normal, R.mipmap.tab_icn_mbkh_normal,};
+    private int[] mIconSelectIds = {R.mipmap.tab_icn_zxjc_selected, R.mipmap.tab_icn_sjdb_selected, R.mipmap.tab_icn_mbkh_selected,};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private AppBean appBean;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;

@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 /**
  * Created by      android studio
@@ -36,6 +37,13 @@ public class StationManager {
     public Observable<BaseCommonResponse<List<StationBean>>> getStationList() {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getStationList(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public   Observable<BaseCommonResponse<StationBean>>  getStationDetail(String code) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getStationByCode(token,code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

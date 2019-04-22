@@ -24,15 +24,25 @@
                 android:visibility="gone">
 
                 <ImageView
+                    android:id="@+id/iv_back"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_chevron_left_black_24dp" />
+                    android:layout_height="match_parent"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_arrow_left_gray" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#ffdddddd" />
 
                 <EditText
                     android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:background="@color/trans"
@@ -58,15 +68,16 @@
 
                 <ImageView
                     android:id="@+id/iv_cancel"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_clear_black_24dp" />
+                    android:src="@drawable/ic_clear_black_24dp"
+                    android:visibility="gone" />
+
                 <ImageView
                     android:id="@+id/iv_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_add_black_24dp" />
+                    android:src="@mipmap/icon_search_green" />
             </LinearLayout>
 
         </RelativeLayout>

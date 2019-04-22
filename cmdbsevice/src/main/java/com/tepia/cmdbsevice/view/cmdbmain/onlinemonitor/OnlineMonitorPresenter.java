@@ -1,8 +1,13 @@
 package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor;
 
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.model.station.StationBean;
@@ -31,7 +36,7 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
             protected void _onNext(BaseCommonResponse<List<StationBean>> baseCommonResponse) {
                 if (!CollectionsUtil.isEmpty(baseCommonResponse.getData())) {
                     for (StationBean bean : baseCommonResponse.getData()) {
-                        bean.save();
+                        bean.saveOrUpdate("code=?", bean.getCode());
                     }
                 }
             }
@@ -44,10 +49,17 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
     }
 
     public ArrayList<String> getSearchHisList() {
+        String temp = SPUtils.getInstance().getString("SEARCHHISLIST", "");
         ArrayList<String> list = new ArrayList<>();
-        list.add("处理站");
-        list.add("提升井");
+        if (!TextUtils.isEmpty(temp)) {
+            list = new Gson().fromJson(temp, new TypeToken<ArrayList<String>>() {
+            }.getType());
+        }
         return list;
+    }
+
+    public void clearSearchHisList() {
+        SPUtils.getInstance().putString("SEARCHHISLIST", "");
     }
 
     public ArrayList<StationBean> getSearchTipList(String temp) {
@@ -55,5 +67,11 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
         ArrayList<StationBean> list2 = new ArrayList<>();
         list2.addAll(list);
         return list2;
+    }
+
+    public void putSearchHis(String temp) {
+        ArrayList<String> list = getSearchHisList();
+        list.add(temp);
+        SPUtils.getInstance().putString("SEARCHHISLIST", new Gson().toJson(list));
     }
 }

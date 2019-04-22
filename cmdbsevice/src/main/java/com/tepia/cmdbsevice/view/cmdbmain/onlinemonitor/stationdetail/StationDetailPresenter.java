@@ -1,6 +1,13 @@
 package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail;
 
+import com.tepia.base.http.BaseCommonResponse;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.cmdbsevice.model.station.StationBean;
+import com.tepia.cmdbsevice.model.station.StationManager;
+
+import io.reactivex.Observable;
 
 /**
  * MVPPlugin
@@ -8,5 +15,18 @@ import com.tepia.base.mvp.BasePresenterImpl;
  */
 
 public class StationDetailPresenter extends BasePresenterImpl<StationDetailContract.View> implements StationDetailContract.Presenter{
-    
+
+    public void getStationDetail(String code) {
+        StationManager.getInstance().getStationDetail(code).safeSubscribe(new LoadingSubject<BaseCommonResponse<StationBean>>() {
+            @Override
+            protected void _onNext(BaseCommonResponse<StationBean> stationBeanBaseCommonResponse) {
+                mView.getStationDetailSuccess(stationBeanBaseCommonResponse.getData());
+            }
+
+            @Override
+            protected void _onError(String message) {
+                ToastUtils.shortToast(message);
+            }
+        });
+    }
 }

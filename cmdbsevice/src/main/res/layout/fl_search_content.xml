@@ -4,24 +4,24 @@
     <data></data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fl_search_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fl_search_content"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <com.tepia.base.view.ScrollLayout.ScrollLayout
-            android:tag="scroll_down_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
+            android:tag="scroll_down_layout"
             android:visibility="visible">
 
             <com.tepia.base.view.ScrollLayout.ContentScrollView
-                android:tag="item_scroll_view_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:tag="item_scroll_view_layout">
 
                 <LinearLayout
                     android:layout_width="match_parent"

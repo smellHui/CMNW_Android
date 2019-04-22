@@ -30,7 +30,9 @@ import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.FragmentOnlineMonitorBinding;
+import com.tepia.cmdbsevice.model.station.StationBean;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap.OnlineMonitorMapFragment;
+import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail.StationDetailFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationlist.StationListFragment;
 
 import java.util.ArrayList;
@@ -65,8 +67,9 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         initMapFragment();
         initRightView();
         initLisitener();
-        initStationList();
+
         initScrollLayout(mRootView);
+        showLayer(0);
     }
 
     /**
@@ -114,19 +117,13 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
     }
 
-    private void initStationList() {
-        FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
-        ft2.replace(R.id.fl_container, new StationListFragment());
-        ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft2.addToBackStack(null);
-        ft2.commit();
-    }
 
     private void initRightView() {
         {
             mBinding.loRight.rvStationTypeList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
             ArrayList<StationTypeBean> list = new ArrayList<>();
-            list.add(new StationTypeBean());
+            list.add(new StationTypeBean("提升井",R.drawable.bg_circle_eee,R.mipmap.icn_tsj));
+            list.add(new StationTypeBean("提升井",R.drawable.bg_circle_eee,R.mipmap.icn_tsj));
             list.add(new StationTypeBean());
             adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, list);
             mBinding.loRight.rvStationTypeList.setAdapter(adapterStationTypeList);
@@ -188,6 +185,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
             }
         });
 
+
         mBinding.loSearchHeader.loBtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,17 +197,18 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                         String temp = mBinding.loSearchHeader.etSearch.getText().toString();
                         if (TextUtils.isEmpty(temp)) {
                             ToastUtils.shortToast("请输入要搜索的名称");
-                        }else {
-                            mBinding.loSearchHeader.ivSearch.setVisibility(View.GONE);
-                            mBinding.loSearchHeader.ivCancel.setVisibility(View.VISIBLE);
+                            initAndShowSearchHisList();
+                        } else {
+                            mPresenter.putSearchHis(temp);
+                            showLayer(3);
+                            initListFragment(temp);
                         }
                     } else {
-                        mBinding.loSearchHeader.ivSearch.setVisibility(View.VISIBLE);
-                        mBinding.loSearchHeader.ivCancel.setVisibility(View.GONE);
+                        showLayer(1);
                         mBinding.loSearchHeader.etSearch.setText("");
                     }
                 } else {
-                    mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
+                    showLayer(1);
                 }
             }
         });
@@ -237,10 +236,12 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 String temp = mBinding.loSearchHeader.etSearch.getText().toString();
                 if (!TextUtils.isEmpty(temp)) {
                     if (!CollectionsUtil.isEmpty(mPresenter.getSearchTipList(temp))) {
+                        showLayer(2);
                         initAndShowSearchTipList();
                     }
                 } else {
                     if (!CollectionsUtil.isEmpty(mPresenter.getSearchHisList())) {
+                        showLayer(1);
                         initAndShowSearchHisList();
                     }
                 }
@@ -251,22 +252,131 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
             }
         });
+
+        mBinding.loSearchHeader.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                showLayer(0);
+            }
+        });
+    }
+
+    private void initListFragment(String temp) {
+        FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
+        StationListFragment stationListFragment = new StationListFragment();
+        stationListFragment.shaixuanStr = temp;
+        ft2.replace(R.id.fl_container, stationListFragment);
+        ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft2.addToBackStack(null);
+        ft2.commit();
     }
 
     /**
      * 初始化 并显示 提示list
      */
     private void initAndShowSearchTipList() {
-        mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
-        mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
-        mBinding.loSearchTip.rvSearchTip.setVisibility(View.VISIBLE);
-        mBinding.loSearchTip.rvSearchHis.setVisibility(View.GONE);
-        mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.GONE);
-        mBinding.flSearchContent.flSearchContent.setVisibility(View.GONE);
+
         mBinding.loSearchTip.rvSearchTip.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterSearchTipList adapterSearchHisList = new AdapterSearchTipList(R.layout.lv_search_tip_list, mPresenter.getSearchTipList(mBinding.loSearchHeader.etSearch.getText().toString()));
-        mBinding.loSearchTip.rvSearchTip.setAdapter(adapterSearchHisList);
+        AdapterSearchTipList adapterSearchTipList = new AdapterSearchTipList(R.layout.lv_search_tip_list, mPresenter.getSearchTipList(mBinding.loSearchHeader.etSearch.getText().toString()));
+        mBinding.loSearchTip.rvSearchTip.setAdapter(adapterSearchTipList);
         View footview = LayoutInflater.from(getContext()).inflate(R.layout.lv_search_foot_view, null);
+        adapterSearchTipList.setFooterView(footview);
+
+        adapterSearchTipList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                mBinding.loSearchHeader.etSearch.setText(adapterSearchTipList.getData().get(position).getName());
+                showLayer(3);
+                initDetailFragment(adapterSearchTipList.getData().get(position));
+            }
+        });
+
+    }
+
+    /**
+     * 根据不同状态 显示不同 图层
+     *
+     * @param status
+     */
+    private void showLayer(int status) {
+        switch (status) {
+            case 0: {
+                mBinding.loSearchHeader.loBtSearch.setVisibility(View.VISIBLE);
+                mBinding.loSearchHeader.loSearchEt.setVisibility(View.GONE);
+                mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.loSearch.setVisibility(View.GONE);
+                mBinding.flSearchContent.flSearchContent.setVisibility(View.GONE);
+            }
+            break;
+            case 1: {
+                mBinding.loSearchHeader.loBtSearch.setVisibility(View.VISIBLE);
+                mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
+                mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.loSearch.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.rvSearchHis.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.rvSearchTip.setVisibility(View.GONE);
+                mBinding.flSearchContent.flSearchContent.setVisibility(View.GONE);
+            }
+            break;
+            case 2: {
+                mBinding.loSearchHeader.loBtSearch.setVisibility(View.VISIBLE);
+                mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
+                mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.GONE);
+                mBinding.loSearchTip.loSearch.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.rvSearchHis.setVisibility(View.GONE);
+                mBinding.loSearchTip.rvSearchTip.setVisibility(View.VISIBLE);
+                mBinding.flSearchContent.flSearchContent.setVisibility(View.GONE);
+            }
+            break;
+            case 3: {
+                mBinding.loSearchHeader.loBtSearch.setVisibility(View.VISIBLE);
+                mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
+                mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.loSearch.setVisibility(View.GONE);
+                mBinding.flSearchContent.flSearchContent.setVisibility(View.VISIBLE);
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    private void initDetailFragment(StationBean stationBean) {
+        FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
+        StationDetailFragment stationDetailFragment = new StationDetailFragment();
+        stationDetailFragment.stationBean = stationBean;
+        ft2.replace(R.id.fl_container, stationDetailFragment);
+        ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft2.addToBackStack(null);
+        ft2.commit();
+    }
+
+    /**
+     * 初始化 搜索历史 list view
+     */
+    private void initAndShowSearchHisList() {
+        mBinding.loSearchTip.rvSearchHis.setLayoutManager(new LinearLayoutManager(getContext()));
+        AdapterSearchHisList adapterSearchHisList = new AdapterSearchHisList(R.layout.lv_search_his_list, mPresenter.getSearchHisList());
+        mBinding.loSearchTip.rvSearchHis.setAdapter(adapterSearchHisList);
+        View footview = LayoutInflater.from(getContext()).inflate(R.layout.lv_search_foot_view, null);
+
+        footview.findViewById(R.id.tv_foot_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                mPresenter.clearSearchHisList();
+            }
+        });
         adapterSearchHisList.setFooterView(footview);
 
         adapterSearchHisList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -275,26 +385,11 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
-                mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
-                mBinding.loSearchHeader.etSearch.setText(adapterSearchHisList.getData().get(position).getName());
+                mBinding.loSearchHeader.etSearch.setText(adapterSearchHisList.getData().get(position));
+                showLayer(3);
+                initListFragment(adapterSearchHisList.getData().get(position));
             }
         });
-
-    }
-
-    /**
-     * 初始化 搜索历史 list view
-     */
-    private void initAndShowSearchHisList() {
-        mBinding.loSearchTip.loSearch.setVisibility(View.VISIBLE);
-        mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
-        mBinding.loSearchTip.rvSearchHis.setVisibility(View.VISIBLE);
-        mBinding.loSearchTip.rvSearchTip.setVisibility(View.GONE);
-        mBinding.loSearchTip.rvSearchHis.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterSearchHisList adapterSearchHisList = new AdapterSearchHisList(R.layout.lv_search_his_list, mPresenter.getSearchHisList());
-        mBinding.loSearchTip.rvSearchHis.setAdapter(adapterSearchHisList);
-        View footview = LayoutInflater.from(getContext()).inflate(R.layout.lv_search_foot_view, null);
-        adapterSearchHisList.setFooterView(footview);
     }
 
     @Override

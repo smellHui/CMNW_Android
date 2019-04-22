@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 public class StationListFragment extends MVPBaseFragment<StationListContract.View, StationListPresenter> implements StationListContract.View {
 
+    public String shaixuanStr;
     private FragmentStationListBinding mBinding;
     private AdapterStationList adapterStationList;
 
@@ -55,7 +56,7 @@ public class StationListFragment extends MVPBaseFragment<StationListContract.Vie
 
     @Override
     protected void initRequestData() {
-        mPresenter.getStationList();
+        mPresenter.getStationList(shaixuanStr);
     }
 
     @Override

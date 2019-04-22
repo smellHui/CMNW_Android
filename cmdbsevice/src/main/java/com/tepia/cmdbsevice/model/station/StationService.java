@@ -42,7 +42,7 @@ public interface StationService {
      * @return
      */
     @GET("station/getStationByCode/{code}")
-    Observable<BaseCommonResponse> getStationByCode(@Header("token") String token, @Path("code") String code);
+    Observable<BaseCommonResponse<StationBean>> getStationByCode(@Header("token") String token, @Path("code") String code);
 
     /**
      * 【查询】历史运行

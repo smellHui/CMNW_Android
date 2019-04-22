@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
+import com.tepia.cmdbsevice.model.station.StationBean;
 
 /**
  * MVPPlugin
@@ -12,7 +13,7 @@ import com.tepia.base.mvp.BaseView;
 
 public class StationDetailContract {
     interface View extends BaseView {
-        
+        void getStationDetailSuccess(StationBean data);
     }
 
     interface  Presenter extends BasePresenter<View> {

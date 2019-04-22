@@ -4,6 +4,7 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.esri.android.map.GraphicsLayer;
@@ -51,7 +52,6 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      */
     private GraphicsLayer selectRiversLayer;
 
-    private boolean has_loading;
     private FragmentOnlineMapBinding mBinding;
     private int count = 0;
 
@@ -119,6 +119,10 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                     if (count < stationList.size()) {
                         StationBean bean = stationList.get(count++);
                         if (bean == null) return;
+                        if (TextUtils.isEmpty(bean.getLttd()) && TextUtils.isEmpty(bean.getLttd())){
+                            mBinding.mvArcgisRiverLog.postDelayed(this, 100);
+                            return;
+                        }
                         Double lttdrv = Double.parseDouble(bean.getLttd());
                         Double lgtdrv = Double.parseDouble(bean.getLgtd());
                         if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {
@@ -127,12 +131,13 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                             mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
                             return;
                         }
-                        ARCGISUTIL.addPic(R.mipmap.home_ic_h_normal, new Point(lgtdrv, lttdrv), logGraphicsLayer);
-                        if (count == 1){
+                        ARCGISUTIL.addPic(R.mipmap.icon_chulizhang_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                        if (count == 1) {
                             mBinding.mvArcgisRiverLog.centerAt(new Point(lgtdrv, lttdrv), true);
                             mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
                         }
-                        mBinding.mvArcgisRiverLog.postDelayed(this,100);
+
+                        mBinding.mvArcgisRiverLog.postDelayed(this, 100);
                     }
                 }
             });

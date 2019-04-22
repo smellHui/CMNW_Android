@@ -1,9 +1,11 @@
 package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor;
 
+import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.cmdbsevice.databinding.LvStationTypeItemViewBinding;
 
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class AdapterStationTypeList extends BaseQuickAdapter<StationTypeBean,Bas
 
     @Override
     protected void convert(BaseViewHolder helper, StationTypeBean item) {
+//        lv_station_type_item_view
+        LvStationTypeItemViewBinding mBinding = DataBindingUtil.bind(helper.itemView);
 
     }
 }

@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:id="@+id/lo_search"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -14,7 +14,7 @@
 
         <RelativeLayout
             android:id="@+id/lo_search_tip"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
