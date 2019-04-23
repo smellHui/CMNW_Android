@@ -1,11 +1,10 @@
 package com.tepia.cmdbsevice.model.event;
 
 import com.tepia.base.http.BaseCommonResponse;
-import com.tepia.cmnwsevice.model.order.OrderCountBean;
+import com.tepia.base.model.PageBean;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -66,7 +65,7 @@ public interface EventService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/listByWarning")
-    Observable<BaseCommonResponse<List<WarnBean>>> listByWarning(@Header("token") String token, @Body RequestBody body);
+    Observable<PageBean<WarnBean>> listByWarning(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 【查询】获取乡镇列表

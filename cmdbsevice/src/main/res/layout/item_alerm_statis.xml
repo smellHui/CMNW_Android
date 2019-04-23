@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,7 +18,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icn_fj" />
+            android:src="@mipmap/bkg_guzhang" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -40,10 +41,10 @@
                         android:id="@+id/tv_stnm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="三星村1号处理站"
                         android:textColor="#191919"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="三星村1号处理站" />
 
                     <TextView
                         android:id="@+id/tv_vendorName"
@@ -55,9 +56,9 @@
                         android:paddingTop="2dp"
                         android:paddingRight="7dp"
                         android:paddingBottom="2dp"
-                        android:text="上海电气"
                         android:textColor="#F1891F"
-                        android:textSize="11sp" />
+                        android:textSize="11sp"
+                        tools:text="上海电气" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -70,10 +71,10 @@
                         android:id="@+id/tv_alarmType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="设备报警"
                         android:textColor="#F46B6D"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="设备报警" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -107,25 +108,26 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/tv_last_time"
+                        android:id="@+id/tv_handleMinute"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="1小时"
                         android:textColor="@color/color_333333"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="1小时" />
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/bg_semi_circle_left_top"
                 android:gravity="center"
-                android:text="已督办"
                 android:textColor="#5C626E"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                tools:text="已督办" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -147,9 +149,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="1小时"
                     android:textColor="#F46A6C"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    tools:text="1小时" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

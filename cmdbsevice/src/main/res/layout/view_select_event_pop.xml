@@ -16,14 +16,9 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
+                style="@style/text.event_pop"
                 android:paddingTop="45dp"
-                android:paddingBottom="5dp"
-                android:text="站点选择"
-                android:textColor="@color/color_666666"
-                android:textSize="12sp" />
+                android:text="站点选择" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -48,7 +43,9 @@
                         android:textColor="@color/color_333333"
                         android:textSize="14sp" />
 
-                    <CheckBox style="@style/alarm_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cb_haulage"
+                        style="@style/alarm_checkbox" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -67,45 +64,35 @@
                         android:textColor="@color/color_333333"
                         android:textSize="14sp" />
 
-                    <CheckBox style="@style/alarm_checkbox" />
+                    <CheckBox
+                        android:id="@+id/cb_fan"
+                        style="@style/alarm_checkbox" />
                 </RelativeLayout>
             </LinearLayout>
 
             <View style="@style/line" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="5dp"
-                android:text="运维企业"
-                android:textColor="@color/color_666666"
-                android:textSize="12sp" />
+                style="@style/text.event_pop"
+                android:text="运维企业" />
 
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/flowlayout_compty"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                zhy:max_select="1" />
+                zhy:max_select="-1" />
 
             <View style="@style/line" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="5dp"
-                android:text="行政区划"
-                android:textColor="@color/color_666666"
-                android:textSize="12sp" />
+                style="@style/text.event_pop"
+                android:text="行政区划" />
 
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/flowlayout_cate"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                zhy:max_select="1" />
+                zhy:max_select="-1" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -120,10 +107,12 @@
         android:paddingRight="15dp">
 
         <Button
+            android:id="@+id/btn_revise"
             style="@style/btn.supter"
             android:text="重 置" />
 
         <Button
+            android:id="@+id/btn_query"
             style="@style/btn.supter"
             android:layout_marginLeft="12dp"
             android:text="确 定" />

@@ -2,6 +2,7 @@ package com.tepia.cmdbsevice.model.event;
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
+import com.tepia.base.model.PageBean;
 import com.tepia.cmdbsevice.APPConst;
 import com.tepia.cmnwsevice.model.user.UserManager;
 
@@ -75,7 +76,7 @@ public class EventManager {
      * @param params
      * @return
      */
-    public Observable<BaseCommonResponse<List<WarnBean>>> listByWarning(Object... params) {
+    public Observable<PageBean<WarnBean>> listByWarning(Object... params) {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.listByWarning(token, body)

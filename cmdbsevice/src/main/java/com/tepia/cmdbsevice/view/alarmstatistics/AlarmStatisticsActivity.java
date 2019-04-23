@@ -1,20 +1,17 @@
 package com.tepia.cmdbsevice.view.alarmstatistics;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.SegmentTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.enums.PopupPosition;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
-import com.tepia.base.mvp.BaseActivity;
-import com.tepia.base.utils.TimeFormatUtils;
+import com.tepia.base.model.PageBean;
+import com.tepia.base.mvp.BaseListActivity;
 import com.tepia.base.utils.ToastUtils;
-import com.tepia.base.view.WrapLayoutManager;
-import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.AreaBean;
 import com.tepia.cmdbsevice.model.event.EventManager;
@@ -29,15 +26,17 @@ import java.util.List;
  * Date:2019/4/17
  * Description:报警统计
  */
-public class AlarmStatisticsActivity extends BaseActivity {
+public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
 
     private static String[] mTitles = {"故障站点", "报警站点"};
 
-    private RecyclerView rv;
-    private AlermStatisAdapter alermStatisAdapter;
     private List<WarnBean> warnBeans;
     private List<AreaBean> areaBeans, vendorBeans;
     private SelectEventPopView selectEventPopView;
+
+    private List<String> vendorCodeArray, areaCodeArray;
+    private String status = "1";//1.故障站点   2.报警站点
+    private String stationType;
 
     @Override
     public int getLayoutId() {
@@ -46,6 +45,7 @@ public class AlarmStatisticsActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        super.initView();
         setCenterTitle("报警统计");
         showBack();
 
@@ -56,28 +56,37 @@ public class AlarmStatisticsActivity extends BaseActivity {
                     .asCustom(selectEventPopView)
                     .show();
         });
+        SegmentTabLayout tabLayout = findViewById(R.id.tl_1);
+        tabLayout.setTabData(mTitles);
+        tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                status = (position + 1) + "";
+                refresh();
+            }
 
-        SegmentTabLayout tabLayout_1 = findViewById(R.id.tl_1);
-        tabLayout_1.setTabData(mTitles);
+            @Override
+            public void onTabReselect(int position) {
 
+            }
+        });
         selectEventPopView = new SelectEventPopView(getContext());
-        setVerModel();
+        selectEventPopView.setListener(this::SelectEventListener);
+        areaList();
+        vendorList();
+    }
 
+    private void SelectEventListener(List<String> areaNames, List<String> vendorNames, String stationType) {
+        this.stationType = stationType;
+        this.areaCodeArray = areaNames;
+        this.vendorCodeArray = vendorNames;
+        super.refresh();
+        selectEventPopView.dismiss();
     }
 
     @Override
     public void initData() {
 
-    }
-
-    private void setVerModel() {
-        rv = findViewById(R.id.rv);
-        alermStatisAdapter = new AlermStatisAdapter();
-        alermStatisAdapter.setOnItemChildClickListener(this::setOnItemChildClickListener);
-        rv.setLayoutManager(new WrapLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
-        rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
-        rv.setAdapter(alermStatisAdapter);
     }
 
     @Override
@@ -86,10 +95,13 @@ public class AlarmStatisticsActivity extends BaseActivity {
     }
 
     @Override
+    public BaseQuickAdapter getBaseQuickAdapter() {
+        return new AlermStatisAdapter();
+    }
+
+    @Override
     protected void initRequestData() {
-        onDataTopPickListener("2019-01-01 00:00:00", "2019-12-01 00:00:00");
-        areaList();
-        vendorList();
+        listByWarning();
     }
 
     public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
@@ -103,19 +115,19 @@ public class AlarmStatisticsActivity extends BaseActivity {
         }
     }
 
-    private void listByWarning(String startTime, String endTime) {
-        EventManager.getInstance().listByWarning("startTime", startTime, "endTime", endTime)
-                .safeSubscribe(new LoadingSubject<BaseCommonResponse<List<WarnBean>>>() {
+    private void listByWarning() {
+        EventManager.getInstance().listByWarning("pageSize", 20, "pageIndex", getPage()
+                , "stationType", stationType, "status", status, "vendorCodeArray", vendorCodeArray, "areaCodeArray", areaCodeArray)
+                .safeSubscribe(new LoadingSubject<PageBean<WarnBean>>() {
 
                     @Override
-                    protected void _onNext(BaseCommonResponse<List<WarnBean>> baseCommonResponse) {
-                        warnBeans = baseCommonResponse.getData();
-                        alermStatisAdapter.setNewData(warnBeans);
+                    protected void _onNext(PageBean<WarnBean> baseCommonResponse) {
+                        success(baseCommonResponse);
                     }
 
                     @Override
                     protected void _onError(String message) {
-
+                        error();
                     }
                 });
     }
@@ -160,7 +172,4 @@ public class AlarmStatisticsActivity extends BaseActivity {
                 });
     }
 
-    public void onDataTopPickListener(String startTime, String endTime) {
-        listByWarning(startTime, endTime);
-    }
 }

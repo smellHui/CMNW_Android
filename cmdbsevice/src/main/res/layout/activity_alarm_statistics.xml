@@ -43,16 +43,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableRight="@mipmap/add_more"
-            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/icon_shaixun"
+            android:drawablePadding="8dp"
             android:gravity="right|center_vertical"
             android:text="筛选"
             android:textColor="@color/color_4EB17B"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <include layout="@layout/fragment_base_list" />
 </LinearLayout>

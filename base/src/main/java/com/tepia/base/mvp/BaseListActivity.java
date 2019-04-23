@@ -114,6 +114,7 @@ public abstract class BaseListActivity<K> extends BaseActivity implements NetLis
                 } else {
                     getList().addAll(list);
                 }
+                getAdapter().notifyDataSetChanged();
                 if (list.size() == 20) {
                     page++;
                     baseQuickAdapter.loadMoreComplete();
