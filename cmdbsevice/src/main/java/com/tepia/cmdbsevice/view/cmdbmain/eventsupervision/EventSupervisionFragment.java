@@ -62,7 +62,7 @@ public class EventSupervisionFragment extends BaseCommonFragment {
         setCenterTitle("事件督办");
 
         currectTimeTv = findView(R.id.tv_currect_time);
-        currectTimeTv.setText(String.format("当前时间：%s",TimeFormatUtils.getStringDateShort()));
+        currectTimeTv.setText(String.format("当前时间：%s", TimeFormatUtils.getStringDateShort()));
         setVerModel();
     }
 
@@ -82,12 +82,9 @@ public class EventSupervisionFragment extends BaseCommonFragment {
     }
 
     public void addHeadView() {
-        countShowView = new CountShowView(getContext());
-        cityCountAdapter.addHeaderView(countShowView);
-        realTimeSuperView = new RealTimeSuperView(getContext());
-        cityCountAdapter.addHeaderView(realTimeSuperView);
-        townshipStatisticsView = new TownshipStatisticsView(getContext());
-        cityCountAdapter.addHeaderView(townshipStatisticsView);
+        countShowView = findView(R.id.view_count_show);
+        realTimeSuperView = findView(R.id.view_real_super);
+        townshipStatisticsView = findView(R.id.view_town_statis);
     }
 
     /**

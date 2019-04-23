@@ -13,7 +13,6 @@ import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
 public class CountShowView extends ViewBase {
 
-    private FrameLayout alarmFl;
     private TextView tv_alarmNum, tv_faultNum;
 
     public CountShowView(Context context) {
@@ -37,8 +36,8 @@ public class CountShowView extends ViewBase {
     public void initData() {
         tv_faultNum = findViewById(R.id.tv_faultNum);
         tv_alarmNum = findViewById(R.id.tv_alarmNum);
-        alarmFl = findViewById(R.id.fl_alarm);
-        alarmFl.setOnClickListener((v) -> mContext.startActivity(new Intent(mContext, AlarmStatisticsActivity.class)));
+        findViewById(R.id.fl_alarm).setOnClickListener((v) -> mContext.startActivity(new Intent(mContext, AlarmStatisticsActivity.class)));
+        findViewById(R.id.fl_gz).setOnClickListener((v) -> mContext.startActivity(new Intent(mContext, AlarmStatisticsActivity.class)));
     }
 
     public void setDate(String faultNum, String alarmNum) {

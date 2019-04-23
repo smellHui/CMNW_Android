@@ -12,20 +12,90 @@
         <include layout="@layout/toolbar" />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/tv_currect_time"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:background="@color/color_EEEEEE"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:text="当前时间："
-        android:textColor="#555555"
-        android:textSize="12sp" />
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_currect_time"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/color_EEEEEE"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="当前时间："
+                android:textColor="#555555"
+                android:textSize="12sp" />
+
+            <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.CountShowView
+                android:id="@+id/view_count_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.RealTimeSuperView
+                android:id="@+id/view_real_super"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.TownshipStatisticsView
+                android:id="@+id/view_town_statis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/corner_bg_3_grey"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="33dp"
+                        android:background="@drawable/bg_top_corner"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text.title"
+                            android:text="行政区划" />
+
+                        <TextView
+                            style="@style/text.title"
+                            android:text="运维企业" />
+
+                        <TextView
+                            style="@style/text.title"
+                            android:text="站点总数" />
+
+                        <TextView
+                            style="@style/text.title"
+                            android:text="达标站点数" />
+
+                        <TextView
+                            style="@style/text.title"
+                            android:text="水质达标率" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>
