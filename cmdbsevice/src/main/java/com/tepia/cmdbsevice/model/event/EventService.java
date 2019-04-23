@@ -9,6 +9,7 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -66,6 +67,24 @@ public interface EventService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/listByWarning")
     Observable<BaseCommonResponse<List<WarnBean>>> listByWarning(@Header("token") String token, @Body RequestBody body);
+
+    /**
+     * 【查询】获取乡镇列表
+     *
+     * @param token
+     * @return
+     */
+    @GET("area/list")
+    Observable<BaseCommonResponse<List<AreaBean>>> arealist(@Header("token") String token);
+
+    /**
+     * 【查询】获取企业列表
+     *
+     * @param token
+     * @return
+     */
+    @GET("vendor/list")
+    Observable<BaseCommonResponse<List<AreaBean>>> vendorlist(@Header("token") String token);
 
     /**
      * 【查询】故障类型分析统计

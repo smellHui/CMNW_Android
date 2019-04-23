@@ -1,97 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:layout_width="280dp"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp"
-            android:paddingTop="45dp"
-            android:paddingBottom="5dp"
-            android:text="站点选择"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
-
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/id_flowlayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            zhy:max_select="1" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="运维企业"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
-
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/flowlayout_compty"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            zhy:max_select="1" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="报警类型"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
-
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/flowlayout_cate"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            zhy:max_select="1" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="状态"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
-
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/flowlayout_state"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            zhy:max_select="1" />
-
+        android:layout_marginBottom="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:paddingTop="15dp"
-            android:paddingRight="25dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
-                style="@style/btn.supter"
-                android:text="重 置" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:paddingTop="45dp"
+                android:paddingBottom="5dp"
+                android:text="站点选择"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
 
-            <Button
-                style="@style/btn.supter"
-                android:layout_marginLeft="15dp"
-                android:text="确 定" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="51dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableTop="@mipmap/icn_tsj"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:paddingTop="8dp"
+                        android:text="提升井"
+                        android:textColor="@color/color_333333"
+                        android:textSize="14sp" />
+
+                    <CheckBox style="@style/alarm_checkbox" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="51dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableTop="@mipmap/icn_fj"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:paddingTop="8dp"
+                        android:text="风机"
+                        android:textColor="@color/color_333333"
+                        android:textSize="14sp" />
+
+                    <CheckBox style="@style/alarm_checkbox" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View style="@style/line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
+                android:text="运维企业"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/flowlayout_compty"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                zhy:max_select="1" />
+
+            <View style="@style/line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
+                android:text="行政区划"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/flowlayout_cate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                zhy:max_select="1" />
+
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <Button
+            style="@style/btn.supter"
+            android:text="重 置" />
+
+        <Button
+            style="@style/btn.supter"
+            android:layout_marginLeft="12dp"
+            android:text="确 定" />
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
+

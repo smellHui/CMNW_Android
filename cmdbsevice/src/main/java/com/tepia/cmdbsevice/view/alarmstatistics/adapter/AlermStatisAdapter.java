@@ -1,4 +1,4 @@
-package com.tepia.cmdbsevice.view.alarmstatistics;
+package com.tepia.cmdbsevice.view.alarmstatistics.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -14,19 +14,19 @@ import com.tepia.cmdbsevice.model.event.WarnBean;
  */
 public class AlermStatisAdapter extends BaseQuickAdapter<WarnBean, BaseViewHolder> {
     public AlermStatisAdapter() {
-        super(R.layout.item_site_state);
+        super(R.layout.item_alerm_statis);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, WarnBean item) {
-        helper.addOnClickListener(R.id.btn_look);
-        helper.setText(R.id.tv_stnm, item.getStnm());
-        helper.setText(R.id.tv_vendorName, item.getVendorName());
-        helper.setVisible(R.id.tv_vendorName, !Strings.isNullOrEmpty(item.getVendorName()));
-        helper.setText(R.id.tv_alarmType, item.getAlarmType());
-        helper.setText(R.id.tv_status, item.getStatus());
-        helper.setText(R.id.tv_handleMinute, String.format("%dh", Long.parseLong(item.getHandleMinute()) / 60));
-        helper.setText(R.id.tv_last_time, getLastTime(item.getDispatchTime(), item.getHandleMinute()) + "小时");
+//        helper.addOnClickListener(R.id.btn_look);
+//        helper.setText(R.id.tv_stnm, item.getStnm());
+//        helper.setText(R.id.tv_vendorName, item.getVendorName());
+//        helper.setVisible(R.id.tv_vendorName, !Strings.isNullOrEmpty(item.getVendorName()));
+//        helper.setText(R.id.tv_alarmType, item.getAlarmType());
+//        helper.setText(R.id.tv_status, item.getStatus());
+//        helper.setText(R.id.tv_handleMinute, String.format("%dh", Long.parseLong(item.getHandleMinute()) / 60));
+//        helper.setText(R.id.tv_last_time, getLastTime(item.getDispatchTime(), item.getHandleMinute()) + "小时");
     }
 
     /**

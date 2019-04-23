@@ -4,6 +4,7 @@ package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.SegmentTabLayout;
@@ -38,11 +39,11 @@ import java.util.List;
 public class EventSupervisionFragment extends BaseCommonFragment {
 
     private RecyclerView rv;
+    private TextView currectTimeTv;
     private CityCountAdapter cityCountAdapter;
     private CountShowView countShowView;
     private RealTimeSuperView realTimeSuperView;
     private TownshipStatisticsView townshipStatisticsView;
-    private DataTopView dataTopView;
 
     private TopTotalBean topTotalBean;
     private List<TopTotalBean> townTotals, vendorTotals;
@@ -60,9 +61,8 @@ public class EventSupervisionFragment extends BaseCommonFragment {
     protected void initView(View view) {
         setCenterTitle("事件督办");
 
-        dataTopView = findView(R.id.view_data_top);
-        dataTopView.setListener(this::onDataTopPickListener);
-
+        currectTimeTv = findView(R.id.tv_currect_time);
+        currectTimeTv.setText(String.format("当前时间：%s",TimeFormatUtils.getStringDateShort()));
         setVerModel();
     }
 

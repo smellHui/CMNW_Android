@@ -11,21 +11,16 @@ import com.lxj.xpopup.enums.PopupPosition;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
-import com.tepia.base.mvp.BaseCommonFragment;
-import com.tepia.base.mvp.BaseListActivity;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.WrapLayoutManager;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmdbsevice.model.event.AreaBean;
 import com.tepia.cmdbsevice.model.event.EventManager;
-import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmdbsevice.model.event.WarnBean;
-import com.tepia.cmdbsevice.view.alarmstatistics.view.DataTopView;
-import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.adapter.CityCountAdapter;
+import com.tepia.cmdbsevice.view.alarmstatistics.adapter.AlermStatisAdapter;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.SelectEventPopView;
-import com.tepia.cmnwsevice.model.order.OrderBean;
-import com.tepia.cmnwsevice.view.main.OrderPresenter;
 
 import java.util.List;
 
@@ -36,10 +31,12 @@ import java.util.List;
  */
 public class AlarmStatisticsActivity extends BaseActivity {
 
+    private static String[] mTitles = {"故障站点", "报警站点"};
+
     private RecyclerView rv;
     private AlermStatisAdapter alermStatisAdapter;
-    private DataTopView dataTopView;
     private List<WarnBean> warnBeans;
+    private List<AreaBean> areaBeans, vendorBeans;
     private SelectEventPopView selectEventPopView;
 
     @Override
@@ -51,18 +48,21 @@ public class AlarmStatisticsActivity extends BaseActivity {
     public void initView() {
         setCenterTitle("报警统计");
         showBack();
-        setRightImgEvent(R.mipmap.img_agrc_service, (v) -> {
+
+        findViewById(R.id.tv_repeat).setOnClickListener((v) -> {
             new XPopup.Builder(getContext())
                     .popupPosition(PopupPosition.Right)//右边
                     .hasStatusBarShadow(true) //启用状态栏阴影
                     .asCustom(selectEventPopView)
                     .show();
         });
-        dataTopView = findViewById(R.id.view_data_top);
-        dataTopView.setListener(this::onDataTopPickListener);
+
+        SegmentTabLayout tabLayout_1 = findViewById(R.id.tl_1);
+        tabLayout_1.setTabData(mTitles);
 
         selectEventPopView = new SelectEventPopView(getContext());
         setVerModel();
+
     }
 
     @Override
@@ -87,7 +87,9 @@ public class AlarmStatisticsActivity extends BaseActivity {
 
     @Override
     protected void initRequestData() {
-        listByWarning(TimeFormatUtils.getFirstDayOfToday(), TimeFormatUtils.getLastDayOfToday());
+        onDataTopPickListener("2019-01-01 00:00:00", "2019-12-01 00:00:00");
+        areaList();
+        vendorList();
     }
 
     public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
@@ -109,6 +111,46 @@ public class AlarmStatisticsActivity extends BaseActivity {
                     protected void _onNext(BaseCommonResponse<List<WarnBean>> baseCommonResponse) {
                         warnBeans = baseCommonResponse.getData();
                         alermStatisAdapter.setNewData(warnBeans);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+
+                    }
+                });
+    }
+
+    /**
+     * 【查询】获取乡镇列表
+     */
+    private void areaList() {
+        EventManager.getInstance().arealist()
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse<List<AreaBean>>>() {
+
+                    @Override
+                    protected void _onNext(BaseCommonResponse<List<AreaBean>> baseCommonResponse) {
+                        areaBeans = baseCommonResponse.getData();
+                        selectEventPopView.setAreaData(areaBeans);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+
+                    }
+                });
+    }
+
+    /**
+     * 【查询】获取企业列表
+     */
+    private void vendorList() {
+        EventManager.getInstance().vendorlist()
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse<List<AreaBean>>>() {
+
+                    @Override
+                    protected void _onNext(BaseCommonResponse<List<AreaBean>> baseCommonResponse) {
+                        vendorBeans = baseCommonResponse.getData();
+                        selectEventPopView.setVendorData(vendorBeans);
                     }
 
                     @Override

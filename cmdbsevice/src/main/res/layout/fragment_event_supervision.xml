@@ -12,14 +12,16 @@
         <include layout="@layout/toolbar" />
     </FrameLayout>
 
-    <com.tepia.cmdbsevice.view.alarmstatistics.view.DataTopView
-        android:id="@+id/view_data_top"
+    <TextView
+        android:id="@+id/tv_currect_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.tepia.cmdbsevice.view.alarmstatistics.view.ChoiceDateView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="35dp"
+        android:background="@color/color_EEEEEE"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="当前时间："
+        android:textColor="#555555"
+        android:textSize="12sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"

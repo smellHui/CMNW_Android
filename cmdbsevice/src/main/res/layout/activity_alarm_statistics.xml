@@ -14,14 +14,42 @@
         <include layout="@layout/toolbar" />
     </FrameLayout>
 
-    <com.tepia.cmdbsevice.view.alarmstatistics.view.DataTopView
-        android:id="@+id/view_data_top"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingTop="15dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="15dp">
 
-    <com.tepia.cmdbsevice.view.alarmstatistics.view.ChoiceDateView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <com.flyco.tablayout.SegmentTabLayout
+            android:id="@+id/tl_1"
+            android:layout_width="156dp"
+            android:layout_height="26dp"
+            tl:tl_bar_color="@color/color_EAEFF9"
+            tl:tl_bar_stroke_color="@color/trans"
+            tl:tl_indicator_anim_enable="true"
+            tl:tl_indicator_bounce_enable="true"
+            tl:tl_indicator_color="@color/color_4DB07A"
+            tl:tl_indicator_corner_radius="13dp"
+            tl:tl_textSelectColor="@color/white"
+            tl:tl_textUnselectColor="@color/color_5C626E"
+            tl:tl_textsize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_repeat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableRight="@mipmap/add_more"
+            android:drawablePadding="5dp"
+            android:gravity="right|center_vertical"
+            android:text="筛选"
+            android:textColor="@color/color_4EB17B"
+            android:textSize="12sp" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"

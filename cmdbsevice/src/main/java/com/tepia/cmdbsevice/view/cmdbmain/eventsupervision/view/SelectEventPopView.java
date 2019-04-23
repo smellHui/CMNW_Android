@@ -8,14 +8,18 @@ import android.widget.TextView;
 
 import com.lxj.xpopup.core.DrawerPopupView;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmdbsevice.model.event.AreaBean;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.List;
+
 public class SelectEventPopView extends DrawerPopupView {
 
-    private TagFlowLayout tagFlowLayout ,comptyFlowLayout,cateFlowLayout,stateFlowLayout;
-    private String[] mVals = new String[]{"处理站", "提升井"};
+    private TagFlowLayout comptyFlowLayout, cateFlowLayout;
+    private List<AreaBean> areaBeans, vendorBeans;
+    private LayoutInflater mInflater;
 
     public SelectEventPopView(@NonNull Context context) {
         super(context);
@@ -24,55 +28,39 @@ public class SelectEventPopView extends DrawerPopupView {
     @Override
     protected void onCreate() {
         super.onCreate();
-        final LayoutInflater mInflater = LayoutInflater.from(getContext());
-        tagFlowLayout = findViewById(R.id.id_flowlayout);
+        mInflater = LayoutInflater.from(getContext());
         comptyFlowLayout = findViewById(R.id.flowlayout_compty);
         cateFlowLayout = findViewById(R.id.flowlayout_cate);
-        stateFlowLayout = findViewById(R.id.flowlayout_state);
-        tagFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
-
-            @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_tv,
-                        tagFlowLayout, false);
-                tv.setText(s);
-                return tv;
-            }
-        });
-        comptyFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
-
-            @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_tv,
-                        tagFlowLayout, false);
-                tv.setText(s);
-                return tv;
-            }
-        });
-        cateFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
-
-            @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_tv,
-                        tagFlowLayout, false);
-                tv.setText(s);
-                return tv;
-            }
-        });
-        stateFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
-
-            @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_tv,
-                        tagFlowLayout, false);
-                tv.setText(s);
-                return tv;
-            }
-        });
     }
 
     @Override
     protected int getImplLayoutId() {
         return R.layout.view_select_event_pop;
+    }
+
+    public void setAreaData(List<AreaBean> areaBeans) {
+        cateFlowLayout.setAdapter(new TagAdapter<AreaBean>(areaBeans) {
+
+            @Override
+            public View getView(FlowLayout parent, int position, AreaBean areaBean) {
+                TextView tv = (TextView) mInflater.inflate(R.layout.item_tv,
+                        cateFlowLayout, false);
+                tv.setText(areaBean.getName());
+                return tv;
+            }
+        });
+    }
+
+    public void setVendorData(List<AreaBean> vendorBeans) {
+        comptyFlowLayout.setAdapter(new TagAdapter<AreaBean>(vendorBeans) {
+
+            @Override
+            public View getView(FlowLayout parent, int position, AreaBean areaBean) {
+                TextView tv = (TextView) mInflater.inflate(R.layout.item_tv,
+                        cateFlowLayout, false);
+                tv.setText(areaBean.getName());
+                return tv;
+            }
+        });
     }
 }

@@ -39,4 +39,23 @@
         <item name="android:textColor">@color/color_434952</item>
         <item name="android:textSize">13sp</item>
     </style>
+
+    <style name="line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/color_DDDDDD</item>
+    </style>
+
+    <style name="alarm_checkbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@null</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:drawableEnd">@drawable/checkbox_style</item>
+        <item name="android:drawableRight">@drawable/checkbox_style</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingBottom">50dp</item>
+    </style>
 </resources>

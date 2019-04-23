@@ -82,4 +82,28 @@ public class EventManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    /**
+     * 【查询】获取乡镇列表
+     *
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<AreaBean>>> arealist() {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.arealist(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】获取企业列表
+     *
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<AreaBean>>> vendorlist() {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.vendorlist(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
