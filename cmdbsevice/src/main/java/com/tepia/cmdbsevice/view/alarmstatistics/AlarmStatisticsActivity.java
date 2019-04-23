@@ -13,6 +13,7 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.BaseListActivity;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.WrapLayoutManager;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
@@ -20,6 +21,7 @@ import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmdbsevice.model.event.WarnBean;
+import com.tepia.cmdbsevice.view.alarmstatistics.view.DataTopView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.adapter.CityCountAdapter;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.SelectEventPopView;
 import com.tepia.cmnwsevice.model.order.OrderBean;
@@ -36,6 +38,7 @@ public class AlarmStatisticsActivity extends BaseActivity {
 
     private RecyclerView rv;
     private AlermStatisAdapter alermStatisAdapter;
+    private DataTopView dataTopView;
     private List<WarnBean> warnBeans;
     private SelectEventPopView selectEventPopView;
 
@@ -55,6 +58,9 @@ public class AlarmStatisticsActivity extends BaseActivity {
                     .asCustom(selectEventPopView)
                     .show();
         });
+        dataTopView = findViewById(R.id.view_data_top);
+        dataTopView.setListener(this::onDataTopPickListener);
+
         selectEventPopView = new SelectEventPopView(getContext());
         setVerModel();
     }
@@ -81,7 +87,7 @@ public class AlarmStatisticsActivity extends BaseActivity {
 
     @Override
     protected void initRequestData() {
-        listByWarning("2019-03-01 00:00:00", "2019-04-30 00:00:00");
+        listByWarning(TimeFormatUtils.getFirstDayOfToday(), TimeFormatUtils.getLastDayOfToday());
     }
 
     public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
@@ -110,5 +116,9 @@ public class AlarmStatisticsActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+    public void onDataTopPickListener(String startTime, String endTime) {
+        listByWarning(startTime, endTime);
     }
 }

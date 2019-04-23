@@ -12,6 +12,7 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.BaseListFragment;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.view.WrapLayoutManager;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.cmdbsevice.R;
@@ -34,7 +35,7 @@ import java.util.List;
  * Date:2019/4/17
  * Description:tab-事件督办
  */
-public class EventSupervisionFragment extends BaseCommonFragment implements DataTopView.onDataTopPickListener {
+public class EventSupervisionFragment extends BaseCommonFragment {
 
     private RecyclerView rv;
     private CityCountAdapter cityCountAdapter;
@@ -44,7 +45,7 @@ public class EventSupervisionFragment extends BaseCommonFragment implements Data
     private DataTopView dataTopView;
 
     private TopTotalBean topTotalBean;
-    private List<TopTotalBean> townTotals,vendorTotals;
+    private List<TopTotalBean> townTotals, vendorTotals;
 
     @Override
     protected int getLayoutId() {
@@ -59,8 +60,8 @@ public class EventSupervisionFragment extends BaseCommonFragment implements Data
     protected void initView(View view) {
         setCenterTitle("事件督办");
 
-        dataTopView = new DataTopView(getContext());
-        dataTopView.setListener(this);
+        dataTopView = findView(R.id.view_data_top);
+        dataTopView.setListener(this::onDataTopPickListener);
 
         setVerModel();
     }
@@ -77,7 +78,7 @@ public class EventSupervisionFragment extends BaseCommonFragment implements Data
 
     @Override
     protected void initRequestData() {
-        onDataTopPickListener("2019-03-01 00:00:00", "2019-04-30 00:00:00");
+        onDataTopPickListener(TimeFormatUtils.getFirstDayOfToday(), TimeFormatUtils.getLastDayOfToday());
     }
 
     public void addHeadView() {
@@ -150,7 +151,6 @@ public class EventSupervisionFragment extends BaseCommonFragment implements Data
                 });
     }
 
-    @Override
     public void onDataTopPickListener(String startTime, String endTime) {
         superviseTopTotal(startTime, endTime);
         superviseCountByTown(startTime, endTime);

@@ -567,4 +567,105 @@ public class TimeFormatUtils {
         return minutes;
     }
 
+    /**
+     * 获取当天的开始时间
+     *
+     * @return
+     */
+    public static String getFirstDayOfToday() {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return dateFormater.format(cal.getTime());
+    }
+
+    /**
+     * 获取当天的结束时间
+     *
+     * @return
+     */
+    public static String getLastDayOfToday() {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        return dateFormater.format(cal.getTime());
+    }
+
+    /**
+     * 获取每周第一天
+     *
+     * @return
+     */
+    public static String getFirstDayOfWeek() {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, 1);
+        return dateFormater.format(cal.getTime());
+    }
+
+    /**
+     * 获取每周周后一天
+     *
+     * @return
+     */
+    public static String getLastDayOfWeek() {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, cal.getActualMaximum(Calendar.DAY_OF_WEEK));
+        return dateFormater.format(cal.getTime());
+    }
+
+    /**
+     * 获取每月第一天
+     *
+     * @return
+     */
+    public static String getFirstDayOfMonth() {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        return dateFormater.format(cal.getTime());
+    }
+
+    /**
+     * 获取每月最后一天
+     *
+     * @return
+     */
+    public static String getLastDayOfMonth() {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return dateFormater.format(cal.getTime());
+    }
+
+    /**
+     * 获取每年第一天
+     *
+     * @return
+     */
+    public static String getFirstDayOfYear() {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_YEAR, 1);
+        return dateFormater.format(cal.getTime());
+    }
+
+    /**
+     * 获取每年最后一天
+     *
+     * @return
+     */
+    public static String getLastDayOfYear() {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_YEAR, cal.getActualMaximum(Calendar.DAY_OF_YEAR));
+        return dateFormater.format(cal.getTime());
+    }
 }

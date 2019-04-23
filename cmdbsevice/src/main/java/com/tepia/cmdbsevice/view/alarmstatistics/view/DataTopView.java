@@ -6,13 +6,14 @@ import android.util.AttributeSet;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
 /**
  * Author:xch
  * Date:2019/4/22
- * Description:
+ * Description:"今日", "本周", "本月", "本年"切换
  */
 public class DataTopView extends ViewBase {
 
@@ -50,18 +51,18 @@ public class DataTopView extends ViewBase {
             @Override
             public void onTabSelect(int position) {
                 if (listener == null) return;
-                switch (position){
-                    case 0:
-                        listener.onDataTopPickListener(" 2019-03-01 00:00:00","2019-04-30 00:00:00");
+                switch (position) {
+                    case 0://今日
+                        listener.onDataTopPickListener(TimeFormatUtils.getFirstDayOfToday(), TimeFormatUtils.getLastDayOfToday());
                         break;
-                    case 1:
-                        listener.onDataTopPickListener(" 2019-03-01 00:00:00","2019-04-30 00:00:00");
+                    case 1://周
+                        listener.onDataTopPickListener(TimeFormatUtils.getFirstDayOfWeek(), TimeFormatUtils.getLastDayOfWeek());
                         break;
-                    case 2:
-                        listener.onDataTopPickListener(" 2019-03-01 00:00:00","2019-04-30 00:00:00");
+                    case 2://月
+                        listener.onDataTopPickListener(TimeFormatUtils.getFirstDayOfMonth(), TimeFormatUtils.getLastDayOfMonth());
                         break;
-                    case 3:
-                        listener.onDataTopPickListener(" 2019-03-01 00:00:00","2019-04-30 00:00:00");
+                    case 3://年
+                        listener.onDataTopPickListener(TimeFormatUtils.getFirstDayOfYear(), TimeFormatUtils.getLastDayOfYear());
                         break;
                 }
             }
