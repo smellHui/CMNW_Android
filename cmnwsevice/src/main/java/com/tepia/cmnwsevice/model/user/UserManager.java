@@ -9,6 +9,10 @@ import com.tepia.base.utils.SPUtils;
 import com.tepia.cmnwsevice.APPConst;
 import com.tepia.cmnwsevice.model.api.ApiService;
 import com.tepia.cmnwsevice.model.api.Urls;
+import com.tepia.cmnwsevice.model.station.AreaBean;
+import com.tepia.cmnwsevice.model.station.VenderBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -68,5 +72,19 @@ public class UserManager {
     public void clearData() {
         SPUtils.getInstance().putString("token", "");
         SPUtils.getInstance().putString("UserInfo", "");
+    }
+
+    public  Observable<BaseCommonResponse<List<AreaBean>>>  getAreaList() {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getAreaList(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public  Observable<BaseCommonResponse<List<VenderBean>>>  getVenderList() {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getVenderList(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

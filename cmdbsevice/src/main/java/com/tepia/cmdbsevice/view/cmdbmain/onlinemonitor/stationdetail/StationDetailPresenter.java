@@ -4,10 +4,8 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.ToastUtils;
-import com.tepia.cmdbsevice.model.station.StationBean;
-import com.tepia.cmdbsevice.model.station.StationManager;
-
-import io.reactivex.Observable;
+import com.tepia.cmnwsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.StationManager;
 
 /**
  * MVPPlugin

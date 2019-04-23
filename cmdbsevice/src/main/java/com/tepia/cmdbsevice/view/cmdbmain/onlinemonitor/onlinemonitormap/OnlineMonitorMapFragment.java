@@ -2,7 +2,6 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap;
 
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,9 +19,8 @@ import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.ConfigConst;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.FragmentOnlineMapBinding;
-import com.tepia.cmdbsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.StationBean;
 import com.tepia.cmdbsevice.util.ARCGISUTIL;
-import com.tepia.cmnwsevice.databinding.FragmentExamineListDetailBinding;
 
 import org.litepal.crud.DataSupport;
 
@@ -54,6 +52,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     private FragmentOnlineMapBinding mBinding;
     private int count = 0;
+    private ArcGISTiledMapServiceLayer imgLayer;
 
     @Override
     protected int getLayoutId() {
@@ -81,11 +80,13 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
         //设置底图
         tiledMapLayer = new ArcGISTiledMapServiceLayer(ConfigConst.baseMapUrl);
+        imgLayer = new ArcGISTiledMapServiceLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
         riversFeatureLayer = new ArcGISFeatureLayer(ConfigConst.riversMapUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
         riversNameGraphicsLayer = new GraphicsLayer();
         selectRiversLayer = new GraphicsLayer();
         logGraphicsLayer = new GraphicsLayer();
         mBinding.mvArcgisRiverLog.addLayer(tiledMapLayer);
+        mBinding.mvArcgisRiverLog.addLayer(imgLayer);
         mBinding.mvArcgisRiverLog.addLayer(riversFeatureLayer);
         mBinding.mvArcgisRiverLog.addLayer(riversNameGraphicsLayer);
         mBinding.mvArcgisRiverLog.addLayer(selectRiversLayer);
@@ -118,8 +119,11 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 public void run() {
                     if (count < stationList.size()) {
                         StationBean bean = stationList.get(count++);
-                        if (bean == null) return;
-                        if (TextUtils.isEmpty(bean.getLttd()) && TextUtils.isEmpty(bean.getLttd())){
+                        if (bean == null) {
+                            mBinding.mvArcgisRiverLog.postDelayed(this, 100);
+                            return;
+                        }
+                        if (TextUtils.isEmpty(bean.getLttd()) && TextUtils.isEmpty(bean.getLttd())) {
                             mBinding.mvArcgisRiverLog.postDelayed(this, 100);
                             return;
                         }
@@ -131,7 +135,17 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                             mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
                             return;
                         }
-                        ARCGISUTIL.addPic(R.mipmap.icon_chulizhang_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                        switch (bean.getStationType()) {
+                            case "0":
+                                ARCGISUTIL.addPic(R.mipmap.icon_chulizhang_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                break;
+                            case "1":
+                                ARCGISUTIL.addPic(R.mipmap.icon_gongzhang_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                break;
+                            default:
+                                ARCGISUTIL.addPic(R.mipmap.icon_chulizhang_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                break;
+                        }
                         if (count == 1) {
                             mBinding.mvArcgisRiverLog.centerAt(new Point(lgtdrv, lttdrv), true);
                             mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
@@ -146,6 +160,10 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     @Override
     protected void initRequestData() {
+
+    }
+
+    public void saixuan(String... conditions) {
 
     }
 }

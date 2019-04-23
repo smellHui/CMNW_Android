@@ -1,7 +1,7 @@
 package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationlist;
 
 import com.tepia.base.mvp.BasePresenterImpl;
-import com.tepia.cmdbsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.StationBean;
 
 import org.litepal.crud.DataSupport;
 

@@ -121,6 +121,7 @@
                 android:paddingRight="10dp">
 
                 <TextView
+                    android:id="@+id/tv_tsj"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/icon_gongzhang_1"
@@ -131,6 +132,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_clz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/icon_chulizhang_1"

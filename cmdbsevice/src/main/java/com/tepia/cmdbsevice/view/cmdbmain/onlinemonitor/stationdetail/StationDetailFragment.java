@@ -2,18 +2,15 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail;
 
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v4.app.Fragment;
 
 import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.Adapter;
 
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmdbsevice.R;
-import com.tepia.cmdbsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.StationBean;
 
 /**
  * @author :       zhang xinhua

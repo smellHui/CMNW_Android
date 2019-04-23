@@ -1,4 +1,4 @@
-package com.tepia.cmdbsevice.model.station;
+package com.tepia.cmnwsevice.model.station;
 
 import com.google.common.base.Strings;
 
@@ -17,6 +17,12 @@ import org.litepal.crud.DataSupport;
 public class StationBean extends DataSupport {
     @Column(unique = true)
     private String code;
+    private String administrativeDivision;
+    private String enterpriseCode;
+    private String administrativeDivisionName;
+    private String stationType;
+    private String stationStatus;
+    private String enterpriseName;
     private String address;
     private String name;
     private String lgtd;
@@ -24,6 +30,54 @@ public class StationBean extends DataSupport {
     private Object waterQuality;
     private StationMessageBean stationMessage;
     private CurrentDataBean currentData;
+
+    public String getAdministrativeDivision() {
+        return administrativeDivision;
+    }
+
+    public void setAdministrativeDivision(String administrativeDivision) {
+        this.administrativeDivision = administrativeDivision;
+    }
+
+    public String getEnterpriseCode() {
+        return enterpriseCode;
+    }
+
+    public void setEnterpriseCode(String enterpriseCode) {
+        this.enterpriseCode = enterpriseCode;
+    }
+
+    public String getAdministrativeDivisionName() {
+        return administrativeDivisionName;
+    }
+
+    public void setAdministrativeDivisionName(String administrativeDivisionName) {
+        this.administrativeDivisionName = administrativeDivisionName;
+    }
+
+    public String getStationType() {
+        return stationType;
+    }
+
+    public void setStationType(String stationType) {
+        this.stationType = stationType;
+    }
+
+    public String getStationStatus() {
+        return stationStatus;
+    }
+
+    public void setStationStatus(String stationStatus) {
+        this.stationStatus = stationStatus;
+    }
+
+    public String getEnterpriseName() {
+        return enterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
+    }
 
     public String getCode() {
         return code;

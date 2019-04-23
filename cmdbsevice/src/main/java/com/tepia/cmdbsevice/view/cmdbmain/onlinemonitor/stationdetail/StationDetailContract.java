@@ -1,10 +1,8 @@
 package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail;
 
-import android.content.Context;
-
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
-import com.tepia.cmdbsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.StationBean;
 
 /**
  * MVPPlugin

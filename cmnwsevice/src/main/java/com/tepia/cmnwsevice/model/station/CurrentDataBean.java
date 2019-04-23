@@ -1,4 +1,4 @@
-package com.tepia.cmdbsevice.model.station;
+package com.tepia.cmnwsevice.model.station;
 
 import java.util.List;
 

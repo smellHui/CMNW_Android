@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.cmdbsevice.databinding.LvStationListItemViewBinding;
-import com.tepia.cmdbsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.StationBean;
 
 import java.util.List;
 

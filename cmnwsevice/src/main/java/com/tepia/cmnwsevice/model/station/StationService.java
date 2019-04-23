@@ -1,10 +1,9 @@
-package com.tepia.cmdbsevice.model.station;
+package com.tepia.cmnwsevice.model.station;
 
 import com.tepia.base.http.BaseCommonResponse;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;

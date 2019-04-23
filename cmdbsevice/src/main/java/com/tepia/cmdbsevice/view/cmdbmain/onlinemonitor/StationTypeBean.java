@@ -11,15 +11,23 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor;
  **/
 public class StationTypeBean {
     private String name;
+    private String code;
     private Integer background;
     private Integer src;
     private Integer color;
     private boolean isSelected;
 
-    public StationTypeBean(String name, Integer color) {
+    public StationTypeBean(String name, Integer background) {
         this.name = name;
-        this.color = color;
+        this.background = background;
     }
+
+    public StationTypeBean(String name, Integer background, boolean isSelected) {
+        this.name = name;
+        this.background = background;
+        this.isSelected = isSelected;
+    }
+
     public StationTypeBean() {
 
     }
@@ -27,16 +35,33 @@ public class StationTypeBean {
     public StationTypeBean(String name) {
         this.name = name;
     }
+    public StationTypeBean(String name,boolean isSelected) {
+        this.name = name;
+        this.isSelected = isSelected;
+    }
+    public StationTypeBean(String name,String code,boolean isSelected) {
+        this.name = name;
+        this.code = code;
+        this.isSelected = isSelected;
+    }
 
     public StationTypeBean(Integer background, Integer src) {
         this.background = background;
         this.src = src;
     }
 
+
     public StationTypeBean(String name, Integer background, Integer src) {
         this.name = name;
         this.background = background;
         this.src = src;
+    }
+
+    public StationTypeBean(String name, Integer background, Integer src, boolean isSelected) {
+        this.name = name;
+        this.background = background;
+        this.src = src;
+        this.isSelected = isSelected;
     }
 
     public Integer getBackground() {

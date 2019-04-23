@@ -3,9 +3,11 @@
     <!--数据库名称-->
     <dbname value="cmnw"></dbname>
     <!--数据库版本-->
-    <version value="1"></version>
+    <version value="2"></version>
 
     <list>
-        <mapping class="com.tepia.cmdbsevice.model.station.StationBean"></mapping>
+        <mapping class="com.tepia.cmnwsevice.model.station.StationBean"></mapping>
+        <mapping class="com.tepia.cmnwsevice.model.station.AreaBean"></mapping>
+        <mapping class="com.tepia.cmnwsevice.model.station.VenderBean"></mapping>
     </list>
 </litepal>

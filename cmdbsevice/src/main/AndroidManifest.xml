@@ -9,5 +9,7 @@
             android:screenOrientation="portrait"/>
         <!-- 测站 —— 基础信息-->
         <activity android:name=".view.cmdbmain.onlinemonitor.stationbaseinfodetail.StationBaseInfoDetailActivity" />
+        <!--  测站详情 -->
+        <activity android:name=".view.cmdbmain.onlinemonitor.stationdetail.StationDetailActivity" />
     </application>
 </manifest>

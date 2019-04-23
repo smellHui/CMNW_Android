@@ -1,8 +1,9 @@
-package com.tepia.cmdbsevice.model.station;
+package com.tepia.cmnwsevice.model.station;
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
-import com.tepia.cmdbsevice.APPConst;
+
+import com.tepia.cmnwsevice.APPConst;
 import com.tepia.cmnwsevice.model.user.UserManager;
 
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.RequestBody;
 
 /**
  * Created by      android studio
@@ -41,9 +41,9 @@ public class StationManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public   Observable<BaseCommonResponse<StationBean>>  getStationDetail(String code) {
+    public Observable<BaseCommonResponse<StationBean>> getStationDetail(String code) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.getStationByCode(token,code)
+        return mRetrofitService.getStationByCode(token, code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

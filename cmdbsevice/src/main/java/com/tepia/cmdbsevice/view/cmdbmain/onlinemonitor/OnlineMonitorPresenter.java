@@ -10,8 +10,11 @@ import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.floatview.CollectionsUtil;
-import com.tepia.cmdbsevice.model.station.StationBean;
-import com.tepia.cmdbsevice.model.station.StationManager;
+import com.tepia.cmdbsevice.R;
+import com.tepia.cmnwsevice.model.station.AreaBean;
+import com.tepia.cmnwsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.StationManager;
+import com.tepia.cmnwsevice.model.station.VenderBean;
 
 import org.litepal.crud.DataSupport;
 
@@ -30,23 +33,6 @@ import java.util.List;
 
 public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContract.View> implements OnlineMonitorContract.Presenter {
 
-    public void getStationList() {
-        StationManager.getInstance().getStationList().safeSubscribe(new LoadingSubject<BaseCommonResponse<List<StationBean>>>() {
-            @Override
-            protected void _onNext(BaseCommonResponse<List<StationBean>> baseCommonResponse) {
-                if (!CollectionsUtil.isEmpty(baseCommonResponse.getData())) {
-                    for (StationBean bean : baseCommonResponse.getData()) {
-                        bean.saveOrUpdate("code=?", bean.getCode());
-                    }
-                }
-            }
-
-            @Override
-            protected void _onError(String message) {
-                ToastUtils.shortToast(message);
-            }
-        });
-    }
 
     public ArrayList<String> getSearchHisList() {
         String temp = SPUtils.getInstance().getString("SEARCHHISLIST", "");
@@ -73,5 +59,43 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
         ArrayList<String> list = getSearchHisList();
         list.add(temp);
         SPUtils.getInstance().putString("SEARCHHISLIST", new Gson().toJson(list));
+    }
+
+    public List<StationTypeBean> getVenderList() {
+        ArrayList<StationTypeBean> list = new ArrayList<>();
+        List<VenderBean> venderBeanList = DataSupport.findAll(VenderBean.class);
+        for (VenderBean bean : venderBeanList) {
+            if (bean != null) {
+                list.add(new StationTypeBean(bean.getName(), bean.getCode(), true));
+            }
+        }
+        return list;
+    }
+
+    public List<StationTypeBean> getAreaList() {
+        ArrayList<StationTypeBean> list = new ArrayList<>();
+        List<AreaBean> venderBeanList = DataSupport.findAll(AreaBean.class);
+        for (AreaBean bean : venderBeanList) {
+            if (bean != null) {
+                list.add(new StationTypeBean(bean.getName(), bean.getCode(), true));
+            }
+        }
+        return list;
+    }
+
+    public List<StationTypeBean> getStationTypeList() {
+        ArrayList<StationTypeBean> list = new ArrayList<>();
+        list.add(new StationTypeBean("提升井", R.drawable.bg_circle_eee, R.mipmap.icn_tsj, true));
+        list.add(new StationTypeBean("处理站", R.drawable.bg_circle_eee, R.mipmap.icn_fj, true));
+        return list;
+    }
+
+    public List<StationTypeBean> getStationStatusList() {
+        ArrayList<StationTypeBean> list = new ArrayList<>();
+        list.add(new StationTypeBean("正常", R.drawable.bg_circle_4fcffa, true));
+        list.add(new StationTypeBean("异常", R.drawable.bg_circle_ffe42d, true));
+        list.add(new StationTypeBean("报警", R.drawable.bg_circle_ffaa53, true));
+        list.add(new StationTypeBean("故障", R.drawable.bg_circle_f43234, true));
+        return list;
     }
 }

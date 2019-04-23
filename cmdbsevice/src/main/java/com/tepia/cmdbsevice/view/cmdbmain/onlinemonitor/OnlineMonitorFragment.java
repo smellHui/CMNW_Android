@@ -2,9 +2,6 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor;
 
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.os.Build;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -14,12 +11,9 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.gyf.barlibrary.ImmersionBar;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.ScreenUtil;
@@ -30,7 +24,7 @@ import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.FragmentOnlineMonitorBinding;
-import com.tepia.cmdbsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.StationBean;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap.OnlineMonitorMapFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail.StationDetailFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationlist.StationListFragment;
@@ -49,7 +43,11 @@ import java.util.ArrayList;
 public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract.View, OnlineMonitorPresenter> implements OnlineMonitorContract.View {
 
     private FragmentOnlineMonitorBinding mBinding;
+    private OnlineMonitorMapFragment onlineMonitorMapFragment;
     private AdapterStationTypeList adapterStationTypeList;
+    private AdapterStationStatusList adapterStationStatusList;
+    private AdapterStationSaixuanList adapterStationVender;
+    private AdapterStationSaixuanList adapterStationArea;
 
     @Override
     protected int getLayoutId() {
@@ -67,7 +65,6 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         initMapFragment();
         initRightView();
         initLisitener();
-
         initScrollLayout(mRootView);
         showLayer(0);
     }
@@ -121,43 +118,50 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
     private void initRightView() {
         {
             mBinding.loRight.rvStationTypeList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-            ArrayList<StationTypeBean> list = new ArrayList<>();
-            list.add(new StationTypeBean("提升井",R.drawable.bg_circle_eee,R.mipmap.icn_tsj));
-            list.add(new StationTypeBean("提升井",R.drawable.bg_circle_eee,R.mipmap.icn_tsj));
-            list.add(new StationTypeBean());
-            adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, list);
+            adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, mPresenter.getStationTypeList());
             mBinding.loRight.rvStationTypeList.setAdapter(adapterStationTypeList);
         }
         {
             mBinding.loRight.rvStationStatusList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-            ArrayList<StationTypeBean> list = new ArrayList<>();
-            list.add(new StationTypeBean());
-            list.add(new StationTypeBean());
-            list.add(new StationTypeBean());
-            list.add(new StationTypeBean());
-            AdapterStationTypeList adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, list);
-            mBinding.loRight.rvStationStatusList.setAdapter(adapterStationTypeList);
+            adapterStationStatusList = new AdapterStationStatusList(R.layout.lv_station_status_item_view, mPresenter.getStationStatusList());
+            mBinding.loRight.rvStationStatusList.setAdapter(adapterStationStatusList);
         }
         {
             mBinding.loRight.rvStationOrganList.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-            ArrayList<StationTypeBean> list = new ArrayList<>();
-            list.add(new StationTypeBean());
-            list.add(new StationTypeBean());
-            list.add(new StationTypeBean());
-            list.add(new StationTypeBean());
-            list.add(new StationTypeBean());
-            AdapterStationTypeList adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, list);
-            mBinding.loRight.rvStationOrganList.setAdapter(adapterStationTypeList);
+
+            adapterStationVender = new AdapterStationSaixuanList(R.layout.lv_station_saixun_item_view, mPresenter.getVenderList());
+            mBinding.loRight.rvStationOrganList.setAdapter(adapterStationVender);
         }
         {
-            mBinding.loRight.rvStationAreaList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-            ArrayList<StationTypeBean> list = new ArrayList<>();
-            for (int i = 0; i < 20; i++) {
-                list.add(new StationTypeBean());
-            }
-            AdapterStationTypeList adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, list);
-            mBinding.loRight.rvStationAreaList.setAdapter(adapterStationTypeList);
+            mBinding.loRight.rvStationAreaList.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+            adapterStationArea = new AdapterStationSaixuanList(R.layout.lv_station_saixun_item_view, mPresenter.getAreaList());
+            mBinding.loRight.rvStationAreaList.setAdapter(adapterStationArea);
         }
+        mBinding.loRight.tvReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                adapterStationTypeList.setNewData(mPresenter.getStationTypeList());
+                adapterStationStatusList.setNewData(mPresenter.getStationStatusList());
+                adapterStationVender.setNewData(mPresenter.getVenderList());
+                adapterStationArea.setNewData(mPresenter.getAreaList());
+            }
+        });
+        mBinding.loRight.tvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                adapterStationArea.getSelectData();
+
+                if (onlineMonitorMapFragment != null) {
+                    onlineMonitorMapFragment.saixuan();
+                }
+            }
+        });
     }
 
     /**
@@ -165,7 +169,8 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
      */
     private void initMapFragment() {
         FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
-        ft2.replace(R.id.fl_map_container, new OnlineMonitorMapFragment());
+        onlineMonitorMapFragment = new OnlineMonitorMapFragment();
+        ft2.replace(R.id.fl_map_container, onlineMonitorMapFragment);
         ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft2.addToBackStack(null);
         ft2.commit();
@@ -363,6 +368,11 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
      * 初始化 搜索历史 list view
      */
     private void initAndShowSearchHisList() {
+        if (CollectionsUtil.isEmpty(mPresenter.getSearchHisList())) {
+            mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
+        } else {
+            mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
+        }
         mBinding.loSearchTip.rvSearchHis.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterSearchHisList adapterSearchHisList = new AdapterSearchHisList(R.layout.lv_search_his_list, mPresenter.getSearchHisList());
         mBinding.loSearchTip.rvSearchHis.setAdapter(adapterSearchHisList);
@@ -394,6 +404,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
     @Override
     protected void initRequestData() {
-        mPresenter.getStationList();
+//        mPresenter.getStationList();
+
     }
 }

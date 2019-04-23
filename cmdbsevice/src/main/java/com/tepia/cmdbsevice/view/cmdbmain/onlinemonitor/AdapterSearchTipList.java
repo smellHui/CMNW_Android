@@ -1,15 +1,12 @@
 package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.cmdbsevice.databinding.LvSearchTipListBinding;
-import com.tepia.cmdbsevice.model.station.StationBean;
-
-import org.litepal.crud.DataSupport;
+import com.tepia.cmnwsevice.model.station.StationBean;
 
 import java.util.List;
 
