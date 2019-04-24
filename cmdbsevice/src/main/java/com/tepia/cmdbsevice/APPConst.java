@@ -13,5 +13,5 @@ public class APPConst {
     /**
      *  host 地址
      */
-    public static final String ROOT_URL = "http://47.110.70.104:8906/";
+    public static final String ROOT_URL = "http://47.110.70.104:10906/";
 }

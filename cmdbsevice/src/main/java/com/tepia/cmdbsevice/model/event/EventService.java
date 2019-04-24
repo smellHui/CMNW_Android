@@ -46,6 +46,16 @@ public interface EventService {
     Observable<BaseCommonResponse<List<TopTotalBean>>> countByVendor(@Header("token") String token, @Body RequestBody body);
 
     /**
+     * 【查询】查询企业故障率
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("supervise/countByVendor")
+    Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByVendor(@Header("token") String token, @Body RequestBody body);
+
+    /**
      * 【查询】实时督办-乡镇报警、故障数
      *
      * @param token
@@ -55,6 +65,17 @@ public interface EventService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/countByTown")
     Observable<BaseCommonResponse<List<TopTotalBean>>> countByTown(@Header("token") String token, @Body RequestBody body);
+
+    /**
+     * 【查询】查询乡镇故障率
+     *
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("supervise/countByTown")
+    Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByTown(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 【查询】实时督办报警、故障统计列表

@@ -17,6 +17,15 @@ public class TopTotalBean {
     private String superviseNum;
     private String vendorName;
     private String code;
+    private String rate;
+
+    public String getRate() {
+        return StringUtil.nullToDefault(rate, "0");
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
 
     public String getCode() {
         return code;
@@ -43,7 +52,7 @@ public class TopTotalBean {
     }
 
     public String getTotal() {
-        return StringUtil.nullToDefault(total,"0");
+        return StringUtil.nullToDefault(total, "0");
     }
 
     public void setTotal(String total) {
@@ -84,6 +93,7 @@ public class TopTotalBean {
                 ", superviseNum='" + superviseNum + '\'' +
                 ", vendorName='" + vendorName + '\'' +
                 ", code='" + code + '\'' +
+                ", rate='" + rate + '\'' +
                 '}';
     }
 }

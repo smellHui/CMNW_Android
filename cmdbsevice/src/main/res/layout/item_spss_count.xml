@@ -6,18 +6,22 @@
     android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/tv_name"
         style="@style/text.item_spss"
         android:text="成桥镇" />
 
     <TextView
+        android:id="@+id/tv_alarmNum"
         style="@style/text.item_spss"
         android:text="114" />
 
     <TextView
+        android:id="@+id/tv_faultNum"
         style="@style/text.item_spss"
         android:text="114" />
 
     <TextView
+        android:id="@+id/tv_rate"
         style="@style/text.item_spss"
         android:text="114" />
 

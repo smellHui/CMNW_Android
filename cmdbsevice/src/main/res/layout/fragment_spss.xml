@@ -23,11 +23,11 @@
             android:layout_width="156dp"
             android:layout_height="26dp"
             tl:tl_bar_color="@color/color_EAEFF9"
+            tl:tl_bar_stroke_color="@color/trans"
             tl:tl_indicator_anim_enable="true"
             tl:tl_indicator_bounce_enable="true"
             tl:tl_indicator_color="@color/color_4DB07A"
             tl:tl_indicator_corner_radius="13dp"
-            tl:tl_bar_stroke_color="@color/trans"
             tl:tl_textSelectColor="@color/white"
             tl:tl_textUnselectColor="@color/color_5C626E"
             tl:tl_textsize="13sp" />
@@ -58,42 +58,23 @@
             android:background="@drawable/corner_bg_3_grey"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView
+                android:id="@+id/view_spss_title"
                 android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:background="@drawable/bg_top_corner"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    style="@style/text.title"
-                    android:text="行政区划" />
-
-                <TextView
-                    style="@style/text.title"
-                    android:text="站点总数" />
-
-                <TextView
-                    style="@style/text.title"
-                    android:text="达标站点数" />
-
-                <TextView
-                    style="@style/text.title"
-                    android:text="水质达标率" />
-            </LinearLayout>
-
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/layout_swipe_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="1dp">
+            <!--<android.support.v4.widget.SwipeRefreshLayout-->
+                <!--android:id="@+id/layout_swipe_refresh"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:padding="1dp">-->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+            <!--</android.support.v4.widget.SwipeRefreshLayout>-->
         </LinearLayout>
     </FrameLayout>
 

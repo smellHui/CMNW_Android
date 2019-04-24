@@ -41,9 +41,9 @@ public class TargetAssessmentFragment extends BaseCommonFragment {
     protected void initView(View view) {
         tabLayout = findView(R.id.ly_tab);
         viewPager = findView(R.id.vp);
-        mFragments.add(SpssFragment.launch());
-        mFragments.add(SpssFragment.launch());
-        mFragments.add(SpssFragment.launch());
+        mFragments.add(SpssFragment.launch(0));
+        mFragments.add(SpssFragment.launch(1));
+        mFragments.add(SpssFragment.launch(2));
         pageAdapter = new PageAdapter(getChildFragmentManager(), mFragments, mTitles);
         viewPager.setAdapter(pageAdapter);
         tabLayout.setViewPager(viewPager);

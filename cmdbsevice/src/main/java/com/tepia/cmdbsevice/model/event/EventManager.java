@@ -71,6 +71,35 @@ public class EventManager {
     }
 
     /**
+     * 【查询】查询乡镇故障率
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByTown(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.countFaultRateByTown(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】查询企业故障率
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByVendor(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.countFaultRateByVendor(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    /**
      * 【查询】实时督办报警、故障统计列表
      *
      * @param params

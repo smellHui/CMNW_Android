@@ -1,6 +1,7 @@
 package com.tepia.cmnwsevice.model.station;
 
 import com.google.common.base.Strings;
+import com.tepia.cmnwsevice.utils.StringUtil;
 
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
@@ -56,7 +57,7 @@ public class StationBean extends DataSupport {
     }
 
     public String getStationType() {
-        return stationType;
+        return StringUtil.nullToDefault(stationType);
     }
 
     public void setStationType(String stationType) {
