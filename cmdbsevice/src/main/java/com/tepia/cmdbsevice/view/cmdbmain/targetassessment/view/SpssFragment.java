@@ -35,6 +35,7 @@ public class SpssFragment extends BaseCommonFragment {
     private static String[] WATER_QUALITY = {"行政区划", "站点总数", "达标站点数", "水质达标率"};
 
     private int pageType;//页面标识，0故障率统计  1人工水质  2在线水质
+    private int currectTab;
 
     private RecyclerView rv;
     private SpssTitleView spssTitleView;
@@ -80,10 +81,12 @@ public class SpssFragment extends BaseCommonFragment {
             public void onTabSelect(int position) {
                 switch (position) {
                     case 0:
+                        currectTab = 0;
                         countFaultRateByTown();
                         break;
                     case 1:
-                        countFaultRateByVendor(TimeFormatUtils.getFirstDayOfToday(), TimeFormatUtils.getLastDayOfToday());
+                        currectTab = 1;
+                        countFaultRateByVendor();
                         break;
                 }
             }
@@ -105,7 +108,12 @@ public class SpssFragment extends BaseCommonFragment {
         this.startTime = startTime;
         this.endTime = endTime;
         tv_choice_data.setText(String.format("%s - %s", startTime.replace("-", "."), endTime.replace("-", ".")));
-        countFaultRateByTown();
+        if (currectTab == 0) {
+            countFaultRateByTown();
+        }
+        if (currectTab == 1) {
+            countFaultRateByVendor();
+        }
     }
 
     private void selectDataListner(View view) {
@@ -152,8 +160,8 @@ public class SpssFragment extends BaseCommonFragment {
                 });
     }
 
-    private void countFaultRateByVendor(String startTime, String endTime) {
-        EventManager.getInstance().countFaultRateByVendor("startTime", startTime, "endTime", endTime)
+    private void countFaultRateByVendor() {
+        EventManager.getInstance().countFaultRateByVendor("startTime", String.format("%s 00:00:00", startTime), "endTime", String.format("%s 23:59:59", endTime))
                 .safeSubscribe(new LoadingSubject<BaseCommonResponse<List<TopTotalBean>>>() {
 
                     @Override

@@ -52,7 +52,7 @@ public interface EventService {
      * @return
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("supervise/countByVendor")
+    @POST("supervise/countFaultRateByVendor")
     Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByVendor(@Header("token") String token, @Body RequestBody body);
 
     /**
@@ -74,7 +74,7 @@ public interface EventService {
      * @return
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("supervise/countByTown")
+    @POST("supervise/countFaultRateByTown")
     Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByTown(@Header("token") String token, @Body RequestBody body);
 
     /**
