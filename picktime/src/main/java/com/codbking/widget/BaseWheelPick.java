@@ -24,7 +24,7 @@ import com.codbking.widget.genview.WheelGeneralAdapter;
          {
 
     protected int textColor = 0xffdddddd;
-    protected int selectColor = 0xff444444;
+    protected int selectColor = 0xff4FB17C;
     protected int split = 0xffdddddd;
     protected int splitHeight = 1;
     protected Context ctx;
