@@ -41,4 +41,8 @@ public class AppRoutePath {
      *   测站 —— 基础信息
      */
     public final static String app_cmdb_station_base_info = "/cmdb/station/base/info";
+    /**
+     * 测站 ——  详细信息
+     */
+    public final static String app_cmdb_station_detail = "/cmdb/station/detail";
 }

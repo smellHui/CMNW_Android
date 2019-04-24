@@ -10,13 +10,13 @@ import java.util.List;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ * 邮箱 784787081@qq.com
  */
 
-public class StationListPresenter extends BasePresenterImpl<StationListContract.View> implements StationListContract.Presenter{
+public class StationListPresenter extends BasePresenterImpl<StationListContract.View> implements StationListContract.Presenter {
 
-    public void getStationList(String temp) {
-        List<StationBean> list = DataSupport.where("name like ?", "%" + temp + "%").find(StationBean.class);
+    public void getStationList(String... conditions) {
+        List<StationBean> list = DataSupport.where(conditions).find(StationBean.class);
         ArrayList<StationBean> list2 = new ArrayList<>();
         list2.addAll(list);
         mView.getStationListSuccess(list2);

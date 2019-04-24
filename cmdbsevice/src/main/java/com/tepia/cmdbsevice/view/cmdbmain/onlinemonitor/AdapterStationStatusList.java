@@ -10,6 +10,7 @@ import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.LvStationStatusItemViewBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,5 +48,15 @@ public class AdapterStationStatusList extends BaseQuickAdapter<StationTypeBean, 
                 notifyDataSetChanged();
             }
         });
+    }
+
+    public List<StationTypeBean> getSelectData() {
+        ArrayList<StationTypeBean> list = new ArrayList<>();
+        for (StationTypeBean bean : getData()) {
+            if (bean.isSelected()) {
+                list.add(bean);
+            }
+        }
+        return list;
     }
 }

@@ -13,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.ScreenUtil;
@@ -30,6 +33,7 @@ import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail.StationDet
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationlist.StationListFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author :       zhang xinhua
@@ -48,6 +52,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
     private AdapterStationStatusList adapterStationStatusList;
     private AdapterStationSaixuanList adapterStationVender;
     private AdapterStationSaixuanList adapterStationArea;
+    private StationListFragment stationListFragment;
 
     @Override
     protected int getLayoutId() {
@@ -65,132 +70,13 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         initMapFragment();
         initRightView();
         initLisitener();
+        initMapOptLayerView();
+        initSearchView();
         initScrollLayout(mRootView);
         showLayer(0);
     }
 
-    /**
-     * 初始化滑动布局
-     *
-     * @param view
-     */
-    private void initScrollLayout(View view) {
-        ScrollLayout scrollownLayout = view.findViewWithTag("scroll_down_layout");
-        ContentScrollView itemScrollView = view.findViewWithTag("item_scroll_view_layout");
-        FrameLayout flContainer = findView(R.id.fl_container);
-
-        //设置列表滑动布局
-        //关闭状态时最上方预留高度
-        scrollownLayout.setMinOffset(Px2dpUtils.dip2px(getContext(), 100));
-        //打开状态时内容显示区域的高度
-        scrollownLayout.setMaxOffset(ScreenUtil.getScreenHeightPix(getContext()) / 2);
-        //最低部退出状态时可看到的高度，0为不可见
-        scrollownLayout.setExitOffset(Px2dpUtils.dip2px(getContext(), 100));
-        //解决recycleView底部显示不全的问题
-//        listRecylcler.setPadding(0, 0, 0, ScreenUtil.getScreenHeightPix(getContext()) - imgLocationTop - Px2dpUtils.dip2px(mContext, 36 + 55));
-        //是否支持下滑退出，支持会有下滑到最底部时的回调
-        scrollownLayout.setIsSupportExit(true);
-        //是否支持横向滚动
-        scrollownLayout.setAllowHorizontalScroll(true);
-        scrollownLayout.setOnScrollChangedListener(new ScrollLayout.OnScrollChangedListener() {
-            @Override
-            public void onScrollProgressChanged(float currentProgress) {
-
-            }
-
-            @Override
-            public void onScrollFinished(ScrollLayout.Status currentStatus) {
-
-            }
-
-            @Override
-            public void onChildScroll(int top) {
-
-            }
-        });
-        scrollownLayout.setToExit();
-        scrollownLayout.getBackground().setAlpha(0);
-
-
-    }
-
-
-    private void initRightView() {
-        {
-            mBinding.loRight.rvStationTypeList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-            adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, mPresenter.getStationTypeList());
-            mBinding.loRight.rvStationTypeList.setAdapter(adapterStationTypeList);
-        }
-        {
-            mBinding.loRight.rvStationStatusList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-            adapterStationStatusList = new AdapterStationStatusList(R.layout.lv_station_status_item_view, mPresenter.getStationStatusList());
-            mBinding.loRight.rvStationStatusList.setAdapter(adapterStationStatusList);
-        }
-        {
-            mBinding.loRight.rvStationOrganList.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-
-            adapterStationVender = new AdapterStationSaixuanList(R.layout.lv_station_saixun_item_view, mPresenter.getVenderList());
-            mBinding.loRight.rvStationOrganList.setAdapter(adapterStationVender);
-        }
-        {
-            mBinding.loRight.rvStationAreaList.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-            adapterStationArea = new AdapterStationSaixuanList(R.layout.lv_station_saixun_item_view, mPresenter.getAreaList());
-            mBinding.loRight.rvStationAreaList.setAdapter(adapterStationArea);
-        }
-        mBinding.loRight.tvReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()) {
-                    return;
-                }
-                adapterStationTypeList.setNewData(mPresenter.getStationTypeList());
-                adapterStationStatusList.setNewData(mPresenter.getStationStatusList());
-                adapterStationVender.setNewData(mPresenter.getVenderList());
-                adapterStationArea.setNewData(mPresenter.getAreaList());
-            }
-        });
-        mBinding.loRight.tvSure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()) {
-                    return;
-                }
-                adapterStationArea.getSelectData();
-
-                if (onlineMonitorMapFragment != null) {
-                    onlineMonitorMapFragment.saixuan();
-                }
-            }
-        });
-    }
-
-    /**
-     * 初始化 地图 fragment
-     */
-    private void initMapFragment() {
-        FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
-        onlineMonitorMapFragment = new OnlineMonitorMapFragment();
-        ft2.replace(R.id.fl_map_container, onlineMonitorMapFragment);
-        ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft2.addToBackStack(null);
-        ft2.commit();
-
-    }
-
-    private void initLisitener() {
-        mBinding.loMapOptLayer.loMapLayersSelect.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()) {
-                    return;
-                }
-                /** 打开右侧 图层选择 视图*/
-                mBinding.drawerLayout.openDrawer(Gravity.RIGHT);
-            }
-        });
-
-
+    private void initSearchView() {
         mBinding.loSearchHeader.loBtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,8 +91,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                             initAndShowSearchHisList();
                         } else {
                             mPresenter.putSearchHis(temp);
-                            showLayer(3);
-                            initListFragment(temp);
+
                         }
                     } else {
                         showLayer(1);
@@ -269,10 +154,243 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         });
     }
 
-    private void initListFragment(String temp) {
+    private void initMapOptLayerView() {
+        mBinding.loMapOptLayer.loMapLayersSelect.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                /** 打开右侧 图层选择 视图*/
+                mBinding.drawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        });
+        mBinding.loMapOptLayer.tvClz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                showLayer(3);
+            }
+        });
+        mBinding.loMapOptLayer.tvTsj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                showLayer(3);
+                initListFragment(getSaiXuanStrs("2"));
+            }
+        });
+        mBinding.loMapOptLayer.tvClz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                showLayer(3);
+                initListFragment(getSaiXuanStrs("1"));
+            }
+        });
+    }
+
+    /**
+     * 初始化滑动布局
+     *
+     * @param view
+     */
+    private void initScrollLayout(View view) {
+        ScrollLayout scrollownLayout = view.findViewWithTag("scroll_down_layout");
+        ContentScrollView itemScrollView = view.findViewWithTag("item_scroll_view_layout");
+        FrameLayout flContainer = findView(R.id.fl_container);
+
+        //设置列表滑动布局
+        //关闭状态时最上方预留高度
+        scrollownLayout.setMinOffset(Px2dpUtils.dip2px(getContext(), 100));
+        //打开状态时内容显示区域的高度
+        scrollownLayout.setMaxOffset(ScreenUtil.getScreenHeightPix(getContext()) / 2);
+        //最低部退出状态时可看到的高度，0为不可见
+        scrollownLayout.setExitOffset(Px2dpUtils.dip2px(getContext(), 100));
+        //解决recycleView底部显示不全的问题
+//        listRecylcler.setPadding(0, 0, 0, ScreenUtil.getScreenHeightPix(getContext()) - imgLocationTop - Px2dpUtils.dip2px(mContext, 36 + 55));
+        //是否支持下滑退出，支持会有下滑到最底部时的回调
+        scrollownLayout.setIsSupportExit(true);
+        //是否支持横向滚动
+        scrollownLayout.setAllowHorizontalScroll(true);
+        scrollownLayout.setOnScrollChangedListener(new ScrollLayout.OnScrollChangedListener() {
+            @Override
+            public void onScrollProgressChanged(float currentProgress) {
+
+            }
+
+            @Override
+            public void onScrollFinished(ScrollLayout.Status currentStatus) {
+
+            }
+
+            @Override
+            public void onChildScroll(int top) {
+
+            }
+        });
+        scrollownLayout.setToOpen();
+        scrollownLayout.getBackground().setAlpha(0);
+
+
+    }
+
+
+    private void initRightView() {
+        {
+            mBinding.loRight.rvStationTypeList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+            adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, mPresenter.getStationTypeList());
+            mBinding.loRight.rvStationTypeList.setAdapter(adapterStationTypeList);
+        }
+        {
+            mBinding.loRight.rvStationStatusList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+            adapterStationStatusList = new AdapterStationStatusList(R.layout.lv_station_status_item_view, mPresenter.getStationStatusList());
+            mBinding.loRight.rvStationStatusList.setAdapter(adapterStationStatusList);
+        }
+        {
+            mBinding.loRight.rvStationOrganList.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+
+            adapterStationVender = new AdapterStationSaixuanList(R.layout.lv_station_saixun_item_view, mPresenter.getVenderList());
+            mBinding.loRight.rvStationOrganList.setAdapter(adapterStationVender);
+        }
+        {
+            mBinding.loRight.rvStationAreaList.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+            adapterStationArea = new AdapterStationSaixuanList(R.layout.lv_station_saixun_item_view, mPresenter.getAreaList());
+            mBinding.loRight.rvStationAreaList.setAdapter(adapterStationArea);
+        }
+        mBinding.loRight.tvReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                adapterStationTypeList.setNewData(mPresenter.getStationTypeList());
+                adapterStationStatusList.setNewData(mPresenter.getStationStatusList());
+                adapterStationVender.setNewData(mPresenter.getVenderList());
+                adapterStationArea.setNewData(mPresenter.getAreaList());
+            }
+        });
+        mBinding.loRight.tvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (onlineMonitorMapFragment != null) {
+                    mBinding.drawerLayout.closeDrawer(Gravity.RIGHT);
+                    onlineMonitorMapFragment.saixuan(getSaiXuanStrs());
+                }
+            }
+        });
+    }
+
+    private String getSaiXuanStrs(String type) {
+        String conditions = "stationType = " + type;
+        return conditions;
+    }
+
+    private String getSaiXuanStrs() {
+        String conditions = "";
+        {
+            List<StationTypeBean> statuslist = adapterStationStatusList.getSelectData();
+            if (!CollectionsUtil.isEmpty(statuslist)) {
+                String temp = "(";
+                for (StationTypeBean bean : statuslist) {
+                    temp += "'" + bean.getCode() + "',";
+                }
+                temp = temp.substring(0, temp.length() - 1) + ")";
+                if (TextUtils.isEmpty(conditions)) {
+                    conditions += " stationStatus in " + temp;
+                } else {
+                    conditions += " AND stationStatus in " + temp;
+                }
+            }
+        }
+        {
+            List<StationTypeBean> statuslist = adapterStationTypeList.getSelectData();
+            if (!CollectionsUtil.isEmpty(statuslist)) {
+                String temp = "(";
+                for (StationTypeBean bean : statuslist) {
+                    temp += "'" + bean.getCode() + "',";
+                }
+                temp = temp.substring(0, temp.length() - 1) + ")";
+                if (TextUtils.isEmpty(conditions)) {
+                    conditions += " stationType in " + temp;
+                } else {
+                    conditions += " AND stationType in " + temp;
+                }
+            }
+        }
+        {
+            List<StationTypeBean> statuslist = adapterStationVender.getSelectData();
+            if (!CollectionsUtil.isEmpty(statuslist)) {
+                String temp = "(";
+                for (StationTypeBean bean : statuslist) {
+                    temp += "'" + bean.getCode() + "',";
+                }
+                temp = temp.substring(0, temp.length() - 1) + ")";
+                if (TextUtils.isEmpty(conditions)) {
+                    conditions += " enterpriseCode in " + temp;
+                } else {
+                    conditions += " AND enterpriseCode in " + temp;
+                }
+            }
+        }
+        {
+            List<StationTypeBean> statuslist = adapterStationArea.getSelectData();
+            if (!CollectionsUtil.isEmpty(statuslist)) {
+                String temp = "(";
+                for (StationTypeBean bean : statuslist) {
+                    temp += "'" + bean.getCode() + "',";
+                }
+                temp = temp.substring(0, temp.length() - 1) + ")";
+                if (TextUtils.isEmpty(conditions)) {
+                    conditions += " administrativeDivision in " + temp;
+                } else {
+                    conditions += " AND administrativeDivision in " + temp;
+                }
+            }
+        }
+        return conditions;
+    }
+
+    /**
+     * 初始化 地图 fragment
+     */
+    private void initMapFragment() {
         FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
-        StationListFragment stationListFragment = new StationListFragment();
-        stationListFragment.shaixuanStr = temp;
+        onlineMonitorMapFragment = new OnlineMonitorMapFragment();
+        ft2.replace(R.id.fl_map_container, onlineMonitorMapFragment);
+        ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft2.addToBackStack(null);
+        ft2.commit();
+
+    }
+
+    private void initLisitener() {
+
+
+    }
+
+    private void initListFragment(String... temp) {
+        FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
+        stationListFragment = new StationListFragment();
+        stationListFragment.conditions = temp;
+        stationListFragment.setOnListItemClickListener(new StationListFragment.OnListItemClickListener() {
+            @Override
+            public void onItemClick(StationBean stationBean) {
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
+                        .withString("stationBean", new Gson().toJson(stationBean).toString())
+                        .navigation();
+            }
+        });
         ft2.replace(R.id.fl_container, stationListFragment);
         ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft2.addToBackStack(null);
@@ -287,8 +405,8 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         mBinding.loSearchTip.rvSearchTip.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterSearchTipList adapterSearchTipList = new AdapterSearchTipList(R.layout.lv_search_tip_list, mPresenter.getSearchTipList(mBinding.loSearchHeader.etSearch.getText().toString()));
         mBinding.loSearchTip.rvSearchTip.setAdapter(adapterSearchTipList);
-        View footview = LayoutInflater.from(getContext()).inflate(R.layout.lv_search_foot_view, null);
-        adapterSearchTipList.setFooterView(footview);
+//        View footview = LayoutInflater.from(getContext()).inflate(R.layout.lv_search_foot_view, null);
+//        adapterSearchTipList.setFooterView(footview);
 
         adapterSearchTipList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -297,8 +415,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     return;
                 }
                 mBinding.loSearchHeader.etSearch.setText(adapterSearchTipList.getData().get(position).getName());
-                showLayer(3);
-                initDetailFragment(adapterSearchTipList.getData().get(position));
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
+                        .withString("stationBean", new Gson().toJson(adapterSearchTipList.getData().get(position)).toString())
+                        .navigation();
+
             }
         });
 
@@ -324,6 +444,11 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
                 mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.VISIBLE);
                 mBinding.loSearchTip.loSearch.setVisibility(View.VISIBLE);
+                if (CollectionsUtil.isEmpty(mPresenter.getSearchHisList())) {
+                    mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
+                } else {
+                    mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
+                }
                 mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
                 mBinding.loSearchTip.rvSearchHis.setVisibility(View.VISIBLE);
                 mBinding.loSearchTip.rvSearchTip.setVisibility(View.GONE);
@@ -354,25 +479,12 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         }
     }
 
-    private void initDetailFragment(StationBean stationBean) {
-        FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
-        StationDetailFragment stationDetailFragment = new StationDetailFragment();
-        stationDetailFragment.stationBean = stationBean;
-        ft2.replace(R.id.fl_container, stationDetailFragment);
-        ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft2.addToBackStack(null);
-        ft2.commit();
-    }
 
     /**
      * 初始化 搜索历史 list view
      */
     private void initAndShowSearchHisList() {
-        if (CollectionsUtil.isEmpty(mPresenter.getSearchHisList())) {
-            mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
-        } else {
-            mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
-        }
+
         mBinding.loSearchTip.rvSearchHis.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterSearchHisList adapterSearchHisList = new AdapterSearchHisList(R.layout.lv_search_his_list, mPresenter.getSearchHisList());
         mBinding.loSearchTip.rvSearchHis.setAdapter(adapterSearchHisList);
@@ -396,8 +508,8 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     return;
                 }
                 mBinding.loSearchHeader.etSearch.setText(adapterSearchHisList.getData().get(position));
-                showLayer(3);
-                initListFragment(adapterSearchHisList.getData().get(position));
+                showLayer(2);
+//                initAndShowSearchTipList(adapterSearchHisList.getData().get(position));
             }
         });
     }

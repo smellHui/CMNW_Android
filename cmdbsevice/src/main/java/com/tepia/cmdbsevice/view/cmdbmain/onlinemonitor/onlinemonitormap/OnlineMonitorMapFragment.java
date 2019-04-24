@@ -99,7 +99,12 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 }
                 if (status == STATUS.LAYER_LOADED) {
                     mBinding.layoutLoading.loadingLayout.setVisibility(View.GONE);
-                    drawMapPoint();
+                    List<StationBean> stationList = DataSupport.findAll(StationBean.class);
+                    drawMapPoint(stationList);
+                    if (count == 1) {
+                        mBinding.mvArcgisRiverLog.centerAt(new Point(ConfigConst.LNG, ConfigConst.LAT), true);
+//                        mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
+                    }
                 }
                 if (status == STATUS.LAYER_LOADING_FAILED) {
                     mBinding.layoutLoading.tvLoading.setText("地图加载失败");
@@ -110,10 +115,10 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     }
 
-    private void drawMapPoint() {
-        List<StationBean> stationList = DataSupport.findAll(StationBean.class);
-
+    private void drawMapPoint(List<StationBean> stationList) {
+        logGraphicsLayer.removeGraphics(logGraphicsLayer.getGraphicIDs());
         if (!CollectionsUtil.isEmpty(stationList)) {
+            count = 0;
             mBinding.mvArcgisRiverLog.post(new Runnable() {
                 @Override
                 public void run() {
@@ -135,21 +140,64 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                             mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
                             return;
                         }
-                        switch (bean.getStationType()) {
-                            case "0":
-                                ARCGISUTIL.addPic(R.mipmap.icon_chulizhang_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
-                                break;
-                            case "1":
-                                ARCGISUTIL.addPic(R.mipmap.icon_gongzhang_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
-                                break;
-                            default:
-                                ARCGISUTIL.addPic(R.mipmap.icon_chulizhang_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
-                                break;
+                        if (TextUtils.isEmpty(bean.getStationType())) {
+                            mBinding.mvArcgisRiverLog.postDelayed(this, 100);
+
+                        } else {
+                            switch (bean.getStationType()) {
+                                case "1":
+                                    if (TextUtils.isEmpty(bean.getStationStatus())) {
+                                        ARCGISUTIL.addPic(R.mipmap.icon_clz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                    } else {
+                                        switch (bean.getStationStatus()) {
+                                            case "0":
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                            case "1":
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_1, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                            case "2":
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                            case "3":
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_3, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                            default:
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                        }
+                                    }
+
+                                    break;
+                                case "2":
+                                    if (TextUtils.isEmpty(bean.getStationStatus())) {
+                                        ARCGISUTIL.addPic(R.mipmap.icon_gz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                    } else {
+                                        switch (bean.getStationStatus()) {
+                                            case "0":
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                            case "1":
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_1, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                            case "2":
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                            case "3":
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_3, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                            default:
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    ARCGISUTIL.addPic(R.mipmap.icon_gz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                    break;
+                            }
                         }
-                        if (count == 1) {
-                            mBinding.mvArcgisRiverLog.centerAt(new Point(lgtdrv, lttdrv), true);
-                            mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
-                        }
+
 
                         mBinding.mvArcgisRiverLog.postDelayed(this, 100);
                     }
@@ -164,6 +212,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
     }
 
     public void saixuan(String... conditions) {
-
+        List<StationBean> stationList = DataSupport.where(conditions).find(StationBean.class);
+        drawMapPoint(stationList);
     }
 }

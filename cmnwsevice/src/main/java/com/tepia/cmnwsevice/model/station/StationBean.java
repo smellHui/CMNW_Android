@@ -29,7 +29,7 @@ public class StationBean extends DataSupport {
     private String lgtd;
     private String lttd;
     private Object waterQuality;
-    private StationMessageBean stationMessage;
+    private StationBaseInfoBean handingStation;
     private CurrentDataBean currentData;
 
     public String getAdministrativeDivision() {
@@ -128,12 +128,12 @@ public class StationBean extends DataSupport {
         this.waterQuality = waterQuality;
     }
 
-    public StationMessageBean getStationMessage() {
-        return stationMessage;
+    public StationBaseInfoBean getHandingStation() {
+        return handingStation;
     }
 
-    public void setStationMessage(StationMessageBean stationMessage) {
-        this.stationMessage = stationMessage;
+    public void setHandingStation(StationBaseInfoBean handingStation) {
+        this.handingStation = handingStation;
     }
 
     public CurrentDataBean getCurrentData() {

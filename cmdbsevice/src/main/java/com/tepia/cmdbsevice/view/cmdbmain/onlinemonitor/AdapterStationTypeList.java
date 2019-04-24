@@ -12,6 +12,7 @@ import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.LvStationTypeItemViewBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,5 +56,15 @@ public class AdapterStationTypeList extends BaseQuickAdapter<StationTypeBean, Ba
                 notifyDataSetChanged();
             }
         });
+    }
+
+    public List<StationTypeBean> getSelectData() {
+        ArrayList<StationTypeBean> list = new ArrayList<>();
+        for (StationTypeBean bean : getData()) {
+            if (bean.isSelected()) {
+                list.add(bean);
+            }
+        }
+        return list;
     }
 }

@@ -17,6 +17,14 @@ public class StationTypeBean {
     private Integer color;
     private boolean isSelected;
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public StationTypeBean(String name, Integer background) {
         this.name = name;
         this.background = background;
@@ -24,6 +32,12 @@ public class StationTypeBean {
 
     public StationTypeBean(String name, Integer background, boolean isSelected) {
         this.name = name;
+        this.background = background;
+        this.isSelected = isSelected;
+    }
+    public StationTypeBean(String name,String code, Integer background, boolean isSelected) {
+        this.name = name;
+        this.code = code;
         this.background = background;
         this.isSelected = isSelected;
     }
@@ -59,6 +73,13 @@ public class StationTypeBean {
 
     public StationTypeBean(String name, Integer background, Integer src, boolean isSelected) {
         this.name = name;
+        this.background = background;
+        this.src = src;
+        this.isSelected = isSelected;
+    }
+    public StationTypeBean(String name,String code, Integer background, Integer src, boolean isSelected) {
+        this.name = name;
+        this.code = code;
         this.background = background;
         this.src = src;
         this.isSelected = isSelected;

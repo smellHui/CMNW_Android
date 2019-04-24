@@ -85,17 +85,17 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
 
     public List<StationTypeBean> getStationTypeList() {
         ArrayList<StationTypeBean> list = new ArrayList<>();
-        list.add(new StationTypeBean("提升井", R.drawable.bg_circle_eee, R.mipmap.icn_tsj, true));
-        list.add(new StationTypeBean("处理站", R.drawable.bg_circle_eee, R.mipmap.icn_fj, true));
+        list.add(new StationTypeBean("提升井","1", R.drawable.bg_circle_eee, R.mipmap.icn_tsj, true));
+        list.add(new StationTypeBean("处理站","2",R.drawable.bg_circle_eee, R.mipmap.icn_fj, true));
         return list;
     }
 
     public List<StationTypeBean> getStationStatusList() {
         ArrayList<StationTypeBean> list = new ArrayList<>();
-        list.add(new StationTypeBean("正常", R.drawable.bg_circle_4fcffa, true));
-        list.add(new StationTypeBean("异常", R.drawable.bg_circle_ffe42d, true));
-        list.add(new StationTypeBean("报警", R.drawable.bg_circle_ffaa53, true));
-        list.add(new StationTypeBean("故障", R.drawable.bg_circle_f43234, true));
+        list.add(new StationTypeBean("正常","0", R.drawable.bg_circle_4fcffa, true));
+        list.add(new StationTypeBean("异常","1",  R.drawable.bg_circle_ffe42d, true));
+        list.add(new StationTypeBean("报警","2",  R.drawable.bg_circle_ffaa53, true));
+        list.add(new StationTypeBean("故障","3",  R.drawable.bg_circle_f43234, true));
         return list;
     }
 }

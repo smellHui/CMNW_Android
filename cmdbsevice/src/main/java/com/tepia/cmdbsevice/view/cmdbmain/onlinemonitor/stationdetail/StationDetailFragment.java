@@ -3,6 +3,9 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail;
 
 import android.databinding.DataBindingUtil;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.tepia.base.AppRoutePath;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,9 +56,19 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
     }
 
     private void refreshView(StationBean data) {
-        mBinding.tvStationName.setText(data.getStationMessage().getStationName());
-        mBinding.tvStationOrgan.setText(data.getStationMessage().getVendorName());
-        mBinding.tvStationAdress.setText(data.getStationMessage().getAddress());
+        mBinding.tvStationName.setText(data.getHandingStation().getName());
+        mBinding.tvStationOrgan.setText(data.getHandingStation().getVendorName());
+        mBinding.tvStationAdress.setText(data.getHandingStation().getAddress());
+        mBinding.loStationInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_base_info)
+                        .navigation();
+            }
+        });
         {
             String temp = "";
             switch (data.getCurrentData().getConductivityStatus()) {
@@ -103,7 +116,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         mBinding.tvDurationTimeTip.setText("无通讯维持时间：" + data.getCurrentData().getDurationTime());
 
         mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterStationStatusHis adapterStationStatusHis = new AdapterStationStatusHis(R.layout.lv_station_status_his_item_view,data.getCurrentData().getDeviceMonitorDataList());
+        AdapterStationStatusHis adapterStationStatusHis = new AdapterStationStatusHis(R.layout.lv_station_status_his_item_view, data.getCurrentData().getDeviceMonitorDataList());
         mBinding.rvStationStatusHis.setAdapter(adapterStationStatusHis);
     }
 }
