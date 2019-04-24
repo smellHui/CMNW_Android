@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text=""
-            android:textColor="#ffffff"
+            android:textColor="#000000"
             android:textSize="17sp" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/come_back"
+            android:drawableLeft="@drawable/come_back_blue"
             android:drawablePadding="15dp"
             android:padding="8dp" />
 
