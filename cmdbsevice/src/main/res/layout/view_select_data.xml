@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="292dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/white_round_5"
+    android:paddingTop="13dp"
+    android:paddingBottom="18dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择日期"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/flowlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            zhy:max_select="1"
+            zhy:tag_gravity="center" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_1"
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/date_radio"
+                android:button="@null"
+                android:gravity="center"
+                android:text="最新信息"
+                android:textColor="@drawable/tv_state_pressed"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:background="#4FB17C" />
+
+            <RadioButton
+                android:id="@+id/rb_2"
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/date_radio"
+                android:button="@null"
+                android:gravity="center"
+                android:text="预约服务"
+                android:textColor="@drawable/tv_state_pressed"
+                android:textSize="12sp" />
+        </RadioGroup>
+
+        <FrameLayout
+            android:id="@+id/wheelLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/btn_query"
+            style="@style/btn.tip"
+            android:layout_marginTop="15dp"
+            android:text="确定" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/add_more" />
+
+</RelativeLayout>

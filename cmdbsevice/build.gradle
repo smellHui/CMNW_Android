@@ -115,7 +115,6 @@ dependencies {
     implementation rootProject.ext.dependencies.Tiny
 
     /** arcgis  */
-
     implementation rootProject.ext.dependencies.arcgisandroid
 
     /** ARouter  */
@@ -126,7 +125,6 @@ dependencies {
 
     //圆角按钮
     implementation rootProject.ext.dependencies.roundbutton
-
     implementation rootProject.ext.dependencies.PickerView
     implementation rootProject.ext.dependencies.eventbus
     implementation rootProject.ext.dependencies.xpopup
@@ -157,4 +155,5 @@ dependencies {
     implementation rootProject.ext.dependencies.design
     implementation project(':common_view')
     implementation project(':cmnwsevice')
+    implementation project(':picktime')
 }

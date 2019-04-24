@@ -33,12 +33,15 @@
             tl:tl_textsize="13sp" />
 
         <TextView
+            android:id="@+id/tv_choice_data"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableRight="@mipmap/add_more"
             android:drawablePadding="5dp"
-            android:gravity="right"
+            android:ellipsize="end"
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
             android:text="本季"
             android:textColor="@color/color_4EB17B"
             android:textSize="12sp" />
@@ -64,15 +67,15 @@
                 android:layout_height="wrap_content" />
 
             <!--<android.support.v4.widget.SwipeRefreshLayout-->
-                <!--android:id="@+id/layout_swipe_refresh"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:padding="1dp">-->
+            <!--android:id="@+id/layout_swipe_refresh"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:padding="1dp">-->
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <!--</android.support.v4.widget.SwipeRefreshLayout>-->
         </LinearLayout>

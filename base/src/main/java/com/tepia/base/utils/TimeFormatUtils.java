@@ -573,7 +573,7 @@ public class TimeFormatUtils {
      * @return
      */
     public static String getFirstDayOfToday() {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
@@ -588,7 +588,7 @@ public class TimeFormatUtils {
      * @return
      */
     public static String getLastDayOfToday() {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
@@ -603,7 +603,7 @@ public class TimeFormatUtils {
      * @return
      */
     public static String getFirstDayOfWeek() {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_WEEK, 1);
         return dateFormater.format(cal.getTime());
@@ -615,7 +615,7 @@ public class TimeFormatUtils {
      * @return
      */
     public static String getLastDayOfWeek() {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_WEEK, cal.getActualMaximum(Calendar.DAY_OF_WEEK));
         return dateFormater.format(cal.getTime());
@@ -627,7 +627,7 @@ public class TimeFormatUtils {
      * @return
      */
     public static String getFirstDayOfMonth() {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, 1);
         return dateFormater.format(cal.getTime());
@@ -639,7 +639,7 @@ public class TimeFormatUtils {
      * @return
      */
     public static String getLastDayOfMonth() {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
         return dateFormater.format(cal.getTime());
@@ -651,7 +651,7 @@ public class TimeFormatUtils {
      * @return
      */
     public static String getFirstDayOfYear() {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_YEAR, 1);
         return dateFormater.format(cal.getTime());
@@ -663,7 +663,7 @@ public class TimeFormatUtils {
      * @return
      */
     public static String getLastDayOfYear() {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_YEAR, cal.getActualMaximum(Calendar.DAY_OF_YEAR));
         return dateFormater.format(cal.getTime());
