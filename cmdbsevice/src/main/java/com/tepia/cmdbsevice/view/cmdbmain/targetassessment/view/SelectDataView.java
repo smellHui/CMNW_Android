@@ -1,13 +1,16 @@
 package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -47,6 +50,7 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
     private FrameLayout wheelLayout;
     private DatePicker mDatePicker;
     private RadioButton rbStart, rbEnd;
+    private ImageView img_intercept;
 
     private onDataSelectPickListener listener;
 
@@ -75,8 +79,12 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
     protected void onCreate() {
         super.onCreate();
         mInflater = LayoutInflater.from(getContext());
+        img_intercept = findViewById(R.id.img_intercept);
+        img_intercept.setOnClickListener((v) -> {
+        });
         rbStart = findViewById(R.id.rb_1);
         rbEnd = findViewById(R.id.rb_2);
+        setNoEnable();
         wheelLayout = findViewById(com.codbking.widget.R.id.wheelLayout);
         flowlayout = findViewById(R.id.flowlayout);
         flowlayout.setOnTagClickListener((view, position, parent) -> {
@@ -84,11 +92,10 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
             if (position == 3) {
                 rbStart.setEnabled(true);
                 rbEnd.setEnabled(true);
+                img_intercept.setVisibility(GONE);
             } else {
-                rbStart.setEnabled(false);
-                rbEnd.setEnabled(false);
-                rbStart.setChecked(false);
-                rbEnd.setChecked(false);
+                setNoEnable();
+                img_intercept.setVisibility(VISIBLE);
             }
             return true;
         });
@@ -123,6 +130,13 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
             }
             dismiss();
         });
+    }
+
+    private void setNoEnable() {
+        rbStart.setEnabled(false);
+        rbEnd.setEnabled(false);
+        rbStart.setChecked(false);
+        rbEnd.setChecked(false);
     }
 
     private DatePicker getDatePicker() {

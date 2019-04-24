@@ -46,7 +46,7 @@
                 android:background="@drawable/date_radio"
                 android:button="@null"
                 android:gravity="center"
-                android:text="最新信息"
+                android:text="开始日期"
                 android:textColor="@drawable/tv_state_pressed"
                 android:textSize="12sp" />
 
@@ -65,17 +65,28 @@
                 android:background="@drawable/date_radio"
                 android:button="@null"
                 android:gravity="center"
-                android:text="预约服务"
+                android:text="结束日期"
                 android:textColor="@drawable/tv_state_pressed"
                 android:textSize="12sp" />
         </RadioGroup>
 
         <FrameLayout
-            android:id="@+id/wheelLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:padding="10dp" />
+            android:layout_marginTop="10dp">
+
+            <FrameLayout
+                android:id="@+id/wheelLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F7F6F6" />
+
+            <ImageView
+                android:id="@+id/img_intercept"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
 
         <Button
             android:id="@+id/btn_query"
