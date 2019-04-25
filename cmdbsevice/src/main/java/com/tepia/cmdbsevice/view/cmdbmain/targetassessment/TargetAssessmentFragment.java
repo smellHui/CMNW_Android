@@ -40,7 +40,6 @@ public class TargetAssessmentFragment extends BaseCommonFragment {
     private String[] mTitles = {"故障率统计", "人工水质", "在线水质"};
     private List<String> mDataList = Arrays.asList(mTitles);
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    //    private SlidingTabLayout tabLayout;
     private ViewPager viewPager;
     private PageAdapter pageAdapter;
 
@@ -56,15 +55,12 @@ public class TargetAssessmentFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View view) {
-//        tabLayout = findView(R.id.ly_tab);
         viewPager = findView(R.id.vp);
         mFragments.add(SpssFragment.launch(0));
         mFragments.add(SpssFragment.launch(1));
         mFragments.add(SpssFragment.launch(2));
         pageAdapter = new PageAdapter(getChildFragmentManager(), mFragments, mTitles);
         viewPager.setAdapter(pageAdapter);
-//        tabLayout.setViewPager(viewPager);
-//        xTabLayout.setupWithViewPager(viewPager);
         initMagicIndicator3();
     }
 

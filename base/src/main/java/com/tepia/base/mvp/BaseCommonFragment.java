@@ -116,7 +116,8 @@ public abstract class BaseCommonFragment extends Fragment {
             });
         }
         if (loToolbarCommon != null) {
-            ImmersionBar.setTitleBar(getBaseActivity(), loToolbarCommon);
+            ImmersionBar immersionBar = ImmersionBar.with(this);
+            immersionBar.statusBarDarkFont(true).setTitleBar(getBaseActivity(), loToolbarCommon);
         }
     }
 

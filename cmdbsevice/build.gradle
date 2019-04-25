@@ -130,7 +130,7 @@ dependencies {
     implementation rootProject.ext.dependencies.xpopup
     implementation rootProject.ext.dependencies.flowlayout
     implementation rootProject.ext.dependencies.MPAndroidChart
-    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+    implementation rootProject.ext.dependencies.magicIndicator
 
     //    api rootProject.ext.dependencies["annotations"]
 

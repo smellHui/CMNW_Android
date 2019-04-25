@@ -25,6 +25,7 @@ import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.CountShowView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.RealTimeSuperView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.SelectEventPopView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.TownshipStatisticsView;
+import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView;
 import com.tepia.cmnwsevice.model.order.OrderBean;
 import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.view.main.OrderPresenter;
@@ -37,9 +38,11 @@ import java.util.List;
  * Description:tab-事件督办
  */
 public class EventSupervisionFragment extends BaseCommonFragment {
+    private static String[] FAULT_RATES = {"行政区划", "运维企业", "站点总数", "达标站点数", "水质达标率"};
 
     private RecyclerView rv;
     private TextView currectTimeTv;
+    private SpssTitleView spssTitleView;
     private CityCountAdapter cityCountAdapter;
     private CountShowView countShowView;
     private RealTimeSuperView realTimeSuperView;
@@ -60,7 +63,8 @@ public class EventSupervisionFragment extends BaseCommonFragment {
     @Override
     protected void initView(View view) {
         setCenterTitle("事件督办");
-
+        spssTitleView = findView(R.id.view_title);
+        spssTitleView.setData(FAULT_RATES);
         currectTimeTv = findView(R.id.tv_currect_time);
         currectTimeTv.setText(String.format("当前时间：%s", TimeFormatUtils.getStringDateShort()));
         setVerModel();

@@ -117,9 +117,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initImmersionBar() {
         //在BaseActivity里初始化
         mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.init();
         if (loToolbarCommon != null) {
-            mImmersionBar.titleBar(loToolbarCommon).init();
+            mImmersionBar.titleBar(loToolbarCommon).statusBarDarkFont(true).init();
+        }else {
+            mImmersionBar.statusBarDarkFont(true).init();
         }
     }
 
