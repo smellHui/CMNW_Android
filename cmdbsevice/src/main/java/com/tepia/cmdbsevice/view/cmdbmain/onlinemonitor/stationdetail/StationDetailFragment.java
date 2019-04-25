@@ -50,7 +50,9 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 if (DoubleClickUtil.isFastDoubleClick()){
                     return;
                 }
-                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_his_data).navigation();
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_his_data)
+                        .withString("stationBean",new Gson().toJson(stationBean))
+                        .navigation();
             }
         });
     }
@@ -66,6 +68,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
     }
 
     private void refreshView(StationBean data) {
+        data.setCode(stationBean.getCode());
         stationBean = data;
         mBinding.tvStationName.setText(data.getHandingStation().getName());
         mBinding.tvStationOrgan.setText(data.getHandingStation().getVendorName());

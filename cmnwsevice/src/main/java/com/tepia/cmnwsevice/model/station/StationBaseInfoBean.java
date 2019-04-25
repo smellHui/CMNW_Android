@@ -72,7 +72,7 @@ public class StationBaseInfoBean {
     private String administrativeDivisionName;
     private String vendorName;
     private Object orderCount;
-    private List<Object> referenceFileList;
+    private List<PictureBean> referenceFileList;
     private List<SupportListBean> supportList;
 
     public int getId() {
@@ -291,11 +291,11 @@ public class StationBaseInfoBean {
         this.orderCount = orderCount;
     }
 
-    public List<Object> getReferenceFileList() {
+    public List<PictureBean> getReferenceFileList() {
         return referenceFileList;
     }
 
-    public void setReferenceFileList(List<Object> referenceFileList) {
+    public void setReferenceFileList(List<PictureBean> referenceFileList) {
         this.referenceFileList = referenceFileList;
     }
 

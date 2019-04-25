@@ -72,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initImmersionBar();
 //        SoftHideKeyBoardUtil.assistActivity(this);
         ARouter.getInstance().inject(this);
-//        setStatusBarTextDark();
+        setStatusBarTextDark();
         if (SPUtils.getInstance().getBoolean("ISSHOWFLOATVIEW", false)) {
             FloatUtil.getInstance().addActivity(this);
         }

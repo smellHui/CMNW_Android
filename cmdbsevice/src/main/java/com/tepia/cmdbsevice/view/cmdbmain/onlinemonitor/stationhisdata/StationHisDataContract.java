@@ -12,7 +12,8 @@ import com.tepia.base.mvp.BaseView;
 
 public class StationHisDataContract {
     interface View extends BaseView {
-        
+
+        void getFaultHistorySuccess();
     }
 
     interface  Presenter extends BasePresenter<View> {

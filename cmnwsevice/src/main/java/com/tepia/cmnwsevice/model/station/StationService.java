@@ -12,6 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by      android studio
@@ -64,4 +65,38 @@ public interface StationService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("station/historyWaterQuality")
     Observable<BaseCommonResponse> historyWaterQuality(@Header("token") String token, @Body RequestBody body);
+
+    /**
+     * 站点详情-历史故障
+     *
+     * @param token
+     * @param startTime
+     * @param endTime
+     * @param stationCode
+     * @param type
+     * @return
+     */
+    @GET("alarmController/getFaultHistory")
+    Observable<BaseCommonResponse<HisDataBean>> getFaultHistory(@Header("token") String token,
+                                       @Query("startTime") String startTime,
+                                       @Query("endTime") String endTime,
+                                       @Query("stationCode") String stationCode,
+                                       @Query("type") String type);
+
+    /**
+     * 站点详情-历史报警
+     *
+     * @param token
+     * @param startTime
+     * @param endTime
+     * @param stationCode
+     * @param type
+     * @return
+     */
+    @GET("alarmController/getWarningHistory")
+    Observable<BaseCommonResponse> getWarningHistory(@Header("token") String token,
+                                         @Query("startTime") String startTime,
+                                         @Query("endTime") String endTime,
+                                         @Query("stationCode") String stationCode,
+                                         @Query("type") String type);
 }

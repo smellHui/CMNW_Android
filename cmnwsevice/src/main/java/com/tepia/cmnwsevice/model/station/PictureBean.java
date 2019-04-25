@@ -11,7 +11,16 @@ package com.tepia.cmnwsevice.model.station;
  **/
 public class PictureBean {
     private String filePath;
+    private String fileType;
     private String fileShowName;
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
 
     public String getFilePath() {
         return filePath;

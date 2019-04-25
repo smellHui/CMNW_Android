@@ -47,4 +47,18 @@ public class StationManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<BaseCommonResponse<HisDataBean>> getFaultHistory(String startTime, String endTime, String stationCode, String type) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getFaultHistory(token, startTime, endTime, stationCode, type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseCommonResponse> getWarningHistory(String startTime, String endTime, String stationCode, String type) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getWarningHistory(token, startTime, endTime, stationCode, type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

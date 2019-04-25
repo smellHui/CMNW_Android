@@ -11,5 +11,7 @@
         <activity android:name=".view.cmdbmain.onlinemonitor.stationbaseinfodetail.StationBaseInfoDetailActivity" />
         <!--  测站详情 -->
         <activity android:name=".view.cmdbmain.onlinemonitor.stationdetail.StationDetailActivity" />
+        <!-- 实时数据 -->
+        <activity android:name=".view.cmdbmain.onlinemonitor.stationhisdata.StationHisDataActivity" />
     </application>
 </manifest>
