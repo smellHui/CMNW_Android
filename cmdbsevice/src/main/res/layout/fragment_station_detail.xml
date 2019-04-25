@@ -110,7 +110,7 @@
                     android:drawablePadding="10dp"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="图片"
+                    android:text="工艺流程"
                     android:textColor="#ff555555"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -298,6 +298,7 @@
                     android:minHeight="100dp" />
 
                 <TextView
+                    android:id="@+id/tv_his_data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

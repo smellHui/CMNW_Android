@@ -18,13 +18,16 @@
             android:tag="scroll_down_layout"
             android:visibility="visible">
 
+
             <com.tepia.base.view.ScrollLayout.ContentScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/bg_station_list"
                 android:scrollbars="none"
                 android:tag="item_scroll_view_layout">
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -34,8 +37,96 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
+
                 </LinearLayout>
             </com.tepia.base.view.ScrollLayout.ContentScrollView>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_station_list"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/lo_station_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <View
+                        android:id="@+id/v_tip"
+                        android:layout_width="2dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginTop="3dp"
+                        android:background="#ff4eb17b" />
+
+                    <TextView
+                        android:id="@+id/tv_station_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/v_tip"
+                        android:text="处理站(42)"
+                        android:textColor="#ff4eb17b"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/lo_station_setect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_select_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:drawableRight="@mipmap/icon_arrow_down_black"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="行政区域"
+                        android:textColor="#ff565656"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_select_organ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:drawableRight="@mipmap/icon_arrow_down_black"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="运维企业"
+                        android:textColor="#ff565656"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_select_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:drawableRight="@mipmap/icon_arrow_down_black"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="设备状态"
+                        android:textColor="#ff565656"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ff4eb17b" />
+            </LinearLayout>
+
+
             <!--</LinearLayout>-->
         </com.tepia.base.view.ScrollLayout.ScrollLayout>
     </LinearLayout>

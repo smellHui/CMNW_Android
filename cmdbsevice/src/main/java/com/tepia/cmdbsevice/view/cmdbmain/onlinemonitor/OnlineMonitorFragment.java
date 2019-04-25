@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -23,10 +24,13 @@ import com.tepia.base.utils.ScreenUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.ScrollLayout.ContentScrollView;
 import com.tepia.base.view.ScrollLayout.ScrollLayout;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.FragmentOnlineMonitorBinding;
+import com.tepia.cmnwsevice.model.station.AreaBean;
 import com.tepia.cmnwsevice.model.station.StationBean;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap.OnlineMonitorMapFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail.StationDetailFragment;
@@ -53,6 +57,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
     private AdapterStationSaixuanList adapterStationVender;
     private AdapterStationSaixuanList adapterStationArea;
     private StationListFragment stationListFragment;
+    private StationTypeBean selectedArea = new StationTypeBean("全部行政区域", "all");
+    private StationTypeBean selectedStatus = new StationTypeBean("全部设备状态", "all");
+    private StationTypeBean selectedOrgan = new StationTypeBean("全部运维企业", "all");
+    private String stationType = "1";
 
     @Override
     protected int getLayoutId() {
@@ -73,7 +81,126 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         initMapOptLayerView();
         initSearchView();
         initScrollLayout(mRootView);
+        initContentView();
         showLayer(0);
+    }
+
+    /**
+     * 初始化 list 测站view
+     */
+    private void initContentView() {
+        mBinding.flSearchContent.tvSelectArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                showSelectArea();
+            }
+        });
+        mBinding.flSearchContent.tvSelectOrgan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                showSelectOrgan();
+            }
+        });
+        mBinding.flSearchContent.tvSelectStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                showSelectStatus();
+            }
+        });
+    }
+
+    private void showSelectStatus() {
+        List<StationTypeBean> statusList = mPresenter.getStationStatusList();
+        statusList.add(0, new StationTypeBean("全部设备状态", "all"));
+        String[] stringItems;
+
+        stringItems = new String[statusList.size()];
+        for (int i = 0; i < statusList.size(); i++) {
+            stringItems[i] = statusList.get(i).getName();
+        }
+        final ActionSheetDialog dialog = new ActionSheetDialog(getContext(), stringItems, null);
+        dialog.title("请选择设备状态")
+                .titleTextSize_SP(14.5f)
+                .widthScale(0.8f)
+                .show();
+
+        dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+            @Override
+            public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mBinding.flSearchContent.tvSelectStatus.setText(stringItems[position]);
+                selectedStatus = statusList.get(position);
+                saixuanListFragment();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void showSelectOrgan() {
+        List<StationTypeBean> organList = mPresenter.getVenderList();
+        organList.add(0, new StationTypeBean("全部运维企业", "all"));
+        String[] stringItems;
+
+        stringItems = new String[organList.size()];
+        for (int i = 0; i < organList.size(); i++) {
+            stringItems[i] = organList.get(i).getName();
+        }
+        final ActionSheetDialog dialog = new ActionSheetDialog(getContext(), stringItems, null);
+        dialog.title("请选择运维企业")
+                .titleTextSize_SP(14.5f)
+                .widthScale(0.8f)
+                .show();
+
+        dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+            @Override
+            public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mBinding.flSearchContent.tvSelectOrgan.setText(stringItems[position]);
+                selectedOrgan = organList.get(position);
+                saixuanListFragment();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void showSelectArea() {
+        List<StationTypeBean> areaList = mPresenter.getAreaList();
+        areaList.add(0, new StationTypeBean("全部行政区划", "all"));
+        String[] stringItems;
+
+        stringItems = new String[areaList.size()];
+        for (int i = 0; i < areaList.size(); i++) {
+            stringItems[i] = areaList.get(i).getName();
+        }
+        final ActionSheetDialog dialog = new ActionSheetDialog(getContext(), stringItems, null);
+        dialog.title("请选择行政区域")
+                .titleTextSize_SP(14.5f)
+                .widthScale(0.8f)
+                .show();
+
+        dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+            @Override
+            public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mBinding.flSearchContent.tvSelectArea.setText(stringItems[position]);
+                selectedArea = areaList.get(position);
+                saixuanListFragment();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void saixuanListFragment() {
+        String conditions = getSaiXuanStrs(stationType);
+        if (stationListFragment != null) {
+            stationListFragment.saixuan(conditions);
+        }
     }
 
     private void initSearchView() {
@@ -182,7 +309,11 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     return;
                 }
                 showLayer(3);
+                stationType = "2";
+                mBinding.flSearchContent.tvStationNum.setText("提升井（" + mPresenter.getStationNum(getSaiXuanStrs("2")) + ")");
                 initListFragment(getSaiXuanStrs("2"));
+
+
             }
         });
         mBinding.loMapOptLayer.tvClz.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +323,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     return;
                 }
                 showLayer(3);
+                stationType = "1";
+                mBinding.flSearchContent.tvStationNum.setText("处理站（" + mPresenter.getStationNum(getSaiXuanStrs("1")) + ")");
                 initListFragment(getSaiXuanStrs("1"));
+
             }
         });
     }
@@ -228,7 +362,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
             @Override
             public void onScrollFinished(ScrollLayout.Status currentStatus) {
-
+                changeViewWith(currentStatus);
             }
 
             @Override
@@ -240,6 +374,33 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         scrollownLayout.getBackground().setAlpha(0);
 
 
+    }
+
+    private void changeViewWith(ScrollLayout.Status currentStatus) {
+        switch (currentStatus) {
+            case EXIT:
+                mBinding.flSearchContent.loStationNum.setVisibility(View.VISIBLE);
+                mBinding.flSearchContent.loStationSetect.setVisibility(View.GONE);
+                break;
+            case CLOSED:
+                mBinding.flSearchContent.loStationNum.setVisibility(View.GONE);
+                mBinding.flSearchContent.loStationSetect.setVisibility(View.VISIBLE);
+                break;
+            case OPENED:
+                mBinding.flSearchContent.loStationNum.setVisibility(View.VISIBLE);
+                mBinding.flSearchContent.loStationSetect.setVisibility(View.GONE);
+                break;
+            default:
+                break;
+        }
+        switch (stationType) {
+            case "1":
+                mBinding.flSearchContent.tvStationNum.setText("处理站（" + mPresenter.getStationNum(getSaiXuanStrs("1")) + ")");
+                break;
+            case "2":
+                mBinding.flSearchContent.tvStationNum.setText("提升井（" + mPresenter.getStationNum(getSaiXuanStrs("2")) + ")");
+                break;
+        }
     }
 
 
@@ -293,6 +454,15 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
     private String getSaiXuanStrs(String type) {
         String conditions = "stationType = " + type;
+        if (!selectedArea.getCode().equals("all")) {
+            conditions += " AND administrativeDivision = " + selectedArea.getCode();
+        }
+        if (!selectedOrgan.getCode().equals("all")) {
+            conditions += " AND enterpriseCode = '" + selectedOrgan.getCode() + "'";
+        }
+        if (!selectedStatus.getCode().equals("all")) {
+            conditions += " AND stationStatus = " + selectedStatus.getCode();
+        }
         return conditions;
     }
 
@@ -395,6 +565,8 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft2.addToBackStack(null);
         ft2.commit();
+
+
     }
 
     /**

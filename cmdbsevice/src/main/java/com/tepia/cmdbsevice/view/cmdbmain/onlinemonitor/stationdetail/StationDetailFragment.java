@@ -4,6 +4,7 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationdetail;
 import android.databinding.DataBindingUtil;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
@@ -43,6 +44,15 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
     @Override
     protected void initView(View view) {
         mBinding = DataBindingUtil.bind(view);
+        mBinding.tvHisData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_his_data).navigation();
+            }
+        });
     }
 
     @Override
@@ -56,6 +66,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
     }
 
     private void refreshView(StationBean data) {
+        stationBean = data;
         mBinding.tvStationName.setText(data.getHandingStation().getName());
         mBinding.tvStationOrgan.setText(data.getHandingStation().getVendorName());
         mBinding.tvStationAdress.setText(data.getHandingStation().getAddress());
@@ -66,6 +77,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                     return;
                 }
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_base_info)
+                        .withString("stationBean",new Gson().toJson(data))
                         .navigation();
             }
         });

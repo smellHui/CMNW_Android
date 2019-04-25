@@ -16,7 +16,7 @@ import java.util.List;
 public class StationListPresenter extends BasePresenterImpl<StationListContract.View> implements StationListContract.Presenter {
 
     public void getStationList(String... conditions) {
-        List<StationBean> list = DataSupport.where(conditions).find(StationBean.class);
+        List<StationBean> list = DataSupport.where(conditions).limit(30).find(StationBean.class);
         ArrayList<StationBean> list2 = new ArrayList<>();
         list2.addAll(list);
         mView.getStationListSuccess(list2);

@@ -10,11 +10,20 @@
 
         <include layout="@layout/toolbar" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e8e8e8" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
 
             <TextView
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/icon_jcxx"
+                android:id="@+id/tv_station_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -26,8 +35,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="30dp" >
+            android:padding="30dp">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_base_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 </layout>

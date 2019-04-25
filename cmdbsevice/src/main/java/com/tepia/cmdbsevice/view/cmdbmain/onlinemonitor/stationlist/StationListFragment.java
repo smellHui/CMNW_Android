@@ -84,6 +84,10 @@ public class StationListFragment extends MVPBaseFragment<StationListContract.Vie
         this.onListItemClickListener = onListItemClickListener;
     }
 
+    public void saixuan(String conditions) {
+        mPresenter.getStationList(conditions);
+    }
+
     public interface OnListItemClickListener {
         void onItemClick(StationBean stationBean);
     }

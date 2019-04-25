@@ -17,6 +17,7 @@ public class StationTypeBean {
     private Integer color;
     private boolean isSelected;
 
+
     public String getCode() {
         return code;
     }
@@ -28,6 +29,10 @@ public class StationTypeBean {
     public StationTypeBean(String name, Integer background) {
         this.name = name;
         this.background = background;
+    }
+    public StationTypeBean(String name, String code) {
+        this.name = name;
+        this.code = code;
     }
 
     public StationTypeBean(String name, Integer background, boolean isSelected) {

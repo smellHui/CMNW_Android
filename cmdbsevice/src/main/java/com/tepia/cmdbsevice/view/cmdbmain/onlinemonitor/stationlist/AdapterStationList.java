@@ -30,5 +30,6 @@ public class AdapterStationList extends BaseQuickAdapter<StationBean,BaseViewHol
         LvStationListItemViewBinding  mBinding  = DataBindingUtil.bind(helper.itemView);
         mBinding.tvStationName.setText(item.getName());
         mBinding.tvStationAdress.setText(item.getAddress());
+        mBinding.tvStationOrgan.setText(item.getEnterpriseName());
     }
 }

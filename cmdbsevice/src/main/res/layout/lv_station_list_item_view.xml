@@ -17,6 +17,19 @@
             android:textSize="16sp" />
 
         <TextView
+            android:layout_marginTop="18dp"
+            android:id="@+id/tv_station_organ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/tv_station_name"
+            android:background="@drawable/bg_station_organ_type"
+            android:padding="4dp"
+            android:text="上海电气"
+            android:textColor="#fff1891f"
+            android:textSize="11sp" />
+
+        <TextView
             android:id="@+id/tv_station_adress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
