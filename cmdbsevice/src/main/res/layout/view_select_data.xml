@@ -73,13 +73,19 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:background="#F7F6F6">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/left_layer" />
 
             <FrameLayout
                 android:id="@+id/wheelLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F7F6F6" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/img_intercept"
@@ -96,11 +102,14 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/img_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
         android:src="@mipmap/icon_close" />
 
 </RelativeLayout>

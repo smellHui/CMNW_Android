@@ -51,6 +51,7 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
     private DatePicker mDatePicker;
     private RadioButton rbStart, rbEnd;
     private ImageView img_intercept;
+    private ImageView img_close;
 
     private onDataSelectPickListener listener;
 
@@ -79,6 +80,7 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
     protected void onCreate() {
         super.onCreate();
         mInflater = LayoutInflater.from(getContext());
+        img_close = findViewById(R.id.img_close);
         img_intercept = findViewById(R.id.img_intercept);
         img_intercept.setOnClickListener((v) -> {
         });
@@ -130,6 +132,7 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
             }
             dismiss();
         });
+        img_close.setOnClickListener((v) -> dismiss());
     }
 
     private void setNoEnable() {

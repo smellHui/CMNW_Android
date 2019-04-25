@@ -28,6 +28,7 @@
                 android:layout_height="35dp"
                 android:background="@color/color_EEEEEE"
                 android:gravity="center_vertical"
+                android:paddingTop="5dp"
                 android:paddingLeft="20dp"
                 android:text="当前时间："
                 android:textColor="#555555"
