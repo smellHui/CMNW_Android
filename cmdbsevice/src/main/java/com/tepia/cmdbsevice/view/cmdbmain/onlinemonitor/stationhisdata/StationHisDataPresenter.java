@@ -18,7 +18,7 @@ public class StationHisDataPresenter extends BasePresenterImpl<StationHisDataCon
         StationManager.getInstance().getFaultHistory(startTime,endTime,stationCode,type).safeSubscribe(new LoadingSubject<BaseCommonResponse<HisDataBean>>() {
             @Override
             protected void _onNext(BaseCommonResponse<HisDataBean> baseCommonResponse) {
-                mView.getFaultHistorySuccess();
+                mView.getFaultHistorySuccess(baseCommonResponse.getData());
 
             }
 
@@ -29,10 +29,10 @@ public class StationHisDataPresenter extends BasePresenterImpl<StationHisDataCon
         });
     }
     public void getWarningHistory(String startTime, String endTime, String stationCode, String type) {
-        StationManager.getInstance().getWarningHistory(startTime,endTime,stationCode,type).safeSubscribe(new LoadingSubject<BaseCommonResponse>() {
+        StationManager.getInstance().getWarningHistory(startTime,endTime,stationCode,type).safeSubscribe(new LoadingSubject<BaseCommonResponse<HisDataBean>>() {
             @Override
-            protected void _onNext(BaseCommonResponse baseCommonResponse) {
-
+            protected void _onNext(BaseCommonResponse<HisDataBean> baseCommonResponse) {
+                mView.getWarningHistorySuccess(baseCommonResponse.getData());
             }
 
             @Override

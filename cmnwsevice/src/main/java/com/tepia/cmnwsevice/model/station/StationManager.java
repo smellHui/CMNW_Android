@@ -55,7 +55,7 @@ public class StationManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<BaseCommonResponse> getWarningHistory(String startTime, String endTime, String stationCode, String type) {
+    public Observable<BaseCommonResponse<HisDataBean>> getWarningHistory(String startTime, String endTime, String stationCode, String type) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getWarningHistory(token, startTime, endTime, stationCode, type)
                 .subscribeOn(Schedulers.io())

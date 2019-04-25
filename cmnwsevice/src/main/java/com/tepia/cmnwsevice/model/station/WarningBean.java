@@ -14,6 +14,15 @@ public class WarningBean {
     private String startTime;
     private String endTime;
     private String duration;
+    private String deviceName;
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 
     public String getAlarmCode() {
         return alarmCode;

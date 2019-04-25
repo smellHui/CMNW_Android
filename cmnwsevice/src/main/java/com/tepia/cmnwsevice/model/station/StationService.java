@@ -94,7 +94,7 @@ public interface StationService {
      * @return
      */
     @GET("alarmController/getWarningHistory")
-    Observable<BaseCommonResponse> getWarningHistory(@Header("token") String token,
+    Observable<BaseCommonResponse<HisDataBean>> getWarningHistory(@Header("token") String token,
                                          @Query("startTime") String startTime,
                                          @Query("endTime") String endTime,
                                          @Query("stationCode") String stationCode,

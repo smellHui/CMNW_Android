@@ -2,10 +2,10 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationhisdata;
 
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -14,6 +14,7 @@ import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.ActivityStationHisDataBinding;
+import com.tepia.cmnwsevice.model.station.HisDataBean;
 import com.tepia.cmnwsevice.model.station.StationBean;
 
 
@@ -32,7 +33,7 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
     private ActivityStationHisDataBinding mBinding;
     private StationBean stationBean;
     private int currectTab = 0;
-
+    private AdapterHisData adapterHisData;
 
 
     @Override
@@ -55,7 +56,7 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
                     {
                         String startTime = "2018-04-01";
                         String endTime = "2019-04-30";
-                        String stationCode = "HS20190401161319862003";
+                        String stationCode = "HS20190401161319552422";
                         String type = "10001,10002,10003";
                         mPresenter.getWarningHistory(startTime, endTime, stationCode, type);
                     }
@@ -65,7 +66,7 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
                     {
                         String startTime = "2018-04-01";
                         String endTime = "2019-04-30";
-                        String stationCode = "HS20190401161319862003";
+                        String stationCode = "HS20190401161319552422";
                         String type = "10001,10002,10003";
                         mPresenter.getFaultHistory(startTime, endTime, stationCode, type);
                     }
@@ -80,6 +81,15 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
 
             }
         });
+        initListView();
+    }
+
+    private void initListView() {
+        mBinding.rvHisData.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapterHisData = new AdapterHisData(R.layout.lv_warning_view, null);
+        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.lv_his_data_header_view, null);
+        adapterHisData.setHeaderView(headerView);
+        mBinding.rvHisData.setAdapter(adapterHisData);
     }
 
     @Override
@@ -99,14 +109,19 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
     protected void initRequestData() {
         String startTime = "2018-04-01";
         String endTime = "2019-04-30";
-        String stationCode = "HS20190401161319862003";
+        String stationCode = "HS20190401161319552422";
         String type = "10001,10002,10003";
 //        mPresenter.getFaultHistory(startTime, endTime, stationCode, type);
         mPresenter.getWarningHistory(startTime, endTime, stationCode, type);
     }
 
     @Override
-    public void getFaultHistorySuccess() {
+    public void getFaultHistorySuccess(HisDataBean data) {
+        adapterHisData.setNewData(data.getWarningList());
+    }
 
+    @Override
+    public void getWarningHistorySuccess(HisDataBean data) {
+        adapterHisData.setNewData(data.getWarningList());
     }
 }

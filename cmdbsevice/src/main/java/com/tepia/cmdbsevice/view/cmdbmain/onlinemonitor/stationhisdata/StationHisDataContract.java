@@ -1,9 +1,8 @@
 package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationhisdata;
 
-import android.content.Context;
-
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
+import com.tepia.cmnwsevice.model.station.HisDataBean;
 
 /**
  * MVPPlugin
@@ -13,7 +12,9 @@ import com.tepia.base.mvp.BaseView;
 public class StationHisDataContract {
     interface View extends BaseView {
 
-        void getFaultHistorySuccess();
+        void getFaultHistorySuccess(HisDataBean data);
+
+        void getWarningHistorySuccess(HisDataBean data);
     }
 
     interface  Presenter extends BasePresenter<View> {
