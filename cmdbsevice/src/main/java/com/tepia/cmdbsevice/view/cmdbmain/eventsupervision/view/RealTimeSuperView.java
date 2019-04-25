@@ -19,9 +19,11 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author:xch
@@ -30,10 +32,11 @@ import java.util.ArrayList;
  */
 public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedListener {
 
-    private final static String[] cateStrs = new String[]{"上海电气", "中车集团", "北控水务", "远达环保", "其他企业"};
+    private final static String[] cateStrs = new String[]{"上海电气", "山东中车", "北控水务", "远达环保", "其他企业"};
     protected Typeface tfRegular;
     protected Typeface tfLight;
     private BarChart chart;
+    private BarDataSet set1, set2;
 
     public RealTimeSuperView(Context context) {
         super(context);
@@ -68,7 +71,7 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setXEntrySpace(100f);
+        l.setXEntrySpace(20f);
         l.setTextSize(12f);
         l.setTextColor(Color.parseColor("#666666"));
         l.setDrawInside(false);
@@ -97,6 +100,8 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         leftAxis.setTextColor(Color.parseColor("#37394C"));
         leftAxis.setTextSize(12f);
         leftAxis.setValueFormatter(new LargeValueFormatter());
+        leftAxis.setAxisMaximum(100f);
+        leftAxis.setAxisMinimum(0f);
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawAxisLine(false);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
@@ -106,55 +111,23 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         rightAxis.setTextColor(Color.parseColor("#37394C"));
         rightAxis.setTextSize(12f);
         rightAxis.setValueFormatter(new LargeValueFormatter());
+        rightAxis.setAxisMaximum(100f);
+        rightAxis.setAxisMinimum(0f);
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawAxisLine(false);
         rightAxis.setAxisMinimum(0f);
 
-//        chart.getAxisRight().setEnabled(false);
-        ArrayList<BarEntry> values1 = new ArrayList<>();
-        ArrayList<BarEntry> values2 = new ArrayList<>();
+        // create 4 DataSets
+        set1 = new BarDataSet(new ArrayList<>(), "故障数");
+        set1.setColor(Color.parseColor("#FEAA18"));
+        set2 = new BarDataSet(new ArrayList<>(), "报警数");
+        set2.setColor(Color.parseColor("#F46B6D"));
 
-        for (int i = 0; i < 5; i++) {
-            values1.add(new BarEntry(i, (float) (Math.random() * 100)));
-            values2.add(new BarEntry(i, (float) (Math.random() * 100)));
-        }
+        BarData data = new BarData(set1, set2);
+        data.setValueFormatter(new LargeValueFormatter());
+        data.setValueTypeface(tfLight);
 
-        BarDataSet set1, set2;
-
-        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
-            set1.setValues(values1);
-            set2.setValues(values2);
-            chart.getData().notifyDataChanged();
-            chart.notifyDataSetChanged();
-
-        } else {
-            // create 4 DataSets
-            set1 = new BarDataSet(values1, "故障数");
-            set1.setColor(Color.parseColor("#FEAA18"));
-            set2 = new BarDataSet(values2, "报警数");
-            set2.setColor(Color.parseColor("#F46B6D"));
-
-            BarData data = new BarData(set1, set2);
-            data.setValueFormatter(new LargeValueFormatter());
-            data.setValueTypeface(tfLight);
-
-            chart.setData(data);
-        }
-        float groupSpace = 0.54f;
-        float barSpace = 0.03f; // x4 DataSet
-        float barWidth = 0.2f; // x4 DataSet
-        // specify the width each bar should have
-        chart.getBarData().setBarWidth(barWidth);
-
-        // restrict the x-axis range
-        chart.getXAxis().setAxisMinimum(0);
-
-        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-        chart.getXAxis().setAxisMaximum(chart.getBarData().getGroupWidth(groupSpace, barSpace) * 5);
-        chart.groupBars(0, groupSpace, barSpace);
-        chart.invalidate();
+        chart.setData(data);
     }
 
     @Override
@@ -165,5 +138,37 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
     @Override
     public void onNothingSelected() {
 
+    }
+
+    public void setData(List<TopTotalBean> vendorTotals) {
+        ArrayList<BarEntry> values1 = new ArrayList<>();
+        ArrayList<BarEntry> values2 = new ArrayList<>();
+        for (int i = 0; i < vendorTotals.size(); i++) {
+            TopTotalBean topTotalBean = vendorTotals.get(i);
+            values1.add(new BarEntry(i, Float.valueOf(topTotalBean.getFaultNum())));
+            values2.add(new BarEntry(i, Float.valueOf(topTotalBean.getAlarmNum())));
+        }
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+            set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
+            set1.setValues(values1);
+            set2.setValues(values2);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+        }
+
+        float groupSpace = 0.54f;
+        float barSpace = 0.03f; // x4 DataSet
+        float barWidth = 0.2f; // x4 DataSet
+        // specify the width each bar should have
+        chart.getBarData().setBarWidth(barWidth);
+
+        // restrict the x-axis range
+        chart.getXAxis().setAxisMinimum(0);
+//
+//        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
+        chart.getXAxis().setAxisMaximum(chart.getBarData().getGroupWidth(groupSpace, barSpace) * 5);
+        chart.groupBars(0, groupSpace, barSpace);
+        chart.invalidate();
     }
 }
