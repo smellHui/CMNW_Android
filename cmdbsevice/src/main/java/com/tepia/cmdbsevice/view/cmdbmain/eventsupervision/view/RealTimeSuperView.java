@@ -23,6 +23,11 @@ import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
 import java.util.ArrayList;
 
+/**
+ * Author:xch
+ * Date:2019/4/17
+ * Description:实时督办图表
+ */
 public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedListener {
 
     private final static String[] cateStrs = new String[]{"上海电气", "中车集团", "北控水务", "远达环保", "其他企业"};
@@ -57,20 +62,22 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         chart.setPinchZoom(false);
         chart.setDrawBarShadow(false);
         chart.setDrawGridBackground(false);
+
         Legend l = chart.getLegend();
+        l.setForm(Legend.LegendForm.LINE);
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setXEntrySpace(100f);
+        l.setTextSize(12f);
         l.setTextColor(Color.parseColor("#666666"));
         l.setDrawInside(false);
         l.setTypeface(tfLight);
-        l.setYOffset(0f);
-        l.setXOffset(0f);
-//        l.setYEntrySpace(100f);
-        l.setTextSize(12f);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setTypeface(tfLight);
+        xAxis.setTextColor(Color.parseColor("#37394C"));
+        xAxis.setTextSize(12f);
         xAxis.setGranularity(1f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setYOffset(10f);
@@ -87,12 +94,23 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
+        leftAxis.setTextColor(Color.parseColor("#37394C"));
+        leftAxis.setTextSize(12f);
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawAxisLine(false);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
-        chart.getAxisRight().setEnabled(false);
+        YAxis rightAxis = chart.getAxisRight();
+        rightAxis.setTypeface(tfLight);
+        rightAxis.setTextColor(Color.parseColor("#37394C"));
+        rightAxis.setTextSize(12f);
+        rightAxis.setValueFormatter(new LargeValueFormatter());
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setDrawAxisLine(false);
+        rightAxis.setAxisMinimum(0f);
+
+//        chart.getAxisRight().setEnabled(false);
         ArrayList<BarEntry> values1 = new ArrayList<>();
         ArrayList<BarEntry> values2 = new ArrayList<>();
 
@@ -114,9 +132,9 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         } else {
             // create 4 DataSets
             set1 = new BarDataSet(values1, "故障数");
-            set1.setColor(Color.rgb(104, 241, 175));
+            set1.setColor(Color.parseColor("#FEAA18"));
             set2 = new BarDataSet(values2, "报警数");
-            set2.setColor(Color.rgb(164, 228, 251));
+            set2.setColor(Color.parseColor("#F46B6D"));
 
             BarData data = new BarData(set1, set2);
             data.setValueFormatter(new LargeValueFormatter());

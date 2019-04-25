@@ -2,6 +2,7 @@ package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -14,17 +15,15 @@ import com.tepia.cmdbsevice.model.event.TopTotalBean;
  * Description:事件adapter
  */
 public class SpssCountAdapter extends BaseQuickAdapter<TopTotalBean, BaseViewHolder> {
-    private Resources resources;
 
-    public SpssCountAdapter(Context ctx) {
+    public SpssCountAdapter() {
         super(R.layout.item_spss_count);
-        resources = ctx.getResources();
     }
 
     @Override
     protected void convert(BaseViewHolder helper, TopTotalBean item) {
         int pos = helper.getAdapterPosition();
-        helper.setBackgroundColor(R.id.ll, resources.getColor(pos % 2 == 0 ? R.color.white : R.color.color_F7F9FC));
+        helper.setBackgroundColor(R.id.ll, Color.parseColor(pos % 2 == 0 ? "#ffffff" : "#F7F9FC"));
 
         helper.setText(R.id.tv_name,item.getName());
         helper.setText(R.id.tv_alarmNum,item.getAlarmNum());

@@ -134,18 +134,7 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                ImmersionBar immersionBar = ImmersionBar.with(CmdbMainActivity.this);
-                switch (position) {
-                    case 0:
-                        immersionBar.fitsSystemWindows(false).statusBarDarkFont(true).init();
-                        break;
-                    case 1:
-                        immersionBar.fitsSystemWindows(false).statusBarDarkFont(false).init();
-                        break;
-                    case 2:
-                        immersionBar.statusBarDarkFont(true).fitsSystemWindows(true).init();
-                        break;
-                }
+
             }
 
             @Override

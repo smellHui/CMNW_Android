@@ -5,4 +5,9 @@
         android:width="1px"
         android:color="@color/color_D8DDE8" />
     <solid android:color="@color/white" />
+    <padding
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp" />
 </shape>

@@ -1,5 +1,7 @@
 package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.adapter;
 
+import android.graphics.Color;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.cmdbsevice.R;
@@ -17,6 +19,9 @@ public class CityCountAdapter extends BaseQuickAdapter<TopTotalBean, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, TopTotalBean item) {
+        int pos = helper.getAdapterPosition();
+        helper.setBackgroundColor(R.id.ll, Color.parseColor(pos % 2 == 0 ? "#ffffff" : "#F7F9FC"));
+
         helper.setText(R.id.tv_name, item.getName());
         helper.setText(R.id.tv_vendorName, item.getVendorName());
         helper.setText(R.id.tv_total, item.getTotal());

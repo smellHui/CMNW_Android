@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theam_red">
+        android:background="@color/white">
 
         <include layout="@layout/toolbar" />
     </FrameLayout>
@@ -62,33 +62,10 @@
                     android:background="@drawable/corner_bg_3_grey"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView
+                        android:id="@+id/view_title"
                         android:layout_width="match_parent"
-                        android:layout_height="33dp"
-                        android:background="@drawable/bg_top_corner"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/text.title"
-                            android:text="行政区划" />
-
-                        <TextView
-                            style="@style/text.title"
-                            android:text="运维企业" />
-
-                        <TextView
-                            style="@style/text.title"
-                            android:text="站点总数" />
-
-                        <TextView
-                            style="@style/text.title"
-                            android:text="达标站点数" />
-
-                        <TextView
-                            style="@style/text.title"
-                            android:text="水质达标率" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv"

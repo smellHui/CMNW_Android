@@ -133,7 +133,7 @@ public class SpssFragment extends BaseCommonFragment {
 
     private void setVerModel() {
         rv = findView(R.id.rv);
-        spssCountAdapter = new SpssCountAdapter(getContext());
+        spssCountAdapter = new SpssCountAdapter();
         rv.setLayoutManager(new WrapLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
         rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
