@@ -55,7 +55,7 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
                     {
                         String startTime = "2018-04-01";
                         String endTime = "2019-04-30";
-                        String stationCode = "HS20190401161320278149";
+                        String stationCode = "HS20190401161319862003";
                         String type = "10001,10002,10003";
                         mPresenter.getWarningHistory(startTime, endTime, stationCode, type);
                     }
@@ -65,7 +65,7 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
                     {
                         String startTime = "2018-04-01";
                         String endTime = "2019-04-30";
-                        String stationCode = "HS20190401161320278149";
+                        String stationCode = "HS20190401161319862003";
                         String type = "10001,10002,10003";
                         mPresenter.getFaultHistory(startTime, endTime, stationCode, type);
                     }
@@ -99,9 +99,14 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
     protected void initRequestData() {
         String startTime = "2018-04-01";
         String endTime = "2019-04-30";
-        String stationCode = "HS20190401161320278149";
+        String stationCode = "HS20190401161319862003";
         String type = "10001,10002,10003";
 //        mPresenter.getFaultHistory(startTime, endTime, stationCode, type);
         mPresenter.getWarningHistory(startTime, endTime, stationCode, type);
+    }
+
+    @Override
+    public void getFaultHistorySuccess() {
+
     }
 }
