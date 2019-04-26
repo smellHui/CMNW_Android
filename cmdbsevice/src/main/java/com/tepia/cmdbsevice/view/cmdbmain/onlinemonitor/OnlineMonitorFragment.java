@@ -329,6 +329,28 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
             }
         });
+        mBinding.loMapOptLayer.ivZoomin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (onlineMonitorMapFragment != null) {
+                    onlineMonitorMapFragment.zoomin();
+                }
+            }
+        });
+        mBinding.loMapOptLayer.ivZoomout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (onlineMonitorMapFragment != null) {
+                    onlineMonitorMapFragment.zoomout();
+                }
+            }
+        });
     }
 
     /**
@@ -405,6 +427,28 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
 
     private void initRightView() {
+        mBinding.loRight.loMapType1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (onlineMonitorMapFragment != null) {
+                    onlineMonitorMapFragment.changLayer("image");
+                }
+            }
+        });
+        mBinding.loRight.loMapType1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (onlineMonitorMapFragment != null) {
+                    onlineMonitorMapFragment.changLayer("vender");
+                }
+            }
+        });
         {
             mBinding.loRight.rvStationTypeList.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
             adapterStationTypeList = new AdapterStationTypeList(R.layout.lv_station_type_item_view, mPresenter.getStationTypeList());
@@ -537,6 +581,15 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
     private void initMapFragment() {
         FragmentTransaction ft2 = getChildFragmentManager().beginTransaction();
         onlineMonitorMapFragment = new OnlineMonitorMapFragment();
+        onlineMonitorMapFragment.setOnPointClickListener(new OnlineMonitorMapFragment.OnPointClickListener() {
+
+            @Override
+            public void onPointClick(StationBean bean) {
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
+                        .withString("stationBean", new Gson().toJson(bean))
+                        .navigation();
+            }
+        });
         ft2.replace(R.id.fl_map_container, onlineMonitorMapFragment);
         ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft2.addToBackStack(null);

@@ -54,6 +54,20 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
     private int count = 0;
     private ArcGISTiledMapServiceLayer imgLayer;
 
+    /**
+     * point 图标点击事件
+     */
+    private OnPointClickListener onPointClickListener;
+
+
+    public interface OnPointClickListener {
+        void onPointClick(StationBean bean);
+    }
+
+    public void setOnPointClickListener(OnPointClickListener onPointClickListener) {
+        this.onPointClickListener = onPointClickListener;
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_online_map;
@@ -111,7 +125,6 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 }
             }
         });
-
 
     }
 
@@ -211,8 +224,57 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     }
 
+    /**
+     * 赛选出 需要显示的 点 ，并缩放到 对应级别
+     *
+     * @param conditions
+     */
     public void saixuan(String... conditions) {
         List<StationBean> stationList = DataSupport.where(conditions).find(StationBean.class);
         drawMapPoint(stationList);
+        centerAndZoom(stationList);
+    }
+
+    /**
+     * 将这些点 为中心 并缩放
+     * @param stationList
+     */
+    private void centerAndZoom(List<StationBean> stationList) {
+    }
+
+    /**
+     * 将这些点 为中心 并缩放
+     * @param bean
+     */
+    private void centerAndZoom(StationBean bean) {
+    }
+
+    /**
+     * 放大地图
+     */
+    public void zoomin() {
+    }
+
+    /**
+     * 缩小地图
+     */
+    public void zoomout() {
+    }
+
+    /**
+     * 切换图层
+     *
+     * @param maptype
+     */
+    public void changLayer(String maptype) {
+        switch (maptype) {
+            /** 影像图层*/
+            case "image":
+                break;
+            case "veder":
+                break;
+            default:
+                break;
+        }
     }
 }
