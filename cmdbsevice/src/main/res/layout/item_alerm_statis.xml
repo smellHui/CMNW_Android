@@ -16,6 +16,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/img_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/bkg_guzhang" />
@@ -77,10 +78,10 @@
                         tools:text="设备报警" />
 
                     <TextView
+                        android:id="@+id/tv_sttp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:background="@drawable/yel_round_4"
                         android:paddingLeft="7dp"
                         android:paddingTop="2dp"
                         android:paddingRight="7dp"
@@ -108,10 +109,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/tv_handleMinute"
+                        android:id="@+id/tv_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/color_333333"
                         android:textSize="14sp"
                         tools:text="1小时" />
@@ -139,6 +140,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_time_title"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:text="超出时间"
@@ -146,6 +148,7 @@
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/tv_overHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"

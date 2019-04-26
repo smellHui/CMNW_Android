@@ -1,7 +1,10 @@
 package com.tepia.cmdbsevice.model.event;
 
 import com.google.common.base.Strings;
+import com.tepia.cmnwsevice.model.dict.DictManager;
 import com.tepia.cmnwsevice.utils.StringUtil;
+
+import java.util.Map;
 
 /**
  * Author:xch
@@ -54,7 +57,9 @@ public class WarnBean {
     }
 
     public String getStatus() {
-        return status;
+        Map<String, String> sourceMap = DictManager.getInstance().getDictMap().get("warningStatus");
+        if (sourceMap == null) return "";
+        return sourceMap.get(status + "");
     }
 
     public void setStatus(String status) {
@@ -62,7 +67,7 @@ public class WarnBean {
     }
 
     public String getSurplusHours() {
-        return surplusHours;
+        return StringUtil.nullToDefault(surplusHours, "0");
     }
 
     public void setSurplusHours(String surplusHours) {
@@ -70,7 +75,7 @@ public class WarnBean {
     }
 
     public String getOverHours() {
-        return overHours;
+        return StringUtil.nullToDefault(overHours, "0");
     }
 
     public void setOverHours(String overHours) {
@@ -78,7 +83,7 @@ public class WarnBean {
     }
 
     public String getStartTime() {
-        return startTime;
+        return StringUtil.nullToDefault(startTime);
     }
 
     public void setStartTime(String startTime) {
@@ -86,7 +91,13 @@ public class WarnBean {
     }
 
     public String getSttp() {
-        return sttp;
+        if (!Strings.isNullOrEmpty(sttp)) {
+            if (sttp.equals("0"))
+                return "提升井";
+            if (sttp.equals("1"))
+                return "处理站";
+        }
+        return "提升井";
     }
 
     public void setSttp(String sttp) {

@@ -61,6 +61,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
             @Override
             public void onTabSelect(int position) {
                 type = position;
+                ((AlermStatisAdapter) getAdapter()).setTabType(type);
                 refresh();
             }
 
