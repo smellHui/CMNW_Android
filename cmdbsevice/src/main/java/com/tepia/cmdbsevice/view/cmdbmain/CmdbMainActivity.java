@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.flyco.tablayout.CommonTabLayout;
@@ -20,7 +21,9 @@ import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.TabEntity;
@@ -53,6 +56,7 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private AppBean appBean;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
+    private long mExitTime;
 
     @Override
     public int getLayoutId() {
@@ -114,6 +118,25 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
         });
     }
 
+    /**
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                ToastUtils.shortToast("再按一次退出程序");
+                mExitTime = System.currentTimeMillis();
+            } else {
+                AppManager.getInstance().exitApp();
+                this.finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
     @Override
     protected void initListener() {
 

@@ -25,7 +25,7 @@ public class StationListPresenter extends BasePresenterImpl<StationListContract.
         ArrayList<StationBean> list2 = new ArrayList<>();
         list2.addAll(list);
         pageIndex = 1;
-        if (list.size() == 30) {
+        if (list.size() == pageSize) {
             isCanLoadMore = true;
         } else {
             isCanLoadMore = false;
@@ -38,7 +38,7 @@ public class StationListPresenter extends BasePresenterImpl<StationListContract.
         ArrayList<StationBean> list2 = new ArrayList<>();
         pageIndex++;
         list2.addAll(list);
-        if (list.size() == 30) {
+        if (list.size() == pageSize) {
             isCanLoadMore = true;
         } else {
             isCanLoadMore = false;

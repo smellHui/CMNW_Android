@@ -156,6 +156,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 ToastUtils.shortToast(R.string.no_network);
             } else {
                 if (!DoubleClickUtil.isFastDoubleClick()) {
+
                     mPresenter.login("username", userName, "password", passWord);
                 }
             }
