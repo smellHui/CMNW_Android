@@ -237,6 +237,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     /**
      * 将这些点 为中心 并缩放
+     *
      * @param stationList
      */
     private void centerAndZoom(List<StationBean> stationList) {
@@ -244,9 +245,18 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     /**
      * 将这些点 为中心 并缩放
+     *
      * @param bean
      */
     private void centerAndZoom(StationBean bean) {
+    }
+
+    /**
+     * 标记这个这个点
+     *
+     * @param bean
+     */
+    private void markerPoint(StationBean bean) {
     }
 
     /**
