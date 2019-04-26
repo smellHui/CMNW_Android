@@ -2,16 +2,30 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap;
 
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.esri.android.map.Callout;
+import com.esri.android.map.CalloutStyle;
 import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.MapView;
 import com.esri.android.map.ags.ArcGISFeatureLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
+import com.esri.android.map.event.OnSingleTapListener;
 import com.esri.android.map.event.OnStatusChangedListener;
 import com.esri.android.runtime.ArcGISRuntime;
+import com.esri.core.geometry.Envelope;
+import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
+import com.esri.core.geometry.SpatialReference;
+import com.esri.core.map.Graphic;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
@@ -24,7 +38,9 @@ import com.tepia.cmdbsevice.util.ARCGISUTIL;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author :       zhang xinhua
@@ -53,6 +69,9 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
     private FragmentOnlineMapBinding mBinding;
     private int count = 0;
     private ArcGISTiledMapServiceLayer imgLayer;
+    private MapView mapView;
+    private int mapHeight;
+    private List<StationBean> stationList = new ArrayList<>();
 
     /**
      * point 图标点击事件
@@ -88,6 +107,15 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      * 配置arcgis地图
      */
     private void initArcgisMap() {
+        mapView = mBinding.mvArcgisRiverLog;
+        ViewTreeObserver viewTreeObserver = mapView.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mapHeight = mapView.getHeight();
+            }
+        });
         //去水印
         ArcGISRuntime.setClientId("9yNxBahuPiGPbsdi");
         mBinding.mvArcgisRiverLog.setMapBackground(ContextCompat.getColor(Utils.getContext(), R.color.white), ContextCompat.getColor(Utils.getContext(), R.color.white), 0f, 0f);
@@ -113,7 +141,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 }
                 if (status == STATUS.LAYER_LOADED) {
                     mBinding.layoutLoading.loadingLayout.setVisibility(View.GONE);
-                    List<StationBean> stationList = DataSupport.findAll(StationBean.class);
+                    stationList = DataSupport.findAll(StationBean.class);
                     drawMapPoint(stationList);
                     centerAndZoom(stationList);
                 }
@@ -122,7 +150,60 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 }
             }
         });
+        //设置地图点击事件
+        mapView.setOnSingleTapListener((OnSingleTapListener) (x, y) -> {
+            handleSingleTap(x, y);
+        });
+    }
 
+    /**
+     * 地图点击事件
+     *
+     * @param x
+     * @param y
+     */
+    private void handleSingleTap(float x, float y) {
+        if (null != callout) {
+            callout.hide();
+        }
+        //事件要素图层的点击事件
+        int[] graphicIDs = logGraphicsLayer.getGraphicIDs(x, y, 1);
+        if (null != graphicIDs) {
+            if (graphicIDs.length > 0) {
+//                for (int i=0;i<graphicIDs.length;i++) {
+                Graphic graphic = logGraphicsLayer.getGraphic(graphicIDs[0]);
+                Map<String, Object> attributes = graphic.getAttributes();
+                int info = (int) attributes.get("pos");
+                if (null != stationList) {
+                    StationBean infoModel = stationList.get(info);
+                    if (infoModel != null) {
+                        if (!infoModel.getName().equals("")) {
+                            if (onPointClickListener != null) {
+                                onPointClickListener.onPointClick(infoModel);
+                            }
+                            markerPoint(infoModel);
+                        }
+                    }
+                }
+//                }
+            }
+        }
+    }
+
+    private Callout callout;
+
+    private void initCallout(String text) {
+        if (mapView != null) {
+            callout = mapView.getCallout();
+            callout.setMaxWidth(1200);
+            callout.setMaxHeight(300);
+            TextView textView = new TextView(Utils.getContext());
+            textView.setText(text);
+            callout.setContent(textView);
+            CalloutStyle calloutStyle = new CalloutStyle();
+            calloutStyle.setAnchor(Callout.ANCHOR_POSITION_LOWER_LEFT_CORNER);
+            callout.setStyle(calloutStyle);
+        }
     }
 
     private void drawMapPoint(List<StationBean> stationList) {
@@ -143,7 +224,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                             return;
                         }
                         Point point = transStationBeanTOpoint(bean);
-                        if (point == null){
+                        if (point == null) {
                             mBinding.mvArcgisRiverLog.postDelayed(this, 100);
                             return;
                         }
@@ -154,23 +235,24 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                             switch (bean.getStationType()) {
                                 case "1":
                                     if (TextUtils.isEmpty(bean.getStationStatus())) {
-                                        ARCGISUTIL.addPic(R.mipmap.icon_clz_0, point, logGraphicsLayer);
+                                        ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
                                     } else {
                                         switch (bean.getStationStatus()) {
                                             case "0":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_0, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
                                                 break;
                                             case "1":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_1, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_1, point, logGraphicsLayer, count);
+//                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_1, point, logGraphicsLayer);
                                                 break;
                                             case "2":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_2, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_2, point, logGraphicsLayer, count);
                                                 break;
                                             case "3":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_3, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_3, point, logGraphicsLayer, count);
                                                 break;
                                             default:
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_0, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
                                                 break;
                                         }
                                     }
@@ -182,25 +264,25 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                                     } else {
                                         switch (bean.getStationStatus()) {
                                             case "0":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_0, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
                                                 break;
                                             case "1":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_1, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_1, point, logGraphicsLayer, count);
                                                 break;
                                             case "2":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_2, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_2, point, logGraphicsLayer, count);
                                                 break;
                                             case "3":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_3, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_3, point, logGraphicsLayer, count);
                                                 break;
                                             default:
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_0, point, logGraphicsLayer);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
                                                 break;
                                         }
                                     }
                                     break;
                                 default:
-                                    ARCGISUTIL.addPic(R.mipmap.icon_gz_0, point, logGraphicsLayer);
+                                    ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
                                     break;
                             }
                         }
@@ -220,12 +302,17 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      * @return
      */
     private Point transStationBeanTOpoint(StationBean bean) {
-        Double lttdrv = Double.parseDouble(bean.getLttd());
-        Double lgtdrv = Double.parseDouble(bean.getLgtd());
-        if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {
-            return null;
+        try {
+            Double lttdrv = Double.parseDouble(bean.getLttd());
+            Double lgtdrv = Double.parseDouble(bean.getLgtd());
+            if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {
+                return null;
+            }
+            return new Point(lgtdrv, lttdrv);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return new Point(lgtdrv, lttdrv);
+        return null;
     }
 
     @Override
@@ -250,6 +337,43 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      * @param stationList
      */
     private void centerAndZoom(List<StationBean> stationList) {
+        try {
+            ArrayList<Point> points = new ArrayList<>();
+            if (stationList != null && stationList.size() > 0) {
+                for (int i = 0; i < stationList.size(); i++) {
+                    Point point = transStationBeanTOpoint(stationList.get(i));
+                    points.add(point);
+                }
+                Point maxPoint = new Point();
+                Point minPoint = new Point();
+                double numx = points.get(0).getX();
+                double numy = points.get(0).getY();
+                double minx = points.get(0).getX();
+                double miny = points.get(0).getY();
+                for (int i = 0; i < points.size(); i++) {
+                    double x = (double) points.get(i).getX();
+                    double y = (double) points.get(i).getY();
+                    numx = x < numx ? numx : x;
+                    numy = y < numy ? numy : y;
+                    minx = x > minx ? minx : x;
+                    miny = y > miny ? miny : y;
+                    maxPoint.setX(numx);
+                    maxPoint.setY(numy);
+                    minPoint.setX(minx);
+                    minPoint.setY(miny);
+                }
+                double xcen = (numx - minx) > 0 ? (numx - minx) : 0;
+                double ycen = (numy - miny) > 0 ? (numy - miny) : 0;
+                Envelope envelope = new Envelope();
+                envelope.setXMin(minPoint.getX() - xcen / 10);
+                envelope.setYMin(minPoint.getY() - ycen / 10);
+                envelope.setXMax(maxPoint.getX() + xcen / 10);
+                envelope.setYMax(maxPoint.getY() + ycen / 10);
+                mapView.setExtent(envelope);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -258,6 +382,12 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      * @param bean
      */
     private void centerAndZoom(StationBean bean) {
+        if (mapView != null) {
+            Point point = transStationBeanTOpoint(bean);
+            if (point != null) {
+                mapView.centerAt(point, true);
+            }
+        }
     }
 
     /**
@@ -266,30 +396,80 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      * @param bean
      */
     private void markerPoint(StationBean bean) {
+        if (bean != null) {
+
+        }
+        Point point = transStationBeanTOpoint(bean);
+        if (point != null) {
+            //获取选中的经度
+            double lgtdrv = point.getX();
+            //获取选中的纬度
+            double lttdrv = point.getY();
+            String eventName = bean.getName();
+            initCallout(eventName);
+            callout.show(new Point(lgtdrv, lttdrv));
+//                                initIllegalEventDetailFragment(infoModel);
+//                                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        }
     }
 
     /**
      * 上移地图
      */
-    private void moveUpMap() {
+    public void moveUpMap() {
+        moveMap(true);
     }
 
     /**
      * 下移地图
      */
-    private void moveDownMap() {
+    public void moveDownMap() {
+        moveMap(false);
+    }
+
+    /**
+     * 地图滑动
+     *
+     * @param status true上移  false 下移
+     */
+    private void moveMap(Boolean status) {
+        android.graphics.Point screenPoint = new android.graphics.Point(0, 0);
+        if (mapView.toMapPoint(0, 0) != null) {
+            Point point = mapView.toMapPoint(0, 0);
+            double y = point.getY();
+            Point pointEnd = mapView.toMapPoint(0, mapHeight);
+            double bottomY = pointEnd.getY();
+            double translationY = (bottomY - y) / 2 - (bottomY - y) / 4;
+//                mapView.visibleArea   返回一个Polygon，表示当前在MapView中可见的ArcGISMap区域。
+            Point center = mapView.getCenter();
+            if (status) {
+                //中心点上移
+//                mapView.setViewpointCenterAsync(new Point(centerPoint.getX(), centerPoint.getY() + translationY));
+                mapView.centerAt(new Point(center.getX(), center.getY() + translationY), true);
+            } else {
+                //下移
+                mapView.centerAt(new Point(center.getX(), center.getY() - translationY), true);
+            }
+        }
     }
 
     /**
      * 放大地图
      */
     public void zoomin() {
+        if (mapView != null) {
+            mapView.zoomin();
+        }
     }
 
     /**
      * 缩小地图
      */
     public void zoomout() {
+        if (mapView != null) {
+            mapView.zoomout();
+        }
     }
 
     /**
