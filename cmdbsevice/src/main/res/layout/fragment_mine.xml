@@ -88,7 +88,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_arrow_right_black" />
+            android:src="@mipmap/add_more" />
     </LinearLayout>
 
     <View
@@ -120,7 +120,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_arrow_right_black" />
+            android:src="@mipmap/add_more" />
     </LinearLayout>
 
     <View
@@ -152,7 +152,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_arrow_right_black" />
+            android:src="@mipmap/add_more" />
     </LinearLayout>
 
     <View
@@ -184,7 +184,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_arrow_right_black" />
+            android:src="@mipmap/add_more" />
     </LinearLayout>
 
     <View
