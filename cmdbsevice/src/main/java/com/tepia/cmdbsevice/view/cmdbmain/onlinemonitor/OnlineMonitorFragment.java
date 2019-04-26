@@ -636,6 +636,12 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         stationListFragment.setOnListItemClickListener(new StationListFragment.OnListItemClickListener() {
             @Override
             public void onItemClick(StationBean stationBean) {
+                if (onlineMonitorMapFragment != null) {
+                    ArrayList<StationBean> stationBeanArrayList = new ArrayList<>();
+                    stationBeanArrayList.add(stationBean);
+                    onlineMonitorMapFragment.centerAndZoom(stationBeanArrayList);
+                    onlineMonitorMapFragment.markerPoint(stationBean);
+                }
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
                         .withString("stationBean", new Gson().toJson(stationBean).toString())
                         .navigation();
@@ -667,6 +673,13 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     return;
                 }
                 mBinding.loSearchHeader.etSearch.setText(adapterSearchTipList.getData().get(position).getName());
+                mPresenter.putSearchHis(adapterSearchTipList.getData().get(position).getName());
+                if (onlineMonitorMapFragment != null) {
+                    ArrayList<StationBean> stationBeanArrayList = new ArrayList<>();
+                    stationBeanArrayList.add(adapterSearchTipList.getData().get(position));
+                    onlineMonitorMapFragment.centerAndZoom(stationBeanArrayList);
+                    onlineMonitorMapFragment.markerPoint(adapterSearchTipList.getData().get(position));
+                }
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
                         .withString("stationBean", new Gson().toJson(adapterSearchTipList.getData().get(position)).toString())
                         .navigation();
@@ -760,6 +773,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     return;
                 }
                 mBinding.loSearchHeader.etSearch.setText(adapterSearchHisList.getData().get(position));
+
                 showLayer(2);
 //                initAndShowSearchTipList(adapterSearchHisList.getData().get(position));
             }

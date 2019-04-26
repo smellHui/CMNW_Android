@@ -86,8 +86,8 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
 
     public List<StationTypeBean> getStationTypeList() {
         ArrayList<StationTypeBean> list = new ArrayList<>();
-        list.add(new StationTypeBean("提升井", "1", R.drawable.bg_circle_eee, R.mipmap.icn_tsj, true));
-        list.add(new StationTypeBean("处理站", "2", R.drawable.bg_circle_eee, R.mipmap.icn_fj, true));
+        list.add(new StationTypeBean("提升井", "2", R.drawable.bg_circle_eee, R.mipmap.icn_tsj, true));
+        list.add(new StationTypeBean("处理站", "1", R.drawable.bg_circle_eee, R.mipmap.icn_fj, true));
         return list;
     }
 

@@ -25,6 +25,7 @@ import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Graphic;
+import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.ToastUtils;
@@ -170,22 +171,21 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         int[] graphicIDs = logGraphicsLayer.getGraphicIDs(x, y, 1);
         if (null != graphicIDs) {
             if (graphicIDs.length > 0) {
-//                for (int i=0;i<graphicIDs.length;i++) {
+
                 Graphic graphic = logGraphicsLayer.getGraphic(graphicIDs[0]);
                 Map<String, Object> attributes = graphic.getAttributes();
-                int info = (int) attributes.get("pos");
-                if (null != stationList) {
-                    StationBean infoModel = stationList.get(info);
-                    if (infoModel != null) {
-                        if (!infoModel.getName().equals("")) {
-                            if (onPointClickListener != null) {
-                                onPointClickListener.onPointClick(infoModel);
-                            }
-                            markerPoint(infoModel);
+                String info = (String) attributes.get("pos");
+                StationBean infoModel = new Gson().fromJson(info, StationBean.class);
+                if (infoModel != null) {
+                    if (!infoModel.getName().equals("")) {
+                        if (onPointClickListener != null) {
+                            onPointClickListener.onPointClick(infoModel);
                         }
+                        markerPoint(infoModel);
                     }
                 }
-//                }
+
+
             }
         }
     }
@@ -235,24 +235,24 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                             switch (bean.getStationType()) {
                                 case "1":
                                     if (TextUtils.isEmpty(bean.getStationStatus())) {
-                                        ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
+                                        ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                     } else {
                                         switch (bean.getStationStatus()) {
                                             case "0":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                             case "1":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_1, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_1, point, logGraphicsLayer, new Gson().toJson(bean).toString());
 //                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_1, point, logGraphicsLayer);
                                                 break;
                                             case "2":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_2, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_2, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                             case "3":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_3, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_3, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                             default:
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                         }
                                     }
@@ -264,25 +264,25 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                                     } else {
                                         switch (bean.getStationStatus()) {
                                             case "0":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_gz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                             case "1":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_1, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_gz_1, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                             case "2":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_2, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_gz_2, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                             case "3":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_3, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_gz_3, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                             default:
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
+                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                                 break;
                                         }
                                     }
                                     break;
                                 default:
-                                    ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, count);
+                                    ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
                                     break;
                             }
                         }
@@ -337,13 +337,13 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      *
      * @param stationList
      */
-    private void centerAndZoom(List<StationBean> stationList) {
+    public void centerAndZoom(List<StationBean> stationList) {
         try {
             ArrayList<Point> points = new ArrayList<>();
             if (stationList != null && stationList.size() > 0) {
                 for (int i = 0; i < stationList.size(); i++) {
                     Point point = transStationBeanTOpoint(stationList.get(i));
-                    if (point!=null){
+                    if (point != null) {
                         points.add(point);
                     }
                 }
@@ -384,7 +384,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      *
      * @param bean
      */
-    private void centerAndZoom(StationBean bean) {
+    public void centerAndZoom(StationBean bean) {
         if (mapView != null) {
             Point point = transStationBeanTOpoint(bean);
             if (point != null) {
@@ -398,23 +398,23 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      *
      * @param bean
      */
-    private void markerPoint(StationBean bean) {
+    public void markerPoint(StationBean bean) {
         if (bean != null) {
-
-        }
-        Point point = transStationBeanTOpoint(bean);
-        if (point != null) {
-            //获取选中的经度
-            double lgtdrv = point.getX();
-            //获取选中的纬度
-            double lttdrv = point.getY();
-            String eventName = bean.getName();
-            initCallout(eventName);
-            callout.show(new Point(lgtdrv, lttdrv));
+            Point point = transStationBeanTOpoint(bean);
+            if (point != null) {
+                //获取选中的经度
+                double lgtdrv = point.getX();
+                //获取选中的纬度
+                double lttdrv = point.getY();
+                String eventName = bean.getName();
+                initCallout(eventName);
+                callout.show(new Point(lgtdrv, lttdrv));
 //                                initIllegalEventDetailFragment(infoModel);
 //                                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
+            }
         }
+
     }
 
     /**
@@ -436,7 +436,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      *
      * @param status true上移  false 下移
      */
-    private void moveMap(Boolean status) {
+    public void moveMap(Boolean status) {
         android.graphics.Point screenPoint = new android.graphics.Point(0, 0);
         if (mapView.toMapPoint(0, 0) != null) {
             Point point = mapView.toMapPoint(0, 0);

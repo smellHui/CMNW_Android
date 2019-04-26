@@ -56,7 +56,7 @@ public class ARCGISUTIL {
      * @param id         图片id
      * @param point      坐标点
      */
-    public static Graphic addPicForPos(int id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer,int pos) {
+    public static Graphic addPicForPos(int id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer,String pos) {
         Map<String, Object> attributes = new HashMap<>(1);
         attributes.put("pos",pos);
         PictureMarkerSymbol pictureMarkerSymbol1 = null;

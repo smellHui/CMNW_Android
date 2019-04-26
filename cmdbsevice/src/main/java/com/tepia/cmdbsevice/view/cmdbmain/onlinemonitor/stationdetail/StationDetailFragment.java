@@ -53,12 +53,38 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         mBinding.tvHisData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()){
+                if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_his_data)
-                        .withString("stationBean",new Gson().toJson(stationBean))
+                        .withString("stationBean", new Gson().toJson(stationBean))
                         .navigation();
+            }
+        });
+        mBinding.loWaterQTip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (mBinding.loWaterQ.getVisibility() == View.VISIBLE) {
+                    mBinding.loWaterQ.setVisibility(View.GONE);
+                }else {
+                    mBinding.loWaterQ.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        mBinding.loDeviceStatusTip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (mBinding.loDeviceStatus.getVisibility() == View.VISIBLE) {
+                    mBinding.loDeviceStatus.setVisibility(View.GONE);
+                }else {
+                    mBinding.loDeviceStatus.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -86,7 +112,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                     return;
                 }
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_base_info)
-                        .withString("stationBean",new Gson().toJson(data))
+                        .withString("stationBean", new Gson().toJson(data))
                         .navigation();
             }
         });
@@ -139,14 +165,15 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterStationStatusHis adapterStationStatusHis = new AdapterStationStatusHis(R.layout.lv_station_status_his_item_view, data.getCurrentData().getDeviceMonitorDataList());
         mBinding.rvStationStatusHis.setAdapter(adapterStationStatusHis);
-        if (!CollectionsUtil.isEmpty(data.getHandingStation().getReferenceFileList())){
+        if (!CollectionsUtil.isEmpty(data.getHandingStation().getReferenceFileList())) {
             initBanner(data.getHandingStation().getReferenceFileList());
         }
+
     }
 
     private void initBanner(List<PictureBean> referenceFileList) {
         ArrayList<String> list = new ArrayList<>();
-        for (PictureBean bean: referenceFileList) {
+        for (PictureBean bean : referenceFileList) {
             list.add(bean.getFilePath());
         }
         mBinding.bannerStation.setDelayTime(3000);

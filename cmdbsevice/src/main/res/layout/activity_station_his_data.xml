@@ -38,14 +38,28 @@
                 tl:tl_textUnselectColor="@color/color_5C626E"
                 tl:tl_textsize="13sp" />
 
+            <TextView
+                android:id="@+id/tv_select_type"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@mipmap/icon_arrow_down_black"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:gravity="right|center_vertical"
+                android:singleLine="true"
+                android:text="全部类型"
+                android:textColor="#ff5c626e"
+                android:textSize="13sp" />
+
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:background="@drawable/bg_his_data_list"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:id="@+id/rv_his_data"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bg_his_data_list" />
     </LinearLayout>
 </layout>
