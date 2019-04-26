@@ -25,6 +25,7 @@ import com.tepia.base.utils.Utils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.TabEntity;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.EventSupervisionFragment;
+import com.tepia.cmdbsevice.view.cmdbmain.mine.MineFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.OnlineMonitorFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.TargetAssessmentFragment;
 
@@ -45,10 +46,10 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
 
     private CommonTabLayout tabLayout;
 
-    private String[] mTitles = {"在线监测", "事件督办", "统计分析"};
+    private String[] mTitles = {"在线监测", "事件督办", "统计分析", "个人中心"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private int[] mIconUnselectIds = {R.mipmap.tab_icn_zxjc_normal, R.mipmap.tab_icn_sjdb_normal, R.mipmap.tab_icn_mbkh_normal,};
-    private int[] mIconSelectIds = {R.mipmap.tab_icn_zxjc_selected, R.mipmap.tab_icn_sjdb_selected, R.mipmap.tab_icn_mbkh_selected,};
+    private int[] mIconUnselectIds = {R.mipmap.tab_icn_zxjc_normal, R.mipmap.tab_icn_sjdb_normal, R.mipmap.tab_icn_mbkh_normal, R.mipmap.home_ic_h_normal};
+    private int[] mIconSelectIds = {R.mipmap.tab_icn_zxjc_selected, R.mipmap.tab_icn_sjdb_selected, R.mipmap.tab_icn_mbkh_selected, R.mipmap.home_ic_h_selected};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private AppBean appBean;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
@@ -126,6 +127,7 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
         mFragments.add(new OnlineMonitorFragment());
         mFragments.add(new EventSupervisionFragment());
         mFragments.add(new TargetAssessmentFragment());
+        mFragments.add(new MineFragment());
 
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));

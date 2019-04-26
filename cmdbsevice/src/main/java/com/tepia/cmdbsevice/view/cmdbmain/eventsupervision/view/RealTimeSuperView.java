@@ -126,6 +126,7 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTypeface(tfLight);
+        chart.setFitBars(true);
 
         chart.setData(data);
     }
