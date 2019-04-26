@@ -34,7 +34,31 @@ public class ARCGISUTIL {
      */
     public static Graphic addPic(int id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer) {
         Map<String, Object> attributes = new HashMap<>(1);
+        PictureMarkerSymbol pictureMarkerSymbol1 = null;
 
+        Bitmap bitmap = BitmapFactory.decodeResource(Utils.getContext().getResources(), id);
+        if (bitmap == null) {
+            return null;
+        }
+        Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight() * 2, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        canvas.drawBitmap(bitmap, 0, 0, null);
+        pictureMarkerSymbol1 = new PictureMarkerSymbol(Utils.getContext(), bitmap2Drawable(result));
+        Graphic picGraphic = new Graphic(point, pictureMarkerSymbol1, attributes);
+        logGraphicsLayer.addGraphic(picGraphic);
+        return picGraphic;
+
+    }
+
+    /**
+     * 添加图片 attributes 不能传自定义对象
+     *
+     * @param id         图片id
+     * @param point      坐标点
+     */
+    public static Graphic addPicForPos(int id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer,int pos) {
+        Map<String, Object> attributes = new HashMap<>(1);
+        attributes.put("pos",pos);
         PictureMarkerSymbol pictureMarkerSymbol1 = null;
 
         Bitmap bitmap = BitmapFactory.decodeResource(Utils.getContext().getResources(), id);
