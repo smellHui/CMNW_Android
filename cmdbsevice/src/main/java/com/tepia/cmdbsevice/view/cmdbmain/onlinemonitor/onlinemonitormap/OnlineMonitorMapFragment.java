@@ -342,7 +342,9 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
             if (stationList != null && stationList.size() > 0) {
                 for (int i = 0; i < stationList.size(); i++) {
                     Point point = transStationBeanTOpoint(stationList.get(i));
-                    points.add(point);
+                    if (point!=null){
+                        points.add(point);
+                    }
                 }
                 Point maxPoint = new Point();
                 Point minPoint = new Point();
