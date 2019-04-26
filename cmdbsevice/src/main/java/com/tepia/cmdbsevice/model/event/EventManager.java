@@ -100,7 +100,7 @@ public class EventManager {
 
 
     /**
-     * 【查询】实时督办报警、故障统计列表
+     * 【查询】实时督办-报警列表
      *
      * @param params
      * @return
@@ -109,6 +109,20 @@ public class EventManager {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.listByWarning(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】实时督办-故障列表
+     *
+     * @param params
+     * @return
+     */
+    public Observable<PageBean<WarnBean>> listByFault(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.listByFault(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

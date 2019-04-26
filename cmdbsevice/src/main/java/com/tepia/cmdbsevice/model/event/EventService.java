@@ -47,6 +47,7 @@ public interface EventService {
 
     /**
      * 【查询】查询企业故障率
+     *
      * @param token
      * @param body
      * @return
@@ -78,7 +79,7 @@ public interface EventService {
     Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByTown(@Header("token") String token, @Body RequestBody body);
 
     /**
-     * 【查询】实时督办报警、故障统计列表
+     * 【查询】实时督办-报警列表
      *
      * @param token
      * @param body
@@ -87,6 +88,17 @@ public interface EventService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/listByWarning")
     Observable<PageBean<WarnBean>> listByWarning(@Header("token") String token, @Body RequestBody body);
+
+    /**
+     * 【查询】实时督办-故障列表
+     *
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("supervise/listByFault")
+    Observable<PageBean<WarnBean>> listByFault(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 【查询】获取乡镇列表

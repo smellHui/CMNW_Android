@@ -11,7 +11,6 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.BaseListActivity;
-import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.AreaBean;
 import com.tepia.cmdbsevice.model.event.EventManager;
@@ -35,7 +34,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
     private SelectEventPopView selectEventPopView;
 
     private List<String> vendorCodeArray, areaCodeArray;
-    private String status = "1";//1.故障站点   2.报警站点
+    private int type;//0.故障站点   1.报警站点
     private String stationType;
 
     @Override
@@ -61,7 +60,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                status = (position + 1) + "";
+                type = position;
                 refresh();
             }
 
@@ -101,23 +100,44 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
 
     @Override
     protected void initRequestData() {
-        listByWarning();
-    }
-
-    public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
-        int i = view.getId();
-        if (i == R.id.btn_look) {
-            new XPopup.Builder(getContext())
-//                        .enableDrag(false)
-                    .asBottomList(null, new String[]{"提升井", "风机"},
-                            (position1, text) -> ToastUtils.shortToast("click " + text))
-                    .show();
+        if (type == 0) {
+            listByFault();
+        } else {
+            listByWarning();
         }
     }
 
+    @Override
+    public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
+
+    }
+
+    /**
+     * 【查询】实时督办-报警列表
+     */
     private void listByWarning() {
         EventManager.getInstance().listByWarning("pageSize", 20, "pageIndex", getPage()
-                , "stationType", stationType, "status", status, "vendorCodeArray", vendorCodeArray, "areaCodeArray", areaCodeArray)
+                , "stationType", stationType, "vendorCodeArray", vendorCodeArray, "areaCodeArray", areaCodeArray)
+                .safeSubscribe(new LoadingSubject<PageBean<WarnBean>>() {
+
+                    @Override
+                    protected void _onNext(PageBean<WarnBean> baseCommonResponse) {
+                        success(baseCommonResponse);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        error();
+                    }
+                });
+    }
+
+    /**
+     * 【查询】实时督办-故障列表
+     */
+    private void listByFault() {
+        EventManager.getInstance().listByFault("pageSize", 20, "pageIndex", getPage()
+                , "stationType", stationType, "vendorCodeArray", vendorCodeArray, "areaCodeArray", areaCodeArray)
                 .safeSubscribe(new LoadingSubject<PageBean<WarnBean>>() {
 
                     @Override
