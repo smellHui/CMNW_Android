@@ -115,10 +115,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                     mBinding.layoutLoading.loadingLayout.setVisibility(View.GONE);
                     List<StationBean> stationList = DataSupport.findAll(StationBean.class);
                     drawMapPoint(stationList);
-                    if (count == 1) {
-                        mBinding.mvArcgisRiverLog.centerAt(new Point(ConfigConst.LNG, ConfigConst.LAT), true);
-//                        mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
-                    }
+                    centerAndZoom(stationList);
                 }
                 if (status == STATUS.LAYER_LOADING_FAILED) {
                     mBinding.layoutLoading.tvLoading.setText("地图加载失败");
@@ -145,12 +142,9 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                             mBinding.mvArcgisRiverLog.postDelayed(this, 100);
                             return;
                         }
-                        Double lttdrv = Double.parseDouble(bean.getLttd());
-                        Double lgtdrv = Double.parseDouble(bean.getLgtd());
-                        if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {
-                            ToastUtils.shortToast("测试阶段的部分数据不标准");
-                            mBinding.mvArcgisRiverLog.centerAt(new Point(ConfigConst.LNG, ConfigConst.LAT), true);
-                            mBinding.mvArcgisRiverLog.setScale(ConfigConst.scale, true);
+                        Point point = transStationBeanTOpoint(bean);
+                        if (point == null){
+                            mBinding.mvArcgisRiverLog.postDelayed(this, 100);
                             return;
                         }
                         if (TextUtils.isEmpty(bean.getStationType())) {
@@ -160,23 +154,23 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                             switch (bean.getStationType()) {
                                 case "1":
                                     if (TextUtils.isEmpty(bean.getStationStatus())) {
-                                        ARCGISUTIL.addPic(R.mipmap.icon_clz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                        ARCGISUTIL.addPic(R.mipmap.icon_clz_0, point, logGraphicsLayer);
                                     } else {
                                         switch (bean.getStationStatus()) {
                                             case "0":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_0, point, logGraphicsLayer);
                                                 break;
                                             case "1":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_1, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_1, point, logGraphicsLayer);
                                                 break;
                                             case "2":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_2, point, logGraphicsLayer);
                                                 break;
                                             case "3":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_3, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_3, point, logGraphicsLayer);
                                                 break;
                                             default:
-                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_0, point, logGraphicsLayer);
                                                 break;
                                         }
                                     }
@@ -184,29 +178,29 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                                     break;
                                 case "2":
                                     if (TextUtils.isEmpty(bean.getStationStatus())) {
-                                        ARCGISUTIL.addPic(R.mipmap.icon_gz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                        ARCGISUTIL.addPic(R.mipmap.icon_gz_0, point, logGraphicsLayer);
                                     } else {
                                         switch (bean.getStationStatus()) {
                                             case "0":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_0, point, logGraphicsLayer);
                                                 break;
                                             case "1":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_1, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_1, point, logGraphicsLayer);
                                                 break;
                                             case "2":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_2, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_2, point, logGraphicsLayer);
                                                 break;
                                             case "3":
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_3, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_3, point, logGraphicsLayer);
                                                 break;
                                             default:
-                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                                ARCGISUTIL.addPic(R.mipmap.icon_gz_0, point, logGraphicsLayer);
                                                 break;
                                         }
                                     }
                                     break;
                                 default:
-                                    ARCGISUTIL.addPic(R.mipmap.icon_gz_0, new Point(lgtdrv, lttdrv), logGraphicsLayer);
+                                    ARCGISUTIL.addPic(R.mipmap.icon_gz_0, point, logGraphicsLayer);
                                     break;
                             }
                         }
@@ -217,6 +211,21 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 }
             });
         }
+    }
+
+    /**
+     * 转化bean 到 point
+     *
+     * @param bean
+     * @return
+     */
+    private Point transStationBeanTOpoint(StationBean bean) {
+        Double lttdrv = Double.parseDouble(bean.getLttd());
+        Double lgtdrv = Double.parseDouble(bean.getLgtd());
+        if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {
+            return null;
+        }
+        return new Point(lgtdrv, lttdrv);
     }
 
     @Override
@@ -293,7 +302,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
             /** 影像图层*/
             case "image":
                 break;
-            case "veder":
+            case "vender":
                 break;
             default:
                 break;
