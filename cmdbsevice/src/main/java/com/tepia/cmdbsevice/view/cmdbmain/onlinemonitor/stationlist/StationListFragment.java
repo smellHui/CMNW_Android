@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.view.EmptyLayoutUtil;
@@ -65,6 +66,24 @@ public class StationListFragment extends MVPBaseFragment<StationListContract.Vie
                 }
             }
         });
+        adapterStationList.openLoadAnimation();
+        adapterStationList.setEnableLoadMore(true);
+        adapterStationList.setLoadMoreView(new SimpleLoadMoreView());
+        adapterStationList.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mBinding.rvStationList.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mPresenter.isCanLoadMore) {
+                            mPresenter.getStationListMore(conditions);
+                        } else {
+                            adapterStationList.loadMoreEnd();
+                        }
+                    }
+                }, 1500);
+            }
+        }, mBinding.rvStationList);
     }
 
     @Override
@@ -75,9 +94,22 @@ public class StationListFragment extends MVPBaseFragment<StationListContract.Vie
     @Override
     public void getStationListSuccess(ArrayList<StationBean> list) {
         adapterStationList.setNewData(list);
-        if (CollectionsUtil.isEmpty(list)){
+        if (CollectionsUtil.isEmpty(list)) {
             adapterStationList.setEmptyView(EmptyLayoutUtil.getView("没有数据"));
         }
+    }
+
+    @Override
+    public void getStationListMoreSuccess(ArrayList<StationBean> data, int pageIndex, int pageSize) {
+        int i = (pageIndex - 1) * pageSize;
+        for (int j = 0; j < data.size(); j++) {
+            if (!adapterStationList.getData().contains(data.get(j))) {
+                adapterStationList.addData(i + j, data.get(j));
+            } else {
+                adapterStationList.setData(i + j, data.get(j));
+            }
+        }
+        adapterStationList.loadMoreComplete();
     }
 
     public void setOnListItemClickListener(OnListItemClickListener onListItemClickListener) {

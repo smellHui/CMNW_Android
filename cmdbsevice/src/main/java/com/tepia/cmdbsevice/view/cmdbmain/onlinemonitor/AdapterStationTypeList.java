@@ -9,6 +9,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.LvStationTypeItemViewBinding;
 
@@ -40,19 +41,23 @@ public class AdapterStationTypeList extends BaseQuickAdapter<StationTypeBean, Ba
         if (item.getSrc() != null) {
             mBinding.ivStation.setImageResource(item.getSrc());
         }
-        if (item.isSelected()){
+        if (item.isSelected()) {
             mBinding.ivSelected.setImageResource(R.drawable.ic_check_circle_green_24dp);
-        }else {
+        } else {
             mBinding.ivSelected.setImageResource(R.drawable.bg_select_circle);
         }
         mBinding.tvStationName.setText(item.getName());
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()){
+                if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
                 getData().get(helper.getLayoutPosition()).setSelected(!item.isSelected());
+                if (getSelectData().size() == 0) {
+                    ToastUtils.shortToast("至少选择一个");
+                    getData().get(helper.getLayoutPosition()).setSelected(!item.isSelected());
+                }
                 notifyDataSetChanged();
             }
         });

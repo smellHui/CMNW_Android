@@ -39,6 +39,10 @@ import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationlist.StationListF
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tepia.base.view.ScrollLayout.ScrollLayout.Status.CLOSED;
+import static com.tepia.base.view.ScrollLayout.ScrollLayout.Status.EXIT;
+import static com.tepia.base.view.ScrollLayout.ScrollLayout.Status.OPENED;
+
 /**
  * @author :       zhang xinhua
  * @Version :       1.0
@@ -61,6 +65,8 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
     private StationTypeBean selectedStatus = new StationTypeBean("全部设备状态", "all");
     private StationTypeBean selectedOrgan = new StationTypeBean("全部运维企业", "all");
     private String stationType = "1";
+    private ScrollLayout scrollownLayout;
+    private ScrollLayout.Status preStatus = OPENED;
 
     @Override
     protected int getLayoutId() {
@@ -312,8 +318,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 stationType = "2";
                 mBinding.flSearchContent.tvStationNum.setText("提升井（" + mPresenter.getStationNum(getSaiXuanStrs("2")) + ")");
                 initListFragment(getSaiXuanStrs("2"));
-
-
+                if (preStatus == CLOSED) {
+                    preStatus = OPENED;
+                }
+                scrollownLayout.setToOpen();
             }
         });
         mBinding.loMapOptLayer.tvClz.setOnClickListener(new View.OnClickListener() {
@@ -326,7 +334,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 stationType = "1";
                 mBinding.flSearchContent.tvStationNum.setText("处理站（" + mPresenter.getStationNum(getSaiXuanStrs("1")) + ")");
                 initListFragment(getSaiXuanStrs("1"));
-
+                if (preStatus == CLOSED) {
+                    preStatus = OPENED;
+                }
+                scrollownLayout.setToOpen();
             }
         });
         mBinding.loMapOptLayer.ivZoomin.setOnClickListener(new View.OnClickListener() {
@@ -359,7 +370,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
      * @param view
      */
     private void initScrollLayout(View view) {
-        ScrollLayout scrollownLayout = view.findViewWithTag("scroll_down_layout");
+        scrollownLayout = view.findViewWithTag("scroll_down_layout");
         ContentScrollView itemScrollView = view.findViewWithTag("item_scroll_view_layout");
         FrameLayout flContainer = findView(R.id.fl_container);
 
@@ -385,6 +396,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
             @Override
             public void onScrollFinished(ScrollLayout.Status currentStatus) {
                 changeViewWith(currentStatus);
+                preStatus = currentStatus;
             }
 
             @Override
@@ -392,7 +404,9 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
             }
         });
+        preStatus = OPENED;
         scrollownLayout.setToOpen();
+
         scrollownLayout.getBackground().setAlpha(0);
 
 
@@ -401,14 +415,27 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
     private void changeViewWith(ScrollLayout.Status currentStatus) {
         switch (currentStatus) {
             case EXIT:
-                mBinding.flSearchContent.loStationNum.setVisibility(View.VISIBLE);
-                mBinding.flSearchContent.loStationSetect.setVisibility(View.GONE);
+                if (onlineMonitorMapFragment != null) {
+                    onlineMonitorMapFragment.moveDownMap();
+                }
+                showLayer(0);
                 break;
             case CLOSED:
+                if (onlineMonitorMapFragment != null) {
+
+                    onlineMonitorMapFragment.moveUpMap();
+                }
                 mBinding.flSearchContent.loStationNum.setVisibility(View.GONE);
                 mBinding.flSearchContent.loStationSetect.setVisibility(View.VISIBLE);
                 break;
             case OPENED:
+                if (onlineMonitorMapFragment != null) {
+                    if (preStatus == EXIT) {
+                        onlineMonitorMapFragment.moveUpMap();
+                    } else if (preStatus == CLOSED) {
+                        onlineMonitorMapFragment.moveDownMap();
+                    }
+                }
                 mBinding.flSearchContent.loStationNum.setVisibility(View.VISIBLE);
                 mBinding.flSearchContent.loStationSetect.setVisibility(View.GONE);
                 break;

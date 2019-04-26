@@ -15,10 +15,34 @@ import java.util.List;
 
 public class StationListPresenter extends BasePresenterImpl<StationListContract.View> implements StationListContract.Presenter {
 
+    public boolean isCanLoadMore;
+    private int pageIndex;
+    private int pageSize = 30;
+
+
     public void getStationList(String... conditions) {
-        List<StationBean> list = DataSupport.where(conditions).limit(30).find(StationBean.class);
+        List<StationBean> list = DataSupport.where(conditions).limit(pageSize).find(StationBean.class);
         ArrayList<StationBean> list2 = new ArrayList<>();
         list2.addAll(list);
+        pageIndex = 1;
+        if (list.size() == 30) {
+            isCanLoadMore = true;
+        } else {
+            isCanLoadMore = false;
+        }
         mView.getStationListSuccess(list2);
+    }
+
+    public void getStationListMore(String... conditions) {
+        List<StationBean> list = DataSupport.where(conditions).limit(30).offset(pageIndex * pageSize).find(StationBean.class);
+        ArrayList<StationBean> list2 = new ArrayList<>();
+        pageIndex++;
+        list2.addAll(list);
+        if (list.size() == 30) {
+            isCanLoadMore = true;
+        } else {
+            isCanLoadMore = false;
+        }
+        mView.getStationListMoreSuccess(list2,pageIndex,pageSize);
     }
 }

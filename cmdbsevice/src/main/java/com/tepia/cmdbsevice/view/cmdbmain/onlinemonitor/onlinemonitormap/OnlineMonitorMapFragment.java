@@ -327,8 +327,9 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      */
     public void saixuan(String... conditions) {
         List<StationBean> stationList = DataSupport.where(conditions).find(StationBean.class);
-        drawMapPoint(stationList);
         centerAndZoom(stationList);
+        drawMapPoint(stationList);
+
     }
 
     /**

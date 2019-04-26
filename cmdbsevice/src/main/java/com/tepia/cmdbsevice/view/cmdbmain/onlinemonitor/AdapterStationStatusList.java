@@ -7,6 +7,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.LvStationStatusItemViewBinding;
 
@@ -33,18 +34,22 @@ public class AdapterStationStatusList extends BaseQuickAdapter<StationTypeBean, 
         LvStationStatusItemViewBinding mBinding = DataBindingUtil.bind(helper.itemView);
         mBinding.tvStationStatus.setText(item.getName());
         mBinding.tvStationStatus.setBackgroundResource(item.getBackground());
-        if (item.isSelected()){
+        if (item.isSelected()) {
             mBinding.ivSelected.setImageResource(R.drawable.ic_check_circle_green_24dp);
-        }else {
+        } else {
             mBinding.ivSelected.setImageResource(R.drawable.bg_select_circle);
         }
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()){
+                if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
                 getData().get(helper.getLayoutPosition()).setSelected(!item.isSelected());
+                if (getSelectData().size() == 0) {
+                    ToastUtils.shortToast("至少选择一个");
+                    getData().get(helper.getLayoutPosition()).setSelected(!item.isSelected());
+                }
                 notifyDataSetChanged();
             }
         });

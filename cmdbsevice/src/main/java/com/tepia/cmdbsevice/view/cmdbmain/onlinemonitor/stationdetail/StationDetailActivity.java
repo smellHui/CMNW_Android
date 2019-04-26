@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.ActivityStationDetailBinding;
+import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap.OnlineMonitorMapFragment;
 import com.tepia.cmnwsevice.model.station.StationBean;
 
 import org.litepal.annotation.Column;
@@ -30,6 +32,7 @@ import org.litepal.annotation.Column;
 public class StationDetailActivity extends BaseActivity {
     private ActivityStationDetailBinding mBinding;
     private StationBean stationBean;
+    private OnlineMonitorMapFragment onlineMonitorMapFragment;
 
     @Override
     public int getLayoutId() {
@@ -48,6 +51,18 @@ public class StationDetailActivity extends BaseActivity {
         ft2.commit();
     }
 
+    /**
+     * 初始化 地图 fragment
+     */
+    private void initMapFragment() {
+        FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
+        onlineMonitorMapFragment = new OnlineMonitorMapFragment();
+        ft2.replace(R.id.fl_map_container, onlineMonitorMapFragment);
+        ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft2.addToBackStack(null);
+        ft2.commit();
+
+    }
     @Override
     public void initData() {
         String temp = getIntent().getStringExtra("stationBean");

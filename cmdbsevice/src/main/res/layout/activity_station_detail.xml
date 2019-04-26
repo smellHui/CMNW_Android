@@ -8,31 +8,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="match_parent">
 
-
-            <com.youth.banner.Banner
+            <FrameLayout
+                android:id="@+id/fl_map_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/black" />
+                android:layout_height="150dp"/>
+            <FrameLayout
+                android:id="@+id/fl_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/iv_back"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="35dp"
                 android:background="@drawable/bg_circle_white"
                 android:padding="12dp"
                 android:src="@mipmap/icon_arrow_left_gray" />
-        </RelativeLayout>
+        </FrameLayout>
 
 
-        <FrameLayout
-            android:id="@+id/fl_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>

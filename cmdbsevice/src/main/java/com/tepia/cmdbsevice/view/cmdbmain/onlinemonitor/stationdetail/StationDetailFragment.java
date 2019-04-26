@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,12 @@ import android.view.View;
 
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmnwsevice.model.station.PictureBean;
 import com.tepia.cmnwsevice.model.station.StationBean;
+import com.youth.banner.BannerConfig;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author :       zhang xinhua
@@ -133,5 +139,25 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterStationStatusHis adapterStationStatusHis = new AdapterStationStatusHis(R.layout.lv_station_status_his_item_view, data.getCurrentData().getDeviceMonitorDataList());
         mBinding.rvStationStatusHis.setAdapter(adapterStationStatusHis);
+        if (!CollectionsUtil.isEmpty(data.getHandingStation().getReferenceFileList())){
+            initBanner(data.getHandingStation().getReferenceFileList());
+        }
+    }
+
+    private void initBanner(List<PictureBean> referenceFileList) {
+        ArrayList<String> list = new ArrayList<>();
+        for (PictureBean bean: referenceFileList) {
+            list.add(bean.getFilePath());
+        }
+        mBinding.bannerStation.setDelayTime(3000);
+        //设置banner样式(显示圆形指示器)
+        mBinding.bannerStation.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        //设置指示器位置（指示器居右）
+        mBinding.bannerStation.setIndicatorGravity(BannerConfig.RIGHT);
+        //设置图片加载器
+        mBinding.bannerStation.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        mBinding.bannerStation.setImages(list);
+        mBinding.bannerStation.start();
     }
 }

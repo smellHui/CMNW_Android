@@ -15,6 +15,8 @@ public class StationListContract {
     interface View extends BaseView {
 
         void getStationListSuccess(ArrayList<StationBean> list);
+
+        void getStationListMoreSuccess(ArrayList<StationBean> list2, int pageIndex, int pageSize);
     }
 
     interface  Presenter extends BasePresenter<View> {

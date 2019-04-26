@@ -7,6 +7,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.LvStationSaixunItemViewBinding;
 
@@ -44,6 +45,10 @@ public class AdapterStationSaixuanList extends BaseQuickAdapter<StationTypeBean,
                     return;
                 }
                 getData().get(helper.getLayoutPosition()).setSelected(!item.isSelected());
+                if (getSelectData().size() == 0) {
+                    ToastUtils.shortToast("至少选择一个");
+                    getData().get(helper.getLayoutPosition()).setSelected(!item.isSelected());
+                }
                 notifyDataSetChanged();
             }
         });
