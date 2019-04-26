@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by      android studio
@@ -79,6 +80,25 @@ public interface EventService {
     Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByTown(@Header("token") String token, @Body RequestBody body);
 
     /**
+     * 按行政区划分析人工水质达标率
+     *
+     * @param token
+     * @param dataTime
+     * @return
+     */
+    @GET("overallStatistics/listWaterQualityRateByStcd")
+    Observable<BaseCommonResponse<List<WaterRateBean>>> listWaterQualityRateByStcd(@Header("token") String token, @Query("dataTime") String dataTime);
+
+    /**
+     * 【查询】按企业分析人工水质达标率
+     * @param token
+     * @param dataTime
+     * @return
+     */
+    @GET("overallStatistics/listWaterQualityRateByVendor")
+    Observable<BaseCommonResponse<List<WaterRateBean>>> listWaterQualityRateByVendor(@Header("token") String token, @Query("dataTime") String dataTime);
+
+    /**
      * 【查询】实时督办-报警列表
      *
      * @param token
@@ -108,6 +128,15 @@ public interface EventService {
      */
     @GET("area/list")
     Observable<BaseCommonResponse<List<AreaBean>>> arealist(@Header("token") String token);
+
+    /**
+     * 【查询】人工水质可选时间获取
+     *
+     * @param token
+     * @return
+     */
+    @GET("overallStatistics/listDataTime")
+    Observable<BaseCommonResponse<List<String>>> listDataTime(@Header("token") String token);
 
     /**
      * 【查询】获取企业列表

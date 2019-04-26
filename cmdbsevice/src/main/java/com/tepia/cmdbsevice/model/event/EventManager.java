@@ -1,5 +1,6 @@
 package com.tepia.cmdbsevice.model.event;
 
+import com.google.common.base.Strings;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.model.PageBean;
@@ -80,6 +81,43 @@ public class EventManager {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.countFaultRateByTown(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 按行政区划分析人工水质达标率
+     *
+     * @param dataTime
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<WaterRateBean>>> listWaterQualityRateByStcd(String dataTime) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.listWaterQualityRateByStcd(token, dataTime)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】按企业分析人工水质达标率
+     * @param dataTime
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<WaterRateBean>>> listWaterQualityRateByVendor(String dataTime) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.listWaterQualityRateByVendor(token, dataTime)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】人工水质可选时间获取
+     *
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<String>>> listDataTime() {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.listDataTime(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

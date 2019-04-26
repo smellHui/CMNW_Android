@@ -1,4 +1,4 @@
-package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view;
+package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,13 +20,15 @@ import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.adapter.SpssCountAdapter;
+import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SelectDataView;
+import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView;
 
 import java.util.List;
 
 /**
  * Author:xch
  * Date:2019/4/18
- * Description: 统计分析
+ * Description: 故障率统计分析
  */
 public class SpssFragment extends BaseCommonFragment {
 
