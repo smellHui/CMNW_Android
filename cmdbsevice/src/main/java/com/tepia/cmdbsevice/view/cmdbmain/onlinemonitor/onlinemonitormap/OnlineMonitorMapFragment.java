@@ -260,6 +260,18 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
     }
 
     /**
+     * 上移地图
+     */
+    private void moveUpMap() {
+    }
+
+    /**
+     * 下移地图
+     */
+    private void moveDownMap() {
+    }
+
+    /**
      * 放大地图
      */
     public void zoomin() {
