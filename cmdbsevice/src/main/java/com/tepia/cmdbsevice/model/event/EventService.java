@@ -58,6 +58,16 @@ public interface EventService {
     Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByVendor(@Header("token") String token, @Body RequestBody body);
 
     /**
+     * 【查询】按企业分析在线水质达标率
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("overallStatistics/listReachRateByVendor")
+    Observable<BaseCommonResponse<List<WaterRateBean>>> listReachRateByVendor(@Header("token") String token, @Body RequestBody body);
+
+    /**
      * 【查询】实时督办-乡镇报警、故障数
      *
      * @param token
@@ -80,6 +90,17 @@ public interface EventService {
     Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByTown(@Header("token") String token, @Body RequestBody body);
 
     /**
+     * 【查询】按行政区划分析在线水质达标率
+     *
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("overallStatistics/listReachRateByStcd")
+    Observable<BaseCommonResponse<List<WaterRateBean>>> listReachRateByStcd(@Header("token") String token, @Body RequestBody body);
+
+    /**
      * 按行政区划分析人工水质达标率
      *
      * @param token
@@ -91,6 +112,7 @@ public interface EventService {
 
     /**
      * 【查询】按企业分析人工水质达标率
+     *
      * @param token
      * @param dataTime
      * @return

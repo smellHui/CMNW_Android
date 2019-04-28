@@ -1,6 +1,5 @@
 package com.tepia.cmdbsevice.model.event;
 
-import com.google.common.base.Strings;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.model.PageBean;
@@ -86,6 +85,20 @@ public class EventManager {
     }
 
     /**
+     * 【查询】按行政区划分析在线水质达标率
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<WaterRateBean>>> listReachRateByStcd(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.listReachRateByStcd(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
      * 按行政区划分析人工水质达标率
      *
      * @param dataTime
@@ -100,6 +113,7 @@ public class EventManager {
 
     /**
      * 【查询】按企业分析人工水质达标率
+     *
      * @param dataTime
      * @return
      */
@@ -132,6 +146,20 @@ public class EventManager {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.countFaultRateByVendor(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】按企业分析在线水质达标率
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<WaterRateBean>>> listReachRateByVendor(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.listReachRateByVendor(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

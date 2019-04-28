@@ -16,6 +16,15 @@ public class WaterRateBean {
     private String stationCount;
     private String name;
     private String targetCount;
+    private String count;//站点总数
+
+    public String getCount() {
+        return StringUtil.nullToDefault(count, "0");
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
 
     public String getSampleCount() {
         return StringUtil.nullToDefault(sampleCount, "0");
@@ -74,6 +83,7 @@ public class WaterRateBean {
                 ", stationCount='" + stationCount + '\'' +
                 ", name='" + name + '\'' +
                 ", targetCount='" + targetCount + '\'' +
+                ", count='" + count + '\'' +
                 '}';
     }
 }

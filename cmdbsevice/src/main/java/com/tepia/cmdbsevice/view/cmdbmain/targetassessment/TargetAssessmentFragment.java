@@ -11,6 +11,7 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.fragment.ReachRateFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.fragment.WaterQualityRateByStcdFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.ScaleTransitionPagerTitleView;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.fragment.SpssFragment;
@@ -58,7 +59,7 @@ public class TargetAssessmentFragment extends BaseCommonFragment {
         viewPager = findView(R.id.vp);
         mFragments.add(SpssFragment.launch(0));
         mFragments.add(WaterQualityRateByStcdFragment.launch(1));
-        mFragments.add(WaterQualityRateByStcdFragment.launch(2));
+        mFragments.add(ReachRateFragment.launch(2));
         pageAdapter = new PageAdapter(getChildFragmentManager(), mFragments, mTitles);
         viewPager.setAdapter(pageAdapter);
         initMagicIndicator3();
