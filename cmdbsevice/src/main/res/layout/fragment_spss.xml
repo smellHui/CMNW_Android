@@ -58,7 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:background="@drawable/corner_bg_3_grey"
             android:orientation="vertical">
 
             <com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView
@@ -69,7 +68,8 @@
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/layout_swipe_refresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/corner_bg_3_grey">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv"
