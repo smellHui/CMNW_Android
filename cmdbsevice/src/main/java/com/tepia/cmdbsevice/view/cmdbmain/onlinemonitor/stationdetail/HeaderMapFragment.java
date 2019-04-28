@@ -4,8 +4,11 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.esri.android.map.Callout;
+import com.esri.android.map.CalloutStyle;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.MapView;
 import com.esri.android.map.ags.ArcGISFeatureLayer;
@@ -36,7 +39,7 @@ import com.tepia.cmnwsevice.model.station.StationBean;
 public class HeaderMapFragment extends BaseCommonFragment {
     public StationBean stationBean;
     private FragmentHeaderMapPointBinding mBinding;
-    private MapView mv_arcgis_river_log;
+    private MapView mapView;
 
     @Override
     protected int getLayoutId() {
@@ -46,7 +49,7 @@ public class HeaderMapFragment extends BaseCommonFragment {
     @Override
     protected void initData() {
         mBinding = DataBindingUtil.bind(mRootView);
-        mv_arcgis_river_log = findView(R.id.mv_arcgis_river_log);
+        mapView = findView(R.id.mv_arcgis_river_log);
         initArcgisMap();
 
     }
@@ -184,6 +187,44 @@ public class HeaderMapFragment extends BaseCommonFragment {
 
     }
 
+    /**
+     * 标记这个这个点
+     *
+     * @param bean
+     */
+    public void markerPoint(StationBean bean) {
+        if (bean != null) {
+            Point point = transStationBeanTOpoint(bean);
+            if (point != null) {
+                //获取选中的经度
+                double lgtdrv = point.getX();
+                //获取选中的纬度
+                double lttdrv = point.getY();
+                String eventName = bean.getName();
+                initCallout(eventName);
+                callout.show(new Point(lgtdrv, lttdrv));
+//                                initIllegalEventDetailFragment(infoModel);
+//                                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+            }
+        }
+
+    }
+    private Callout callout;
+
+    private void initCallout(String text) {
+        if (mapView != null) {
+            callout = mapView.getCallout();
+            callout.setMaxWidth(1200);
+            callout.setMaxHeight(300);
+            TextView textView = new TextView(Utils.getContext());
+            textView.setText(text);
+            callout.setContent(textView);
+            CalloutStyle calloutStyle = new CalloutStyle();
+            calloutStyle.setAnchor(Callout.ANCHOR_POSITION_LOWER_LEFT_CORNER);
+            callout.setStyle(calloutStyle);
+        }
+    }
     private Point transStationBeanTOpoint(StationBean bean) {
         try {
             Double lttdrv = Double.parseDouble(bean.getLttd());

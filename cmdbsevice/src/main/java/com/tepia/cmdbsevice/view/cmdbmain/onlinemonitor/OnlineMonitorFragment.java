@@ -612,6 +612,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
             @Override
             public void onPointClick(StationBean bean) {
+                if (onlineMonitorMapFragment != null) {
+                    onlineMonitorMapFragment.centerAndZoom(bean);
+                    onlineMonitorMapFragment.markerPoint(bean);
+                }
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
                         .withString("stationBean", new Gson().toJson(bean))
                         .navigation();
@@ -637,9 +641,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
             @Override
             public void onItemClick(StationBean stationBean) {
                 if (onlineMonitorMapFragment != null) {
-                    ArrayList<StationBean> stationBeanArrayList = new ArrayList<>();
-                    stationBeanArrayList.add(stationBean);
-                    onlineMonitorMapFragment.centerAndZoom(stationBeanArrayList);
+                    onlineMonitorMapFragment.centerAndZoom(stationBean);
                     onlineMonitorMapFragment.markerPoint(stationBean);
                 }
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
@@ -675,9 +677,8 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 mBinding.loSearchHeader.etSearch.setText(adapterSearchTipList.getData().get(position).getName());
                 mPresenter.putSearchHis(adapterSearchTipList.getData().get(position).getName());
                 if (onlineMonitorMapFragment != null) {
-                    ArrayList<StationBean> stationBeanArrayList = new ArrayList<>();
-                    stationBeanArrayList.add(adapterSearchTipList.getData().get(position));
-                    onlineMonitorMapFragment.centerAndZoom(stationBeanArrayList);
+
+                    onlineMonitorMapFragment.centerAndZoom(adapterSearchTipList.getData().get(position));
                     onlineMonitorMapFragment.markerPoint(adapterSearchTipList.getData().get(position));
                 }
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)

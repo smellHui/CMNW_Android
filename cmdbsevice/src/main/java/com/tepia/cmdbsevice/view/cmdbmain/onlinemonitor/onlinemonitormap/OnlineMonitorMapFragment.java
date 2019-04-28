@@ -375,9 +375,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 envelope.setYMax(maxPoint.getY() + ycen / 10);
                 mapView.setExtent(envelope);
             }
-            if (stationList.size() == 1){
-                moveUpMap();
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -393,6 +391,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
             Point point = transStationBeanTOpoint(bean);
             if (point != null) {
                 mapView.centerAt(point, true);
+                mapView.setScale(ConfigConst.scale, false);
             }
         }
     }

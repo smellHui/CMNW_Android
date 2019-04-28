@@ -12,11 +12,43 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.youth.banner.Banner
-                android:id="@+id/banner_station"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="@color/trans" />
+                android:layout_height="180dp">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner_station"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/trans" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp">
+
+                    <TextView
+                        android:id="@+id/tv_device_status_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/bg_station_status_detail"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="7dp"
+                        android:shadowColor="#993c3c3c"
+                        android:shadowDx="0"
+                        android:shadowDy="2"
+                        android:shadowRadius="3.0"
+                        android:text="报警"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </FrameLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -337,16 +369,16 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="60dp"
-            android:layout_height="match_parent">
-            <TextView
+            android:visibility="gone">
 
+            <TextView
                 android:id="@+id/tv_his_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-
                 android:background="@drawable/bg_banyuan"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"

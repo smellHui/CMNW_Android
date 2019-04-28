@@ -106,6 +106,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         data.setCode(stationBean.getCode());
         data.setStationType(stationBean.getStationType());
         stationBean = data;
+
         mBinding.tvStationName.setText(data.getHandingStation().getName());
         mBinding.tvStationOrgan.setText(data.getHandingStation().getVendorName());
         mBinding.tvStationAdress.setText(data.getHandingStation().getAddress());
@@ -154,19 +155,24 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             switch (data.getCurrentData().getCommunicationResult().getCommunicationStatus()) {
                 case 0:
                     temp = "正常";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_zc);
                     break;
                 case 1:
                     temp = "异常";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_yc);
                     break;
                 case 2:
                     temp = "报警";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail);
                     break;
                 case 3:
                     temp = "故障";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_gz);
                     break;
                 default:
                     break;
             }
+            mBinding.tvDeviceStatusHeader.setText(temp);
             mBinding.tvStationStatus.setText(temp);
             mBinding.tvDurationTimeTip.setText("无通讯维持时间：" + data.getCurrentData().getCommunicationResult().getDuration());
             mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
