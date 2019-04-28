@@ -57,9 +57,9 @@ public class TargetAssessmentFragment extends BaseCommonFragment {
     @Override
     protected void initView(View view) {
         viewPager = findView(R.id.vp);
-        mFragments.add(SpssFragment.launch(0));
-        mFragments.add(WaterQualityRateByStcdFragment.launch(1));
-        mFragments.add(ReachRateFragment.launch(2));
+        mFragments.add(SpssFragment.launch());
+        mFragments.add(WaterQualityRateByStcdFragment.launch());
+        mFragments.add(ReachRateFragment.launch());
         pageAdapter = new PageAdapter(getChildFragmentManager(), mFragments, mTitles);
         viewPager.setAdapter(pageAdapter);
         initMagicIndicator3();
