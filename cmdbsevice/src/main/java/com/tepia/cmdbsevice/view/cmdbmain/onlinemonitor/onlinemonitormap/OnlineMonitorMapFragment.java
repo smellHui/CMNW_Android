@@ -37,6 +37,7 @@ import com.tepia.cmdbsevice.databinding.FragmentOnlineMapBinding;
 import com.tepia.cmnwsevice.model.station.StationBean;
 import com.tepia.cmdbsevice.util.ARCGISUTIL;
 
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
@@ -374,6 +375,9 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 envelope.setYMax(maxPoint.getY() + ycen / 10);
                 mapView.setExtent(envelope);
             }
+            if (stationList.size() == 1){
+                moveUpMap();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -490,5 +494,10 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

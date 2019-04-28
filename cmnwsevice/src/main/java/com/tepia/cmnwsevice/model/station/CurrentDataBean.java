@@ -13,80 +13,41 @@ import java.util.List;
  **/
 public class CurrentDataBean {
 
+
     /**
-     * durationTime : 5天22h55min
-     * isCommunication : true
-     * conductivityStatus : 0
-     * deviceStatus : 0
-     * conductivity : 500.0
-     * deviceMonitorDataList : [{"id":1118063980383748099,"code":"HS20190401161319183428","deviceCode":"MZ-1#TSB","deviceName":"1#提升泵","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-16 16:10:00"},{"id":1118063980434079745,"code":"HS20190401161319183428","deviceCode":"MZ-2#TSB","deviceName":"2#提升泵","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-16 16:10:00"},{"id":1118063980480217091,"code":"HS20190401161319183428","deviceCode":"MZ-1#FJ","deviceName":"1#风机","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-16 16:10:00"}]
-     * startTime : 2019-04-16 16:10:00
-     * endTime : 2019-04-22 15:05:28
+     * communicationResult : {"communicationStatus":0}
+     * conductivityResult : {"conductivity":1375,"conductivityStatus":0}
+     * deviceMonitorDataList : [{"id":1122324612891123718,"code":"HS20190401161320483133","deviceCode":"100A-1#JSJB","deviceName":"1#集水井泵","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-28 10:20:13"},{"id":1122324612954038274,"code":"HS20190401161320483133","deviceCode":"100A-2#JSJB","deviceName":"2#集水井泵","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-28 10:20:13"},{"id":1122324612995981314,"code":"HS20190401161320483133","deviceCode":"100A-FXB","deviceName":"反洗泵","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-28 10:20:13"},{"id":1122324613025341442,"code":"HS20190401161320483133","deviceCode":"100A-QTFJ","deviceName":"气提风机","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-28 10:20:13"},{"id":1122324613054701573,"code":"HS20190401161320483133","deviceCode":"100A-BQFJ1B","deviceName":"曝气风机B1","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-28 10:20:13"},{"id":1122324613151170564,"code":"HS20190401161320483133","deviceCode":"100A-BQFJ2B","deviceName":"曝气风机B2","isFault":0,"isRunning":0,"conductivity":null,"tm":"2019-04-28 10:20:13"}]
+     * deviceResult : {"deviceStatus":0}
      */
 
-    private String durationTime;
-    private boolean isCommunication;
-    private int conductivityStatus;
-    private int deviceStatus;
-    private double conductivity;
-    private String startTime;
-    private String endTime;
+    private CommunicationResultBean communicationResult;
+    private ConductivityResultBean conductivityResult;
+    private DeviceResultBean deviceResult;
     private List<DeviceMonitorDataListBean> deviceMonitorDataList;
 
-    public String getDurationTime() {
-        return durationTime;
+    public CommunicationResultBean getCommunicationResult() {
+        return communicationResult;
     }
 
-    public void setDurationTime(String durationTime) {
-        this.durationTime = durationTime;
+    public void setCommunicationResult(CommunicationResultBean communicationResult) {
+        this.communicationResult = communicationResult;
     }
 
-    public boolean isIsCommunication() {
-        return isCommunication;
+    public ConductivityResultBean getConductivityResult() {
+        return conductivityResult;
     }
 
-    public void setIsCommunication(boolean isCommunication) {
-        this.isCommunication = isCommunication;
+    public void setConductivityResult(ConductivityResultBean conductivityResult) {
+        this.conductivityResult = conductivityResult;
     }
 
-    public int getConductivityStatus() {
-        return conductivityStatus;
+    public DeviceResultBean getDeviceResult() {
+        return deviceResult;
     }
 
-    public void setConductivityStatus(int conductivityStatus) {
-        this.conductivityStatus = conductivityStatus;
-    }
-
-    public int getDeviceStatus() {
-        return deviceStatus;
-    }
-
-    public void setDeviceStatus(int deviceStatus) {
-        this.deviceStatus = deviceStatus;
-    }
-
-    public double getConductivity() {
-        return conductivity;
-    }
-
-    public void setConductivity(double conductivity) {
-        this.conductivity = conductivity;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setDeviceResult(DeviceResultBean deviceResult) {
+        this.deviceResult = deviceResult;
     }
 
     public List<DeviceMonitorDataListBean> getDeviceMonitorDataList() {
@@ -95,6 +56,73 @@ public class CurrentDataBean {
 
     public void setDeviceMonitorDataList(List<DeviceMonitorDataListBean> deviceMonitorDataList) {
         this.deviceMonitorDataList = deviceMonitorDataList;
+    }
+
+    public static class CommunicationResultBean {
+        /**
+         * communicationStatus : 0
+         */
+
+        private int communicationStatus;
+        private int duration;
+
+        public int getCommunicationStatus() {
+            return communicationStatus;
+        }
+
+        public void setCommunicationStatus(int communicationStatus) {
+            this.communicationStatus = communicationStatus;
+        }
+
+        public int getDuration() {
+            return duration;
+        }
+
+        public void setDuration(int duration) {
+            this.duration = duration;
+        }
+    }
+
+    public static class ConductivityResultBean {
+        /**
+         * conductivity : 1375.0
+         * conductivityStatus : 0
+         */
+
+        private double conductivity;
+        private int conductivityStatus;
+
+        public double getConductivity() {
+            return conductivity;
+        }
+
+        public void setConductivity(double conductivity) {
+            this.conductivity = conductivity;
+        }
+
+        public int getConductivityStatus() {
+            return conductivityStatus;
+        }
+
+        public void setConductivityStatus(int conductivityStatus) {
+            this.conductivityStatus = conductivityStatus;
+        }
+    }
+
+    public static class DeviceResultBean {
+        /**
+         * deviceStatus : 0
+         */
+
+        private int deviceStatus;
+
+        public int getDeviceStatus() {
+            return deviceStatus;
+        }
+
+        public void setDeviceStatus(int deviceStatus) {
+            this.deviceStatus = deviceStatus;
+        }
     }
 
 

@@ -32,7 +32,7 @@ import org.litepal.annotation.Column;
 public class StationDetailActivity extends BaseActivity {
     private ActivityStationDetailBinding mBinding;
     private StationBean stationBean;
-    private OnlineMonitorMapFragment onlineMonitorMapFragment;
+    private HeaderMapFragment headerMapFragment;
 
     @Override
     public int getLayoutId() {
@@ -49,6 +49,7 @@ public class StationDetailActivity extends BaseActivity {
         ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft2.addToBackStack(null);
         ft2.commit();
+        initMapFragment();
     }
 
     /**
@@ -56,18 +57,20 @@ public class StationDetailActivity extends BaseActivity {
      */
     private void initMapFragment() {
         FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
-        onlineMonitorMapFragment = new OnlineMonitorMapFragment();
-        ft2.replace(R.id.fl_map_container, onlineMonitorMapFragment);
+        headerMapFragment = new HeaderMapFragment();
+        headerMapFragment.stationBean = stationBean;
+        ft2.replace(R.id.fl_map_container, headerMapFragment);
         ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft2.addToBackStack(null);
         ft2.commit();
 
     }
+
     @Override
     public void initData() {
         String temp = getIntent().getStringExtra("stationBean");
         if (!TextUtils.isEmpty(temp)) {
-            stationBean = new Gson().fromJson(temp,StationBean.class);
+            stationBean = new Gson().fromJson(temp, StationBean.class);
         }
     }
 

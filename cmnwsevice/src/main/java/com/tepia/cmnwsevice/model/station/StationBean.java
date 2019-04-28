@@ -1,6 +1,7 @@
 package com.tepia.cmnwsevice.model.station;
 
 import com.google.common.base.Strings;
+import com.google.gson.annotations.SerializedName;
 import com.tepia.cmnwsevice.utils.StringUtil;
 
 import org.litepal.annotation.Column;
@@ -28,7 +29,8 @@ public class StationBean extends DataSupport {
     private String name;
     private String lgtd;
     private String lttd;
-    private Object waterQuality;
+    private WaterQualityBean waterQuality;
+    @SerializedName(value = "handingStation",alternate = {"pumpingStation"})
     private StationBaseInfoBean handingStation;
     private CurrentDataBean currentData;
 
@@ -120,11 +122,11 @@ public class StationBean extends DataSupport {
         this.lttd = lttd;
     }
 
-    public Object getWaterQuality() {
+    public WaterQualityBean getWaterQuality() {
         return waterQuality;
     }
 
-    public void setWaterQuality(Object waterQuality) {
+    public void setWaterQuality(WaterQualityBean waterQuality) {
         this.waterQuality = waterQuality;
     }
 

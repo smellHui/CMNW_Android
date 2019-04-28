@@ -11,12 +11,15 @@ import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationbaseinfodetail.KeyValueBean;
 import com.tepia.cmnwsevice.model.station.PictureBean;
 import com.tepia.cmnwsevice.model.station.StationBean;
+import com.tepia.cmnwsevice.model.station.WaterQualityBean;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
@@ -69,7 +72,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 }
                 if (mBinding.loWaterQ.getVisibility() == View.VISIBLE) {
                     mBinding.loWaterQ.setVisibility(View.GONE);
-                }else {
+                } else {
                     mBinding.loWaterQ.setVisibility(View.VISIBLE);
                 }
             }
@@ -82,7 +85,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 }
                 if (mBinding.loDeviceStatus.getVisibility() == View.VISIBLE) {
                     mBinding.loDeviceStatus.setVisibility(View.GONE);
-                }else {
+                } else {
                     mBinding.loDeviceStatus.setVisibility(View.VISIBLE);
                 }
             }
@@ -101,6 +104,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
 
     private void refreshView(StationBean data) {
         data.setCode(stationBean.getCode());
+        data.setStationType(stationBean.getStationType());
         stationBean = data;
         mBinding.tvStationName.setText(data.getHandingStation().getName());
         mBinding.tvStationOrgan.setText(data.getHandingStation().getVendorName());
@@ -117,28 +121,37 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             }
         });
         {
-            String temp = "";
-            switch (data.getCurrentData().getConductivityStatus()) {
-                case 0:
-                    temp = "正常";
-                    break;
-                case 1:
-                    temp = "异常";
-                    break;
-                case 2:
-                    temp = "报警";
-                    break;
-                case 3:
-                    temp = "故障";
-                    break;
-                default:
-                    break;
+            if (data.getCurrentData() == null || data.getCurrentData().getConductivityResult() == null || stationBean.getStationType().equals("2")) {
+                mBinding.loWaterQTip.setVisibility(View.GONE);
+                mBinding.loWaterQ.setVisibility(View.GONE);
+            } else {
+                mBinding.loWaterQTip.setVisibility(View.VISIBLE);
+                mBinding.loWaterQ.setVisibility(View.VISIBLE);
+                String temp = "";
+                switch (data.getCurrentData().getConductivityResult().getConductivityStatus()) {
+                    case 0:
+                        temp = "正常";
+                        break;
+                    case 1:
+                        temp = "异常";
+                        break;
+                    case 2:
+                        temp = "报警";
+                        break;
+                    case 3:
+                        temp = "故障";
+                        break;
+                    default:
+                        break;
+                }
+                mBinding.tvCurWaterQ.setText(temp);
+                mBinding.tvConductivity.setText("电导率：" + data.getCurrentData().getConductivityResult().getConductivity() + "μs/cm");
             }
-            mBinding.tvCurWaterQ.setText(temp);
         }
         {
+
             String temp = "";
-            switch (data.getCurrentData().getDeviceStatus()) {
+            switch (data.getCurrentData().getCommunicationResult().getCommunicationStatus()) {
                 case 0:
                     temp = "正常";
                     break;
@@ -155,16 +168,35 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                     break;
             }
             mBinding.tvStationStatus.setText(temp);
+            mBinding.tvDurationTimeTip.setText("无通讯维持时间：" + data.getCurrentData().getCommunicationResult().getDuration());
+            mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
+            AdapterStationStatusHis adapterStationStatusHis = new AdapterStationStatusHis(R.layout.lv_station_status_his_item_view, data.getCurrentData().getDeviceMonitorDataList());
+            mBinding.rvStationStatusHis.setAdapter(adapterStationStatusHis);
         }
-        if (!data.getCurrentData().isIsCommunication()) {
-            mBinding.tvStationStatus.setText("通信异常");
-        }
-        mBinding.tvConductivity.setText("电导率：" + data.getCurrentData().getConductivity() + "μs/cm");
-        mBinding.tvDurationTimeTip.setText("无通讯维持时间：" + data.getCurrentData().getDurationTime());
 
-        mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterStationStatusHis adapterStationStatusHis = new AdapterStationStatusHis(R.layout.lv_station_status_his_item_view, data.getCurrentData().getDeviceMonitorDataList());
-        mBinding.rvStationStatusHis.setAdapter(adapterStationStatusHis);
+        {
+            if (data.getCurrentData() == null || data.getCurrentData().getConductivityResult() == null || stationBean.getStationType().equals("2")) {
+                mBinding.loWaterQRen.setVisibility(View.INVISIBLE);
+            } else {
+                mBinding.loWaterQRen.setVisibility(View.VISIBLE);
+                mBinding.rvWaterQData.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+                WaterQualityBean wBean = data.getWaterQuality();
+                if (wBean != null) {
+                    mBinding.tvLastTime.setText("最近一次监测:"+ wBean.getUpdatedTime());
+                    ArrayList<KeyValueBean> list = new ArrayList<>();
+                    list.add(new KeyValueBean("悬浮物", wBean.getSs() + ""));
+                    list.add(new KeyValueBean("COD", wBean.getCod() + ""));
+                    list.add(new KeyValueBean("动植物油", wBean.getDzwy() + ""));
+                    list.add(new KeyValueBean("总磷", wBean.getTp() + ""));
+                    list.add(new KeyValueBean("总氮", wBean.getTn() + ""));
+                    list.add(new KeyValueBean("氨氮", wBean.getNh3n() + ""));
+                    list.add(new KeyValueBean("阴离子表面活性剂", wBean.getLas() + ""));
+                    AdapterWaterQData adapterWaterQData = new AdapterWaterQData(R.layout.lv_water_q_item_view, list);
+                    mBinding.rvWaterQData.setAdapter(adapterWaterQData);
+                }
+            }
+        }
+
         if (!CollectionsUtil.isEmpty(data.getHandingStation().getReferenceFileList())) {
             initBanner(data.getHandingStation().getReferenceFileList());
         }

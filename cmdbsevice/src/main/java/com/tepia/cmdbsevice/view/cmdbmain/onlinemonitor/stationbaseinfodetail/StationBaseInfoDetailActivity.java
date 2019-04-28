@@ -48,12 +48,14 @@ public class StationBaseInfoDetailActivity extends MVPBaseActivity<StationBaseIn
         showBack();
         mBinding = DataBindingUtil.bind(mRootView);
         initListView();
+        mBinding.tvStationName.setText(stationBean.getHandingStation().getName());
     }
 
     private void initListView() {
         mBinding.rvBaseInfo.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterBaseInfoList adapterBaseInfoList = new AdapterBaseInfoList(R.layout.lv_base_info_view,list) ;
+        AdapterBaseInfoList adapterBaseInfoList = new AdapterBaseInfoList(R.layout.lv_base_info_view, list);
         mBinding.rvBaseInfo.setAdapter(adapterBaseInfoList);
+
     }
 
     @Override
@@ -77,6 +79,7 @@ public class StationBaseInfoDetailActivity extends MVPBaseActivity<StationBaseIn
         纳污户数：
         运维次数：*/
         StationBaseInfoBean bean = stationBean.getHandingStation();
+        list.add(new KeyValueBean("站点编号:", bean.getCode()));
         list.add(new KeyValueBean("站点编码:", bean.getCode()));
         list.add(new KeyValueBean("行政区划:", bean.getAdministrativeDivisionName()));
         list.add(new KeyValueBean("泵站地址:", bean.getAddress()));
