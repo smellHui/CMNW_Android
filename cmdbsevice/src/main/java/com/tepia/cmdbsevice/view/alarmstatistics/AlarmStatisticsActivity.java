@@ -1,5 +1,6 @@
 package com.tepia.cmdbsevice.view.alarmstatistics;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -27,6 +28,9 @@ import java.util.List;
  */
 public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
 
+    public final static int FAULT_SITE = 0;//故障站点
+    public final static int ALARM_SITE = 1;//报警站点
+
     private static String[] mTitles = {"故障站点", "报警站点"};
 
     private List<WarnBean> warnBeans;
@@ -34,7 +38,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
     private SelectEventPopView selectEventPopView;
 
     private List<String> vendorCodeArray, areaCodeArray;
-    private int type;//0.故障站点   1.报警站点
+    private int tabIndex;//0.故障站点   1.报警站点
     private String stationType;
 
     @Override
@@ -57,11 +61,12 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
         });
         SegmentTabLayout tabLayout = findViewById(R.id.tl_1);
         tabLayout.setTabData(mTitles);
+        tabLayout.setCurrentTab(tabIndex);
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                type = position;
-                ((AlermStatisAdapter) getAdapter()).setTabType(type);
+                tabIndex = position;
+                ((AlermStatisAdapter) getAdapter()).setTabType(tabIndex);
                 refresh();
             }
 
@@ -86,7 +91,10 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
 
     @Override
     public void initData() {
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            tabIndex = intent.getIntExtra("tabIndex", -1);
+        }
     }
 
     @Override
@@ -101,7 +109,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
 
     @Override
     protected void initRequestData() {
-        if (type == 0) {
+        if (tabIndex == 0) {
             listByFault();
         } else {
             listByWarning();

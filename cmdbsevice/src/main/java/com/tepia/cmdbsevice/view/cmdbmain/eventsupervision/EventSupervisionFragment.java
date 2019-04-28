@@ -38,7 +38,7 @@ import java.util.List;
  * Description:tab-事件督办
  */
 public class EventSupervisionFragment extends BaseCommonFragment {
-    private static String[] FAULT_RATES = {"行政区划", "运维企业", "站点总数", "达标站点数", "水质达标率"};
+    private static String[] FAULT_RATES = {"行政区划", "运维企业", "站点总数", "报警总数", "故障总数"};
 
     private RecyclerView rv;
     private TextView currectTimeTv;
