@@ -28,8 +28,8 @@
                 android:layout_height="35dp"
                 android:background="@color/color_EEEEEE"
                 android:gravity="center_vertical"
-                android:paddingTop="5dp"
                 android:paddingLeft="20dp"
+                android:paddingTop="5dp"
                 android:text="当前时间："
                 android:textColor="#555555"
                 android:textSize="12sp" />
@@ -49,31 +49,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:paddingBottom="20dp">
 
-                <LinearLayout
+                <com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView
+                    android:id="@+id/view_title"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:background="@drawable/corner_bg_3_grey"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content" />
 
-                    <com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView
-                        android:id="@+id/view_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_bg_3_grey">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-                </LinearLayout>
-            </FrameLayout>
+                </FrameLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

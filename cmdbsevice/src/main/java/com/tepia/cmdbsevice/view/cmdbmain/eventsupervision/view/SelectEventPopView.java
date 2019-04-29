@@ -1,6 +1,8 @@
 package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,14 +100,11 @@ public class SelectEventPopView extends DrawerPopupView {
             listener.selectEvent(areaNames, vendorNames, stationType);
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
     private void transformData(List<String> list, TagFlowLayout tagFlowLayout, List<AreaBean> areaBeans) {
         list.clear();
         Set<Integer> areaIndexs = tagFlowLayout.getSelectedList();
-        if (areaIndexs != null && !areaIndexs.isEmpty()) {
-            for (int i : areaIndexs) {
-                list.add(areaBeans.get(i).getCode());
-            }
-        }
+        areaIndexs.forEach((i) -> list.add(areaBeans.get(i).getCode()));
     }
 
     private void reviseClick(View view) {

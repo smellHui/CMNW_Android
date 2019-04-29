@@ -118,7 +118,8 @@
         <Button
             android:id="@+id/btn_revise"
             style="@style/btn.supter"
-            android:text="重 置" />
+            android:text="重 置"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_query"

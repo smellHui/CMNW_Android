@@ -49,7 +49,7 @@ public abstract class StatisFragment<T> extends BaseCommonFragment {
     @Override
     protected void initView(View view) {
         swipeRefreshLayout = findView(R.id.layout_swipe_refresh);
-        swipeRefreshLayout.setOnRefreshListener(() -> requestListData());
+        swipeRefreshLayout.setOnRefreshListener(this::requestListData);
         tv_choice_data = findView(R.id.tv_choice_data);
         tv_choice_data.setOnClickListener(this::showChoiceDateDialog);
         spssTitleView = findView(R.id.view_spss_title);
@@ -112,8 +112,10 @@ public abstract class StatisFragment<T> extends BaseCommonFragment {
 
     public abstract void showChoiceDateDialog(View view);
 
+    //行政区划接口
     public abstract void listByStcd();
 
+    //企业接口
     public abstract void listByVendor();
 
 }

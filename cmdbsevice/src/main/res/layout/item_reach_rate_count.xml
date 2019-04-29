@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll"
     android:layout_width="match_parent"
     android:layout_height="32dp"
@@ -8,16 +9,16 @@
     <TextView
         android:id="@+id/tv_name"
         style="@style/text.item_spss"
-        android:text="成桥镇" />
+        tools:text="成桥镇" />
 
     <TextView
         android:id="@+id/tv_stationCount"
         style="@style/text.item_spss"
-        android:text="114" />
+        tools:text="114" />
 
     <TextView
         android:id="@+id/tv_rate"
         style="@style/text.item_spss"
-        android:text="114" />
+        tools:text="114" />
 
 </LinearLayout>
