@@ -1,5 +1,6 @@
 package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -19,6 +20,7 @@ public class WaterRateAdapter extends BaseQuickAdapter<WaterRateBean, BaseViewHo
         super(R.layout.item_water_rate_count);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void convert(BaseViewHolder helper, WaterRateBean item) {
         int pos = helper.getAdapterPosition();
@@ -28,6 +30,6 @@ public class WaterRateAdapter extends BaseQuickAdapter<WaterRateBean, BaseViewHo
         helper.setText(R.id.tv_stationCount, item.getStationCount());
         helper.setText(R.id.tv_sampleCount, item.getSampleCount());
         helper.setText(R.id.tv_targetCount, item.getTargetCount());
-        helper.setText(R.id.tv_rate, item.getRate()+"%");
+        helper.setText(R.id.tv_rate, String.format("%.2f%%",item.getRate()));
     }
 }

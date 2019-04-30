@@ -49,7 +49,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
     @Override
     public void initView() {
         super.initView();
-        setCenterTitle("报警统计");
+        setCenterTitle("事件督办");
         showBack();
 
         findViewById(R.id.tv_repeat).setOnClickListener((v) -> {

@@ -63,6 +63,9 @@ public class EventSupervisionFragment extends BaseCommonFragment {
     @Override
     protected void initView(View view) {
         setCenterTitle("事件督办");
+        countShowView = findView(R.id.view_count_show);
+        realTimeSuperView = findView(R.id.view_real_super);
+        townshipStatisticsView = findView(R.id.view_town_statis);
         spssTitleView = findView(R.id.view_title);
         spssTitleView.setData(FAULT_RATES);
         currectTimeTv = findView(R.id.tv_currect_time);
@@ -77,18 +80,11 @@ public class EventSupervisionFragment extends BaseCommonFragment {
         int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
         rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
         rv.setAdapter(cityCountAdapter);
-        addHeadView();
     }
 
     @Override
     protected void initRequestData() {
         onDataTopPickListener(TimeFormatUtils.getFirstDayOfToday(), TimeFormatUtils.getLastDayOfToday());
-    }
-
-    public void addHeadView() {
-        countShowView = findView(R.id.view_count_show);
-        realTimeSuperView = findView(R.id.view_real_super);
-        townshipStatisticsView = findView(R.id.view_town_statis);
     }
 
     /**

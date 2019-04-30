@@ -12,7 +12,7 @@ public class WaterRateBean {
 
     private String sampleCount;
     private String code;
-    private String rate;
+    private float rate;
     private String stationCount;
     private String name;
     private String targetCount;
@@ -42,11 +42,11 @@ public class WaterRateBean {
         this.code = code;
     }
 
-    public String getRate() {
-        return StringUtil.nullToDefault(rate, "0");
+    public float getRate() {
+        return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(float rate) {
         this.rate = rate;
     }
 
