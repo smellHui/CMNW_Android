@@ -47,6 +47,7 @@ public class StationBaseInfoBean {
 
     private int id;
     private String code;
+    private String entryCode;
     private String name;
     private String address;
     private String administrativeDivision;
@@ -89,6 +90,14 @@ public class StationBaseInfoBean {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getEntryCode() {
+        return entryCode;
+    }
+
+    public void setEntryCode(String entryCode) {
+        this.entryCode = entryCode;
     }
 
     public String getName() {

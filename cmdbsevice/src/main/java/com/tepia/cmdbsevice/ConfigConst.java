@@ -53,6 +53,7 @@ public class ConfigConst {
      * http://47.99.135.198:6080/arcgis/rest/services/tianditu_street_chongming/MapServer
      */
     public static final String baseMapUrl = "http://47.99.135.198:6080/arcgis/rest/services/tianditu_street_chongming/MapServer";
+    public static final String baseMapUrl2 = "http://47.99.135.198:6080/arcgis/rest/services/arcgis_yingxiang_chongming/MapServer";
 
     public static final double scale = 9000;
 

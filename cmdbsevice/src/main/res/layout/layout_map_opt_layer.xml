@@ -127,7 +127,7 @@
                     android:drawableLeft="@mipmap/icon_gongzhang_1"
                     android:drawablePadding="8dp"
                     android:padding="8dp"
-                    android:text="提升井"
+                    android:text="  提升井   "
                     android:textColor="#ffffffff"
                     android:textSize="15sp" />
 
@@ -138,7 +138,7 @@
                     android:drawableLeft="@mipmap/icon_chulizhang_1"
                     android:drawablePadding="8dp"
                     android:padding="8dp"
-                    android:text="处理站"
+                    android:text="污水处理站"
                     android:textColor="#ffffffff"
                     android:textSize="15sp" />
             </LinearLayout>

@@ -79,7 +79,9 @@ public class StationBaseInfoDetailActivity extends MVPBaseActivity<StationBaseIn
         纳污户数：
         运维次数：*/
         StationBaseInfoBean bean = stationBean.getHandingStation();
-        list.add(new KeyValueBean("站点编号:", bean.getCode()));
+        if (!TextUtils.isEmpty(bean.getEntryCode())) {
+            list.add(new KeyValueBean("站点编号:", bean.getEntryCode()));
+        }
         list.add(new KeyValueBean("站点编码:", bean.getCode()));
         list.add(new KeyValueBean("行政区划:", bean.getAdministrativeDivisionName()));
         list.add(new KeyValueBean("泵站地址:", bean.getAddress()));
@@ -93,8 +95,12 @@ public class StationBaseInfoDetailActivity extends MVPBaseActivity<StationBaseIn
         }
         list.add(new KeyValueBean("设备数量:", bean.getDeviceNum() + ""));
         list.add(new KeyValueBean("设计排水能力:", bean.getDrainageCapacity() + ""));
-        list.add(new KeyValueBean("纳污户数:", bean.getServiceHouseholds() + ""));
-        list.add(new KeyValueBean("运维次数:", bean.getOrderCount() + ""));
+        if (bean.getServiceHouseholds() != null) {
+            list.add(new KeyValueBean("纳污户数:", bean.getServiceHouseholds() + ""));
+        }
+        if (bean.getOrderCount() != null) {
+            list.add(new KeyValueBean("运维次数:", bean.getOrderCount() + ""));
+        }
     }
 
     @Override

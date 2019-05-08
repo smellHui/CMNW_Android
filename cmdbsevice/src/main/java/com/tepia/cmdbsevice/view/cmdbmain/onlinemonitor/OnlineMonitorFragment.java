@@ -444,7 +444,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         }
         switch (stationType) {
             case "1":
-                mBinding.flSearchContent.tvStationNum.setText("处理站（" + mPresenter.getStationNum(getSaiXuanStrs("1")) + ")");
+                mBinding.flSearchContent.tvStationNum.setText("污水处理站（" + mPresenter.getStationNum(getSaiXuanStrs("1")) + ")");
                 break;
             case "2":
                 mBinding.flSearchContent.tvStationNum.setText("提升井（" + mPresenter.getStationNum(getSaiXuanStrs("2")) + ")");
@@ -462,10 +462,11 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 }
                 if (onlineMonitorMapFragment != null) {
                     onlineMonitorMapFragment.changLayer("image");
+                    mBinding.drawerLayout.closeDrawer(Gravity.RIGHT);
                 }
             }
         });
-        mBinding.loRight.loMapType1.setOnClickListener(new View.OnClickListener() {
+        mBinding.loRight.loMapType2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (DoubleClickUtil.isFastDoubleClick()) {
@@ -473,6 +474,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 }
                 if (onlineMonitorMapFragment != null) {
                     onlineMonitorMapFragment.changLayer("vender");
+                    mBinding.drawerLayout.closeDrawer(Gravity.RIGHT);
                 }
             }
         });

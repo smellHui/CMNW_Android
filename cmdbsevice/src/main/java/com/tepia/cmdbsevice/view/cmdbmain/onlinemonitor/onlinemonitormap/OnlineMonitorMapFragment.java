@@ -79,6 +79,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      * point 图标点击事件
      */
     private OnPointClickListener onPointClickListener;
+    private Runnable drawRunnable;
 
 
     public interface OnPointClickListener {
@@ -124,13 +125,14 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
         //设置底图
         tiledMapLayer = new ArcGISTiledMapServiceLayer(ConfigConst.baseMapUrl);
-        imgLayer = new ArcGISTiledMapServiceLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
+        imgLayer = new ArcGISTiledMapServiceLayer(ConfigConst.baseMapUrl2);
         riversFeatureLayer = new ArcGISFeatureLayer(ConfigConst.riversMapUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
         riversNameGraphicsLayer = new GraphicsLayer();
         selectRiversLayer = new GraphicsLayer();
         logGraphicsLayer = new GraphicsLayer();
         mBinding.mvArcgisRiverLog.addLayer(tiledMapLayer);
         mBinding.mvArcgisRiverLog.addLayer(imgLayer);
+        imgLayer.setVisible(false);
         mBinding.mvArcgisRiverLog.addLayer(riversFeatureLayer);
         mBinding.mvArcgisRiverLog.addLayer(riversNameGraphicsLayer);
         mBinding.mvArcgisRiverLog.addLayer(selectRiversLayer);
@@ -208,10 +210,13 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
     }
 
     private void drawMapPoint(List<StationBean> stationList) {
+        if (drawRunnable != null) {
+            mBinding.mvArcgisRiverLog.removeCallbacks(drawRunnable);
+        }
         logGraphicsLayer.removeGraphics(logGraphicsLayer.getGraphicIDs());
         if (!CollectionsUtil.isEmpty(stationList)) {
             count = 0;
-            mBinding.mvArcgisRiverLog.post(new Runnable() {
+            drawRunnable = new Runnable() {
                 @Override
                 public void run() {
                     if (count < stationList.size()) {
@@ -289,10 +294,11 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                         }
 
 
-                        mBinding.mvArcgisRiverLog.postDelayed(this, 100);
+                        mBinding.mvArcgisRiverLog.postDelayed(this, 5);
                     }
                 }
-            });
+            };
+            mBinding.mvArcgisRiverLog.post(drawRunnable);
         }
     }
 
@@ -327,6 +333,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      * @param conditions
      */
     public void saixuan(String... conditions) {
+        clearMarker();
         List<StationBean> stationList = DataSupport.where(conditions).find(StationBean.class);
         centerAndZoom(stationList);
         drawMapPoint(stationList);
@@ -420,6 +427,12 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     }
 
+    public void clearMarker() {
+        if (callout != null) {
+            callout.animatedHide();
+        }
+    }
+
     /**
      * 上移地图
      */
@@ -487,10 +500,28 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         switch (maptype) {
             /** 影像图层*/
             case "image":
+                if (imgLayer != null) {
+                    imgLayer.setVisible(true);
+                }
+                if (tiledMapLayer != null) {
+                    tiledMapLayer.setVisible(false);
+                }
                 break;
             case "vender":
+                if (imgLayer != null) {
+                    imgLayer.setVisible(false);
+                }
+                if (tiledMapLayer != null) {
+                    tiledMapLayer.setVisible(true);
+                }
                 break;
             default:
+                if (imgLayer != null) {
+                    imgLayer.setVisible(false);
+                }
+                if (tiledMapLayer != null) {
+                    tiledMapLayer.setVisible(true);
+                }
                 break;
         }
     }
