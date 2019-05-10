@@ -64,7 +64,7 @@ public class CurrentDataBean {
          */
 
         private int communicationStatus;
-        private int duration;
+        private String duration;
 
         public int getCommunicationStatus() {
             return communicationStatus;
@@ -74,11 +74,11 @@ public class CurrentDataBean {
             this.communicationStatus = communicationStatus;
         }
 
-        public int getDuration() {
+        public String getDuration() {
             return duration;
         }
 
-        public void setDuration(int duration) {
+        public void setDuration(String duration) {
             this.duration = duration;
         }
     }

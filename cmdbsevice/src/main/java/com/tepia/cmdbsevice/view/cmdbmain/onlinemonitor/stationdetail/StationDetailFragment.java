@@ -128,31 +128,33 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             } else {
                 mBinding.loWaterQTip.setVisibility(View.VISIBLE);
                 mBinding.loWaterQ.setVisibility(View.VISIBLE);
-                String temp = "";
-                switch (data.getCurrentData().getConductivityResult().getConductivityStatus()) {
-                    case 0:
-                        temp = "正常";
-                        break;
-                    case 1:
-                        temp = "异常";
-                        break;
-                    case 2:
-                        temp = "报警";
-                        break;
-                    case 3:
-                        temp = "故障";
-                        break;
-                    default:
-                        break;
+                {
+                    String temp = "";
+                    switch (data.getCurrentData().getConductivityResult().getConductivityStatus()) {
+                        case 0:
+                            temp = "正常";
+                            break;
+                        case 1:
+                            temp = "异常";
+                            break;
+                        case 2:
+                            temp = "报警";
+                            break;
+                        case 3:
+                            temp = "故障";
+                            break;
+                        default:
+                            break;
+                    }
+                    mBinding.tvCurWaterQ.setText(temp);
+                    mBinding.tvConductivity.setText("电导率：" + data.getCurrentData().getConductivityResult().getConductivity() + "μs/cm");
                 }
-                mBinding.tvCurWaterQ.setText(temp);
-                mBinding.tvConductivity.setText("电导率：" + data.getCurrentData().getConductivityResult().getConductivity() + "μs/cm");
             }
         }
         {
 
             String temp = "";
-            switch (data.getCurrentData().getCommunicationResult().getCommunicationStatus()) {
+            switch (Math.max(data.getCurrentData().getCommunicationResult().getCommunicationStatus(), data.getCurrentData().getConductivityResult().getConductivityStatus())) {
                 case 0:
                     temp = "正常";
                     mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_zc);
@@ -188,7 +190,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 mBinding.rvWaterQData.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
                 WaterQualityBean wBean = data.getWaterQuality();
                 if (wBean != null) {
-                    mBinding.tvLastTime.setText("最近一次监测:"+ wBean.getUpdatedTime());
+                    mBinding.tvLastTime.setText("最近一次监测:" + wBean.getUpdatedTime());
                     ArrayList<KeyValueBean> list = new ArrayList<>();
                     list.add(new KeyValueBean("悬浮物", wBean.getSs() + ""));
                     list.add(new KeyValueBean("COD", wBean.getCod() + ""));

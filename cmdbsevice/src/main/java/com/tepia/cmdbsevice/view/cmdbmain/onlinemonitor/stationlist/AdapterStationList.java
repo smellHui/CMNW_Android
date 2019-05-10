@@ -34,15 +34,19 @@ public class AdapterStationList extends BaseQuickAdapter<StationBean, BaseViewHo
         switch (item.getStationStatus()) {
             case "0":
                 mBinding.tvDeviceStatus.setText("正常");
+                mBinding.tvDeviceStatus.setTextColor(0xff010101);
                 break;
             case "1":
                 mBinding.tvDeviceStatus.setText("异常");
+                mBinding.tvDeviceStatus.setTextColor(0xffe2ba00);
                 break;
             case "2":
                 mBinding.tvDeviceStatus.setText("报警");
+                mBinding.tvDeviceStatus.setTextColor(0xfff1891f);
                 break;
             case "3":
                 mBinding.tvDeviceStatus.setText("故障");
+                mBinding.tvDeviceStatus.setTextColor(0xfff34235);
                 break;
             default:
                 mBinding.tvDeviceStatus.setText("正常");

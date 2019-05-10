@@ -18,7 +18,6 @@
                 android:layout_height="match_parent"
                 android:background="@color/black" />
 
-
             <include
                 android:id="@+id/lo_map_opt_layer"
                 layout="@layout/layout_map_opt_layer" />

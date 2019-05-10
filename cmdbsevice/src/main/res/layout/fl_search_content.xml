@@ -7,7 +7,7 @@
         android:id="@+id/fl_search_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="800dp"
+        android:minHeight="600dp"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -42,7 +42,7 @@
             </com.tepia.base.view.ScrollLayout.ContentScrollView>
 
             <LinearLayout
-
+                android:id="@+id/lo_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_station_list"

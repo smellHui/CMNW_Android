@@ -77,7 +77,7 @@
                                 android:id="@+id/tv_station_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="城桥镇1号处理站 "
+                                android:text=" "
                                 android:textColor="#ff010101"
                                 android:textSize="17sp" />
 
@@ -89,7 +89,7 @@
                                 android:layout_toRightOf="@id/tv_station_name"
                                 android:background="@drawable/bg_station_organ_type"
                                 android:padding="4dp"
-                                android:text="上海电气"
+                                android:text=""
                                 android:textColor="#fff1891f"
                                 android:textSize="11sp" />
 
@@ -99,7 +99,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/tv_station_name"
                                 android:layout_marginTop="12dp"
-                                android:text="上海市浦东新区其新连路128号"
+                                android:text=""
                                 android:textColor="#ff555555"
                                 android:textSize="14sp" />
 
@@ -194,7 +194,7 @@
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="25dp"
                                 android:layout_toRightOf="@id/tv_cur_water_q_tip"
-                                android:text="异常"
+                                android:text=""
                                 android:textColor="#ff888888"
                                 android:textSize="15sp" />
 
@@ -224,7 +224,7 @@
                                 android:id="@+id/tv_conductivity"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="电导率：1700μs/cm     2019-4-15"
+                                android:text=""
                                 android:textColor="#ff888888"
                                 android:textSize="13sp" />
 
@@ -260,7 +260,7 @@
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="25dp"
                                 android:layout_toRightOf="@id/tv_station_station_tip"
-                                android:text="无通讯"
+                                android:text=""
                                 android:textColor="#ff888888"
                                 android:textSize="15sp" />
 
@@ -290,7 +290,7 @@
                                 android:id="@+id/tv_duration_time_tip"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="无通讯维持时间：2小时"
+                                android:text=""
                                 android:textColor="#ff888888"
                                 android:textSize="13sp" />
 

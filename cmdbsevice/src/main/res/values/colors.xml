@@ -15,4 +15,5 @@
     <color name="color_F7F9FC">#F7F9FC</color>
     <color name="color_434952">#434952</color>
     <color name="color_4DB17B">#4DB17B</color>
+    <color name="bg_color_map">#40000000</color>
 </resources>

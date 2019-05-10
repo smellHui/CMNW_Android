@@ -85,8 +85,8 @@ public class StationBaseInfoDetailActivity extends MVPBaseActivity<StationBaseIn
         list.add(new KeyValueBean("站点编码:", bean.getCode()));
         list.add(new KeyValueBean("行政区划:", bean.getAdministrativeDivisionName()));
         list.add(new KeyValueBean("泵站地址:", bean.getAddress()));
-        list.add(new KeyValueBean("经度:", bean.getLttd() + ""));
-        list.add(new KeyValueBean("纬度:", bean.getLgtd() + ""));
+        list.add(new KeyValueBean("经度:", bean.getLgtd() + ""));
+        list.add(new KeyValueBean("纬度:", bean.getLttd() + ""));
         list.add(new KeyValueBean("设备厂商:", bean.getVendorName() + ""));
         if (!CollectionsUtil.isEmpty(bean.getSupportList())) {
             list.add(new KeyValueBean("设备负责人:", bean.getSupportList().get(0).getContactName() + ""));

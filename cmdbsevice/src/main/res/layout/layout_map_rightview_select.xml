@@ -55,14 +55,14 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_map_image" />
+                                android:src="@mipmap/map_satellite" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="卫星图"
-                                android:textColor="#ff52b57e"
+                                android:textColor="#ff333333"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -79,14 +79,14 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_map_vender" />
+                                android:src="@mipmap/map_graphic" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="矢量图"
-                                android:textColor="#ff52b57e"
+                                android:textColor="#ff333333"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>

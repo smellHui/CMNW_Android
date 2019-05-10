@@ -222,20 +222,20 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                     if (count < stationList.size()) {
                         StationBean bean = stationList.get(count++);
                         if (bean == null) {
-                            mBinding.mvArcgisRiverLog.postDelayed(this, 100);
+                            mBinding.mvArcgisRiverLog.postDelayed(this, 5);
                             return;
                         }
                         if (TextUtils.isEmpty(bean.getLttd()) && TextUtils.isEmpty(bean.getLttd())) {
-                            mBinding.mvArcgisRiverLog.postDelayed(this, 100);
+                            mBinding.mvArcgisRiverLog.postDelayed(this, 5);
                             return;
                         }
                         Point point = transStationBeanTOpoint(bean);
                         if (point == null) {
-                            mBinding.mvArcgisRiverLog.postDelayed(this, 100);
+                            mBinding.mvArcgisRiverLog.postDelayed(this, 5);
                             return;
                         }
                         if (TextUtils.isEmpty(bean.getStationType())) {
-                            mBinding.mvArcgisRiverLog.postDelayed(this, 100);
+                            mBinding.mvArcgisRiverLog.postDelayed(this, 5);
 
                         } else {
                             switch (bean.getStationType()) {

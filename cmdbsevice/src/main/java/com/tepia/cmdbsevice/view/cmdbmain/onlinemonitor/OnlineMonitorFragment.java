@@ -88,6 +88,12 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         initSearchView();
         initScrollLayout(mRootView);
         initContentView();
+        mBinding.flSearchContent.flSearchContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBinding.flSearchContent.flSearchContent.setVisibility(View.GONE);
+            }
+        });
         showLayer(0);
     }
 
@@ -258,9 +264,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String temp = mBinding.loSearchHeader.etSearch.getText().toString();
                 if (!TextUtils.isEmpty(temp)) {
-                    if (!CollectionsUtil.isEmpty(mPresenter.getSearchTipList(temp))) {
-                        showLayer(2);
-                        initAndShowSearchTipList();
+                    showLayer(2);
+                    initAndShowSearchTipList();
+                    if (CollectionsUtil.isEmpty(mPresenter.getSearchTipList(temp))) {
+                       ToastUtils.shortToast("没有相关测站");
                     }
                 } else {
                     if (!CollectionsUtil.isEmpty(mPresenter.getSearchHisList())) {
@@ -627,7 +634,6 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         ft2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft2.addToBackStack(null);
         ft2.commit();
-
     }
 
     private void initLisitener() {
@@ -667,9 +673,11 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
         mBinding.loSearchTip.rvSearchTip.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterSearchTipList adapterSearchTipList = new AdapterSearchTipList(R.layout.lv_search_tip_list, mPresenter.getSearchTipList(mBinding.loSearchHeader.etSearch.getText().toString()));
         mBinding.loSearchTip.rvSearchTip.setAdapter(adapterSearchTipList);
-//        View footview = LayoutInflater.from(getContext()).inflate(R.layout.lv_search_foot_view, null);
-//        adapterSearchTipList.setFooterView(footview);
-
+        if (CollectionsUtil.isEmpty(adapterSearchTipList.getData())) {
+            mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
+        } else {
+            mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
+        }
         adapterSearchTipList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -703,7 +711,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 mBinding.loSearchHeader.loBtSearch.setVisibility(View.VISIBLE);
                 mBinding.loSearchHeader.loSearchEt.setVisibility(View.GONE);
                 mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.VISIBLE);
-                mBinding.loSearchTip.loSearch.setVisibility(View.GONE);
+                mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
                 mBinding.flSearchContent.flSearchContent.setVisibility(View.GONE);
             }
             break;
@@ -711,13 +719,15 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 mBinding.loSearchHeader.loBtSearch.setVisibility(View.VISIBLE);
                 mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
                 mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.VISIBLE);
-                mBinding.loSearchTip.loSearch.setVisibility(View.VISIBLE);
+                mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
                 if (CollectionsUtil.isEmpty(mPresenter.getSearchHisList())) {
                     mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
                 } else {
                     mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
+                    if (!TextUtils.isEmpty(mBinding.loSearchHeader.etSearch.getText().toString())) {
+                        initAndShowSearchHisList();
+                    }
                 }
-                mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
                 mBinding.loSearchTip.rvSearchHis.setVisibility(View.VISIBLE);
                 mBinding.loSearchTip.rvSearchTip.setVisibility(View.GONE);
                 mBinding.flSearchContent.flSearchContent.setVisibility(View.GONE);
@@ -727,7 +737,6 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 mBinding.loSearchHeader.loBtSearch.setVisibility(View.VISIBLE);
                 mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
                 mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.GONE);
-                mBinding.loSearchTip.loSearch.setVisibility(View.VISIBLE);
                 mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
                 mBinding.loSearchTip.rvSearchHis.setVisibility(View.GONE);
                 mBinding.loSearchTip.rvSearchTip.setVisibility(View.VISIBLE);
@@ -738,7 +747,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 mBinding.loSearchHeader.loBtSearch.setVisibility(View.VISIBLE);
                 mBinding.loSearchHeader.loSearchEt.setVisibility(View.VISIBLE);
                 mBinding.loMapOptLayer.loMapOptLayer.setVisibility(View.VISIBLE);
-                mBinding.loSearchTip.loSearch.setVisibility(View.GONE);
+                mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
                 mBinding.flSearchContent.flSearchContent.setVisibility(View.VISIBLE);
             }
             break;
@@ -765,10 +774,16 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     return;
                 }
                 mPresenter.clearSearchHisList();
+                initAndShowSearchHisList();
             }
         });
         adapterSearchHisList.setFooterView(footview);
 
+        if (CollectionsUtil.isEmpty(adapterSearchHisList.getData())) {
+            mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
+        } else {
+            mBinding.loSearchTip.loSearchTip.setVisibility(View.VISIBLE);
+        }
         adapterSearchHisList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
