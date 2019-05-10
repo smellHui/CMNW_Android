@@ -41,15 +41,14 @@ public class SpssFragment extends StatisFragment<TopTotalBean> {
     @Override
     protected void initView(View view) {
         super.initView(view);
+        this.startTime = TimeFormatUtils.getFirstDayOfToday();
+        this.endTime = TimeFormatUtils.getLastDayOfToday();
+        setChoiceDateTv(startTime);
         selectDataView = new SelectDataView(getContext());
         selectDataView.setListener(this::onDataSelectPickListener);
     }
 
     private void onDataSelectPickListener(String startTime, String endTime) {
-        if (startTime == null || endTime == null) {
-            ToastUtils.shortToast("请选择日期");
-            return;
-        }
         this.startTime = startTime;
         this.endTime = endTime;
         setChoiceDateTv(String.format("%s - %s", startTime.replace("-", "."), endTime.replace("-", ".")));
@@ -58,8 +57,6 @@ public class SpssFragment extends StatisFragment<TopTotalBean> {
 
     @Override
     public void initRequestData() {
-        this.startTime = TimeFormatUtils.getFirstDayOfToday();
-        this.endTime = TimeFormatUtils.getLastDayOfToday();
         requestListData();
     }
 

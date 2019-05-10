@@ -1,31 +1,18 @@
 package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.fragment;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.flyco.tablayout.SegmentTabLayout;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.lxj.xpopup.XPopup;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
-import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
-import com.tepia.base.view.WrapLayoutManager;
-import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
-import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
-import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmdbsevice.model.event.WaterRateBean;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.adapter.ReachRateAdapter;
-import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.adapter.SpssCountAdapter;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SelectDataView;
-import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView;
 
 import java.util.List;
 
@@ -51,15 +38,14 @@ public class ReachRateFragment extends StatisFragment<WaterRateBean> {
     @Override
     protected void initView(View view) {
         super.initView(view);
+        this.startTime = TimeFormatUtils.getFirstDayOfToday();
+        this.endTime = TimeFormatUtils.getLastDayOfToday();
+        setChoiceDateTv(startTime);
         selectDataView = new SelectDataView(getContext());
         selectDataView.setListener(this::onDataSelectPickListener);
     }
 
     private void onDataSelectPickListener(String startTime, String endTime) {
-        if (startTime == null || endTime == null) {
-            ToastUtils.shortToast("请选择日期");
-            return;
-        }
         this.startTime = startTime;
         this.endTime = endTime;
         setChoiceDateTv(String.format("%s - %s", startTime.replace("-", "."), endTime.replace("-", ".")));
@@ -69,8 +55,6 @@ public class ReachRateFragment extends StatisFragment<WaterRateBean> {
 
     @Override
     public void initRequestData() {
-        this.startTime = TimeFormatUtils.getFirstDayOfToday();
-        this.endTime = TimeFormatUtils.getLastDayOfToday();
         requestListData();
     }
 

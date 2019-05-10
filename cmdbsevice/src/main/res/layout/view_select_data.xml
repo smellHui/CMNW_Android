@@ -31,66 +31,79 @@
             zhy:max_select="1"
             zhy:tag_gravity="center" />
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rb_1"
-                android:layout_width="fill_parent"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:background="@drawable/date_radio"
-                android:button="@null"
-                android:gravity="center"
-                android:text="开始日期"
-                android:textColor="@drawable/tv_state_pressed"
-                android:textSize="12sp" />
-
-            <View
-                android:layout_width="12dp"
-                android:layout_height="1dp"
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="11dp"
-                android:background="#4FB17C" />
-
-            <RadioButton
-                android:id="@+id/rb_2"
-                android:layout_width="fill_parent"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:background="@drawable/date_radio"
-                android:button="@null"
-                android:gravity="center"
-                android:text="结束日期"
-                android:textColor="@drawable/tv_state_pressed"
-                android:textSize="12sp" />
-        </RadioGroup>
-
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#F7F6F6">
+            android:layout_height="wrap_content">
 
-            <View
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/left_layer" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/wheelLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/date_radio"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="开始日期"
+                        android:textColor="@drawable/tv_state_pressed"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginRight="11dp"
+                        android:background="#4FB17C" />
+
+                    <RadioButton
+                        android:id="@+id/rb_2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/date_radio"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="结束日期"
+                        android:textColor="@drawable/tv_state_pressed"
+                        android:textSize="12sp" />
+                </RadioGroup>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#F7F6F6">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/left_layer" />
+
+                    <FrameLayout
+                        android:id="@+id/wheelLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </FrameLayout>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/img_intercept"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="#CCF5F5F5" />
         </FrameLayout>
 
 

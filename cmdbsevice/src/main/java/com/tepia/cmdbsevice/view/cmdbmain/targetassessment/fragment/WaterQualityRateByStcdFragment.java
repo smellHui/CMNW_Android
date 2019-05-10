@@ -1,5 +1,6 @@
 package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.fragment;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -33,6 +34,12 @@ public class WaterQualityRateByStcdFragment extends StatisFragment<WaterRateBean
     }
 
     @Override
+    protected void initView(View view) {
+        super.initView(view);
+        setChoiceDateTv("筛选");
+    }
+
+    @Override
     public void initRequestData() {
         setRefreshing(true);
         listDataTime();
@@ -41,15 +48,17 @@ public class WaterQualityRateByStcdFragment extends StatisFragment<WaterRateBean
     @Override
     public void showChoiceDateDialog(View view) {
         if (dateList == null || dateList.isEmpty()) return;
-        new XPopup.Builder(getContext())
-                .asCenterList("请选择日期", dateList.toArray(new String[dateList.size()]),
-                        null, checkedPosition,
-                        (position, text) -> {
-                            checkedPosition = position;
-                            choiceDate = text;
-                            requestListData();
-                        })
-                .show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            new XPopup.Builder(getContext())
+                    .asCenterList("请选择日期", dateList.toArray(new String[0]),
+                            null, checkedPosition,
+                            (position, text) -> {
+                                checkedPosition = position;
+                                choiceDate = text;
+                                requestListData();
+                            })
+                    .show();
+        }
     }
 
     @Override
@@ -112,6 +121,7 @@ public class WaterQualityRateByStcdFragment extends StatisFragment<WaterRateBean
                         dateList = baseCommonResponse.getData();
                         if (dateList != null && !dateList.isEmpty()) {
                             choiceDate = dateList.get(0);
+                            setChoiceDateTv(choiceDate);
                             requestListData();
                         }
                     }

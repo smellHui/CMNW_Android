@@ -18,6 +18,7 @@ import com.codbking.widget.DatePicker;
 
 import com.codbking.widget.OnChangeLisener;
 import com.codbking.widget.bean.DateType;
+import com.google.common.base.Strings;
 import com.lxj.xpopup.core.BasePopupView;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
@@ -38,7 +39,7 @@ import java.util.Date;
 public class SelectDataView extends BasePopupView implements OnChangeLisener {
 
     private static String[] dataCates = new String[]{"本年", "本季", "本月", "其他"};
-    private int cate = -1;//0,1,2,3  对应  "本年", "本季", "本月", "其他"
+    private volatile int cate = -1;//0,1,2,3  对应  "本年", "本季", "本月", "其他"
     //开始时间
     private Date startDate = new Date();
     //年分限制，默认上下5年
@@ -86,17 +87,13 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
         });
         rbStart = findViewById(R.id.rb_1);
         rbEnd = findViewById(R.id.rb_2);
-        setNoEnable();
         wheelLayout = findViewById(com.codbking.widget.R.id.wheelLayout);
         flowlayout = findViewById(R.id.flowlayout);
         flowlayout.setOnTagClickListener((view, position, parent) -> {
             cate = position;
             if (position == 3) {
-                rbStart.setEnabled(true);
-                rbEnd.setEnabled(true);
                 img_intercept.setVisibility(GONE);
             } else {
-                setNoEnable();
                 img_intercept.setVisibility(VISIBLE);
             }
             return true;
@@ -127,6 +124,18 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
                     listener.onDataSelectPickListener(TimeFormatUtils.getFirstDayOfMonth(), TimeFormatUtils.getLastDayOfMonth());
                     break;
                 case 3://其他
+                    if (Strings.isNullOrEmpty(startTime)) {
+                        ToastUtils.shortToast("请选择开始日期");
+                        return;
+                    }
+                    if (Strings.isNullOrEmpty(endTime)) {
+                        ToastUtils.shortToast("请选择结束日期");
+                        return;
+                    }
+                    if (mStartDate.compareTo(mEndDate) > 0) {
+                        ToastUtils.shortToast("开始日期不能大于结束日期");
+                        return;
+                    }
                     listener.onDataSelectPickListener(startTime, endTime);
                     break;
             }
@@ -135,12 +144,6 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
         img_close.setOnClickListener((v) -> dismiss());
     }
 
-    private void setNoEnable() {
-        rbStart.setEnabled(false);
-        rbEnd.setEnabled(false);
-        rbStart.setChecked(false);
-        rbEnd.setChecked(false);
-    }
 
     private DatePicker getDatePicker() {
         DatePicker picker = new DatePicker(getContext(), DateType.TYPE_YMD);
@@ -151,18 +154,20 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
         return picker;
     }
 
-    private String startTime, endTime, time;
+    private String startTime, endTime;
+    private Date mStartDate, mEndDate;
 
     @Override
     public void onChanged(Date date) {
-        time = TimeFormatUtils.dateToStr(date);
         if (rbStart.isChecked()) {
-            startTime = time;
-            rbStart.setText(time);
+            mStartDate = date;
+            startTime = TimeFormatUtils.dateToStr(date);
+            rbStart.setText(startTime);
         }
         if (rbEnd.isChecked()) {
-            endTime = time;
-            rbEnd.setText(time);
+            mEndDate = date;
+            endTime = TimeFormatUtils.dateToStr(date);
+            rbEnd.setText(endTime);
         }
     }
 

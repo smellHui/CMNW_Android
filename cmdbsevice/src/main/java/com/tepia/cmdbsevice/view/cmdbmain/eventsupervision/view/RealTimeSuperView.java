@@ -3,8 +3,11 @@ package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+
+import androidx.annotation.RequiresApi;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -20,6 +23,8 @@ import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -88,7 +93,7 @@ public class RealTimeSuperView extends ViewBase {
     }
 
     /**
-     * 横轴公司类型
+     * 横x轴公司类型
      */
     private void initXAxis() {
         xAxis = chart.getXAxis();
@@ -125,7 +130,7 @@ public class RealTimeSuperView extends ViewBase {
         rightAxis.setTextColor(Color.parseColor("#37394C"));
         rightAxis.setTextSize(12f);
         rightAxis.setValueFormatter(new LargeValueFormatter());
-        rightAxis.setAxisMaximum(100f);
+        rightAxis.setAxisMaximum(50f);
         rightAxis.setAxisMinimum(0f);
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawAxisLine(false);
@@ -171,12 +176,9 @@ public class RealTimeSuperView extends ViewBase {
         float groupSpace = 0.54f;
         float barSpace = 0.03f; // x4 DataSet
         float barWidth = 0.2f; // x4 DataSet
-        // specify the width each bar should have
         barData.setBarWidth(barWidth);
 
-        // restrict the x-axis range
         xAxis.setAxisMinimum(0);
-        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
         xAxis.setAxisMaximum(barData.getGroupWidth(groupSpace, barSpace) * 5);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -186,6 +188,18 @@ public class RealTimeSuperView extends ViewBase {
                 return topTotalBean != null ? topTotalBean.getName() : "";
             }
         });
+
+        List<Integer> nums = new ArrayList<>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            vendorTotals.forEach((ven) -> {
+                nums.add(Integer.valueOf(ven.getFaultNum()));
+                nums.add(Integer.valueOf(ven.getAlarmNum()));
+            });
+            int maxNum = nums.stream().max(Integer::compare).get();
+            rightAxis.setAxisMaximum(maxNum * 2);
+            leftAxis.setAxisMaximum(maxNum * 2);
+        }
+
         chart.groupBars(0, groupSpace, barSpace);
         chart.invalidate();
     }
