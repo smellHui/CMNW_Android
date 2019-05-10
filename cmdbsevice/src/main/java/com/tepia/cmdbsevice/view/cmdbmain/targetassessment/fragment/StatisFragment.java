@@ -34,7 +34,7 @@ public abstract class StatisFragment<T> extends BaseCommonFragment {
     private TextView tv_choice_data;
 
     private BaseQuickAdapter baseQuickAdapter;
-    private int currectTab;
+    private volatile int currectTab;
 
     @Override
     protected int getLayoutId() {
@@ -71,7 +71,7 @@ public abstract class StatisFragment<T> extends BaseCommonFragment {
         setVerModel();
     }
 
-    public void requestListData() {
+    public synchronized void requestListData() {
         setRefreshing(true);
         if (currectTab == 0) {
             listByStcd();

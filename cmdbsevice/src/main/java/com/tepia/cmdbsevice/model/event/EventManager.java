@@ -151,6 +151,17 @@ public class EventManager {
     }
 
     /**
+     * 【查询】故障率统计
+     * @return
+     */
+    public Observable<BaseCommonResponse<List<TopTotalBean>>> faultStatistics(String dimension,String startDate,String endDate) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.faultStatistics(token, dimension,startDate,endDate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
      * 【查询】按企业分析在线水质达标率
      *
      * @param params

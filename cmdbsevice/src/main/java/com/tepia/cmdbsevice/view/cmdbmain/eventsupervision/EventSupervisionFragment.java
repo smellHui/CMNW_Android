@@ -139,6 +139,7 @@ public class EventSupervisionFragment extends BaseCommonFragment {
                     protected void _onNext(BaseCommonResponse<List<TopTotalBean>> baseCommonResponse) {
                         vendorTotals = baseCommonResponse.getData();
                         realTimeSuperView.setData(vendorTotals);
+                        System.out.println("vendorTotals--->" + vendorTotals.toString());
                     }
 
                     @Override

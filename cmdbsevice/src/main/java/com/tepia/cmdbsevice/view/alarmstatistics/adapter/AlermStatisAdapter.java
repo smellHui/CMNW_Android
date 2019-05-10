@@ -44,17 +44,4 @@ public class AlermStatisAdapter extends BaseQuickAdapter<WarnBean, BaseViewHolde
         helper.setText(R.id.tv_overHours, String.format("%s小时", isFault ? item.getOverHours() : item.getSurplusHours()));
     }
 
-    /**
-     * 获取剩余分钟
-     *
-     * @param dispatchTime
-     * @param handleMinute
-     * @return
-     */
-    private long getLastTime(String dispatchTime, String handleMinute) {
-        long handM = Long.parseLong(handleMinute);
-        if (handM <= 0l) return 0l;
-        return (handM - TimeFormatUtils.coverMinutes(dispatchTime)) / 60;
-    }
-
 }

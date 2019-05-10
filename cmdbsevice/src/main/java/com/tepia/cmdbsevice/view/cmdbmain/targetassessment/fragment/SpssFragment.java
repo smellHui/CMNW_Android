@@ -9,7 +9,6 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
-import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.adapter.SpssCountAdapter;
@@ -24,11 +23,14 @@ import java.util.List;
  */
 public class SpssFragment extends StatisFragment<TopTotalBean> {
 
+    private static final int TOWN_TYPE = 2;
+    private static final int VENDOR_TYPE = TOWN_TYPE >> 1;
+
     private static String[] FAULT_RATES = {"行政区划", "报警总数", "故障总数", "故障率"};
 
     private SelectDataView selectDataView;
 
-    private List<TopTotalBean> vendorTotals, townTotals;
+    private List<TopTotalBean> topTotals;
     private String startTime, endTime;
 
     public static SpssFragment launch() {
@@ -72,32 +74,26 @@ public class SpssFragment extends StatisFragment<TopTotalBean> {
 
     @Override
     public void listByStcd() {
-        EventManager.getInstance().countFaultRateByTown("startTime", String.format("%s 00:00:00", startTime), "endTime", String.format("%s 23:59:59", endTime))
-                .safeSubscribe(new LoadingSubject<BaseCommonResponse<List<TopTotalBean>>>() {
-
-                    @Override
-                    protected void _onNext(BaseCommonResponse<List<TopTotalBean>> baseCommonResponse) {
-                        townTotals = baseCommonResponse.getData();
-                        setNewData(townTotals);
-                        setRefreshing(false);
-                    }
-
-                    @Override
-                    protected void _onError(String message) {
-                        setRefreshing(false);
-                    }
-                });
+        faultStatistics(TOWN_TYPE);
     }
 
     @Override
     public void listByVendor() {
-        EventManager.getInstance().countFaultRateByVendor("startTime", String.format("%s 00:00:00", startTime), "endTime", String.format("%s 23:59:59", endTime))
+        faultStatistics(VENDOR_TYPE);
+    }
+
+    /**
+     * 【查询】故障率统计
+     * dimension  1 - 按厂家; 2 - 按乡镇;
+     */
+    private void faultStatistics(int dimension) {
+        EventManager.getInstance().faultStatistics(dimension + "", startTime, endTime)
                 .safeSubscribe(new LoadingSubject<BaseCommonResponse<List<TopTotalBean>>>() {
 
                     @Override
                     protected void _onNext(BaseCommonResponse<List<TopTotalBean>> baseCommonResponse) {
-                        vendorTotals = baseCommonResponse.getData();
-                        setNewData(vendorTotals);
+                        topTotals = baseCommonResponse.getData();
+                        setNewData(topTotals);
                         setRefreshing(false);
                     }
 

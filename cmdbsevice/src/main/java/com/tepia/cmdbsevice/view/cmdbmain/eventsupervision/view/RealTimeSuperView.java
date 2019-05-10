@@ -32,11 +32,12 @@ import java.util.List;
  */
 public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedListener {
 
-    private final static String[] cateStrs = new String[]{"上海电气", "山东中车", "北控水务", "远达环保", "其他企业"};
+//    private final static String[] cateStrs = new String[]{"上海电气", "山东中车", "北控水务", "远达环保", "其他企业"};
     protected Typeface tfRegular;
     protected Typeface tfLight;
     private BarChart chart;
     private BarDataSet set1, set2;
+    private XAxis xAxis;
 
     public RealTimeSuperView(Context context) {
         super(context);
@@ -77,7 +78,7 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         l.setDrawInside(false);
         l.setTypeface(tfLight);
 
-        XAxis xAxis = chart.getXAxis();
+        xAxis = chart.getXAxis();
         xAxis.setTypeface(tfLight);
         xAxis.setTextColor(Color.parseColor("#37394C"));
         xAxis.setTextSize(12f);
@@ -85,15 +86,15 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setYOffset(10f);
         xAxis.setCenterAxisLabels(true);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                if (value < 0 || value >= cateStrs.length) {
-                    return "";
-                }
-                return cateStrs[(int) value];
-            }
-        });
+//        xAxis.setValueFormatter(new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value) {
+//                if (value < 0 || value >= cateStrs.length) {
+//                    return "";
+//                }
+//                return cateStrs[(int) value];
+//            }
+//        });
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
@@ -119,9 +120,9 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
 
         // create 4 DataSets
         set1 = new BarDataSet(new ArrayList<>(), "故障数");
-        set1.setColor(Color.parseColor("#FEAA18"));
+        set1.setColor(Color.parseColor("#F46B6D"));
         set2 = new BarDataSet(new ArrayList<>(), "报警数");
-        set2.setColor(Color.parseColor("#F46B6D"));
+        set2.setColor(Color.parseColor("#FEAA18"));
 
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
@@ -142,6 +143,7 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
     }
 
     public void setData(List<TopTotalBean> vendorTotals) {
+        if (vendorTotals == null || vendorTotals.isEmpty()) return;
         ArrayList<BarEntry> values1 = new ArrayList<>();
         ArrayList<BarEntry> values2 = new ArrayList<>();
         for (int i = 0; i < vendorTotals.size(); i++) {
@@ -165,10 +167,17 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         chart.getBarData().setBarWidth(barWidth);
 
         // restrict the x-axis range
-        chart.getXAxis().setAxisMinimum(0);
-//
-//        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-        chart.getXAxis().setAxisMaximum(chart.getBarData().getGroupWidth(groupSpace, barSpace) * 5);
+        xAxis.setAxisMinimum(0);
+        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
+        xAxis.setAxisMaximum(chart.getBarData().getGroupWidth(groupSpace, barSpace) * 5);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                  if (value < 0 || value >= vendorTotals.size()) return "";
+                TopTotalBean topTotalBean = vendorTotals.get((int) value);
+                return topTotalBean != null ? topTotalBean.getName() : "";
+            }
+        });
         chart.groupBars(0, groupSpace, barSpace);
         chart.invalidate();
     }

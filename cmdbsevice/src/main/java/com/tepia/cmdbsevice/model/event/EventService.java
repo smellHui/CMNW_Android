@@ -57,6 +57,15 @@ public interface EventService {
     @POST("supervise/countFaultRateByVendor")
     Observable<BaseCommonResponse<List<TopTotalBean>>> countFaultRateByVendor(@Header("token") String token, @Body RequestBody body);
 
+
+    /**
+     * 【查询】故障率统计
+     * @param token
+     * @return
+     */
+    @GET("overallStatistics/faultStatistics")
+    Observable<BaseCommonResponse<List<TopTotalBean>>> faultStatistics(@Header("token") String token, @Query("dimension") String dimension,@Query("startDate") String startDate,@Query("endDate") String endDate);
+
     /**
      * 【查询】按企业分析在线水质达标率
      * @param token
