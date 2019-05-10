@@ -3,21 +3,26 @@ package com.tepia.cmdbsevice.view.alarmstatistics;
 import android.content.Intent;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.gson.Gson;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.enums.PopupPosition;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.BaseListActivity;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.AreaBean;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.WarnBean;
 import com.tepia.cmdbsevice.view.alarmstatistics.adapter.AlermStatisAdapter;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.SelectEventPopView;
+import com.tepia.cmnwsevice.model.station.StationBean;
 
 import java.util.List;
 
@@ -32,13 +37,11 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
     public final static int ALARM_SITE = 1;//报警站点
 
     private static String[] mTitles = {"故障站点", "报警站点"};
-
-    private List<WarnBean> warnBeans;
     private List<AreaBean> areaBeans, vendorBeans;
     private SelectEventPopView selectEventPopView;
 
     private List<String> vendorCodeArray, areaCodeArray;
-    private int tabIndex;//0.故障站点   1.报警站点
+    private volatile int tabIndex;//0.故障站点   1.报警站点
     private String stationType;
 
     @Override
@@ -62,11 +65,12 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
         SegmentTabLayout tabLayout = findViewById(R.id.tl_1);
         tabLayout.setTabData(mTitles);
         tabLayout.setCurrentTab(tabIndex);
+        setAdapterTabIndex();
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
                 tabIndex = position;
-                ((AlermStatisAdapter) getAdapter()).setTabType(tabIndex);
+                setAdapterTabIndex();
                 refresh();
             }
 
@@ -79,6 +83,10 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
         selectEventPopView.setListener(this::SelectEventListener);
         areaList();
         vendorList();
+    }
+
+    private void setAdapterTabIndex(){
+        ((AlermStatisAdapter) getAdapter()).setTabType(tabIndex);
     }
 
     private void SelectEventListener(List<String> areaNames, List<String> vendorNames, String stationType) {
@@ -118,7 +126,14 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
 
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
-
+        if (DoubleClickUtil.isFastDoubleClick()) {
+            return;
+        }
+        WarnBean warnBean = (WarnBean) adapter.getItem(position);
+        if (warnBean == null) return;
+        //跳转站点详情
+        ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
+                .withString("stationBean", new Gson().toJson(new StationBean(warnBean.getStcd()))).navigation();
     }
 
     /**

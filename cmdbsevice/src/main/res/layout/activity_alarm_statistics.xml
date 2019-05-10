@@ -46,8 +46,9 @@
             android:drawableRight="@mipmap/icon_shaixun"
             android:drawablePadding="8dp"
             android:gravity="right|center_vertical"
+            android:paddingRight="8dp"
             android:text="筛选"
-            android:textColor="@color/color_4EB17B"
+            android:textColor="@color/color_4DB17B"
             android:textSize="14sp" />
     </LinearLayout>
 

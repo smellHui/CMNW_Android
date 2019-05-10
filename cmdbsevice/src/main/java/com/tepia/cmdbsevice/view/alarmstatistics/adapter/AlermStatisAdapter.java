@@ -39,6 +39,7 @@ public class AlermStatisAdapter extends BaseQuickAdapter<WarnBean, BaseViewHolde
         helper.setText(R.id.tv_vendorName, item.getVendorName());
         helper.setVisible(R.id.tv_vendorName, !Strings.isNullOrEmpty(item.getVendorName()));
         helper.setText(R.id.tv_alarmType, item.getAlarmType());
+        helper.setVisible(R.id.tv_status, !Strings.isNullOrEmpty(item.getStatus()));
         helper.setText(R.id.tv_status, item.getStatus());
         helper.setText(R.id.tv_start_time, item.getStartTime());
         helper.setText(R.id.tv_overHours, String.format("%s小时", isFault ? item.getOverHours() : item.getSurplusHours()));

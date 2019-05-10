@@ -34,6 +34,13 @@ public class StationBean extends DataSupport {
     private StationBaseInfoBean handingStation;
     private CurrentDataBean currentData;
 
+    public StationBean() {
+    }
+
+    public StationBean(String code) {
+        this.code = code;
+    }
+
     public String getAdministrativeDivision() {
         return administrativeDivision;
     }

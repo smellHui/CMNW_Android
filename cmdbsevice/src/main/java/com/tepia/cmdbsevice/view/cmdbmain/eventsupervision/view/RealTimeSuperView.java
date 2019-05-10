@@ -13,11 +13,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmnwsevice.view.main.views.ViewBase;
@@ -30,14 +27,15 @@ import java.util.List;
  * Date:2019/4/17
  * Description:实时督办图表
  */
-public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedListener {
+public class RealTimeSuperView extends ViewBase {
 
-//    private final static String[] cateStrs = new String[]{"上海电气", "山东中车", "北控水务", "远达环保", "其他企业"};
+    //    private final static String[] cateStrs = new String[]{"上海电气", "山东中车", "北控水务", "远达环保", "其他企业"};
     protected Typeface tfRegular;
     protected Typeface tfLight;
     private BarChart chart;
     private BarDataSet set1, set2;
     private XAxis xAxis;
+    private YAxis leftAxis, rightAxis;
 
     public RealTimeSuperView(Context context) {
         super(context);
@@ -61,23 +59,38 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         tfRegular = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Regular.ttf");
         tfLight = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Light.ttf");
         chart = findViewById(R.id.chart1);
-        chart.setOnChartValueSelectedListener(this);
         chart.getDescription().setEnabled(false);
         chart.setPinchZoom(false);
         chart.setDrawBarShadow(false);
         chart.setDrawGridBackground(false);
 
-        Legend l = chart.getLegend();
-        l.setForm(Legend.LegendForm.LINE);
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setXEntrySpace(20f);
-        l.setTextSize(12f);
-        l.setTextColor(Color.parseColor("#666666"));
-        l.setDrawInside(false);
-        l.setTypeface(tfLight);
+        initLegend();
+        initXAxis();
+        initAxisLeft();
+        initAxisRight();
+        initBarData();
+    }
 
+    /**
+     * 初始化解释性文字 位置，文字颜色，大小
+     */
+    private void initLegend() {
+        Legend legend = chart.getLegend();
+        legend.setForm(Legend.LegendForm.LINE);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setXEntrySpace(20f);
+        legend.setFormToTextSpace(8f);
+        legend.setTextSize(12f);
+        legend.setTextColor(Color.parseColor("#666666"));
+        legend.setTypeface(tfLight);
+    }
+
+    /**
+     * 横轴公司类型
+     */
+    private void initXAxis() {
         xAxis = chart.getXAxis();
         xAxis.setTypeface(tfLight);
         xAxis.setTextColor(Color.parseColor("#37394C"));
@@ -86,17 +99,13 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setYOffset(10f);
         xAxis.setCenterAxisLabels(true);
-//        xAxis.setValueFormatter(new ValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value) {
-//                if (value < 0 || value >= cateStrs.length) {
-//                    return "";
-//                }
-//                return cateStrs[(int) value];
-//            }
-//        });
+    }
 
-        YAxis leftAxis = chart.getAxisLeft();
+    /**
+     * 初始化左Y轴
+     */
+    private void initAxisLeft() {
+        leftAxis = chart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
         leftAxis.setTextColor(Color.parseColor("#37394C"));
         leftAxis.setTextSize(12f);
@@ -105,9 +114,13 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         leftAxis.setAxisMinimum(0f);
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawAxisLine(false);
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+    }
 
-        YAxis rightAxis = chart.getAxisRight();
+    /**
+     * 初始化右Y轴
+     */
+    private void initAxisRight() {
+        rightAxis = chart.getAxisRight();
         rightAxis.setTypeface(tfLight);
         rightAxis.setTextColor(Color.parseColor("#37394C"));
         rightAxis.setTextSize(12f);
@@ -116,8 +129,12 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         rightAxis.setAxisMinimum(0f);
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawAxisLine(false);
-        rightAxis.setAxisMinimum(0f);
+    }
 
+    /**
+     * 设置数据轴类型，颜色
+     */
+    private void initBarData() {
         // create 4 DataSets
         set1 = new BarDataSet(new ArrayList<>(), "故障数");
         set1.setColor(Color.parseColor("#F46B6D"));
@@ -132,16 +149,6 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         chart.setData(data);
     }
 
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-    }
-
-    @Override
-    public void onNothingSelected() {
-
-    }
-
     public void setData(List<TopTotalBean> vendorTotals) {
         if (vendorTotals == null || vendorTotals.isEmpty()) return;
         ArrayList<BarEntry> values1 = new ArrayList<>();
@@ -151,12 +158,13 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
             values1.add(new BarEntry(i, Float.valueOf(topTotalBean.getFaultNum())));
             values2.add(new BarEntry(i, Float.valueOf(topTotalBean.getAlarmNum())));
         }
-        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
+        BarData barData = chart.getData();
+        if (barData != null && barData.getDataSetCount() > 0) {
+            set1 = (BarDataSet) barData.getDataSetByIndex(0);
+            set2 = (BarDataSet) barData.getDataSetByIndex(1);
             set1.setValues(values1);
             set2.setValues(values2);
-            chart.getData().notifyDataChanged();
+            barData.notifyDataChanged();
             chart.notifyDataSetChanged();
         }
 
@@ -164,16 +172,16 @@ public class RealTimeSuperView extends ViewBase implements OnChartValueSelectedL
         float barSpace = 0.03f; // x4 DataSet
         float barWidth = 0.2f; // x4 DataSet
         // specify the width each bar should have
-        chart.getBarData().setBarWidth(barWidth);
+        barData.setBarWidth(barWidth);
 
         // restrict the x-axis range
         xAxis.setAxisMinimum(0);
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-        xAxis.setAxisMaximum(chart.getBarData().getGroupWidth(groupSpace, barSpace) * 5);
+        xAxis.setAxisMaximum(barData.getGroupWidth(groupSpace, barSpace) * 5);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                  if (value < 0 || value >= vendorTotals.size()) return "";
+                if (value < 0 || value >= vendorTotals.size()) return "";
                 TopTotalBean topTotalBean = vendorTotals.get((int) value);
                 return topTotalBean != null ? topTotalBean.getName() : "";
             }
