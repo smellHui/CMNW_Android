@@ -66,15 +66,16 @@ class InitSocketThread extends Thread {
             @Override
             public void onMessage(WebSocket webSocket, String text) {//接收消息的回调
                 super.onMessage(webSocket, text);
-                //收到服务器端传过来的消息text
-                LogUtil.d(text);
-                WebSocketResponse webSocketResponse = new Gson().fromJson(text,WebSocketResponse.class);
-                Map<String,StationBean> stringStationBeanMap = webSocketResponse.getStationMonitor();
-                if (stringStationBeanMap != null){
-                    for (Map.Entry<String,StationBean> entry : stringStationBeanMap.entrySet()) {
-                        entry.getValue().saveOrUpdate("code=?", entry.getKey());
-                    }
-                }
+                //收到服务器端传过来的消息texttLogUtil.d(text);
+//                WebSocketResponse webSocketResponse = new Gson().fromJson(text, WebSocketResponse.class);
+//                if (webSocketResponse.getData() != null) {
+//                    Map<String, StationBean> stringStationBeanMap = webSocketResponse.getData().getStationMonitor();
+//                    if (stringStationBeanMap != null) {
+//                        for (Map.Entry<String, StationBean> entry : stringStationBeanMap.entrySet()) {
+//                            entry.getValue().saveOrUpdate("code=?", entry.getKey());
+//                        }
+//                    }
+//                }
             }
 
             @Override

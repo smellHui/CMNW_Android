@@ -4,6 +4,8 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationhisdata;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -213,10 +215,16 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
     }
 
     @Override
-    protected void initRequestData() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         String stationCode = stationBean.getCode();
         String type = selectedType.getValue();
         mPresenter.getWarningHistory(startTime, endTime, stationCode, type);
+    }
+
+    @Override
+    protected void initRequestData() {
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.tepia.cmdbsevice.service;
 
+import android.provider.ContactsContract;
+
 import com.tepia.base.http.BaseResponse;
 import com.tepia.cmnwsevice.model.station.StationBean;
 
@@ -15,13 +17,26 @@ import java.util.Map;
  * 功能描述        :
  **/
 public class WebSocketResponse extends BaseResponse {
-    private Map<String,StationBean> stationMonitor;
+    DataBean data;
 
-    public Map<String, StationBean> getStationMonitor() {
-        return stationMonitor;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setStationMonitor(Map<String, StationBean> stationMonitor) {
-        this.stationMonitor = stationMonitor;
+    public void setData(DataBean data) {
+        this.data = data;
     }
+
+    public static class DataBean{
+        private Map<String,StationBean> stationMonitor;
+
+        public Map<String, StationBean> getStationMonitor() {
+            return stationMonitor;
+        }
+
+        public void setStationMonitor(Map<String, StationBean> stationMonitor) {
+            this.stationMonitor = stationMonitor;
+        }
+    }
+
 }
