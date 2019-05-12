@@ -73,6 +73,12 @@ public class TimeFormatUtils {
         String dateString = formatter.format(currentTime);
         return dateString;
     }
+    public static String getStringDateShort(long millseconds) {
+        Date currentTime = new Date(millseconds);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
 
     /**
      * 获取现在时间

@@ -9,22 +9,33 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.gson.Gson;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.view.EmptyLayoutUtil;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.ActivityStationHisDataBinding;
 import com.tepia.cmdbsevice.databinding.LvHisDataHeaderViewBinding;
+import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.StationTypeBean;
+import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationbaseinfodetail.KeyValueBean;
+import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SelectDataView;
 import com.tepia.cmnwsevice.model.station.HisDataBean;
 import com.tepia.cmnwsevice.model.station.StationBean;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
+
+import java.util.List;
 
 
 /**
@@ -45,7 +56,9 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
     private AdapterHisData adapterHisData;
 
     private LvHisDataHeaderViewBinding mheaderBinding;
-
+    private SelectDataView selectDataView;
+    private String startTime, endTime;
+    private KeyValueBean selectedType = new KeyValueBean("全部类型", "10001,10002,10003");
 
     @Override
     public int getLayoutId() {
@@ -60,14 +73,13 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
         getRithtTv().setVisibility(View.VISIBLE);
         getRithtTv().setText("本季");
         getRithtTv().setTextColor(0xff4eb17b);
-        getRithtTv().setCompoundDrawablePadding(UIUtil.dip2px(getContext(), 10));
-        getRithtTv().setCompoundDrawables(null, null, getDrawable(R.mipmap.icon_rili), null);
         getRithtTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                showChoiceDateDialog();
             }
         });
         mBinding = DataBindingUtil.bind(mRootView);
@@ -75,30 +87,8 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
         mBinding.tl1.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                switch (position) {
-                    case 0:
-                        currectTab = 0;
-                    {
-                        String startTime = "2018-04-01";
-                        String endTime = "2019-04-30";
-                        String stationCode = "HS20190401161319552422";
-                        String type = "10001,10002,10003";
-                        mPresenter.getWarningHistory(startTime, endTime, stationCode, type);
-                    }
-                    break;
-                    case 1:
-                        currectTab = 1;
-                    {
-                        String startTime = "2018-04-01";
-                        String endTime = "2019-04-30";
-                        String stationCode = "HS20190401161319552422";
-                        String type = "10001,10002,10003";
-                        mPresenter.getFaultHistory(startTime, endTime, stationCode, type);
-                    }
-                    break;
-                    default:
-                        break;
-                }
+                currectTab = position;
+                refreshView(currectTab);
             }
 
             @Override
@@ -107,6 +97,64 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
             }
         });
         initListView();
+        selectDataView = new SelectDataView(getContext(), this::onDataSelectPickListener);
+
+        this.startTime = TimeFormatUtils.getThisQuarterStart();
+        this.endTime = TimeFormatUtils.getThisQuarterEnd();
+    }
+
+    private void refreshView(int currectTab) {
+        switch (currectTab) {
+            case 0: {
+                String stationCode = stationBean.getCode();
+                String type = selectedType.getValue();
+                mPresenter.getWarningHistory(startTime, endTime, stationCode, type);
+            }
+            break;
+            case 1:
+
+            {
+                String stationCode = stationBean.getCode();
+                String type = selectedType.getValue();
+                mPresenter.getFaultHistory(startTime, endTime, stationCode, type);
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    private void onDataSelectPickListener(String startTime, String endTime, int cate) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        switch (cate) {
+            case 0:
+                setChoiceDateTv("本年");
+                break;
+            case 1:
+                setChoiceDateTv("本季");
+                break;
+            case 2:
+                setChoiceDateTv("本月");
+                break;
+            case 3:
+                setChoiceDateTv(String.format("%s - %s", startTime.replace("-", ".").substring(5,startTime.length()), endTime.replace("-", ".").substring(5,startTime.length())));
+                break;
+        }
+        refreshView(currectTab);
+    }
+
+    public void setChoiceDateTv(String str) {
+        getRithtTv().setText(str);
+
+    }
+
+    public void showChoiceDateDialog() {
+        new XPopup.Builder(getContext())
+                .hasStatusBarShadow(true) //启用状态栏阴影
+                .dismissOnTouchOutside(false)
+                .asCustom(selectDataView)
+                .show();
     }
 
     private void initListView() {
@@ -128,22 +176,54 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
 
     @Override
     protected void initListener() {
+        mBinding.tvSelectType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                showSelectTypeDialog();
+            }
+        });
+    }
 
+    private void showSelectTypeDialog() {
+        List<KeyValueBean> areaList = mPresenter.getTypeList();
+        String[] stringItems;
+
+        stringItems = new String[areaList.size()];
+        for (int i = 0; i < areaList.size(); i++) {
+            stringItems[i] = areaList.get(i).getKey();
+        }
+        final ActionSheetDialog dialog = new ActionSheetDialog(getContext(), stringItems, null);
+        dialog.title("请选择行政区域")
+                .titleTextSize_SP(14.5f)
+                .widthScale(0.8f)
+                .show();
+
+        dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+            @Override
+            public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mBinding.tvSelectType.setText(stringItems[position]);
+                selectedType = areaList.get(position);
+                refreshView(currectTab);
+                dialog.dismiss();
+            }
+        });
     }
 
     @Override
     protected void initRequestData() {
-        String startTime = "2018-04-01";
-        String endTime = "2019-04-30";
-        String stationCode = "HS20190401161319552422";
-        String type = "10001,10002,10003";
-//        mPresenter.getFaultHistory(startTime, endTime, stationCode, type);
+        String stationCode = stationBean.getCode();
+        String type = selectedType.getValue();
         mPresenter.getWarningHistory(startTime, endTime, stationCode, type);
     }
 
     @Override
     public void getFaultHistorySuccess(HisDataBean data) {
         adapterHisData.setNewData(data.getWarningList());
+        mheaderBinding.tvCount.setText("" + data.getWarningCount());
+        mheaderBinding.tvDurtion.setText("" + data.getSum() + "小时");
         if (CollectionsUtil.isEmpty(data.getWarningList())) {
             adapterHisData.setEmptyView(EmptyLayoutUtil.getView("没有故障记录"));
         }
@@ -152,6 +232,8 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
     @Override
     public void getWarningHistorySuccess(HisDataBean data) {
         adapterHisData.setNewData(data.getWarningList());
+        mheaderBinding.tvCount.setText("" + data.getWarningCount());
+        mheaderBinding.tvDurtion.setText("" + data.getSum());
         if (CollectionsUtil.isEmpty(data.getWarningList())) {
             adapterHisData.setEmptyView(EmptyLayoutUtil.getView("没有报警记录"));
         }
