@@ -31,7 +31,9 @@ public class AdapterHisData extends BaseQuickAdapter<WarningBean, BaseViewHolder
 //lv_warning_view
         LvWarningViewBinding mBinding = DataBindingUtil.bind(helper.itemView);
         mBinding.tvWarningTypeName.setText(DictManager.getInstance().getDictMap().get("warningType").get(item.getAlarmCode()) + "");
-        mBinding.tvTime.setText(item.getStartTime().substring(5,item.getStartTime().length()) + " ~ " + item.getEndTime().substring(5,item.getEndTime().length()));
+        if (item.getStartTime() != null && item.getEndTime() != null) {
+            mBinding.tvTime.setText(item.getStartTime().substring(5, item.getStartTime().length()) + " ~ " + item.getEndTime().substring(5, item.getEndTime().length()));
+        }
         mBinding.tvDuration.setText("持续时间 " + item.getDuration() + "小时");
     }
 }

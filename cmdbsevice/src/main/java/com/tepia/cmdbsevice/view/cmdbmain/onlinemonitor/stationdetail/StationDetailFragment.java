@@ -183,10 +183,12 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             }
             mBinding.tvDeviceStatusHeader.setText(temp);
             mBinding.tvStationStatus.setText(temp);
-            if (!TextUtils.isEmpty(data.getCurrentData().getCommunicationResult().getDuration()) && !data.getCurrentData().getCommunicationResult().getDuration().equals("null")) {
+            if (!TextUtils.isEmpty(data.getCurrentData().getCommunicationResult().getDuration())
+                    && !data.getCurrentData().getCommunicationResult().getDuration().equals("0")
+                    && !data.getCurrentData().getCommunicationResult().getDuration().equals("null")) {
                 mBinding.tvDurationTimeTip.setVisibility(View.VISIBLE);
                 mBinding.tvDurationTimeTip.setText("无通讯维持时间：" + data.getCurrentData().getCommunicationResult().getDuration());
-            }else {
+            } else {
                 mBinding.tvDurationTimeTip.setVisibility(View.GONE);
             }
             mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
