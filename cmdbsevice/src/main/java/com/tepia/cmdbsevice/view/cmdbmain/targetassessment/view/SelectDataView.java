@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.codbking.widget.DatePicker;
@@ -47,12 +48,14 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
 
     private LayoutInflater mInflater;
 
-    private TagFlowLayout flowlayout;
+    private RadioGroup radioGroup;
     private FrameLayout wheelLayout;
     private DatePicker mDatePicker;
     private RadioButton rbStart, rbEnd;
     private ImageView img_intercept;
     private ImageView img_close;
+
+    private TagAdapter tagAdapter;
 
     private onDataSelectPickListener listener;
 
@@ -85,24 +88,20 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
         rbStart = findViewById(R.id.rb_1);
         rbEnd = findViewById(R.id.rb_2);
         wheelLayout = findViewById(com.codbking.widget.R.id.wheelLayout);
-        flowlayout = findViewById(R.id.flowlayout);
-        flowlayout.setOnTagClickListener((view, position, parent) -> {
-            cate = position;
-            if (position == 3) {
-                img_intercept.setVisibility(GONE);
-            } else {
+        radioGroup = findViewById(R.id.radio_group);
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.btn_0) {
+                cate = 0;
                 img_intercept.setVisibility(VISIBLE);
-            }
-            return true;
-        });
-        flowlayout.setAdapter(new TagAdapter<String>(Arrays.asList(dataCates)) {
-
-            @Override
-            public View getView(FlowLayout parent, int position, String str) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_datecate_tv,
-                        flowlayout, false);
-                tv.setText(str);
-                return tv;
+            }else if (checkedId == R.id.btn_1){
+                cate = 1;
+                img_intercept.setVisibility(VISIBLE);
+            }else if (checkedId == R.id.btn_2){
+                cate = 2;
+                img_intercept.setVisibility(VISIBLE);
+            }else if (checkedId == R.id.btn_3){
+                cate = 3;
+                img_intercept.setVisibility(GONE);
             }
         });
 
