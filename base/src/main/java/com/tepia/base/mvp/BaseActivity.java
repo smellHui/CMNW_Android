@@ -76,6 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (SPUtils.getInstance().getBoolean("ISSHOWFLOATVIEW", false)) {
             FloatUtil.getInstance().addActivity(this);
         }
+        initRequestData();
 
     }
 
@@ -162,7 +163,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initRequestData();
         if (SPUtils.getInstance().getBoolean("ISSHOWFLOATVIEW", false)) {
             FloatUtil.getInstance().showFloatView(this);
             FloatUtil.getInstance().setOnCLicekListener(new View.OnClickListener() {
