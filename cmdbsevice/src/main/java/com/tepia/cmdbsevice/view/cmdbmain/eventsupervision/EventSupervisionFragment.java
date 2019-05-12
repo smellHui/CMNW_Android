@@ -84,7 +84,7 @@ public class EventSupervisionFragment extends BaseCommonFragment {
 
     @Override
     protected void initRequestData() {
-        onDataTopPickListener(TimeFormatUtils.getFirstDayOfToday(), TimeFormatUtils.getLastDayOfToday());
+        onDataTopPickListener("", TimeFormatUtils.getLastDayOfToday());
     }
 
     /**

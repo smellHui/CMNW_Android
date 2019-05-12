@@ -16,6 +16,8 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.BaseListActivity;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.AreaBean;
 import com.tepia.cmdbsevice.model.event.EventManager;
@@ -24,6 +26,9 @@ import com.tepia.cmdbsevice.view.alarmstatistics.adapter.AlermStatisAdapter;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.SelectEventPopView;
 import com.tepia.cmnwsevice.model.station.StationBean;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -132,8 +137,14 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
         WarnBean warnBean = (WarnBean) adapter.getItem(position);
         if (warnBean == null) return;
         //跳转站点详情
-        ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
-                .withString("stationBean", new Gson().toJson(new StationBean(warnBean.getStcd()))).navigation();
+        List<StationBean> list = DataSupport.where("code=?", warnBean.getStcd()).find(StationBean.class);
+        if (!CollectionsUtil.isEmpty(list)) {
+            ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
+                    .withString("stationBean", new Gson().toJson(list.get(0))).navigation();
+        }else {
+            ToastUtils.shortToast("没有该站点");
+        }
+
     }
 
     /**

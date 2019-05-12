@@ -38,8 +38,8 @@ import java.util.Date;
  */
 public class SelectDataView extends BasePopupView implements OnChangeLisener {
 
-    private static String[] dataCates = new String[]{"本年", "本季", "本月", "其他"};
-    private volatile int cate = -1;//0,1,2,3  对应  "本年", "本季", "本月", "其他"
+    private static String[] dataCates = new String[]{"本年", "本周", "本月", "其他"};
+    private volatile int cate = -1;//0,1,2,3  对应  "本年", "本周", "本月", "其他"
     //开始时间
     private Date startDate = new Date();
     //年分限制，默认上下5年
