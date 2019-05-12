@@ -1,5 +1,6 @@
 package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,6 +19,7 @@ public class SpssCountAdapter extends BaseQuickAdapter<TopTotalBean, BaseViewHol
         super(R.layout.item_spss_count);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void convert(BaseViewHolder helper, TopTotalBean item) {
         int pos = helper.getAdapterPosition();
@@ -26,7 +28,7 @@ public class SpssCountAdapter extends BaseQuickAdapter<TopTotalBean, BaseViewHol
         helper.setText(R.id.tv_name, item.getName());
         helper.setText(R.id.tv_alarmNum, item.getAlarmNum());
         helper.setText(R.id.tv_faultNum, item.getFaultNum());
-        helper.setText(R.id.tv_rate, item.getRate());
+        helper.setText(R.id.tv_rate, String.format("%.2f%%", item.getFaultRate()));
 
     }
 }

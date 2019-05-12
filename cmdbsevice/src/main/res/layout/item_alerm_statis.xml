@@ -35,7 +35,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -52,11 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:background="@drawable/yel_round_4"
-                        android:paddingLeft="7dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="7dp"
-                        android:paddingBottom="2dp"
+                        android:background="@drawable/shape_corner"
                         android:textColor="#F1891F"
                         android:textSize="11sp"
                         tools:text="上海电气" />

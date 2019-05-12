@@ -18,6 +18,15 @@ public class TopTotalBean {
     private String vendorName;
     private String code;
     private String rate;
+    private float faultRate;
+
+    public float getFaultRate() {
+        return faultRate;
+    }
+
+    public void setFaultRate(float faultRate) {
+        this.faultRate = faultRate;
+    }
 
     public String getRate() {
         return StringUtil.nullToDefault(rate, "0");
@@ -94,6 +103,7 @@ public class TopTotalBean {
                 ", vendorName='" + vendorName + '\'' +
                 ", code='" + code + '\'' +
                 ", rate='" + rate + '\'' +
+                ", faultRate='" + faultRate + '\'' +
                 '}';
     }
 }

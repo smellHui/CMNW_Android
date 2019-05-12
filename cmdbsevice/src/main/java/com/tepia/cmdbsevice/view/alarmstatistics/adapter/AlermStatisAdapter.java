@@ -8,6 +8,7 @@ import com.google.common.base.Strings;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.WarnBean;
+import com.tepia.cmnwsevice.utils.StringUtil;
 
 /**
  * Author:xch
@@ -16,10 +17,10 @@ import com.tepia.cmdbsevice.model.event.WarnBean;
  */
 public class AlermStatisAdapter extends BaseQuickAdapter<WarnBean, BaseViewHolder> {
 
-    private int tabType;//0故障站点    1报警站点
+    private volatile boolean isFault;//true故障站点    false报警站点
 
     public void setTabType(int tabType) {
-        this.tabType = tabType;
+        isFault = tabType == 0;
     }
 
     public AlermStatisAdapter() {
@@ -28,7 +29,6 @@ public class AlermStatisAdapter extends BaseQuickAdapter<WarnBean, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, WarnBean item) {
-        boolean isFault = tabType == 0;
         helper.setImageResource(R.id.img_tag, isFault ? R.mipmap.bkg_guzhang : R.mipmap.bkg_baojing);
         helper.setText(R.id.tv_time_title, isFault ? "超出时间" : "剩余时间");
         helper.setTextColor(R.id.tv_alarmType, Color.parseColor(isFault ? "#F46B6D" : "#FF934A"));
@@ -42,7 +42,7 @@ public class AlermStatisAdapter extends BaseQuickAdapter<WarnBean, BaseViewHolde
         helper.setVisible(R.id.tv_status, !Strings.isNullOrEmpty(item.getStatus()));
         helper.setText(R.id.tv_status, item.getStatus());
         helper.setText(R.id.tv_start_time, item.getStartTime());
-        helper.setText(R.id.tv_overHours, String.format("%s小时", isFault ? item.getOverHours() : item.getSurplusHours()));
+        helper.setText(R.id.tv_overHours, isFault ? (Strings.isNullOrEmpty(item.getOverHours()) ? "--" : String.format("%s小时",item.getOverHours())) : (Strings.isNullOrEmpty(item.getSurplusHours()) ? "--" : String.format("%s小时",item.getSurplusHours())));
     }
 
 }

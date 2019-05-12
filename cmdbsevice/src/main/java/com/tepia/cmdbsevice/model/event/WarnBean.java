@@ -67,7 +67,7 @@ public class WarnBean {
     }
 
     public String getSurplusHours() {
-        return StringUtil.nullToDefault(surplusHours, "0");
+        return surplusHours;
     }
 
     public void setSurplusHours(String surplusHours) {
@@ -75,7 +75,7 @@ public class WarnBean {
     }
 
     public String getOverHours() {
-        return StringUtil.nullToDefault(overHours, "0");
+        return overHours;
     }
 
     public void setOverHours(String overHours) {
