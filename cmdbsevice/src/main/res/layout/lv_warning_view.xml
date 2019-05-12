@@ -58,7 +58,7 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="03-28  08:45 ~ 03-28  11:57"
+                android:text=""
                 android:textColor="#ff333333"
                 android:textSize="16sp" />
 

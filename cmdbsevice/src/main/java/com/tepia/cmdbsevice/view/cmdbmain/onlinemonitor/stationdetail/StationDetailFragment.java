@@ -253,18 +253,26 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             String temp = "";
             switch (data.getCurrentData().getCommunicationResult().getCommunicationStatus()) {
                 case 0:
-                    temp = "正常";
+                    switch (data.getCurrentData().getDeviceResult().getDeviceStatus()) {
+                        case 0:
+                            temp = "正常";
+                            break;
+                        case 1:
+                            temp = "异常";
+                            break;
+                        case 2:
+                            temp = "报警";
+                            break;
+                        case 3:
+                            temp = "故障";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
-                case 1:
-                    temp = "异常";
-                    break;
-                case 2:
-                    temp = "报警";
-                    break;
-                case 3:
-                    temp = "故障";
-                    break;
+
                 default:
+                    temp = "无通讯";
                     break;
             }
             mBinding.tvStationStatus.setText(temp);

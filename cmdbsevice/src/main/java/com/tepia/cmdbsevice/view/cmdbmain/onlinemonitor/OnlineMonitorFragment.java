@@ -340,7 +340,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 }
                 showLayer(3);
                 stationType = "1";
-                mBinding.flSearchContent.tvStationNum.setText("处理站（" + mPresenter.getStationNum(getSaiXuanStrs("1")) + ")");
+                mBinding.flSearchContent.tvStationNum.setText("污水处理站（" + mPresenter.getStationNum(getSaiXuanStrs("1")) + ")");
                 initListFragment(getSaiXuanStrs("1"));
                 if (preStatus == CLOSED) {
                     preStatus = OPENED;

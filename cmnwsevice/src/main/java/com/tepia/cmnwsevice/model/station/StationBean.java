@@ -18,6 +18,7 @@ import org.litepal.crud.DataSupport;
  **/
 public class StationBean extends DataSupport {
     @Column(unique = true)
+    @SerializedName(value = "code",alternate = {"stationCode"})
     private String code;
     private String administrativeDivision;
     private String enterpriseCode;

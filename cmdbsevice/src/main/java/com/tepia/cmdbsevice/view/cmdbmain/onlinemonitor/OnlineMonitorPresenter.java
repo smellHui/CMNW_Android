@@ -58,7 +58,9 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
 
     public void putSearchHis(String temp) {
         ArrayList<String> list = getSearchHisList();
-        list.add(temp);
+        if (!list.contains(temp)) {
+            list.add(temp);
+        }
         SPUtils.getInstance().putString("SEARCHHISLIST", new Gson().toJson(list));
     }
 

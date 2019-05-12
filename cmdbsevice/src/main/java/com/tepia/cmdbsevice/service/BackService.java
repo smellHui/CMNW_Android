@@ -4,6 +4,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import androidx.annotation.Nullable;
 
 /**
@@ -16,10 +19,13 @@ import androidx.annotation.Nullable;
  * 功能描述        :
  **/
 public class BackService extends Service {
+    private InitSocketThread initSocketThread;
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        initSocketThread = new InitSocketThread();
+        initSocketThread.start();
     }
 
     @Nullable
@@ -27,4 +33,13 @@ public class BackService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (initSocketThread.mWebSocket != null) {
+            initSocketThread.mWebSocket.close(1000, null);
+        }
+    }
+
 }

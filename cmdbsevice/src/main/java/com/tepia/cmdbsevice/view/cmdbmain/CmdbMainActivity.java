@@ -4,8 +4,11 @@ package com.tepia.cmdbsevice.view.cmdbmain;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -27,6 +30,7 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.TabEntity;
+import com.tepia.cmdbsevice.service.BackService;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.EventSupervisionFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.mine.MineFragment;
 import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.OnlineMonitorFragment;
@@ -64,9 +68,16 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        startService(new Intent(this,BackService.class));
+    }
+
+    @Override
     public void initView() {
         tabLayout = findViewById(R.id.ly_tab);
         addFragmnet();
+
     }
 
     @Override

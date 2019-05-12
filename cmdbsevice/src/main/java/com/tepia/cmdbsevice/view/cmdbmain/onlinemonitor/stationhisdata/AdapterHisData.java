@@ -2,6 +2,8 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.stationhisdata;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ListView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -33,6 +35,14 @@ public class AdapterHisData extends BaseQuickAdapter<WarningBean, BaseViewHolder
         mBinding.tvWarningTypeName.setText(DictManager.getInstance().getDictMap().get("warningType").get(item.getAlarmCode()) + "");
         if (item.getStartTime() != null && item.getEndTime() != null) {
             mBinding.tvTime.setText(item.getStartTime().substring(5, item.getStartTime().length()) + " ~ " + item.getEndTime().substring(5, item.getEndTime().length()));
+        }else if (item.getStartTime() != null && item.getEndTime() == null){
+            mBinding.tvTime.setText(item.getStartTime().substring(5, item.getStartTime().length()) + " ~ " +"当前时间");
+        }
+        if (!TextUtils.isEmpty(item.getDeviceName())) {
+            mBinding.tvDeviceName.setVisibility(View.VISIBLE);
+            mBinding.tvDeviceName.setText(item.getDeviceName());
+        }else {
+            mBinding.tvDeviceName.setVisibility(View.GONE);
         }
         mBinding.tvDuration.setText("持续时间 " + item.getDuration() + "小时");
     }

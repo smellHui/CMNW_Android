@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.AppManager;
 import com.tepia.cmdbsevice.R;
+import com.tepia.cmdbsevice.service.BackService;
 import com.tepia.cmnwsevice.model.user.UserBean;
 import com.tepia.cmnwsevice.model.user.UserManager;
 import com.tepia.cmnwsevice.view.login.LoginActivity;
@@ -49,7 +50,7 @@ public class MineFragment extends BaseCommonFragment {
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
                 AppManager.getInstance().finishAll();
-
+                getBaseActivity().stopService(new Intent(getBaseActivity(), BackService.class));
             });
             builder.setNegativeButton("取消", (dialog, which) -> {
 

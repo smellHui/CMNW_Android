@@ -13,5 +13,8 @@
         <activity android:name=".view.cmdbmain.onlinemonitor.stationdetail.StationDetailActivity" />
         <!-- 实时数据 -->
         <activity android:name=".view.cmdbmain.onlinemonitor.stationhisdata.StationHisDataActivity" />
+
+        <!-- 后台服务-长连接 -->
+        <service android:name=".service.BackService" />
     </application>
 </manifest>
