@@ -38,8 +38,8 @@ import java.util.Date;
  */
 public class SelectDataView extends BasePopupView implements OnChangeLisener {
 
-    private static String[] dataCates = new String[]{"本年", "本周", "本月", "其他"};
-    private volatile int cate = -1;//0,1,2,3  对应  "本年", "本周", "本月", "其他"
+    private static String[] dataCates = new String[]{"本年", "本季", "本月", "其他"};
+    private volatile int cate = -1;//0,1,2,3  对应  "本年", "本季", "本月", "其他"
     //开始时间
     private Date startDate = new Date();
     //年分限制，默认上下5年
@@ -56,12 +56,9 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
 
     private onDataSelectPickListener listener;
 
-    public void setListener(onDataSelectPickListener listener) {
-        this.listener = listener;
-    }
-
-    public SelectDataView(@NonNull Context context) {
+    public SelectDataView(@NonNull Context context,onDataSelectPickListener listener) {
         super(context);
+        this.listener = listener;
     }
 
     public SelectDataView(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -115,13 +112,13 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
         findViewById(R.id.btn_query).setOnClickListener(v -> {
             switch (cate) {
                 case 0://本年
-                    listener.onDataSelectPickListener(TimeFormatUtils.getFirstDayOfYear(), TimeFormatUtils.getLastDayOfYear());
+                    listener.onDataSelectPickListener(TimeFormatUtils.getFirstDayOfYear(), TimeFormatUtils.getLastDayOfYear(), 0);
                     break;
                 case 1://本季
-                    listener.onDataSelectPickListener(TimeFormatUtils.getFirstDayOfWeek(), TimeFormatUtils.getLastDayOfWeek());
+                    listener.onDataSelectPickListener(TimeFormatUtils.getThisQuarterStart(), TimeFormatUtils.getThisQuarterEnd(), 1);
                     break;
                 case 2://本月
-                    listener.onDataSelectPickListener(TimeFormatUtils.getFirstDayOfMonth(), TimeFormatUtils.getLastDayOfMonth());
+                    listener.onDataSelectPickListener(TimeFormatUtils.getFirstDayOfMonth(), TimeFormatUtils.getLastDayOfMonth(), 2);
                     break;
                 case 3://其他
                     if (Strings.isNullOrEmpty(startTime)) {
@@ -136,7 +133,7 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
                         ToastUtils.shortToast("开始日期不能大于结束日期");
                         return;
                     }
-                    listener.onDataSelectPickListener(startTime, endTime);
+                    listener.onDataSelectPickListener(startTime, endTime, 3);
                     break;
             }
             dismiss();
@@ -172,6 +169,6 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
     }
 
     public interface onDataSelectPickListener {
-        void onDataSelectPickListener(String startTime, String endTime);
+        void onDataSelectPickListener(String startTime, String endTime, int cate);
     }
 }

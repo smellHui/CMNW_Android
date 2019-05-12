@@ -41,17 +41,29 @@ public class SpssFragment extends StatisFragment<TopTotalBean> {
     @Override
     protected void initView(View view) {
         super.initView(view);
-        this.startTime = TimeFormatUtils.getFirstDayOfToday();
-        this.endTime = TimeFormatUtils.getLastDayOfToday();
-        setChoiceDateTv(startTime);
-        selectDataView = new SelectDataView(getContext());
-        selectDataView.setListener(this::onDataSelectPickListener);
+        this.startTime = TimeFormatUtils.getThisQuarterStart();
+        this.endTime = TimeFormatUtils.getThisQuarterEnd();
+        setChoiceDateTv("本季");
+        selectDataView = new SelectDataView(getContext(),this::onDataSelectPickListener);
     }
 
-    private void onDataSelectPickListener(String startTime, String endTime) {
+    private void onDataSelectPickListener(String startTime, String endTime,int cate) {
         this.startTime = startTime;
         this.endTime = endTime;
-        setChoiceDateTv(String.format("%s - %s", startTime.replace("-", "."), endTime.replace("-", ".")));
+        switch (cate) {
+            case 0:
+                setChoiceDateTv("本年");
+                break;
+            case 1:
+                setChoiceDateTv("本季");
+                break;
+            case 2:
+                setChoiceDateTv("本月");
+                break;
+            case 3:
+                setChoiceDateTv(String.format("%s - %s", startTime.replace("-", "."), endTime.replace("-", ".")));
+                break;
+        }
         requestListData();
     }
 
