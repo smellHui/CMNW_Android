@@ -54,6 +54,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
     @Override
     protected void initView(View view) {
         mBinding = DataBindingUtil.bind(view);
+
         mBinding.tvHisData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,8 +96,30 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 }
             }
         });
-        mBinding.tvDeviceStatusHeader.setText("正常");
-        mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_zc);
+        {
+            String temp = "";
+            switch (stationBean.getStationStatus()) {
+                case "0":
+                    temp = "正常";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_zc);
+                    break;
+                case "1":
+                    temp = "异常";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_yc);
+                    break;
+                case "2":
+                    temp = "报警";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail);
+                    break;
+                case "3":
+                    temp = "故障";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_gz);
+                    break;
+                default:
+                    break;
+            }
+            mBinding.tvDeviceStatusHeader.setText(temp);
+        }
     }
 
     @Override
@@ -112,8 +135,32 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
     private void refreshView(StationBean data) {
         data.setCode(stationBean.getCode());
         data.setStationType(stationBean.getStationType());
+        data.setStationStatus(stationBean.getStationStatus());
         stationBean = data;
-
+        {
+            String temp = "";
+            switch (stationBean.getStationStatus()) {
+                case "0":
+                    temp = "正常";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_zc);
+                    break;
+                case "1":
+                    temp = "异常";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_yc);
+                    break;
+                case "2":
+                    temp = "报警";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail);
+                    break;
+                case "3":
+                    temp = "故障";
+                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_gz);
+                    break;
+                default:
+                    break;
+            }
+            mBinding.tvDeviceStatusHeader.setText(temp);
+        }
         mBinding.tvStationName.setText(data.getHandingStation().getName());
         mBinding.tvStationOrgan.setText(data.getHandingStation().getVendorName());
         mBinding.tvStationAdress.setText(data.getHandingStation().getAddress());
@@ -159,31 +206,9 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             }
         }
         {
+            if (data.getCurrentData().getCommunicationResult() != null
+                    && !TextUtils.isEmpty(data.getCurrentData().getCommunicationResult().getDuration())
 
-            String temp = "";
-            switch (Math.max(data.getCurrentData().getCommunicationResult().getCommunicationStatus(), data.getCurrentData().getConductivityResult().getConductivityStatus())) {
-                case 0:
-                    temp = "正常";
-                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_zc);
-                    break;
-                case 1:
-                    temp = "异常";
-                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_yc);
-                    break;
-                case 2:
-                    temp = "报警";
-                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail);
-                    break;
-                case 3:
-                    temp = "故障";
-                    mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_gz);
-                    break;
-                default:
-                    break;
-            }
-            mBinding.tvDeviceStatusHeader.setText(temp);
-            mBinding.tvStationStatus.setText(temp);
-            if (!TextUtils.isEmpty(data.getCurrentData().getCommunicationResult().getDuration())
                     && !data.getCurrentData().getCommunicationResult().getDuration().equals("0")
                     && !data.getCurrentData().getCommunicationResult().getDuration().equals("null")) {
                 mBinding.tvDurationTimeTip.setVisibility(View.VISIBLE);
@@ -194,6 +219,8 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
             AdapterStationStatusHis adapterStationStatusHis = new AdapterStationStatusHis(R.layout.lv_station_status_his_item_view, data.getCurrentData().getDeviceMonitorDataList());
             mBinding.rvStationStatusHis.setAdapter(adapterStationStatusHis);
+
+
         }
 
         {
@@ -221,6 +248,26 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
 
         if (!CollectionsUtil.isEmpty(data.getHandingStation().getReferenceFileList())) {
             initBanner(data.getHandingStation().getReferenceFileList());
+        }
+        {
+            String temp = "";
+            switch (data.getCurrentData().getCommunicationResult().getCommunicationStatus()) {
+                case 0:
+                    temp = "正常";
+                    break;
+                case 1:
+                    temp = "异常";
+                    break;
+                case 2:
+                    temp = "报警";
+                    break;
+                case 3:
+                    temp = "故障";
+                    break;
+                default:
+                    break;
+            }
+            mBinding.tvStationStatus.setText(temp);
         }
 
     }
