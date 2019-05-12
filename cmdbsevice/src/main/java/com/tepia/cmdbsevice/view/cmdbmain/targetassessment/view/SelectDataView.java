@@ -59,7 +59,7 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
 
     private onDataSelectPickListener listener;
 
-    public SelectDataView(@NonNull Context context,onDataSelectPickListener listener) {
+    public SelectDataView(@NonNull Context context, onDataSelectPickListener listener) {
         super(context);
         this.listener = listener;
     }
@@ -93,14 +93,15 @@ public class SelectDataView extends BasePopupView implements OnChangeLisener {
             if (checkedId == R.id.btn_0) {
                 cate = 0;
                 img_intercept.setVisibility(VISIBLE);
-            }else if (checkedId == R.id.btn_1){
+            } else if (checkedId == R.id.btn_1) {
                 cate = 1;
                 img_intercept.setVisibility(VISIBLE);
-            }else if (checkedId == R.id.btn_2){
+            } else if (checkedId == R.id.btn_2) {
                 cate = 2;
                 img_intercept.setVisibility(VISIBLE);
-            }else if (checkedId == R.id.btn_3){
+            } else if (checkedId == R.id.btn_3) {
                 cate = 3;
+                rbStart.setChecked(true);
                 img_intercept.setVisibility(GONE);
             }
         });

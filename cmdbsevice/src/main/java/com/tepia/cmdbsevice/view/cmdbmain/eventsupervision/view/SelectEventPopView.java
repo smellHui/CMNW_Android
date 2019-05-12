@@ -72,7 +72,7 @@ public class SelectEventPopView extends DrawerPopupView {
             @Override
             public View getView(FlowLayout parent, int position, AreaBean areaBean) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.item_tv,
-                        cateFlowLayout, false);
+                        comptyFlowLayout, false);
                 tv.setText(areaBean.getName());
                 return tv;
             }
