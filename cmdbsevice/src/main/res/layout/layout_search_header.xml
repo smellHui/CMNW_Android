@@ -48,7 +48,9 @@
                     android:background="@color/trans"
                     android:gravity="center_vertical"
                     android:hint="输入提升井或处理站名称"
-                    android:textColor="#ffbbbbbb"
+                    android:maxLines="1"
+                    android:textColor="#010101"
+                    android:textColorHint="#ffbbbbbb"
                     android:textSize="14dp" />
 
             </LinearLayout>

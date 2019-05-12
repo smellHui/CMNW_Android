@@ -15,7 +15,7 @@ import com.tepia.cmnwsevice.model.station.StationManager;
 public class StationDetailPresenter extends BasePresenterImpl<StationDetailContract.View> implements StationDetailContract.Presenter{
 
     public void getStationDetail(String code) {
-        StationManager.getInstance().getStationDetail(code).safeSubscribe(new LoadingSubject<BaseCommonResponse<StationBean>>() {
+        StationManager.getInstance().getStationDetail(code).safeSubscribe(new LoadingSubject<BaseCommonResponse<StationBean>>(true,"获取站点详细信息") {
             @Override
             protected void _onNext(BaseCommonResponse<StationBean> stationBeanBaseCommonResponse) {
                 mView.getStationDetailSuccess(stationBeanBaseCommonResponse.getData());

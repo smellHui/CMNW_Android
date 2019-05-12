@@ -4,30 +4,28 @@
     <data></data>
 
     <LinearLayout
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <RelativeLayout
             android:id="@+id/lo_search_tip"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="100dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/bg_search_list">
+            android:background="@drawable/bg_search_list"
+            android:visibility="gone">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_search_his"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="5dp" />
+                android:paddingRight="10dp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_search_tip"

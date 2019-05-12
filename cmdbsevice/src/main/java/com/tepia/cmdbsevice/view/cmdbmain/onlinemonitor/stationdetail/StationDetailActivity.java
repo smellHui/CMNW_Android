@@ -18,6 +18,7 @@ import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap.OnlineM
 import com.tepia.cmnwsevice.model.station.StationBean;
 
 import org.litepal.annotation.Column;
+import org.litepal.crud.DataSupport;
 
 /**
  * Created by      android studio

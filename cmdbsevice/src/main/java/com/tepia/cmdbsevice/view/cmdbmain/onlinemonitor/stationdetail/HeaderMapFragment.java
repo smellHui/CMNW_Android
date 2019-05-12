@@ -94,7 +94,7 @@ public class HeaderMapFragment extends BaseCommonFragment {
         mBinding.mvArcgisRiverLog.setMapBackground(ContextCompat.getColor(Utils.getContext(), R.color.white), ContextCompat.getColor(Utils.getContext(), R.color.white), 0f, 0f);
 
         //设置底图
-        tiledMapLayer = new ArcGISTiledMapServiceLayer(ConfigConst.baseMapUrl);
+        tiledMapLayer = new ArcGISTiledMapServiceLayer(ConfigConst.baseMapUrl2);
         riversFeatureLayer = new ArcGISFeatureLayer(ConfigConst.riversMapUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
         riversNameGraphicsLayer = new GraphicsLayer();
         selectRiversLayer = new GraphicsLayer();

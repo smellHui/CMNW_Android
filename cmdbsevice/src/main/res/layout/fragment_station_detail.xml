@@ -54,313 +54,329 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.v4.widget.NestedScrollView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_search_list">
+                    android:background="@drawable/bg_search_list"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/lo_station_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="12dp">
+
+                        <TextView
+                            android:id="@+id/tv_station_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" "
+                            android:textColor="#ff010101"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/tv_station_organ"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_toRightOf="@id/tv_station_name"
+                            android:background="@drawable/bg_station_organ_type"
+                            android:padding="4dp"
+                            android:text=""
+                            android:textColor="#fff1891f"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tv_station_adress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_station_name"
+                            android:layout_marginTop="12dp"
+                            android:text=""
+                            android:textColor="#ff555555"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="12dp"
+                            android:src="@mipmap/icon_arrow_right_black" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="#E8E8E8" />
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
 
-                        <RelativeLayout
-                            android:id="@+id/lo_station_info"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="12dp">
+                            android:drawableLeft="@mipmap/icon_pic"
+                            android:drawablePadding="10dp"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="图片"
+                            android:textColor="#ff555555"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
 
-                            <TextView
-                                android:id="@+id/tv_station_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" "
-                                android:textColor="#ff010101"
-                                android:textSize="17sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
 
-                            <TextView
-                                android:id="@+id/tv_station_organ"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:layout_toRightOf="@id/tv_station_name"
-                                android:background="@drawable/bg_station_organ_type"
-                                android:padding="4dp"
-                                android:text=""
-                                android:textColor="#fff1891f"
-                                android:textSize="11sp" />
+                            android:drawableLeft="@mipmap/icon_arsaomiao"
+                            android:drawablePadding="10dp"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="VR"
+                            android:textColor="#ff555555"
+                            android:textSize="14sp" />
 
-                            <TextView
-                                android:id="@+id/tv_station_adress"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tv_station_name"
-                                android:layout_marginTop="12dp"
-                                android:text=""
-                                android:textColor="#ff555555"
-                                android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:drawableLeft="@mipmap/iocn_gylc"
+                            android:drawablePadding="10dp"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="工艺流程"
+                            android:textColor="#ff555555"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="12dp"
-                                android:src="@mipmap/icon_arrow_right_black" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:background="#f2f2f2" />
 
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginRight="12dp"
-                            android:layout_marginBottom="16dp"
-                            android:background="#E8E8E8" />
+                    <android.support.v4.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginRight="12dp"
-                            android:layout_marginBottom="10dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableLeft="@mipmap/icon_pic"
-                                android:drawablePadding="10dp"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="图片"
-                                android:textColor="#ff555555"
-                                android:textSize="14sp"
-                                android:visibility="gone" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:drawableLeft="@mipmap/icon_arsaomiao"
-                                android:drawablePadding="10dp"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="VR"
-                                android:textColor="#ff555555"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:drawableLeft="@mipmap/icon_gylc"
-                                android:drawablePadding="10dp"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="工艺流程"
-                                android:textColor="#ff555555"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="8dp"
-                            android:background="#E8E8E8" />
-
-                        <RelativeLayout
-                            android:id="@+id/lo_water_q_tip"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/tv_cur_water_q_tip"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginTop="25dp"
-                                android:text="当前水质"
-                                android:textColor="#ff333333"
-                                android:textSize="15sp" />
-
-                            <TextView
-                                android:id="@+id/tv_cur_water_q"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginTop="25dp"
-                                android:layout_toRightOf="@id/tv_cur_water_q_tip"
-                                android:text=""
-                                android:textColor="#ff888888"
-                                android:textSize="15sp" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginRight="24dp"
-                                android:src="@mipmap/icon_arrow_down_black" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/lo_water_q"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="12dp"
-                            android:background="#fff3f7f9"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="14dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="14dp">
-
-                            <TextView
-                                android:id="@+id/tv_conductivity"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="#ff888888"
-                                android:textSize="13sp" />
-
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="12dp"
-                            android:background="#E8E8E8" />
-
-                        <RelativeLayout
-                            android:id="@+id/lo_device_status_tip"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/tv_station_station_tip"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginTop="25dp"
-                                android:text="设备状态"
-                                android:textColor="#ff333333"
-                                android:textSize="15sp" />
-
-                            <TextView
-                                android:id="@+id/tv_station_status"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginTop="25dp"
-                                android:layout_toRightOf="@id/tv_station_station_tip"
-                                android:text=""
-                                android:textColor="#ff888888"
-                                android:textSize="15sp" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginRight="24dp"
-                                android:src="@mipmap/icon_arrow_down_black" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/lo_device_status"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="12dp"
-                            android:background="#fff3f7f9"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="14dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="14dp">
-
-                            <TextView
-                                android:id="@+id/tv_duration_time_tip"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="#ff888888"
-                                android:textSize="13sp" />
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/rv_station_status_his"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tv_duration_time_tip"
-                                android:layout_marginTop="10dp"
-                                android:minHeight="100dp" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/lo_water_q_ren"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="25dp"
-                            android:layout_marginBottom="30dp"
-                            android:visibility="invisible">
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
                             <RelativeLayout
-                                android:id="@+id/lo_data_tip"
+                                android:id="@+id/lo_water_q_tip"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp">
 
                                 <TextView
-                                    android:id="@+id/tv_data_tip"
-                                    android:layout_width="match_parent"
+                                    android:id="@+id/tv_cur_water_q_tip"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="水质检测数据"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginTop="25dp"
+                                    android:text="当前水质"
                                     android:textColor="#ff333333"
                                     android:textSize="15sp" />
 
                                 <TextView
-                                    android:id="@+id/tv_last_time"
+                                    android:id="@+id/tv_cur_water_q"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@id/tv_data_tip"
-                                    android:layout_marginTop="7dp"
-                                    android:text="最近一次监测:2019-4-15"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginTop="25dp"
+                                    android:layout_toRightOf="@id/tv_cur_water_q_tip"
+                                    android:text=""
                                     android:textColor="#ff888888"
-                                    android:textSize="12sp" />
+                                    android:textSize="15sp" />
 
-                                <TextView
+                                <ImageView
+                                    android:id="@+id/iv_cur_water_q_tip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginRight="12dp"
-                                    android:text="单位：mg/l"
-                                    android:textColor="#ff888888"
-                                    android:textSize="12sp" />
+                                    android:layout_marginTop="30dp"
+                                    android:layout_marginRight="24dp"
+                                    android:src="@mipmap/icon_fold" />
                             </RelativeLayout>
 
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/rv_water_q_data"
+                            <RelativeLayout
+                                android:id="@+id/lo_water_q"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/lo_data_tip"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="12dp"
+
                                 android:layout_marginRight="12dp"
-                                android:minHeight="100dp" />
+                                android:background="#fff3f7f9"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="14dp"
+                                android:paddingRight="20dp"
+                                android:paddingBottom="14dp">
+
+                                <TextView
+                                    android:id="@+id/tv_conductivity"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="#ff888888"
+                                    android:textSize="13sp" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginLeft="12dp"
+
+                                android:layout_marginRight="12dp"
+                                android:background="#E8E8E8" />
+
+                            <RelativeLayout
+                                android:id="@+id/lo_device_status_tip"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp">
+
+                                <TextView
+                                    android:id="@+id/tv_station_station_tip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginTop="25dp"
+                                    android:text="设备状态"
+                                    android:textColor="#ff333333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_station_status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginTop="25dp"
+                                    android:layout_toRightOf="@id/tv_station_station_tip"
+                                    android:text="无通讯"
+                                    android:textColor="#ff888888"
+                                    android:textSize="15sp" />
+
+                                <ImageView
+                                    android:id="@+id/iv_station_station_tip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="30dp"
+                                    android:layout_marginRight="24dp"
+                                    android:src="@mipmap/icon_fold" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/lo_device_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginRight="12dp"
+                                android:background="#fff3f7f9"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="14dp"
+                                android:paddingRight="20dp"
+                                android:paddingBottom="14dp">
+
+                                <TextView
+                                    android:id="@+id/tv_duration_time_tip"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="#ff888888"
+                                    android:textSize="13sp" />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rv_station_status_his"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/tv_duration_time_tip"
+                                    android:layout_marginTop="10dp"
+                                    android:minHeight="100dp" />
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginLeft="12dp"
+
+                                android:layout_marginRight="12dp"
+                                android:background="#E8E8E8" />
+
+                            <RelativeLayout
+                                android:id="@+id/lo_water_q_ren"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="30dp"
+                                android:visibility="invisible">
+
+                                <RelativeLayout
+                                    android:id="@+id/lo_data_tip"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:id="@+id/tv_data_tip"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="水质检测数据"
+                                        android:textColor="#ff333333"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_last_time"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/tv_data_tip"
+                                        android:layout_marginTop="7dp"
+                                        android:text="最近一次监测:"
+                                        android:textColor="#ff888888"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginRight="12dp"
+                                        android:text="单位：mg/l"
+                                        android:textColor="#ff888888"
+                                        android:textSize="12sp" />
+                                </RelativeLayout>
 
 
-                        </RelativeLayout>
-                    </LinearLayout>
-                </android.support.v4.widget.NestedScrollView>
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rv_water_q_data"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/lo_data_tip"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="12dp"
+                                    android:minHeight="100dp" />
 
+
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </android.support.v4.widget.NestedScrollView>
+
+                </LinearLayout>
 
             </RelativeLayout>
 

@@ -12,6 +12,7 @@ import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.tepia.base.mvp.MVPBaseFragment;
@@ -72,8 +73,10 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 }
                 if (mBinding.loWaterQ.getVisibility() == View.VISIBLE) {
                     mBinding.loWaterQ.setVisibility(View.GONE);
+                    mBinding.ivCurWaterQTip.setImageResource(R.mipmap.icon_arrow_down_black);
                 } else {
                     mBinding.loWaterQ.setVisibility(View.VISIBLE);
+                    mBinding.ivCurWaterQTip.setImageResource(R.mipmap.icon_fold);
                 }
             }
         });
@@ -85,11 +88,15 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 }
                 if (mBinding.loDeviceStatus.getVisibility() == View.VISIBLE) {
                     mBinding.loDeviceStatus.setVisibility(View.GONE);
+                    mBinding.ivStationStationTip.setImageResource(R.mipmap.icon_arrow_down_black);
                 } else {
                     mBinding.loDeviceStatus.setVisibility(View.VISIBLE);
+                    mBinding.ivStationStationTip.setImageResource(R.mipmap.icon_fold);
                 }
             }
         });
+        mBinding.tvDeviceStatusHeader.setText("正常");
+        mBinding.tvDeviceStatusHeader.setBackgroundResource(R.drawable.bg_station_status_detail_zc);
     }
 
     @Override
@@ -176,7 +183,12 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             }
             mBinding.tvDeviceStatusHeader.setText(temp);
             mBinding.tvStationStatus.setText(temp);
-            mBinding.tvDurationTimeTip.setText("无通讯维持时间：" + data.getCurrentData().getCommunicationResult().getDuration());
+            if (!TextUtils.isEmpty(data.getCurrentData().getCommunicationResult().getDuration()) && !data.getCurrentData().getCommunicationResult().getDuration().equals("null")) {
+                mBinding.tvDurationTimeTip.setVisibility(View.VISIBLE);
+                mBinding.tvDurationTimeTip.setText("无通讯维持时间：" + data.getCurrentData().getCommunicationResult().getDuration());
+            }else {
+                mBinding.tvDurationTimeTip.setVisibility(View.GONE);
+            }
             mBinding.rvStationStatusHis.setLayoutManager(new LinearLayoutManager(getContext()));
             AdapterStationStatusHis adapterStationStatusHis = new AdapterStationStatusHis(R.layout.lv_station_status_his_item_view, data.getCurrentData().getDeviceMonitorDataList());
             mBinding.rvStationStatusHis.setAdapter(adapterStationStatusHis);

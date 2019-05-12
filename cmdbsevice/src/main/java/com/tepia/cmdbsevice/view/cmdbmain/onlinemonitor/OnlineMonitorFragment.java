@@ -268,6 +268,7 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     initAndShowSearchTipList();
                     if (CollectionsUtil.isEmpty(mPresenter.getSearchTipList(temp))) {
                        ToastUtils.shortToast("没有相关测站");
+                       mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
                     }
                 } else {
                     if (!CollectionsUtil.isEmpty(mPresenter.getSearchHisList())) {

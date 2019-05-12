@@ -33,8 +33,10 @@ public class AdapterStationStatusHis extends BaseQuickAdapter<DeviceMonitorDataL
         mBinding.tvTime.setText(item.getTm());
         if (item.getIsFault() == 0) {
             mBinding.tvStatus.setText("正常");
+            mBinding.tvStatus.setTextColor(0xff53b67e);
         } else {
             mBinding.tvStatus.setText("故障");
+            mBinding.tvStatus.setTextColor(0xfff1891f);
         }
     }
 }
