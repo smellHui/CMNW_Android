@@ -90,6 +90,15 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
         vendorList();
     }
 
+    @Override
+    protected void initRequest() {
+        if (tabIndex == 0) {
+            listByFault();
+        } else {
+            listByWarning();
+        }
+    }
+
     private void setAdapterTabIndex(){
         ((AlermStatisAdapter) getAdapter()).setTabType(tabIndex);
     }
@@ -118,15 +127,6 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
     @Override
     public BaseQuickAdapter getBaseQuickAdapter() {
         return new AlermStatisAdapter();
-    }
-
-    @Override
-    protected void initRequestData() {
-        if (tabIndex == 0) {
-            listByFault();
-        } else {
-            listByWarning();
-        }
     }
 
     @Override
