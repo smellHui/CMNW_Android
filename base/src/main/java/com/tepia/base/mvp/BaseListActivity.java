@@ -47,25 +47,31 @@ public abstract class BaseListActivity<K> extends BaseActivity implements NetLis
             throw new RuntimeException("not found RecyclerView");
         setVerModel();
         swipeRefreshLayout.setOnRefreshListener(this::refresh);
+        initRequest();
     }
 
     public void refresh() {
         swipeRefreshLayout.setRefreshing(true);
         page = 1;
         getList().clear();
-        initRequestData();
+        initRequest();
     }
 
     public int getPage() {
         return page;
     }
 
-    protected abstract void initRequestData();
+    protected abstract void initRequest();
+
+    @Override
+    protected void initRequestData() {
+
+    }
 
     private void setVerModel() {
         baseQuickAdapter = getBaseQuickAdapter();
         baseQuickAdapter.setEnableLoadMore(true);
-        baseQuickAdapter.setOnLoadMoreListener(this::initRequestData, rv);
+        baseQuickAdapter.setOnLoadMoreListener(this::initRequest, rv);
         rv.setLayoutManager(new WrapLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
         rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
