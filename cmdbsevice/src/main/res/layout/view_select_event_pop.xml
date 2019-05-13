@@ -72,11 +72,30 @@
 
             <View style="@style/line" />
 
-            <TextView
-                style="@style/text.event_pop"
-                android:text="运维企业" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="20dp">
 
-            <com.zhy.view.flowlayout.TagFlowLayout
+                <TextView
+                    style="@style/text.event_pop"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="运维企业" />
+
+                <TextView
+                    android:id="@+id/btn_compty_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_corner_btn"
+                    android:text="全选"
+                    android:textColor="@color/color_AAAAAA"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.TagFlowLayout
                 android:id="@+id/flowlayout_compty"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -85,11 +104,31 @@
 
             <View style="@style/line" />
 
-            <TextView
-                style="@style/text.event_pop"
-                android:text="行政区划" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="20dp">
 
-            <com.zhy.view.flowlayout.TagFlowLayout
+                <TextView
+                    style="@style/text.event_pop"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="行政区划" />
+
+                <TextView
+                    android:id="@+id/btn_town_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_corner_btn"
+                    android:text="全选"
+                    android:textColor="@color/color_AAAAAA"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+
+            <com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.TagFlowLayout
                 android:id="@+id/flowlayout_cate"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

@@ -1,22 +1,16 @@
 package com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.codbking.widget.DatePicker;
-
 import com.codbking.widget.OnChangeLisener;
 import com.codbking.widget.bean.DateType;
 import com.google.common.base.Strings;
@@ -24,12 +18,8 @@ import com.lxj.xpopup.core.BasePopupView;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.cmdbsevice.R;
-import com.tepia.cmdbsevice.model.event.AreaBean;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
+import com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.TagAdapter;
 
-import java.util.Arrays;
 import java.util.Date;
 
 /**

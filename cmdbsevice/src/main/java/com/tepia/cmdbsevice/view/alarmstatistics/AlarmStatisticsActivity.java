@@ -23,12 +23,11 @@ import com.tepia.cmdbsevice.model.event.AreaBean;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.WarnBean;
 import com.tepia.cmdbsevice.view.alarmstatistics.adapter.AlermStatisAdapter;
-import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.SelectEventPopView;
+import com.tepia.cmdbsevice.view.alarmstatistics.view.SelectEventPopView;
 import com.tepia.cmnwsevice.model.station.StationBean;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.Collections;
 import java.util.List;
 
 /**

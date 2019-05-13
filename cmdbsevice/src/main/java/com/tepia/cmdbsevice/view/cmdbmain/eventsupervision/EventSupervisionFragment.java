@@ -6,29 +6,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.flyco.tablayout.SegmentTabLayout;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
-import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.BaseCommonFragment;
-import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.view.WrapLayoutManager;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.TopTotalBean;
-import com.tepia.cmdbsevice.view.alarmstatistics.view.DataTopView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.adapter.CityCountAdapter;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.CountShowView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.RealTimeSuperView;
-import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.SelectEventPopView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.TownshipStatisticsView;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView;
-import com.tepia.cmnwsevice.model.order.OrderBean;
-import com.tepia.cmnwsevice.model.order.OrderManager;
-import com.tepia.cmnwsevice.view.main.OrderPresenter;
 
 import java.util.List;
 

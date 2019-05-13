@@ -6,5 +6,5 @@
         >
     </item>
     <item
-        android:drawable="@drawable/date_normal_bg"></item>
+        android:drawable="@drawable/date_normal_bg"/>
 </selector>
