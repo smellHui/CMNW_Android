@@ -22,6 +22,7 @@
             <com.tepia.base.view.ScrollLayout.ContentScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:transitionGroup="true"
                 android:background="@drawable/bg_station_list"
                 android:scrollbars="none"
                 android:tag="item_scroll_view_layout">

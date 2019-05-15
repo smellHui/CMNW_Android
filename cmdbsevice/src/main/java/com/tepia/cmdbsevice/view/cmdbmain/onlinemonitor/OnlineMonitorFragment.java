@@ -267,8 +267,8 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                     showLayer(2);
                     initAndShowSearchTipList();
                     if (CollectionsUtil.isEmpty(mPresenter.getSearchTipList(temp))) {
-                       ToastUtils.shortToast("没有相关测站");
-                       mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
+                        ToastUtils.shortToast("没有相关测站");
+                        mBinding.loSearchTip.loSearchTip.setVisibility(View.GONE);
                     }
                 } else {
                     if (!CollectionsUtil.isEmpty(mPresenter.getSearchHisList())) {
@@ -468,6 +468,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                mBinding.loRight.ivImageMap.setBackgroundResource(R.drawable.bg_map_select);
+                mBinding.loRight.tvImageMap.setTextColor(0xff4FB97E);
+                mBinding.loRight.ivMapVeder.setBackgroundResource(R.drawable.bg_rounte_white);
+                mBinding.loRight.tvMapVeder.setTextColor(0xff333333);
                 if (onlineMonitorMapFragment != null) {
                     onlineMonitorMapFragment.changLayer("image");
                     mBinding.drawerLayout.closeDrawer(Gravity.RIGHT);
@@ -480,6 +484,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                mBinding.loRight.ivMapVeder.setBackgroundResource(R.drawable.bg_map_select);
+                mBinding.loRight.tvMapVeder.setTextColor(0xff4FB97E);
+                mBinding.loRight.ivImageMap.setBackgroundResource(R.drawable.bg_rounte_white);
+                mBinding.loRight.tvImageMap.setTextColor(0xff333333);
                 if (onlineMonitorMapFragment != null) {
                     onlineMonitorMapFragment.changLayer("vender");
                     mBinding.drawerLayout.closeDrawer(Gravity.RIGHT);
@@ -517,6 +525,34 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
                 adapterStationStatusList.setNewData(mPresenter.getStationStatusList());
                 adapterStationVender.setNewData(mPresenter.getVenderList());
                 adapterStationArea.setNewData(mPresenter.getAreaList());
+            }
+        });
+        mBinding.loRight.btAllSelectArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                adapterStationArea.toggleSelectAll();
+                if (adapterStationArea.isSelectAll()) {
+                    mBinding.loRight.btAllSelectArea.setText("取消全选");
+                } else {
+                    mBinding.loRight.btAllSelectArea.setText("全选");
+                }
+            }
+        });
+        mBinding.loRight.btAllSelectOrgan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                adapterStationVender.toggleSelectAll();
+                if (adapterStationVender.isSelectAll()) {
+                    mBinding.loRight.btAllSelectOrgan.setText("取消全选");
+                } else {
+                    mBinding.loRight.btAllSelectOrgan.setText("全选");
+                }
             }
         });
         mBinding.loRight.tvSure.setOnClickListener(new View.OnClickListener() {

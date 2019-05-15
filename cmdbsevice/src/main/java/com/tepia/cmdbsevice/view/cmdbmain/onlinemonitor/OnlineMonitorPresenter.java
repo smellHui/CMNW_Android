@@ -69,7 +69,7 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
         List<VenderBean> venderBeanList = DataSupport.findAll(VenderBean.class);
         for (VenderBean bean : venderBeanList) {
             if (bean != null) {
-                list.add(new StationTypeBean(bean.getName(), bean.getCode(), true));
+                list.add(new StationTypeBean(bean.getName(), bean.getCode(), false));
             }
         }
         return list;
@@ -80,7 +80,7 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
         List<AreaBean> venderBeanList = DataSupport.findAll(AreaBean.class);
         for (AreaBean bean : venderBeanList) {
             if (bean != null) {
-                list.add(new StationTypeBean(bean.getName(), bean.getCode(), true));
+                list.add(new StationTypeBean(bean.getName(), bean.getCode(), false));
             }
         }
         return list;
@@ -88,17 +88,17 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
 
     public List<StationTypeBean> getStationTypeList() {
         ArrayList<StationTypeBean> list = new ArrayList<>();
-        list.add(new StationTypeBean("提升井", "2", R.drawable.bg_circle_eee, R.mipmap.icn_tsj, true));
-        list.add(new StationTypeBean("污水处理站", "1", R.drawable.bg_circle_eee, R.mipmap.icn_fj, true));
+        list.add(new StationTypeBean("提升井", "2", R.drawable.bg_circle_eee, R.mipmap.icn_tsj, false));
+        list.add(new StationTypeBean("污水处理站", "1", R.drawable.bg_circle_eee, R.mipmap.icn_fj, false));
         return list;
     }
 
     public List<StationTypeBean> getStationStatusList() {
         ArrayList<StationTypeBean> list = new ArrayList<>();
-        list.add(new StationTypeBean("正常", "0", R.drawable.bg_circle_4fcffa, true));
-        list.add(new StationTypeBean("异常", "1", R.drawable.bg_circle_ffe42d, true));
-        list.add(new StationTypeBean("报警", "2", R.drawable.bg_circle_ffaa53, true));
-        list.add(new StationTypeBean("故障", "3", R.drawable.bg_circle_f43234, true));
+        list.add(new StationTypeBean("正常", "0", R.drawable.bg_circle_4fcffa, false));
+        list.add(new StationTypeBean("异常", "1", R.drawable.bg_circle_ffe42d, false));
+        list.add(new StationTypeBean("报警", "2", R.drawable.bg_circle_ffaa53, false));
+        list.add(new StationTypeBean("故障", "3", R.drawable.bg_circle_f43234, false));
         return list;
     }
 

@@ -224,7 +224,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         }
 
         {
-            if (data.getCurrentData() == null || data.getCurrentData().getConductivityResult() == null || stationBean.getStationType().equals("2")) {
+            if (data.getWaterQuality() == null || stationBean.getStationType().equals("2")) {
                 mBinding.loWaterQRen.setVisibility(View.INVISIBLE);
             } else {
                 mBinding.loWaterQRen.setVisibility(View.VISIBLE);

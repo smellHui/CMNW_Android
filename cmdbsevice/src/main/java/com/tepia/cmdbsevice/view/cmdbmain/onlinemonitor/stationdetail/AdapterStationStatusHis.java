@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.LvStationStatusHisItemViewBinding;
 import com.tepia.cmnwsevice.model.station.DeviceMonitorDataListBean;
 
@@ -34,9 +35,11 @@ public class AdapterStationStatusHis extends BaseQuickAdapter<DeviceMonitorDataL
         if (item.getIsFault() == 0) {
             mBinding.tvStatus.setText("正常");
             mBinding.tvStatus.setTextColor(0xff53b67e);
+            mBinding.ivStatus.setImageResource(R.mipmap.dot_nor);
         } else {
             mBinding.tvStatus.setText("异常");
             mBinding.tvStatus.setTextColor(0xfff1891f);
+            mBinding.ivStatus.setImageResource(R.mipmap.dot_abnormal);
         }
     }
 }

@@ -32,7 +32,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="异常"
+
             android:textColor="#fff1891f"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/dot_nor" />
     </LinearLayout>
 </layout>

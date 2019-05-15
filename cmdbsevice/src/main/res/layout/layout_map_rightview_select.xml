@@ -53,11 +53,14 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/iv_image_map"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:padding="1dp"
                                 android:src="@mipmap/map_satellite" />
 
                             <TextView
+                                android:id="@+id/tv_image_map"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -77,16 +80,20 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/iv_map_veder"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:background="@drawable/bg_map_select"
+                                android:padding="1dp"
                                 android:src="@mipmap/map_graphic" />
 
                             <TextView
+                                android:id="@+id/tv_map_veder"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="矢量图"
-                                android:textColor="#ff333333"
+                                android:textColor="#4FB97E"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -101,6 +108,7 @@
                     android:orientation="vertical"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp">
+
 
                     <TextView
                         android:layout_width="match_parent"
@@ -154,13 +162,31 @@
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="运维企业"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:text="运维企业"
+                            android:textColor="#ff333333"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/bt_all_select_organ"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/shape_corner_btn"
+                            android:text="全选"
+                            android:textColor="@color/color_AAAAAA"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_station_organ_list"
@@ -180,13 +206,32 @@
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp">
 
-                    <TextView
+
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="行政区划"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="行政区划"
+                            android:textColor="#ff333333"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/bt_all_select_area"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/shape_corner_btn"
+                            android:text="全选"
+                            android:textColor="@color/color_AAAAAA"
+                            android:textSize="13sp" />
+                    </LinearLayout>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_station_area_list"

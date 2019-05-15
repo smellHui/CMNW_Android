@@ -24,6 +24,8 @@ import java.util.List;
  * 功能描述        :
  **/
 public class AdapterStationSaixuanList extends BaseQuickAdapter<StationTypeBean, BaseViewHolder> {
+    private boolean isSelectAll;
+
     public AdapterStationSaixuanList(int layoutResId, @Nullable List<StationTypeBean> data) {
         super(layoutResId, data);
     }
@@ -33,10 +35,14 @@ public class AdapterStationSaixuanList extends BaseQuickAdapter<StationTypeBean,
 //        lv_station_saixun_item_view
         LvStationSaixunItemViewBinding mBinding = DataBindingUtil.bind(helper.itemView);
         mBinding.tvName.setText(item.getName());
-        if (item.isSelected()) {
+        if (isSelectAll) {
             mBinding.tvName.setBackgroundResource(R.drawable.bg_select_round_e3faee);
         } else {
-            mBinding.tvName.setBackgroundResource(R.drawable.bg_select_round);
+            if (item.isSelected()) {
+                mBinding.tvName.setBackgroundResource(R.drawable.bg_select_round_e3faee);
+            } else {
+                mBinding.tvName.setBackgroundResource(R.drawable.bg_select_round);
+            }
         }
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,12 +61,26 @@ public class AdapterStationSaixuanList extends BaseQuickAdapter<StationTypeBean,
     }
 
     public List<StationTypeBean> getSelectData() {
+
         ArrayList<StationTypeBean> list = new ArrayList<>();
-        for (StationTypeBean bean : getData()) {
-            if (bean.isSelected()) {
-                list.add(bean);
+        if (isSelectAll) {
+            list.addAll(getData());
+        } else {
+            for (StationTypeBean bean : getData()) {
+                if (bean.isSelected()) {
+                    list.add(bean);
+                }
             }
         }
         return list;
+    }
+
+    public void toggleSelectAll() {
+        isSelectAll = !isSelectAll;
+        notifyDataSetChanged();
+    }
+
+    public boolean isSelectAll() {
+        return isSelectAll;
     }
 }
