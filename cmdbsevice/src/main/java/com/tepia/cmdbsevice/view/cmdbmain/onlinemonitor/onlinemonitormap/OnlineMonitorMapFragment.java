@@ -15,6 +15,7 @@ import com.esri.android.map.Callout;
 import com.esri.android.map.CalloutStyle;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.MapView;
+import com.esri.android.map.ags.ArcGISDynamicMapServiceLayer;
 import com.esri.android.map.ags.ArcGISFeatureLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.event.OnSingleTapListener;
@@ -56,7 +57,10 @@ import java.util.Map;
 
 public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapContract.View, OnlineMonitorMapPresenter> implements OnlineMonitorMapContract.View {
 
-    private ArcGISTiledMapServiceLayer tiledMapLayer;
+    private TianDiTuTiledMapServiceLayer vecBaseLayer;
+    private TianDiTuTiledMapServiceLayer cvaBaseLayer;
+    private TianDiTuTiledMapServiceLayer imgLayer;
+    private TianDiTuTiledMapServiceLayer ciaLayer;
     private ArcGISFeatureLayer riversFeatureLayer;
     private GraphicsLayer logGraphicsLayer;
     /**
@@ -70,7 +74,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     private FragmentOnlineMapBinding mBinding;
     private int count = 0;
-    private ArcGISTiledMapServiceLayer imgLayer;
+
     private MapView mapView;
     private int mapHeight;
     private List<StationBean> stationList = new ArrayList<>();
@@ -111,6 +115,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
      */
     private void initArcgisMap() {
         mapView = mBinding.mvArcgisRiverLog;
+
         ViewTreeObserver viewTreeObserver = mapView.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -124,17 +129,45 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         mBinding.mvArcgisRiverLog.setMapBackground(ContextCompat.getColor(Utils.getContext(), R.color.white), ContextCompat.getColor(Utils.getContext(), R.color.white), 0f, 0f);
 
         //设置底图
-        tiledMapLayer = new ArcGISTiledMapServiceLayer(ConfigConst.baseMapUrl);
-        imgLayer = new ArcGISTiledMapServiceLayer(ConfigConst.baseMapUrl2);
+
+        {
+            /**
+             * 天地图矢量
+             * */
+            vecBaseLayer = new TianDiTuTiledMapServiceLayer(TianDiTuTiledMapServiceType.VEC_C);
+            mapView.addLayer(vecBaseLayer, 0);
+            /**
+             * 天地图矢量标注
+             * */
+            cvaBaseLayer = new TianDiTuTiledMapServiceLayer(TianDiTuTiledMapServiceType.CVA_C);
+            mapView.addLayer(cvaBaseLayer, 1);
+        }
+
+        {
+            /**
+             * 天地图矢量
+             * */
+            imgLayer = new TianDiTuTiledMapServiceLayer(TianDiTuTiledMapServiceType.IMG_C);
+            mapView.addLayer(imgLayer, 0);
+            /**
+             * 天地图矢量标注
+             * */
+            ciaLayer = new TianDiTuTiledMapServiceLayer(TianDiTuTiledMapServiceType.CIA_C);
+            mapView.addLayer(ciaLayer, 1);
+        }
+
+        imgLayer.setVisible(false);
+        ciaLayer.setVisible(false);
+
         riversFeatureLayer = new ArcGISFeatureLayer(ConfigConst.riversMapUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
         riversNameGraphicsLayer = new GraphicsLayer();
         selectRiversLayer = new GraphicsLayer();
         logGraphicsLayer = new GraphicsLayer();
-        mBinding.mvArcgisRiverLog.addLayer(tiledMapLayer);
-        mBinding.mvArcgisRiverLog.addLayer(imgLayer);
+
         imgLayer.setVisible(false);
+
+
         mBinding.mvArcgisRiverLog.addLayer(riversFeatureLayer);
-        mBinding.mvArcgisRiverLog.addLayer(riversNameGraphicsLayer);
         mBinding.mvArcgisRiverLog.addLayer(selectRiversLayer);
         mBinding.mvArcgisRiverLog.addLayer(logGraphicsLayer);
         mBinding.mvArcgisRiverLog.setOnStatusChangedListener(new OnStatusChangedListener() {
@@ -315,7 +348,11 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
             if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {
                 return null;
             }
-            return new Point(lgtdrv, lttdrv);
+            Point point1 = new Point(lgtdrv, lttdrv);
+            Point point2 = (Point) GeometryEngine.project(point1, SpatialReference.create(SpatialReference.WKID_WGS84),
+                    SpatialReference.create(SpatialReference.WKID_WGS84_WEB_MERCATOR));
+
+            return point2;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -502,25 +539,46 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
             case "image":
                 if (imgLayer != null) {
                     imgLayer.setVisible(true);
+
                 }
-                if (tiledMapLayer != null) {
-                    tiledMapLayer.setVisible(false);
+                if (ciaLayer != null) {
+                    ciaLayer.setVisible(true);
+                }
+                if (cvaBaseLayer != null) {
+                    cvaBaseLayer.setVisible(false);
+                }
+                if (vecBaseLayer != null) {
+                    vecBaseLayer.setVisible(false);
                 }
                 break;
             case "vender":
                 if (imgLayer != null) {
                     imgLayer.setVisible(false);
+
                 }
-                if (tiledMapLayer != null) {
-                    tiledMapLayer.setVisible(true);
+                if (ciaLayer != null) {
+                    ciaLayer.setVisible(false);
+                }
+                if (cvaBaseLayer != null) {
+                    cvaBaseLayer.setVisible(true);
+                }
+                if (vecBaseLayer != null) {
+                    vecBaseLayer.setVisible(true);
                 }
                 break;
             default:
                 if (imgLayer != null) {
-                    imgLayer.setVisible(false);
+                    imgLayer.setVisible(true);
+
                 }
-                if (tiledMapLayer != null) {
-                    tiledMapLayer.setVisible(true);
+                if (ciaLayer != null) {
+                    ciaLayer.setVisible(true);
+                }
+                if (cvaBaseLayer != null) {
+                    cvaBaseLayer.setVisible(false);
+                }
+                if (vecBaseLayer != null) {
+                    vecBaseLayer.setVisible(false);
                 }
                 break;
         }

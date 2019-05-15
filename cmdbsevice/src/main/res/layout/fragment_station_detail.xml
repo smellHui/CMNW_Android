@@ -267,7 +267,7 @@
                                     android:layout_marginLeft="12dp"
                                     android:layout_marginTop="25dp"
                                     android:layout_toRightOf="@id/tv_station_station_tip"
-                                    android:text="无通讯"
+                                    android:text="--"
                                     android:textColor="#ff888888"
                                     android:textSize="15sp" />
 

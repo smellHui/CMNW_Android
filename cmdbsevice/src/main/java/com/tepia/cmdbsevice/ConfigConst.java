@@ -52,8 +52,11 @@ public class ConfigConst {
      * 武汉研发中心发布的地址
      * http://47.99.135.198:6080/arcgis/rest/services/tianditu_street_chongming/MapServer
      */
-    public static final String baseMapUrl = "http://47.99.135.198:6080/arcgis/rest/services/tianditu_street_chongming/MapServer";
-    public static final String baseMapUrl2 = "http://47.99.135.198:6080/arcgis/rest/services/arcgis_yingxiang_chongming/MapServer";
+//    public static final String baseMapUrl = "http://47.99.135.198:6080/arcgis/rest/services/tianditu_street_chongming/MapServer";
+//    public static final String baseMapUrl2 = "http://47.99.135.198:6080/arcgis/rest/services/arcgis_yingxiang_chongming/MapServer";
+    public static final String baseMapUrl = "http://t{s}.tianditu.gov.cn/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=3b28283fae1f811f9d321978eabf490a";
+    public static final String baseMapUrl2 = "http://t{s}.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=3b28283fae1f811f9d321978eabf490a";
+
 
     public static final double scale = 9000;
 

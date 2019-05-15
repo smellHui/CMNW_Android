@@ -198,7 +198,7 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
             stringItems[i] = areaList.get(i).getKey();
         }
         final ActionSheetDialog dialog = new ActionSheetDialog(getContext(), stringItems, null);
-        dialog.title("请选择行政区域")
+        dialog.title("请选择类型")
                 .titleTextSize_SP(14.5f)
                 .widthScale(0.8f)
                 .show();

@@ -15,7 +15,9 @@ import com.esri.android.map.ags.ArcGISFeatureLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.event.OnStatusChangedListener;
 import com.esri.android.runtime.ArcGISRuntime;
+import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
+import com.esri.core.geometry.SpatialReference;
 import com.google.gson.Gson;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.Utils;
@@ -25,6 +27,8 @@ import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.databinding.FragmentHeaderMapPointBinding;
 import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
 import com.tepia.cmdbsevice.util.ARCGISUTIL;
+import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap.TianDiTuTiledMapServiceLayer;
+import com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap.TianDiTuTiledMapServiceType;
 import com.tepia.cmnwsevice.model.station.StationBean;
 
 /**
@@ -40,6 +44,8 @@ public class HeaderMapFragment extends BaseCommonFragment {
     public StationBean stationBean;
     private FragmentHeaderMapPointBinding mBinding;
     private MapView mapView;
+    private TianDiTuTiledMapServiceLayer imgLayer;
+    private TianDiTuTiledMapServiceLayer ciaLayer;
 
     @Override
     protected int getLayoutId() {
@@ -94,7 +100,18 @@ public class HeaderMapFragment extends BaseCommonFragment {
         mBinding.mvArcgisRiverLog.setMapBackground(ContextCompat.getColor(Utils.getContext(), R.color.white), ContextCompat.getColor(Utils.getContext(), R.color.white), 0f, 0f);
 
         //设置底图
-        tiledMapLayer = new ArcGISTiledMapServiceLayer(ConfigConst.baseMapUrl2);
+        {
+            /**
+             * 天地图矢量
+             * */
+            imgLayer = new TianDiTuTiledMapServiceLayer(TianDiTuTiledMapServiceType.IMG_C);
+            mapView.addLayer(imgLayer, 0);
+            /**
+             * 天地图矢量标注
+             * */
+            ciaLayer = new TianDiTuTiledMapServiceLayer(TianDiTuTiledMapServiceType.CIA_C);
+            mapView.addLayer(ciaLayer, 1);
+        }
         riversFeatureLayer = new ArcGISFeatureLayer(ConfigConst.riversMapUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
         riversNameGraphicsLayer = new GraphicsLayer();
         selectRiversLayer = new GraphicsLayer();
@@ -232,7 +249,11 @@ public class HeaderMapFragment extends BaseCommonFragment {
             if (lgtdrv <= lttdrv || lgtdrv == 0 || lttdrv == 0) {
                 return null;
             }
-            return new Point(lgtdrv, lttdrv);
+            Point point1 = new Point(lgtdrv, lttdrv);
+            Point point2 = (Point) GeometryEngine.project(point1, SpatialReference.create(SpatialReference.WKID_WGS84),
+                    SpatialReference.create(SpatialReference.WKID_WGS84_WEB_MERCATOR));
+
+            return point2;
         } catch (Exception e) {
             e.printStackTrace();
         }

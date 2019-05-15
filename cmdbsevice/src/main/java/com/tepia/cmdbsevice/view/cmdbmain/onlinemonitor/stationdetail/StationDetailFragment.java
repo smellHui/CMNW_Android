@@ -266,6 +266,9 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                         case 3:
                             temp = "故障";
                             break;
+                        case -1:
+                            temp = "无数据接入";
+                            break;
                         default:
                             break;
                     }

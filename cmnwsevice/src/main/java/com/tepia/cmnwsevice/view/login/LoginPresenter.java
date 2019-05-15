@@ -16,6 +16,8 @@ import com.tepia.cmnwsevice.model.station.VenderBean;
 import com.tepia.cmnwsevice.model.user.LoginBean;
 import com.tepia.cmnwsevice.model.user.UserManager;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 /**
@@ -81,9 +83,11 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
             @Override
             protected void _onNext(BaseCommonResponse<List<StationBean>> baseCommonResponse) {
                 if (!CollectionsUtil.isEmpty(baseCommonResponse.getData())) {
-                    for (StationBean bean : baseCommonResponse.getData()) {
-                        bean.saveOrUpdate("code=?", bean.getCode());
-                    }
+                    DataSupport.deleteAll(StationBean.class);
+                    DataSupport.saveAll(baseCommonResponse.getData());
+//                    for (StationBean bean : baseCommonResponse.getData()) {
+//                        bean.saveOrUpdate("code=?", bean.getCode());
+//                    }
                 }
                 getAreaList();
 
