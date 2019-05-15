@@ -13,6 +13,9 @@
         <activity android:name=".view.cmdbmain.onlinemonitor.stationdetail.StationDetailActivity" />
         <!-- 实时数据 -->
         <activity android:name=".view.cmdbmain.onlinemonitor.stationhisdata.StationHisDataActivity" />
+        <!-- VR -->
+        <activity android:name=".view.cmdbmain.onlinemonitor.stationdetail.StatoinVrActivity" />
+        <activity android:name=".view.cmdbmain.onlinemonitor.stationdetail.StatoinGYLCActivity" />
 
         <!-- 后台服务-长连接 -->
         <service android:name=".service.BackService" />

@@ -7,9 +7,11 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -25,6 +27,7 @@ import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NavigableMap;
 
 /**
  * @author :       zhang xinhua
@@ -38,7 +41,7 @@ import java.util.List;
 
 public class StationDetailFragment extends MVPBaseFragment<StationDetailContract.View, StationDetailPresenter> implements StationDetailContract.View {
 
-    public StationBean stationBean;
+    public static StationBean stationBean;
     private FragmentStationDetailBinding mBinding;
 
     @Override
@@ -64,6 +67,33 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 ARouter.getInstance().build(AppRoutePath.app_cmdb_station_his_data)
                         .withString("stationBean", new Gson().toJson(stationBean))
                         .navigation();
+            }
+        });
+        mBinding.btNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+//                toNav();
+            }
+        });
+        mBinding.btVr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail_vr).navigation();
+            }
+        });
+        mBinding.btGylc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail_gylc).navigation();
             }
         });
         mBinding.loWaterQTip.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +127,9 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
             }
         });
         {
+            if (stationBean == null) {
+                return;
+            }
             String temp = "";
             switch (stationBean.getStationStatus()) {
                 case "0":
@@ -122,6 +155,26 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         }
     }
 
+    private void toNav() {
+        if (CollectionsUtil.isEmpty(NavUtil.hasMap(getBaseActivity()))) {
+            ToastUtils.shortToast("该设备没有安装导航APP");
+        } else {
+            switch (NavUtil.hasMap(getContext()).get(0)) {
+                case "com.baidu.BaiduMap":
+                    NavUtil.toBaidu(getBaseActivity(), stationBean.getLttd(), stationBean.getLgtd());
+                    break;
+                case "com.autonavi.minimap":
+                    NavUtil.toGaodeNavi(getBaseActivity(), stationBean.getLttd(), stationBean.getLgtd());
+                    break;
+                case "com.tencent.map":
+                    NavUtil.toTencent(getBaseActivity(), stationBean.getLttd(), stationBean.getLgtd());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     @Override
     protected void initRequestData() {
         mPresenter.getStationDetail(stationBean.getCode());
@@ -136,6 +189,8 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         data.setCode(stationBean.getCode());
         data.setStationType(stationBean.getStationType());
         data.setStationStatus(stationBean.getStationStatus());
+        data.setLgtd(stationBean.getLgtd());
+        data.setLttd(stationBean.getLttd());
         stationBean = data;
         {
             String temp = "";

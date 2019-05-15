@@ -49,4 +49,12 @@ public class AppRoutePath {
      * 测站 —— 历史数据
      */
     public final static String app_cmdb_station_his_data = "/cmdb/station/his/data";
+    /**
+     * 测站 —— VR
+     */
+    public final static String app_cmdb_station_detail_vr ="/cmdb/station/vr";
+    /**
+     * 测站 —— 工艺流程
+     */
+    public final static String app_cmdb_station_detail_gylc = "/cmdb/station/gylc";
 }
