@@ -462,6 +462,10 @@ public class OnlineMonitorFragment extends MVPBaseFragment<OnlineMonitorContract
 
 
     private void initRightView() {
+        mBinding.loRight.ivImageMap.setBackgroundResource(R.drawable.bg_map_select);
+        mBinding.loRight.tvImageMap.setTextColor(0xff4FB97E);
+        mBinding.loRight.ivMapVeder.setBackgroundResource(R.drawable.bg_rounte_white);
+        mBinding.loRight.tvMapVeder.setTextColor(0xff333333);
         mBinding.loRight.loMapType1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

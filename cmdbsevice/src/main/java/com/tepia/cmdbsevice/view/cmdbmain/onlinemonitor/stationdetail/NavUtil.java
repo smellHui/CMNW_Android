@@ -48,8 +48,8 @@ public class NavUtil {
      */
     public static List<String> mapsList() {
         List<String> maps = new ArrayList<>();
-        maps.add("com.baidu.BaiduMap");
         maps.add("com.autonavi.minimap");
+        maps.add("com.baidu.BaiduMap");
         maps.add("com.tencent.map");
         return maps;
     }

@@ -145,26 +145,24 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
         {
             /**
-             * 天地图矢量
+             * 天地图影像
              * */
             imgLayer = new TianDiTuTiledMapServiceLayer(TianDiTuTiledMapServiceType.IMG_C);
             mapView.addLayer(imgLayer, 0);
             /**
-             * 天地图矢量标注
+             * 天地图影像标注
              * */
             ciaLayer = new TianDiTuTiledMapServiceLayer(TianDiTuTiledMapServiceType.CIA_C);
             mapView.addLayer(ciaLayer, 1);
         }
 
-        imgLayer.setVisible(false);
-        ciaLayer.setVisible(false);
+        cvaBaseLayer.setVisible(false);
+        vecBaseLayer.setVisible(false);
 
         riversFeatureLayer = new ArcGISFeatureLayer(ConfigConst.riversMapUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
         riversNameGraphicsLayer = new GraphicsLayer();
         selectRiversLayer = new GraphicsLayer();
         logGraphicsLayer = new GraphicsLayer();
-
-        imgLayer.setVisible(false);
 
 
         mBinding.mvArcgisRiverLog.addLayer(riversFeatureLayer);
@@ -178,7 +176,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 }
                 if (status == STATUS.LAYER_LOADED) {
                     mBinding.layoutLoading.loadingLayout.setVisibility(View.GONE);
-                    stationList = DataSupport.findAll(StationBean.class);
+                    stationList = DataSupport.where("stationStatus in ('1','2','3')").find(StationBean.class);
                     drawMapPoint(stationList);
                     centerAndZoom(stationList);
                 }

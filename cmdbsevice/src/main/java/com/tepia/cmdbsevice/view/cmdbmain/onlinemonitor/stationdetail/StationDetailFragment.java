@@ -11,6 +11,8 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.databinding.FragmentStationDetailBinding;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -75,7 +77,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
-//                toNav();
+                toNav();
             }
         });
         mBinding.btVr.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +179,12 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
 
     @Override
     protected void initRequestData() {
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mPresenter.getStationDetail(stationBean.getCode());
     }
 
@@ -239,22 +247,28 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 mBinding.loWaterQ.setVisibility(View.VISIBLE);
                 {
                     String temp = "";
+                    Integer textColor = 0xff888888;
                     switch (data.getCurrentData().getConductivityResult().getConductivityStatus()) {
                         case 0:
                             temp = "正常";
+                            textColor = 0xff888888;
                             break;
                         case 1:
                             temp = "异常";
+                            textColor = 0xffE2ba00;
                             break;
                         case 2:
                             temp = "报警";
+                            textColor = 0xfff1891f;
                             break;
                         case 3:
+                            textColor = 0xfff34235;
                             temp = "故障";
                             break;
                         default:
                             break;
                     }
+                    mBinding.tvCurWaterQ.setTextColor(textColor);
                     mBinding.tvCurWaterQ.setText(temp);
                     mBinding.tvConductivity.setText("电导率：" + data.getCurrentData().getConductivityResult().getConductivity() + "μs/cm");
                 }
@@ -306,23 +320,29 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
         }
         {
             String temp = "";
+            Integer textColor = 0xff888888;
             switch (data.getCurrentData().getCommunicationResult().getCommunicationStatus()) {
                 case 0:
                     switch (data.getCurrentData().getDeviceResult().getDeviceStatus()) {
                         case 0:
                             temp = "正常";
+                            textColor = 0xff888888;
                             break;
                         case 1:
                             temp = "异常";
+                            textColor = 0xffE2ba00;
                             break;
                         case 2:
                             temp = "报警";
+                            textColor = 0xfff1891f;
                             break;
                         case 3:
+                            textColor = 0xfff34235;
                             temp = "故障";
                             break;
                         case -1:
                             temp = "无数据接入";
+                            textColor = 0xfff34235;
                             break;
                         default:
                             break;
@@ -333,6 +353,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                     temp = "无通讯";
                     break;
             }
+            mBinding.tvStationStatus.setTextColor(textColor);
             mBinding.tvStationStatus.setText(temp);
         }
 

@@ -1,16 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tepia.cmdbsevice" >
+    package="com.tepia.cmdbsevice">
 
     <application>
         <!-- 主 tab 页 -->
         <activity android:name=".view.alarmstatistics.AlarmStatisticsActivity" />
-        <activity android:name=".view.cmdbmain.CmdbMainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.cmdbmain.CmdbMainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <!-- 测站 —— 基础信息-->
         <activity android:name=".view.cmdbmain.onlinemonitor.stationbaseinfodetail.StationBaseInfoDetailActivity" />
         <!--  测站详情 -->
-        <activity android:name=".view.cmdbmain.onlinemonitor.stationdetail.StationDetailActivity" />
+        <activity
+            android:name=".view.cmdbmain.onlinemonitor.stationdetail.StationDetailActivity"
+            android:launchMode="singleTask" />
         <!-- 实时数据 -->
         <activity android:name=".view.cmdbmain.onlinemonitor.stationhisdata.StationHisDataActivity" />
         <!-- VR -->

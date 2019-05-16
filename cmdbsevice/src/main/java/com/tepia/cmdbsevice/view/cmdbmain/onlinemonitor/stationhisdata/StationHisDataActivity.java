@@ -231,6 +231,7 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
     public void getFaultHistorySuccess(HisDataBean data) {
         adapterHisData.setNewData(data.getWarningList());
         mheaderBinding.tvCount.setText("" + data.getWarningCount());
+        mheaderBinding.tvTotalTip.setText("故障总数");
         mheaderBinding.tvDurtion.setText("" + data.getSum() + "小时");
         if (CollectionsUtil.isEmpty(data.getWarningList())) {
             adapterHisData.setEmptyView(EmptyLayoutUtil.getView("没有故障记录"));
@@ -241,7 +242,8 @@ public class StationHisDataActivity extends MVPBaseActivity<StationHisDataContra
     public void getWarningHistorySuccess(HisDataBean data) {
         adapterHisData.setNewData(data.getWarningList());
         mheaderBinding.tvCount.setText("" + data.getWarningCount());
-        mheaderBinding.tvDurtion.setText("" + data.getSum());
+        mheaderBinding.tvTotalTip.setText("报警总数");
+        mheaderBinding.tvDurtion.setText("" + data.getSum()+ "小时");
         if (CollectionsUtil.isEmpty(data.getWarningList())) {
             adapterHisData.setEmptyView(EmptyLayoutUtil.getView("没有报警记录"));
         }

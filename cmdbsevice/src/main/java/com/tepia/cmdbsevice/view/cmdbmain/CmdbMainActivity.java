@@ -167,6 +167,7 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
         tabLayout.setTabData(mTabEntities, this, R.id.fl_content, mFragments);
+        tabLayout.setCurrentTab(1);
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {

@@ -10,8 +10,5 @@ package com.tepia.cmdbsevice;
  * 功能描述        :       全局常量
  **/
 public class APPConst {
-    /**
-     *  host 地址
-     */
-    public static final String ROOT_URL = "http://47.110.70.104:10906/";
+
 }

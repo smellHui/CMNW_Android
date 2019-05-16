@@ -3,7 +3,8 @@ package com.tepia.cmdbsevice.model.event;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.model.PageBean;
-import com.tepia.cmdbsevice.APPConst;
+
+import com.tepia.cmnwsevice.APPConst;
 import com.tepia.cmnwsevice.model.user.UserManager;
 
 import java.util.List;
