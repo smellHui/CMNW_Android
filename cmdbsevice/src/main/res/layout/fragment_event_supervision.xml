@@ -28,9 +28,9 @@
                 android:layout_height="35dp"
                 android:background="@color/color_EEEEEE"
                 android:orientation="horizontal"
-                android:paddingLeft="20dp"
+                android:paddingLeft="12dp"
                 android:paddingTop="5dp"
-                android:paddingRight="20dp">
+                android:paddingRight="16dp">
 
                 <TextView
                     style="@style/text.bold_16"

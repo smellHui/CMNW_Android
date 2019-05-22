@@ -18,21 +18,23 @@ import com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.TagAdapter;
 import com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 public class SelectEventPopView extends DrawerPopupView {
 
-    private static final String[] BTN_TXT = new String[]{"取消全选", "全选"};
+    private static final String[] DATE_TXT = new String[]{"本年", "本季", "本月"};
+    private static final String[] STATE_TXT = new String[]{"已派单", "已完结"};
 
-    private TagFlowLayout comptyFlowLayout, townFlowLayout;
+    private TagFlowLayout dateFlowLayout, stateFlowLayout, comptyFlowLayout, townFlowLayout;
     private List<AreaBean> areaBeans, vendorBeans;
     private LayoutInflater mInflater;
     private Button queryBtn, reviseBtn;
     private CheckBox haulageCb, fanCb;
     private TextView allTownTv, allComptyTv;//全选
 
-    private TagAdapter comptyAdapter, townAdapter;
+    private TagAdapter dateAdapter, stateAdapter, comptyAdapter, townAdapter;
     private List<String> areaNames, vendorNames;
     private String stationType;//站点类型（0-提升井，1-处理站）
 
@@ -50,6 +52,8 @@ public class SelectEventPopView extends DrawerPopupView {
     protected void onCreate() {
         super.onCreate();
         mInflater = LayoutInflater.from(getContext());
+        dateFlowLayout = findViewById(R.id.flowlayout_create_date);
+        stateFlowLayout = findViewById(R.id.flowlayout_state);
         comptyFlowLayout = findViewById(R.id.flowlayout_compty);
         townFlowLayout = findViewById(R.id.flowlayout_cate);
         queryBtn = findViewById(R.id.btn_query);
@@ -63,6 +67,14 @@ public class SelectEventPopView extends DrawerPopupView {
         reviseBtn.setOnClickListener(this::reviseClick);
         allTownTv.setOnClickListener(this::toggleClick);
         allComptyTv.setOnClickListener(this::toggleClick);
+
+        dateAdapter = createTagAdapter(Arrays.asList(DATE_TXT));
+        dateFlowLayout.setAdapter(dateAdapter);
+        dateFlowLayout.setOnSelectListener(this::comptySelect);
+
+        stateAdapter = createTagAdapter(Arrays.asList(STATE_TXT));
+        stateFlowLayout.setAdapter(stateAdapter);
+        stateFlowLayout.setOnSelectListener(this::comptySelect);
 
         comptyAdapter = createTagAdapter(vendorBeans);
         comptyFlowLayout.setAdapter(comptyAdapter);
@@ -79,9 +91,10 @@ public class SelectEventPopView extends DrawerPopupView {
      * @param integers
      */
     private void townSelect(@NonNull Set<Integer> integers) {
+        if (areaBeans == null) return;
         boolean isAll = integers.size() == areaBeans.size();
         townFlowLayout.setCheckAll(isAll);
-        allTownTv.setText(isAll ? BTN_TXT[0] : BTN_TXT[1]);
+        allTownTv.setSelected(isAll);
     }
 
     /**
@@ -90,9 +103,10 @@ public class SelectEventPopView extends DrawerPopupView {
      * @param integers
      */
     private void comptySelect(@NonNull Set<Integer> integers) {
+        if (vendorBeans == null) return;
         boolean isAll = integers.size() == vendorBeans.size();
         comptyFlowLayout.setCheckAll(isAll);
-        allComptyTv.setText(isAll ? BTN_TXT[0] : BTN_TXT[1]);
+        allComptyTv.setSelected(isAll);
     }
 
     /**
@@ -109,14 +123,19 @@ public class SelectEventPopView extends DrawerPopupView {
         }
     }
 
-    private TagAdapter createTagAdapter(List<AreaBean> areaBeans) {
-        return new TagAdapter<AreaBean>(areaBeans) {
+    private <T> TagAdapter createTagAdapter(List<T> beans) {
+        return new TagAdapter<T>(beans) {
 
             @Override
-            public View getView(FlowLayout parent, int position, AreaBean areaBean) {
+            public View getView(FlowLayout parent, int position, T bean) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.item_tv,
                         comptyFlowLayout, false);
-                tv.setText(areaBean.getName());
+                if (bean instanceof AreaBean) {
+                    tv.setText(((AreaBean) bean).getName());
+                }
+                if (bean instanceof String) {
+                    tv.setText((String) bean);
+                }
                 return tv;
             }
         };
