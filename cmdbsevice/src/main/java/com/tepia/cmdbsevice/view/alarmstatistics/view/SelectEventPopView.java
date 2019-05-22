@@ -33,6 +33,7 @@ public class SelectEventPopView extends DrawerPopupView {
     private Button queryBtn, reviseBtn;
     private CheckBox haulageCb, fanCb;
     private TextView allTownTv, allComptyTv;//全选
+    private TextView startTimeTv, endTimeTv;
 
     private TagAdapter dateAdapter, stateAdapter, comptyAdapter, townAdapter;
     private List<String> areaNames, vendorNames;
@@ -62,11 +63,15 @@ public class SelectEventPopView extends DrawerPopupView {
         fanCb = findViewById(R.id.cb_fan);
         allTownTv = findViewById(R.id.btn_town_all);
         allComptyTv = findViewById(R.id.btn_compty_all);
+        startTimeTv = findViewById(R.id.tv_start_time);
+        endTimeTv = findViewById(R.id.tv_end_time);
 
         queryBtn.setOnClickListener(this::queryClick);
         reviseBtn.setOnClickListener(this::reviseClick);
         allTownTv.setOnClickListener(this::toggleClick);
         allComptyTv.setOnClickListener(this::toggleClick);
+        startTimeTv.setOnClickListener(this::pickDate);
+        endTimeTv.setOnClickListener(this::pickDate);
 
         dateAdapter = createTagAdapter(Arrays.asList(DATE_TXT));
         dateFlowLayout.setAdapter(dateAdapter);
@@ -83,6 +88,10 @@ public class SelectEventPopView extends DrawerPopupView {
         townAdapter = createTagAdapter(areaBeans);
         townFlowLayout.setAdapter(townAdapter);
         townFlowLayout.setOnSelectListener(this::townSelect);
+    }
+
+    private void pickDate(View view) {
+
     }
 
     /**
