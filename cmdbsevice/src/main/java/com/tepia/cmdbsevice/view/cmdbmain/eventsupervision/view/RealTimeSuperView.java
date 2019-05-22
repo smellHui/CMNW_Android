@@ -34,7 +34,6 @@ import java.util.List;
  */
 public class RealTimeSuperView extends ViewBase {
 
-    //    private final static String[] cateStrs = new String[]{"上海电气", "山东中车", "北控水务", "远达环保", "其他企业"};
     protected Typeface tfRegular;
     protected Typeface tfLight;
     private BarChart chart;

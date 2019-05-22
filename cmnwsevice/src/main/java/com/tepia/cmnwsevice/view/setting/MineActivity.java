@@ -3,13 +3,8 @@ package com.tepia.cmnwsevice.view.setting;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -28,12 +23,7 @@ import com.tepia.cmnwsevice.model.order.OrderManager;
 import com.tepia.cmnwsevice.model.user.UserBean;
 import com.tepia.cmnwsevice.model.user.UserManager;
 import com.tepia.cmnwsevice.view.login.LoginActivity;
-import com.tepia.cmnwsevice.view.main.OrderPresenter;
-import com.tepia.cmnwsevice.view.setting.utils.GlideCircleWithBorder;
 import com.tepia.cmnwsevice.view.setting.view.PointImageView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by      Android studio

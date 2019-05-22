@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.flyco.tablayout.SegmentTabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/magic_indicator"
+    android:layout_width="wrap_content"
+    android:layout_height="18dp"
+    android:layout_gravity="center_horizontal"
+    tl:tl_bar_stroke_width="0dp"
+    tl:tl_indicator_anim_enable="true"
+    tl:tl_indicator_bounce_enable="false"
+    tl:tl_indicator_color="#62C08D"
+    tl:tl_indicator_corner_radius="2dp"
+    tl:tl_tab_space_equal="true"
+    tl:tl_tab_width="50dp"
+    tl:tl_textSelectColor="@color/white"
+    tl:tl_textUnselectColor="#475162"
+    tl:tl_textsize="@dimen/sp_12" />

@@ -77,6 +77,7 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
         setEmptyDefauleView();
 
         baseQuickAdapter.setOnItemClickListener(this::setOnItemClickListener);
+        baseQuickAdapter.setOnItemChildClickListener(this::setOnItemChildClickListener);
     }
 
     public void setEmptyDefauleView(){
@@ -97,6 +98,10 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
     }
 
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
+
+    }
+
+    public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
 
     }
 

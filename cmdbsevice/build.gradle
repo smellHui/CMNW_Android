@@ -131,6 +131,7 @@ dependencies {
 //    implementation rootProject.ext.dependencies.flowlayout
     implementation rootProject.ext.dependencies.MPAndroidChart
     implementation rootProject.ext.dependencies.magicIndicator
+    implementation rootProject.ext.dependencies.BigImageViewPager
 
     //    api rootProject.ext.dependencies["annotations"]
 
@@ -157,4 +158,5 @@ dependencies {
     implementation project(':common_view')
     implementation project(':cmnwsevice')
     implementation project(':picktime')
+    implementation 'org.jetbrains:annotations:15.0'
 }

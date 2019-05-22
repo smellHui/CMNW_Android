@@ -61,8 +61,8 @@ public class SelectEventPopView extends DrawerPopupView {
 
         queryBtn.setOnClickListener(this::queryClick);
         reviseBtn.setOnClickListener(this::reviseClick);
-        allTownTv.setOnClickListener(this::allClick);
-        allComptyTv.setOnClickListener(this::allClick);
+        allTownTv.setOnClickListener(this::toggleClick);
+        allComptyTv.setOnClickListener(this::toggleClick);
 
         comptyAdapter = createTagAdapter(vendorBeans);
         comptyFlowLayout.setAdapter(comptyAdapter);
@@ -78,7 +78,7 @@ public class SelectEventPopView extends DrawerPopupView {
      *
      * @param integers
      */
-    private void townSelect(Set<Integer> integers) {
+    private void townSelect(@NonNull Set<Integer> integers) {
         boolean isAll = integers.size() == areaBeans.size();
         townFlowLayout.setCheckAll(isAll);
         allTownTv.setText(isAll ? BTN_TXT[0] : BTN_TXT[1]);
@@ -89,7 +89,7 @@ public class SelectEventPopView extends DrawerPopupView {
      *
      * @param integers
      */
-    private void comptySelect(Set<Integer> integers) {
+    private void comptySelect(@NonNull Set<Integer> integers) {
         boolean isAll = integers.size() == vendorBeans.size();
         comptyFlowLayout.setCheckAll(isAll);
         allComptyTv.setText(isAll ? BTN_TXT[0] : BTN_TXT[1]);
@@ -100,7 +100,7 @@ public class SelectEventPopView extends DrawerPopupView {
      *
      * @param view
      */
-    private void allClick(View view) {
+    private void toggleClick(@NonNull View view) {
         int id = view.getId();
         if (id == R.id.btn_town_all) {
             townFlowLayout.toggleCheckAll();
@@ -129,13 +129,17 @@ public class SelectEventPopView extends DrawerPopupView {
         transformData(areaNames, townFlowLayout, areaBeans);
         transformData(vendorNames, comptyFlowLayout, vendorBeans);
 
-        if (fanCb.isChecked()) {
+        boolean isFanCheck = fanCb.isChecked();
+        boolean isHaulageCheck = haulageCb.isChecked();
+
+        if (isFanCheck) {
             stationType = "1";
         }
-        if (haulageCb.isChecked()) {
+        if (isHaulageCheck) {
             stationType = "0";
         }
-        if (fanCb.isChecked() && haulageCb.isChecked() || (!fanCb.isChecked() && !haulageCb.isChecked())) {
+        //站点都选择 stateType就不用传
+        if ((isFanCheck && isHaulageCheck) || !(isFanCheck || isHaulageCheck)) {
             stationType = null;
         }
 
@@ -144,7 +148,7 @@ public class SelectEventPopView extends DrawerPopupView {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    private void transformData(List<String> list, TagFlowLayout tagFlowLayout, List<AreaBean> areaBeans) {
+    private void transformData(@NonNull List<String> list, @NonNull TagFlowLayout tagFlowLayout, List<AreaBean> areaBeans) {
         list.clear();
         Set<Integer> areaIndexs = tagFlowLayout.getSelectedList();
         areaIndexs.forEach((i) -> list.add(areaBeans.get(i).getCode()));

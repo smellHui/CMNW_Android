@@ -1,8 +1,6 @@
 package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision;
 
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,16 +8,12 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.TimeFormatUtils;
-import com.tepia.base.view.WrapLayoutManager;
-import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.TopTotalBean;
-import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.adapter.CityCountAdapter;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.CountShowView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.RealTimeSuperView;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.TownshipStatisticsView;
-import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView;
 
 import java.util.List;
 
@@ -29,18 +23,14 @@ import java.util.List;
  * Description:tab-事件督办
  */
 public class EventSupervisionFragment extends BaseCommonFragment {
-    private static String[] FAULT_RATES = {"行政区划", "运维企业", "站点总数", "报警总数", "故障总数"};
 
-    private RecyclerView rv;
     private TextView currectTimeTv;
-    private SpssTitleView spssTitleView;
-    private CityCountAdapter cityCountAdapter;
+
     private CountShowView countShowView;
     private RealTimeSuperView realTimeSuperView;
     private TownshipStatisticsView townshipStatisticsView;
-
     private TopTotalBean topTotalBean;
-    private List<TopTotalBean> townTotals, vendorTotals;
+    private List<TopTotalBean> vendorTotals;
 
     @Override
     protected int getLayoutId() {
@@ -57,20 +47,10 @@ public class EventSupervisionFragment extends BaseCommonFragment {
         countShowView = findView(R.id.view_count_show);
         realTimeSuperView = findView(R.id.view_real_super);
         townshipStatisticsView = findView(R.id.view_town_statis);
-        spssTitleView = findView(R.id.view_title);
-        spssTitleView.setData(FAULT_RATES);
+
         currectTimeTv = findView(R.id.tv_currect_time);
         currectTimeTv.setText(String.format("当前时间：%s", TimeFormatUtils.getStringDateShort()));
-        setVerModel();
-    }
 
-    private void setVerModel() {
-        rv = findView(R.id.rv);
-        cityCountAdapter = new CityCountAdapter();
-        rv.setLayoutManager(new WrapLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        int zeroPx = Px2dpUtils.dip2px(getContext(), 0);
-        rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
-        rv.setAdapter(cityCountAdapter);
     }
 
     @Override
@@ -111,8 +91,8 @@ public class EventSupervisionFragment extends BaseCommonFragment {
 
                     @Override
                     protected void _onNext(BaseCommonResponse<List<TopTotalBean>> baseCommonResponse) {
-                        townTotals = baseCommonResponse.getData();
-                        cityCountAdapter.setNewData(townTotals);
+                        List<TopTotalBean> townTotals = baseCommonResponse.getData();
+                        townshipStatisticsView.setNewData(townTotals);
                     }
 
                     @Override

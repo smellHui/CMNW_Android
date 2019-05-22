@@ -50,6 +50,12 @@
         <item name="android:textColor">@color/color_666666</item>
     </style>
 
+    <style name="text.bold_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_333333</item>
+    </style>
+
     <style name="line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
@@ -78,6 +84,36 @@
         <item name="android:layout_weight">1</item>
         <item name="android:textColor">@drawable/datecate_text_color</item>
         <item name="android:background">@drawable/datecate_tag_bg</item>
+    </style>
+
+    <style name="ll_statis">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="img_statis">
+        <item name="android:layout_height">41dp</item>
+        <item name="android:layout_width">41dp</item>
+    </style>
+
+    <style name="tv_statis">
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableRight">@mipmap/next</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:textColor">@color/color_333333</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="text.count_statis">
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:textColor">@color/color_333333</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

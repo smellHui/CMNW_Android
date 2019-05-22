@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -22,17 +23,31 @@
             android:descendantFocusability="blocksDescendants"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_currect_time"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@color/color_EEEEEE"
-                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
-                android:text="当前时间："
-                android:textColor="#555555"
-                android:textSize="12sp" />
+                android:paddingRight="20dp">
+
+                <TextView
+                    style="@style/text.bold_16"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="实时督办" />
+
+                <TextView
+                    android:id="@+id/tv_currect_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="#555555"
+                    android:textSize="12sp"
+                    tools:text="当前时间：" />
+
+            </LinearLayout>
 
             <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.CountShowView
                 android:id="@+id/view_count_show"
@@ -42,39 +57,15 @@
             <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.RealTimeSuperView
                 android:id="@+id/view_real_super"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" />
 
             <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.TownshipStatisticsView
                 android:id="@+id/view_town_statis"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="20dp">
+                android:layout_marginTop="6dp" />
 
-                <com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView
-                    android:id="@+id/view_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/corner_bg_3_grey">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </FrameLayout>
-
-            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
