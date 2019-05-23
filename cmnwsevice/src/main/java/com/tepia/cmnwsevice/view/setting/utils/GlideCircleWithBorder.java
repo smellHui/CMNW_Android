@@ -25,11 +25,11 @@ public class GlideCircleWithBorder extends BitmapTransformation {
     private float mBorderWidth;
 
     public GlideCircleWithBorder(Context context) {
-        super(context);
+//        super(context);
     }
 
     public GlideCircleWithBorder(Context context, int borderWidth, int borderColor) {
-        super(context);
+//        super(context);
         mBorderWidth = Resources.getSystem().getDisplayMetrics().density * borderWidth;
 
         mBorderPaint = new Paint();

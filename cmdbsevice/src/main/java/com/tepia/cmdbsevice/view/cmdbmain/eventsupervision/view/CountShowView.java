@@ -45,8 +45,8 @@ public class CountShowView extends ViewBase {
         tv_faultNum = findViewById(R.id.tv_faultNum);
         tv_alarmNum = findViewById(R.id.tv_alarmNum);
 
-        findViewById(R.id.fl_gz).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsView(mContext, FAULT_SITE));
-        findViewById(R.id.fl_alarm).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsView(mContext, ALARM_SITE));
+        findViewById(R.id.fl_gz).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, FAULT_SITE));
+        findViewById(R.id.fl_alarm).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, ALARM_SITE));
     }
 
     public void setDate(String faultNum, String alarmNum) {

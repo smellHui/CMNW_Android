@@ -36,7 +36,7 @@ ext {
             gson                         : "com.google.code.gson:gson:2.8.0",
 
             //图片加载
-            glide                        : "com.github.bumptech.glide:glide:4.0.0",
+            glide                        : "com.github.bumptech.glide:glide:4.8.0",
             //突破64k
             multidex                     : "com.android.support:multidex:1.0.2",
             //多渠道打包
@@ -133,6 +133,8 @@ ext {
             flowlayout:"com.hyman:flowlayout-lib:1.1.2",
             //图表
             MPAndroidChart:"com.github.PhilJay:MPAndroidChart:v3.1.0",
+
+            BigImageViewPager:"com.github.SherlockGougou:BigImageViewPager:v4_4.0.2",
 //            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
 //            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
     ]

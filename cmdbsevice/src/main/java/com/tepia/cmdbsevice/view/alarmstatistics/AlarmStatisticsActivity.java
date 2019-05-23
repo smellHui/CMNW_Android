@@ -33,8 +33,9 @@ import java.util.List;
 /**
  * Author:xch
  * Date:2019/4/17
- * Description:报警统计
+ * Description:报警统计--一期
  */
+@Deprecated
 public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
 
     public final static int FAULT_SITE = 0;//故障站点
@@ -66,6 +67,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
                     .asCustom(selectEventPopView)
                     .show();
         });
+
         SegmentTabLayout tabLayout = findViewById(R.id.tl_1);
         tabLayout.setTabData(mTitles);
         tabLayout.setCurrentTab(tabIndex);
@@ -98,7 +100,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
         }
     }
 
-    private void setAdapterTabIndex(){
+    private void setAdapterTabIndex() {
         ((AlermStatisAdapter) getAdapter()).setTabType(tabIndex);
     }
 
@@ -140,7 +142,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
         if (!CollectionsUtil.isEmpty(list)) {
             ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
                     .withString("stationBean", new Gson().toJson(list.get(0))).navigation();
-        }else {
+        } else {
             ToastUtils.shortToast("没有该站点");
         }
 

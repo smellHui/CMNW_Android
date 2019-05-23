@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -119,7 +120,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mImmersionBar = ImmersionBar.with(this);
         if (loToolbarCommon != null) {
             mImmersionBar.titleBar(loToolbarCommon).statusBarDarkFont(true).init();
-        }else {
+        } else {
             mImmersionBar.statusBarDarkFont(true).init();
         }
     }
@@ -130,6 +131,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         tvRightText.setOnClickListener(clickListener);
     }
 
+    public void setRightTextEvent(String str, int resId, View.OnClickListener clickListener) {
+        tvRightText.setVisibility(View.VISIBLE);
+        tvRightText.setText(str);
+        tvRightText.setTextColor(Color.parseColor("#4DB17B"));
+        tvRightText.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
+        tvRightText.setOnClickListener(clickListener);
+    }
 
     /**
      * 初始化导航栏

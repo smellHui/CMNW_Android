@@ -2,26 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
     android:background="@color/white"
-    android:orientation="horizontal"
-    android:paddingLeft="20dp"
-    android:paddingTop="@dimen/dp_10"
-    android:paddingBottom="@dimen/dp_10">
+    android:orientation="vertical"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="20dp">
 
-    <TextView
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="乡镇统计"
-        android:textColor="@color/color_333333"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:src="@mipmap/add_more"
-        android:visibility="gone" />
+        <TextView
+            style="@style/text.bold_16"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="乡镇统计" />
+
+        <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.PickDateView
+            android:id="@+id/view_pick_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView
+        android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/corner_bg_3_grey">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
 </LinearLayout>

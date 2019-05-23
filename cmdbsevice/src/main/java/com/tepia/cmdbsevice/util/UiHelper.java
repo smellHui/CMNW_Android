@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsActivity;
+import com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsTwoActivity;
 
 /**
  * Author:xch
@@ -20,6 +21,18 @@ public class UiHelper {
      */
     public static void goToAlarmStatisticsView(Context ctx, int tabIndex) {
         Intent intent = new Intent(ctx, AlarmStatisticsActivity.class);
+        intent.putExtra("tabIndex", tabIndex);
+        ctx.startActivity(intent);
+    }
+
+    /**
+     * 事件督办
+     *
+     * @param ctx
+     * @param tabIndex
+     */
+    public static void goToAlarmStatisticsTwoView(Context ctx, int tabIndex) {
+        Intent intent = new Intent(ctx, AlarmStatisticsTwoActivity.class);
         intent.putExtra("tabIndex", tabIndex);
         ctx.startActivity(intent);
     }

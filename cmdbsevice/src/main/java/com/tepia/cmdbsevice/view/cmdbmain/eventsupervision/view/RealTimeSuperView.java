@@ -21,6 +21,7 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.TopTotalBean;
+import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.inteface.SelectDateListener;
 import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
 import java.util.ArrayList;
@@ -35,13 +36,20 @@ import java.util.List;
  */
 public class RealTimeSuperView extends ViewBase {
 
-    //    private final static String[] cateStrs = new String[]{"上海电气", "山东中车", "北控水务", "远达环保", "其他企业"};
+    private PickDateView pickDateView;
+
     protected Typeface tfRegular;
     protected Typeface tfLight;
     private BarChart chart;
     private BarDataSet set1, set2;
     private XAxis xAxis;
     private YAxis leftAxis, rightAxis;
+
+    private SelectDateListener selectDateListener;
+
+    public void setSelectDateListener(SelectDateListener selectDateListener) {
+        this.selectDateListener = selectDateListener;
+    }
 
     public RealTimeSuperView(Context context) {
         super(context);
@@ -62,6 +70,10 @@ public class RealTimeSuperView extends ViewBase {
 
     @Override
     public void initData() {
+
+        pickDateView = findViewById(R.id.view_pick_date);
+        pickDateView.setDateTabSelectListener(this::onDateSelect);
+
         tfRegular = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Regular.ttf");
         tfLight = Typeface.createFromAsset(mContext.getAssets(), "OpenSans-Light.ttf");
         chart = findViewById(R.id.chart1);
@@ -75,6 +87,11 @@ public class RealTimeSuperView extends ViewBase {
         initAxisLeft();
         initAxisRight();
         initBarData();
+    }
+
+    private void onDateSelect(String startDate, String endDate) {
+        if (selectDateListener == null) return;
+        selectDateListener.onSelectDate(startDate, endDate);
     }
 
     /**
