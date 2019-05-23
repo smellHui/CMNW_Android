@@ -96,9 +96,9 @@ public class OnlineMonitorPresenter extends BasePresenterImpl<OnlineMonitorContr
     public List<StationTypeBean> getStationStatusList() {
         ArrayList<StationTypeBean> list = new ArrayList<>();
         list.add(new StationTypeBean("正常", "0", R.drawable.bg_circle_4fcffa, false));
-        list.add(new StationTypeBean("异常", "1", R.drawable.bg_circle_ffe42d, true));
-        list.add(new StationTypeBean("报警", "2", R.drawable.bg_circle_ffaa53, true));
-        list.add(new StationTypeBean("故障", "3", R.drawable.bg_circle_f43234, true));
+        list.add(new StationTypeBean("异常", "1", R.drawable.bg_circle_ffe42d, false));
+        list.add(new StationTypeBean("报警", "2", R.drawable.bg_circle_ffaa53, false));
+        list.add(new StationTypeBean("故障", "3", R.drawable.bg_circle_f43234, false));
         return list;
     }
 

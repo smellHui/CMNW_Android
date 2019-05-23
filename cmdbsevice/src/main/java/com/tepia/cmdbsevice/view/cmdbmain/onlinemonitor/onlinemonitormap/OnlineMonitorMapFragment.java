@@ -3,6 +3,8 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +16,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.esri.android.map.Callout;
 import com.esri.android.map.CalloutStyle;
 import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.Layer;
 import com.esri.android.map.MapView;
 import com.esri.android.map.ags.ArcGISDynamicMapServiceLayer;
 import com.esri.android.map.ags.ArcGISFeatureLayer;
@@ -29,6 +32,8 @@ import com.esri.core.map.Graphic;
 import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.floatview.CollectionsUtil;
@@ -44,6 +49,7 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * @author :       zhang xinhua
@@ -73,7 +79,6 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
     private GraphicsLayer selectRiversLayer;
 
     private FragmentOnlineMapBinding mBinding;
-    private int count = 0;
 
     private MapView mapView;
     private int mapHeight;
@@ -168,6 +173,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         mBinding.mvArcgisRiverLog.addLayer(riversFeatureLayer);
         mBinding.mvArcgisRiverLog.addLayer(selectRiversLayer);
         mBinding.mvArcgisRiverLog.addLayer(logGraphicsLayer);
+        final boolean[] isDrawed = {false};
         mBinding.mvArcgisRiverLog.setOnStatusChangedListener(new OnStatusChangedListener() {
             @Override
             public void onStatusChanged(Object o, STATUS status) {
@@ -176,8 +182,15 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 }
                 if (status == STATUS.LAYER_LOADED) {
                     mBinding.layoutLoading.loadingLayout.setVisibility(View.GONE);
-                    stationList = DataSupport.where("stationStatus in ('1','2','3')").find(StationBean.class);
-                    drawMapPoint(stationList);
+//                    stationList = DataSupport.where("stationStatus in ('1','2','3')").find(StationBean.class);
+                    stationList = DataSupport.findAll(StationBean.class);
+                    if (DoubleClickUtil.isFastDoubleClick()) {
+                        return;
+                    }
+                    if (!isDrawed[0]) {
+                        isDrawed[0] = true;
+                        drawMapPoint(stationList);
+                    }
                     centerAndZoom(stationList);
                 }
                 if (status == STATUS.LAYER_LOADING_FAILED) {
@@ -240,96 +253,106 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         }
     }
 
+
     private void drawMapPoint(List<StationBean> stationList) {
-        if (drawRunnable != null) {
-            mBinding.mvArcgisRiverLog.removeCallbacks(drawRunnable);
-        }
+        LogUtil.d("drawMapPoint ");
         logGraphicsLayer.removeGraphics(logGraphicsLayer.getGraphicIDs());
         if (!CollectionsUtil.isEmpty(stationList)) {
-            count = 0;
-            drawRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    if (count < stationList.size()) {
-                        StationBean bean = stationList.get(count++);
-                        if (bean == null) {
-                            mBinding.mvArcgisRiverLog.postDelayed(this, 5);
-                            return;
-                        }
-                        if (TextUtils.isEmpty(bean.getLttd()) && TextUtils.isEmpty(bean.getLttd())) {
-                            mBinding.mvArcgisRiverLog.postDelayed(this, 5);
-                            return;
-                        }
-                        Point point = transStationBeanTOpoint(bean);
-                        if (point == null) {
-                            mBinding.mvArcgisRiverLog.postDelayed(this, 5);
-                            return;
-                        }
-                        if (TextUtils.isEmpty(bean.getStationType())) {
-                            mBinding.mvArcgisRiverLog.postDelayed(this, 5);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stationList.parallelStream().forEach(OnlineMonitorMapFragment.this::drawMapPointOne);
+                    }
+                }).start();
 
-                        } else {
-                            switch (bean.getStationType()) {
-                                case "1":
-                                    if (TextUtils.isEmpty(bean.getStationStatus())) {
-                                        ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                    } else {
-                                        switch (bean.getStationStatus()) {
-                                            case "0":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                            case "1":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_1, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-//                                                ARCGISUTIL.addPic(R.mipmap.icon_clz_1, point, logGraphicsLayer);
-                                                break;
-                                            case "2":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_2, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                            case "3":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_3, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                            default:
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                        }
-                                    }
-
-                                    break;
-                                case "2":
-                                    if (TextUtils.isEmpty(bean.getStationStatus())) {
-                                        ARCGISUTIL.addPic(R.mipmap.icon_gz_0, point, logGraphicsLayer);
-                                    } else {
-                                        switch (bean.getStationStatus()) {
-                                            case "0":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_gz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                            case "1":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_gz_1, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                            case "2":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_gz_2, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                            case "3":
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_gz_3, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                            default:
-                                                ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                                break;
-                                        }
-                                    }
-                                    break;
-                                default:
-                                    ARCGISUTIL.addPicForPos(R.mipmap.icon_clz_0, point, logGraphicsLayer, new Gson().toJson(bean).toString());
-                                    break;
+            } else {
+                for (int i = 0; i < 10; i++) {
+                    int finalI = i;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int j = stationList.size() / 10 * finalI; j < stationList.size() / 10 * finalI; j++) {
+                                drawMapPointOne(stationList.get(j));
                             }
                         }
-
-
-                        mBinding.mvArcgisRiverLog.postDelayed(this, 5);
-                    }
+                    });
                 }
-            };
-            mBinding.mvArcgisRiverLog.post(drawRunnable);
+
+            }
+        }
+    }
+
+    private void drawMapPointOne(StationBean bean) {
+        if (bean == null) {
+            return;
+        }
+        if (TextUtils.isEmpty(bean.getLttd()) && TextUtils.isEmpty(bean.getLttd())) {
+            return;
+        }
+        Point point = transStationBeanTOpoint(bean);
+        if (point == null) {
+            return;
+        }
+        if (TextUtils.isEmpty(bean.getStationType())) {
+            return;
+        } else {
+            Integer imageRes = R.mipmap.icon_clz_0;
+            switch (bean.getStationType()) {
+                case "1":
+                    if (TextUtils.isEmpty(bean.getStationStatus())) {
+                        imageRes = R.mipmap.icon_clz_0;
+                    } else {
+                        switch (bean.getStationStatus()) {
+                            case "0":
+                                imageRes = R.mipmap.icon_clz_0;
+                                break;
+                            case "1":
+                                imageRes = R.mipmap.icon_clz_1;
+                                break;
+                            case "2":
+                                imageRes = R.mipmap.icon_clz_2;
+                                break;
+                            case "3":
+                                imageRes = R.mipmap.icon_clz_3;
+                                break;
+                            default:
+                                imageRes = R.mipmap.icon_clz_0;
+                                break;
+                        }
+                    }
+
+                    break;
+                case "2":
+                    if (TextUtils.isEmpty(bean.getStationStatus())) {
+                        imageRes = R.mipmap.icon_gz_0;
+
+                    } else {
+                        switch (bean.getStationStatus()) {
+                            case "0":
+                                imageRes = R.mipmap.icon_gz_0;
+                                break;
+                            case "1":
+                                imageRes = R.mipmap.icon_gz_1;
+                                break;
+                            case "2":
+                                imageRes = R.mipmap.icon_gz_2;
+                                break;
+                            case "3":
+                                imageRes = R.mipmap.icon_gz_3;
+                                break;
+                            default:
+                                imageRes = R.mipmap.icon_gz_0;
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    imageRes = R.mipmap.icon_gz_0;
+                    break;
+            }
+            LogUtil.d("map");
+            ARCGISUTIL.addPicForPos2(imageRes, point, logGraphicsLayer, new Gson().toJson(bean).toString());
         }
     }
 

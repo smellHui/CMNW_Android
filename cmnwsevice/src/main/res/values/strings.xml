@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">CMNWSevice</string>
-    <string name="app_login_title">崇明农污监管平台</string>
+    <string name="app_login_title">崇明区农村生活污水监管平台</string>
     <string name="login_username">账号</string>
     <string name="login_password">密码</string>
     <string name="login_btn">登陆</string>

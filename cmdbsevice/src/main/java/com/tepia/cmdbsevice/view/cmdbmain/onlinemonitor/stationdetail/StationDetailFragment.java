@@ -300,7 +300,7 @@ public class StationDetailFragment extends MVPBaseFragment<StationDetailContract
                 mBinding.rvWaterQData.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
                 WaterQualityBean wBean = data.getWaterQuality();
                 if (wBean != null) {
-                    mBinding.tvLastTime.setText("最近一次监测:" + wBean.getUpdatedTime());
+                    mBinding.tvLastTime.setText("最近一次监测时间：" + wBean.getUpdatedTime());
                     ArrayList<KeyValueBean> list = new ArrayList<>();
                     list.add(new KeyValueBean("悬浮物", wBean.getSs() + ""));
                     list.add(new KeyValueBean("COD", wBean.getCod() + ""));

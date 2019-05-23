@@ -29,8 +29,8 @@ public class ARCGISUTIL {
     /**
      * 添加图片 attributes 不能传自定义对象
      *
-     * @param id         图片id
-     * @param point      坐标点
+     * @param id    图片id
+     * @param point 坐标点
      */
     public static Graphic addPic(int id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer) {
         Map<String, Object> attributes = new HashMap<>(1);
@@ -53,12 +53,12 @@ public class ARCGISUTIL {
     /**
      * 添加图片 attributes 不能传自定义对象
      *
-     * @param id         图片id
-     * @param point      坐标点
+     * @param id    图片id
+     * @param point 坐标点
      */
-    public static Graphic addPicForPos(int id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer,String pos) {
+    public static Graphic addPicForPos(int id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer, String pos) {
         Map<String, Object> attributes = new HashMap<>(1);
-        attributes.put("pos",pos);
+        attributes.put("pos", pos);
         PictureMarkerSymbol pictureMarkerSymbol1 = null;
 
         Bitmap bitmap = BitmapFactory.decodeResource(Utils.getContext().getResources(), id);
@@ -75,8 +75,67 @@ public class ARCGISUTIL {
 
     }
 
-    private static Drawable bitmap2Drawable(Bitmap bitmap){
-        return new BitmapDrawable(Utils.getContext().getResources(),bitmap);
+    static Map<Integer, PictureMarkerSymbol> imagerSymbolMap = new HashMap<>();
+
+    /**
+     * 添加图片 attributes 不能传自定义对象
+     *
+     * @param id    图片id
+     * @param point 坐标点
+     */
+    public static Graphic addPicForPos2(Integer id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer, String pos) {
+        Map<String, Object> attributes = new HashMap<>(1);
+        attributes.put("pos", pos);
+        PictureMarkerSymbol pictureMarkerSymbol1 = null;
+        if (imagerSymbolMap.get(id) != null) {
+            pictureMarkerSymbol1 = imagerSymbolMap.get(id);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeResource(Utils.getContext().getResources(), id);
+            if (bitmap == null) {
+                return null;
+            }
+            Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight() * 2, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+            canvas.drawBitmap(bitmap, 0, 0, null);
+            pictureMarkerSymbol1 = new PictureMarkerSymbol(Utils.getContext(), bitmap2Drawable(result));
+            imagerSymbolMap.put(id, pictureMarkerSymbol1);
+        }
+        Graphic picGraphic = new Graphic(point, pictureMarkerSymbol1, attributes);
+        logGraphicsLayer.addGraphic(picGraphic);
+        return picGraphic;
+
+    }
+
+    /**
+     * 添加图片 attributes 不能传自定义对象
+     *
+     * @param id    图片id
+     * @param point 坐标点
+     */
+    public static Graphic getGraphic(Integer id, com.esri.core.geometry.Point point, GraphicsLayer logGraphicsLayer, String pos) {
+        Map<String, Object> attributes = new HashMap<>(1);
+        attributes.put("pos", pos);
+        PictureMarkerSymbol pictureMarkerSymbol1 = null;
+        if (imagerSymbolMap.get(id) != null) {
+            pictureMarkerSymbol1 = imagerSymbolMap.get(id);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeResource(Utils.getContext().getResources(), id);
+            if (bitmap == null) {
+                return null;
+            }
+            Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight() * 2, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+            canvas.drawBitmap(bitmap, 0, 0, null);
+            pictureMarkerSymbol1 = new PictureMarkerSymbol(Utils.getContext(), bitmap2Drawable(result));
+            imagerSymbolMap.put(id, pictureMarkerSymbol1);
+        }
+        Graphic picGraphic = new Graphic(point, pictureMarkerSymbol1, attributes);
+        return picGraphic;
+
+    }
+
+    private static Drawable bitmap2Drawable(Bitmap bitmap) {
+        return new BitmapDrawable(Utils.getContext().getResources(), bitmap);
 
     }
 }

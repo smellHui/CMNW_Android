@@ -351,7 +351,7 @@
                                         android:id="@+id/tv_data_tip"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text="水质检测数据"
+                                        android:text="水质监测数据"
                                         android:textColor="#ff333333"
                                         android:textSize="15sp" />
 
@@ -361,7 +361,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_below="@id/tv_data_tip"
                                         android:layout_marginTop="7dp"
-                                        android:text="最近一次监测:"
+                                        android:text="最近一次监测时间:"
                                         android:textColor="#ff888888"
                                         android:textSize="12sp" />
 

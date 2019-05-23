@@ -24,6 +24,8 @@ import java.util.List;
  * 功能描述        :
  **/
 public class AdapterHisData extends BaseQuickAdapter<WarningBean, BaseViewHolder> {
+    private String type;
+
     public AdapterHisData(int layoutResId, @Nullable List<WarningBean> data) {
         super(layoutResId, data);
     }
@@ -32,18 +34,22 @@ public class AdapterHisData extends BaseQuickAdapter<WarningBean, BaseViewHolder
     protected void convert(BaseViewHolder helper, WarningBean item) {
 //lv_warning_view
         LvWarningViewBinding mBinding = DataBindingUtil.bind(helper.itemView);
-        mBinding.tvWarningTypeName.setText(DictManager.getInstance().getDictMap().get("warningType").get(item.getAlarmCode()) + "");
+        mBinding.tvWarningTypeName.setText(DictManager.getInstance().getDictMap().get("warningType").get(item.getAlarmCode()) + "" + type);
         if (item.getStartTime() != null && item.getEndTime() != null) {
             mBinding.tvTime.setText(item.getStartTime().substring(5, item.getStartTime().length()) + " ~ " + item.getEndTime().substring(5, item.getEndTime().length()));
-        }else if (item.getStartTime() != null && item.getEndTime() == null){
-            mBinding.tvTime.setText(item.getStartTime().substring(5, item.getStartTime().length()) + " ~ " +"当前时间");
+        } else if (item.getStartTime() != null && item.getEndTime() == null) {
+            mBinding.tvTime.setText(item.getStartTime().substring(5, item.getStartTime().length()) + " ~ " + "当前时间");
         }
         if (!TextUtils.isEmpty(item.getDeviceName())) {
             mBinding.tvDeviceName.setVisibility(View.VISIBLE);
             mBinding.tvDeviceName.setText(item.getDeviceName());
-        }else {
+        } else {
             mBinding.tvDeviceName.setVisibility(View.GONE);
         }
         mBinding.tvDuration.setText("持续时间 " + item.getDuration() + "小时");
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -39,7 +39,7 @@
                     android:layout_marginLeft="8dp"
                     android:drawableLeft="@drawable/come_back_blue"
                     android:drawablePadding="15dp"
-                    android:padding="8dp" />
+                    android:padding="10dp" />
 
                 <ImageView
                     android:id="@+id/img_left"
@@ -142,7 +142,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/bg_his_data_list" />
+            android:background="@drawable/bg_his_data_list"
+            android:elevation="30dp" />
     </LinearLayout>
 </layout>

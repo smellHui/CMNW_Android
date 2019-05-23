@@ -2,6 +2,7 @@ package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -68,7 +69,7 @@ public class RealTimeSuperView extends ViewBase {
         chart.setPinchZoom(false);
         chart.setDrawBarShadow(false);
         chart.setDrawGridBackground(false);
-
+        chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND );
         initLegend();
         initXAxis();
         initAxisLeft();
@@ -169,6 +170,7 @@ public class RealTimeSuperView extends ViewBase {
             set2 = (BarDataSet) barData.getDataSetByIndex(1);
             set1.setValues(values1);
             set2.setValues(values2);
+            chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND );
             barData.notifyDataChanged();
             chart.notifyDataSetChanged();
         }
