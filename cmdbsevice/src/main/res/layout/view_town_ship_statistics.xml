@@ -24,6 +24,7 @@
             android:text="乡镇统计" />
 
         <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.PickDateView
+            android:id="@+id/view_pick_date"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </LinearLayout>

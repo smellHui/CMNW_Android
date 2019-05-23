@@ -11,6 +11,7 @@ import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.TopTotalBean;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.adapter.CityCountAdapter;
+import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.inteface.SelectDateListener;
 import com.tepia.cmdbsevice.view.cmdbmain.targetassessment.view.SpssTitleView;
 import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
@@ -22,7 +23,14 @@ public class TownshipStatisticsView extends ViewBase {
 
     private RecyclerView rv;
     private SpssTitleView spssTitleView;
+    private PickDateView pickDateView;
     private CityCountAdapter cityCountAdapter;
+
+    private SelectDateListener selectDateListener;
+
+    public void setSelectDateListener(SelectDateListener selectDateListener) {
+        this.selectDateListener = selectDateListener;
+    }
 
     public TownshipStatisticsView(Context context) {
         super(context);
@@ -44,8 +52,15 @@ public class TownshipStatisticsView extends ViewBase {
     @Override
     public void initData() {
         spssTitleView = findViewById(R.id.view_title);
+        pickDateView = findViewById(R.id.view_pick_date);
         spssTitleView.setData(FAULT_RATES);
+        pickDateView.setDateTabSelectListener(this::onDateSelect);
         setVerModel();
+    }
+
+    private void onDateSelect(String startDate, String endDate) {
+        if (selectDateListener == null) return;
+        selectDateListener.onSelectDate(startDate, endDate);
     }
 
     private void setVerModel() {
@@ -57,7 +72,7 @@ public class TownshipStatisticsView extends ViewBase {
         rv.setAdapter(cityCountAdapter);
     }
 
-    public void setNewData(List<TopTotalBean> townTotals){
+    public void setNewData(List<TopTotalBean> townTotals) {
         cityCountAdapter.setNewData(townTotals);
     }
 

@@ -48,6 +48,9 @@ public class EventSupervisionFragment extends BaseCommonFragment {
         realTimeSuperView = findView(R.id.view_real_super);
         townshipStatisticsView = findView(R.id.view_town_statis);
 
+        realTimeSuperView.setSelectDateListener((startDate, endDate) -> selectDate(0, startDate, endDate));
+        townshipStatisticsView.setSelectDateListener((startDate, endDate) -> selectDate(1, startDate, endDate));
+
         currectTimeTv = findView(R.id.tv_currect_time);
         currectTimeTv.setText(String.format("当前时间：%s", TimeFormatUtils.getStringDateShort()));
 
@@ -55,7 +58,23 @@ public class EventSupervisionFragment extends BaseCommonFragment {
 
     @Override
     protected void initRequestData() {
-        onDataTopPickListener("", TimeFormatUtils.getLastDayOfToday());
+        String startTime = TimeFormatUtils.getFirstDayOfToday();
+        String endTime = TimeFormatUtils.getLastDayOfToday();
+        superviseTopTotal("", endTime);
+        superviseCountByTown(startTime, endTime);
+        superviseCountByVendor(startTime, endTime);
+    }
+
+    private void selectDate(int type, String startDate, String endDate) {
+        switch (type) {
+            case 0://企业
+                superviseCountByVendor(startDate, endDate);
+                break;
+            case 1://乡镇
+                superviseCountByTown(startDate, endDate);
+                break;
+        }
+
     }
 
     /**
@@ -118,11 +137,5 @@ public class EventSupervisionFragment extends BaseCommonFragment {
 
                     }
                 });
-    }
-
-    public void onDataTopPickListener(String startTime, String endTime) {
-        superviseTopTotal(startTime, endTime);
-        superviseCountByTown(startTime, endTime);
-        superviseCountByVendor(startTime, endTime);
     }
 }
