@@ -19,6 +19,9 @@ import com.tepia.cmdbsevice.model.event.WarnDetailBean;
 import com.tepia.cmdbsevice.view.alarmstatistics.interfe.ReportItemChildClickListener;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.FlowModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
+import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.ImageListView;
+
+import java.util.List;
 
 /**
  * Author:xch
@@ -212,6 +215,14 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_faultTime, String.format("时间：%s", warnDetail.getFaultTime()));
                         helper.setText(R.id.tv_recoverTime, String.format("时间：%s", warnDetail.getRecoverTime()));
                         helper.setText(R.id.tv_backTime, String.format("反馈时间：%s", warnDetail.getBackTime()));
+                        ImageListView imageLv = helper.getView(R.id.view_imgs);
+                        List<String> imgUrls = ((WarnDetailBean) item).getBackImgUrls();
+                        if (imgUrls == null || imgUrls.isEmpty()) {
+                            imageLv.setVisibility(View.GONE);
+                        } else {
+                            imageLv.addImages(imgUrls);
+                            imageLv.setVisibility(View.VISIBLE);
+                        }
                         break;
                     case PAGE_REPORT:
 

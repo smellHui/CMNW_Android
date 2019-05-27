@@ -32,9 +32,9 @@
             <TextView
                 style="@style/text.15_000000"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
                 android:drawableLeft="@mipmap/check_transparent"
                 android:drawablePadding="9dp"
+                android:gravity="center_vertical"
                 android:text="已派单"
                 android:textStyle="bold" />
 
@@ -52,6 +52,7 @@
             android:text="事件描述：新河港发现非法排污事件,造成周边居民的用水安全的问题了...... " />
 
         <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.ImageListView
+            android:id="@+id/view_imgs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"

@@ -143,6 +143,7 @@
             android:text="事件描述：新河港发现非法排污事件,造成周边居民的用水安全的问题了...... " />
 
         <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.ImageListView
+            android:id="@+id/view_imgs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="27dp"

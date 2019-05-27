@@ -1,6 +1,7 @@
 package com.tepia.cmdbsevice.view.alarmstatistics.adapter;
 
 import android.graphics.Color;
+import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -9,7 +10,9 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.WarnBean;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.FlowModel;
+import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.ImageListView;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,8 +28,8 @@ public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseView
         super(dates);
         this.eventId = eventId;
         //1-已派单 2-已反馈 3-已审核 4-已完结 10-待反馈 20-待审核
-//        addItemType(1, R.layout.item_report_dispatched);
-        addItemType(1, R.layout.item_report_to_review);
+        addItemType(1, R.layout.item_report_dispatched);
+//        addItemType(1, R.layout.item_report_to_review);
         addItemType(2, R.layout.item_report_feedbacked);
         addItemType(3, R.layout.item_report_reviewed);
         addItemType(4, R.layout.item_report_complete);
@@ -38,16 +41,29 @@ public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseView
     protected void convert(BaseViewHolder helper, FlowModel item) {
         switch (helper.getItemViewType()) {
             case 1:
-                item.setEventId(this.eventId);
-                helper.addOnClickListener(R.id.btn_back);
-                helper.addOnClickListener(R.id.btn_query);
-//                helper.setText(R.id.tv_createdTime, String.format("派单时间：%s", item.getCreatedTime()));
-//                helper.setText(R.id.tv_resultDes, String.format("事件描述：%s", item.getResultDes()));
-//                helper.setText(R.id.tv_stnm, String.format("站点名称：%s", item.getCreatedTime()));
+                helper.setText(R.id.tv_createdTime, String.format("派单时间：%s", item.getCreatedTime()));
+                helper.setText(R.id.tv_resultDes, String.format("事件描述：%s", item.getResultDes()));
+                helper.setText(R.id.tv_stnm, String.format("站点名称：%s", item.getCreatedTime()));
+                ImageListView imageListView = helper.getView(R.id.view_imgs);
+                List<String> feedImgUrls = item.getFeedImgUrls();
+                if (feedImgUrls == null || feedImgUrls.isEmpty()) {
+                    imageListView.setVisibility(View.GONE);
+                } else {
+                    imageListView.addImages(feedImgUrls);
+                    imageListView.setVisibility(View.VISIBLE);
+                }
                 break;
             case 2:
                 helper.setText(R.id.tv_createdTime, String.format("反馈时间：%s", item.getCreatedTime()));
                 helper.setText(R.id.tv_resultDes, String.format("反馈描述：%s", item.getResultDes()));
+                ImageListView imageLv = helper.getView(R.id.view_imgs);
+                List<String> imgUrls = item.getFeedImgUrls();
+                if (imgUrls == null || imgUrls.isEmpty()) {
+                    imageLv.setVisibility(View.GONE);
+                } else {
+                    imageLv.addImages(imgUrls);
+                    imageLv.setVisibility(View.VISIBLE);
+                }
                 break;
             case 3:
                 boolean isPass = item.getResultType() == 0;
@@ -68,7 +84,9 @@ public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseView
                 tv.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.img_daifankui, 0, 0, 0);
                 break;
             case 20:
-
+                item.setEventId(this.eventId);
+                helper.addOnClickListener(R.id.btn_back);
+                helper.addOnClickListener(R.id.btn_query);
                 break;
         }
     }
