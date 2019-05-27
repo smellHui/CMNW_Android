@@ -135,4 +135,51 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="text.15_000000">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="text.supervised_time">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#7D8594</item>
+    </style>
+
+    <style name="text.supervised_content">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#475162</item>
+    </style>
+
+    <style name="text.12_07090D">
+        <item name="android:textColor">#07090D</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="text.12_000000">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="text.12_333333">
+        <item name="android:textColor">#333333</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="text.12_475162">
+        <item name="android:textColor">#475162</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="text.12_FEAA18">
+        <item name="android:textColor">#FEAA18</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="btn.supervised">
+        <item name="android:layout_height">27dp</item>
+        <item name="android:layout_width">90dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/btn_corner</item>
+    </style>
 </resources>

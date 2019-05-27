@@ -17,18 +17,20 @@ import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.ExpandableLayout
 public class ReportToLeadAdapter extends BaseQuickAdapter<WarnBean, BaseViewHolder> implements ExpandableLayout.OnExpansionUpdateListener {
 
     private int selectedItem = -1;
+    private int pageType;
 
-    public ReportToLeadAdapter() {
+    public ReportToLeadAdapter(int pageType) {
         super(R.layout.item_report_to_lead);
+        this.pageType = pageType;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, WarnBean item) {
         helper.setIsRecyclable(false);
         boolean isSelected = helper.getAdapterPosition() == selectedItem;
-        ExpandableLayout expandableLayout = helper.getView(R.id.expandable_layout);
-        expandableLayout.setOnExpansionUpdateListener(this);
-        expandableLayout.setExpanded(isSelected, false);
+//        ExpandableLayout expandableLayout = helper.getView(R.id.expandable_layout);
+//        expandableLayout.setOnExpansionUpdateListener(this);
+//        expandableLayout.setExpanded(isSelected, false);
         helper.addOnClickListener(R.id.rl_item);
     }
 

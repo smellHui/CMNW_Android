@@ -12,6 +12,7 @@ public class TopTotalBean {
 
     private String alarmNum;
     private String faultNum;
+    private String reportNum;
     private String total;
     private String name;
     private String superviseNum;
@@ -19,6 +20,14 @@ public class TopTotalBean {
     private String code;
     private String rate;
     private float faultRate;
+
+    public String getReportNum() {
+        return StringUtil.nullToDefault(reportNum, "0");
+    }
+
+    public void setReportNum(String reportNum) {
+        this.reportNum = reportNum;
+    }
 
     public float getFaultRate() {
         return faultRate;
@@ -97,13 +106,14 @@ public class TopTotalBean {
         return "TopTotalBean{" +
                 "alarmNum='" + alarmNum + '\'' +
                 ", faultNum='" + faultNum + '\'' +
+                ", reportNum='" + reportNum + '\'' +
                 ", total='" + total + '\'' +
                 ", name='" + name + '\'' +
                 ", superviseNum='" + superviseNum + '\'' +
                 ", vendorName='" + vendorName + '\'' +
                 ", code='" + code + '\'' +
                 ", rate='" + rate + '\'' +
-                ", faultRate='" + faultRate + '\'' +
+                ", faultRate=" + faultRate +
                 '}';
     }
 }

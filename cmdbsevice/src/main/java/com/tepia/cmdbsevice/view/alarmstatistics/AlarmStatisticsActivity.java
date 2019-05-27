@@ -86,7 +86,7 @@ public class AlarmStatisticsActivity extends BaseListActivity<WarnBean> {
             }
         });
         selectEventPopView = new SelectEventPopView(getContext());
-        selectEventPopView.setListener(this::SelectEventListener);
+//        selectEventPopView.setListener(this::SelectEventListener);
         areaList();
         vendorList();
     }

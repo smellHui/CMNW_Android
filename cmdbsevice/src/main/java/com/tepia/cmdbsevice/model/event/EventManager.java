@@ -4,6 +4,7 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.model.PageBean;
 
+import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
 import com.tepia.cmnwsevice.APPConst;
 import com.tepia.cmnwsevice.model.user.UserManager;
 
@@ -39,6 +40,32 @@ public class EventManager {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.topTotal(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【详情】查询事件督办详情
+     *
+     * @param eventId
+     * @return
+     */
+    public Observable<BaseCommonResponse<WarnDetailBean>> superviseInfo(String eventId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.superviseInfo(token, eventId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 详情】获取群众上报事件详情
+     *
+     * @param eventId
+     * @return
+     */
+    public Observable<BaseCommonResponse<ReportModel>> simpleInfo(String eventId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.simpleInfo(token, eventId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -153,11 +180,12 @@ public class EventManager {
 
     /**
      * 【查询】故障率统计
+     *
      * @return
      */
-    public Observable<BaseCommonResponse<List<TopTotalBean>>> faultStatistics(String dimension,String startDate,String endDate) {
+    public Observable<BaseCommonResponse<List<TopTotalBean>>> faultStatistics(String dimension, String startDate, String endDate) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.faultStatistics(token, dimension,startDate,endDate)
+        return mRetrofitService.faultStatistics(token, dimension, startDate, endDate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -172,6 +200,20 @@ public class EventManager {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.listReachRateByVendor(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【审核】事件审核
+     *
+     * @param params
+     * @return
+     */
+    public Observable<BaseCommonResponse> examine(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.examine(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -201,6 +243,20 @@ public class EventManager {
         RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.listByFault(token, body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【查询】查询群众上报事件列表
+     *
+     * @param params
+     * @return
+     */
+    public Observable<PageBean<WarnBean>> todoReportList(Object... params) {
+        RequestBody body = RetrofitManager.convertToRequestBodyForJson(params);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.todoReportList(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -88,7 +88,7 @@ public class EventSupervisionFragment extends BaseCommonFragment {
                     protected void _onNext(BaseCommonResponse<TopTotalBean> baseCommonResponse) {
                         topTotalBean = baseCommonResponse.getData();
                         if (topTotalBean == null) return;
-                        countShowView.setDate(topTotalBean.getFaultNum(), topTotalBean.getAlarmNum());
+                        countShowView.setDate(topTotalBean.getFaultNum(), topTotalBean.getAlarmNum(),topTotalBean.getReportNum());
                     }
 
                     @Override
@@ -129,7 +129,6 @@ public class EventSupervisionFragment extends BaseCommonFragment {
                     protected void _onNext(BaseCommonResponse<List<TopTotalBean>> baseCommonResponse) {
                         vendorTotals = baseCommonResponse.getData();
                         realTimeSuperView.setData(vendorTotals);
-                        System.out.println("vendorTotals--->" + vendorTotals.toString());
                     }
 
                     @Override

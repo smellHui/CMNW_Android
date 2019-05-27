@@ -10,9 +10,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
 import com.lxj.xpopup.core.DrawerPopupView;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.AreaBean;
+import com.tepia.cmdbsevice.view.alarmstatistics.model.SelectParamModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.FlowLayout;
 import com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.TagAdapter;
 import com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.TagFlowLayout;
@@ -75,7 +79,7 @@ public class SelectEventPopView extends DrawerPopupView {
 
         dateAdapter = createTagAdapter(Arrays.asList(DATE_TXT));
         dateFlowLayout.setAdapter(dateAdapter);
-        dateFlowLayout.setOnSelectListener(this::comptySelect);
+        dateFlowLayout.setOnSelectListener(this::dateSelect);
 
         stateAdapter = createTagAdapter(Arrays.asList(STATE_TXT));
         stateFlowLayout.setAdapter(stateAdapter);
@@ -88,6 +92,9 @@ public class SelectEventPopView extends DrawerPopupView {
         townAdapter = createTagAdapter(areaBeans);
         townFlowLayout.setAdapter(townAdapter);
         townFlowLayout.setOnSelectListener(this::townSelect);
+    }
+
+    private void dateSelect(Set<Integer> integers) {
     }
 
     private void pickDate(View view) {
@@ -150,16 +157,46 @@ public class SelectEventPopView extends DrawerPopupView {
         };
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void queryClick(View view) {
+
+        //工单生成时间
+        String startDate = null, endDate = null;
+        Set<Integer> startTimes = dateFlowLayout.getSelectedList();
+        if (!startTimes.isEmpty()) {
+            int dateIndex = startTimes.stream().findFirst().get();
+            switch (dateIndex) {
+                case 0://本年
+                    startDate = TimeFormatUtils.getFirstDayOfYear();
+                    endDate = TimeFormatUtils.getLastDayOfYear();
+                    break;
+                case 1://本季
+                    startDate = String.format("%s  00:00:00", TimeFormatUtils.getThisQuarterStart());
+                    endDate = String.format("%s  23:59:59", TimeFormatUtils.getThisQuarterEnd());
+                    break;
+                case 2://本月
+                    startDate = TimeFormatUtils.getFirstDayOfMonth();
+                    endDate = TimeFormatUtils.getLastDayOfMonth();
+                    break;
+            }
+        }
+
+        //工单状态
+        String status = null;
+        Set<Integer> statuses = stateFlowLayout.getSelectedList();
+        if (!statuses.isEmpty()) {
+            status = statuses.stream().map(str -> String.valueOf(str + 1)).findFirst().get();
+        }
+
+        //运维企业，行政区划选择
         if (areaNames == null) areaNames = new ArrayList<>();
         if (vendorNames == null) vendorNames = new ArrayList<>();
-
         transformData(areaNames, townFlowLayout, areaBeans);
         transformData(vendorNames, comptyFlowLayout, vendorBeans);
 
+        //站点选择
         boolean isFanCheck = fanCb.isChecked();
         boolean isHaulageCheck = haulageCb.isChecked();
-
         if (isFanCheck) {
             stationType = "1";
         }
@@ -171,8 +208,16 @@ public class SelectEventPopView extends DrawerPopupView {
             stationType = null;
         }
 
+        SelectParamModel selectParamModel = new SelectParamModel();
+        selectParamModel.setStartDate(startDate);
+        selectParamModel.setEndDate(endDate);
+        selectParamModel.setStationType(stationType);
+        selectParamModel.setStatus(status);
+        selectParamModel.setVendorNames(vendorNames);
+        selectParamModel.setAreaNames(areaNames);
+
         if (listener != null)
-            listener.selectEvent(areaNames, vendorNames, stationType);
+            listener.selectEvent(selectParamModel);
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -201,6 +246,6 @@ public class SelectEventPopView extends DrawerPopupView {
     }
 
     public interface SelectEventListener {
-        void selectEvent(List<String> areaNames, List<String> vendorNames, String stationType);
+        void selectEvent(SelectParamModel selectParamModel);
     }
 }

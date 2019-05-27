@@ -32,7 +32,7 @@ public class ReportToLeadFragment extends BaseListFragment<WarnBean> {
 
     @Override
     public BaseQuickAdapter getBaseQuickAdapter() {
-        return new ReportToLeadAdapter();
+        return new ReportToLeadAdapter(1);
     }
 
     /**
@@ -59,21 +59,21 @@ public class ReportToLeadFragment extends BaseListFragment<WarnBean> {
 
     @Override
     public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
-        int id = view.getId();
-        if (id == R.id.rl_item) {
-            expandableLayout = (ExpandableLayout) adapter.getViewByPosition(selectedItem, R.id.expandable_layout);
-            if (expandableLayout != null) {
-                expandableLayout.collapse();
-            }
-            if (position == selectedItem) {
-                selectedItem = UNSELECTED;
-            } else {
-                expandableLayout = (ExpandableLayout) adapter.getViewByPosition(position, R.id.expandable_layout);
-                expandableLayout.expand();
-                selectedItem = position;
-            }
-            ((ReportToLeadAdapter) adapter).setSelectedItem(selectedItem);
-        }
+//        int id = view.getId();
+//        if (id == R.id.rl_item) {
+//            expandableLayout = (ExpandableLayout) adapter.getViewByPosition(selectedItem, R.id.expandable_layout);
+//            if (expandableLayout != null) {
+//                expandableLayout.collapse();
+//            }
+//            if (position == selectedItem) {
+//                selectedItem = UNSELECTED;
+//            } else {
+//                expandableLayout = (ExpandableLayout) adapter.getViewByPosition(position, R.id.expandable_layout);
+//                expandableLayout.expand();
+//                selectedItem = position;
+//            }
+//            ((ReportToLeadAdapter) adapter).setSelectedItem(selectedItem);
+//        }
     }
 
 }

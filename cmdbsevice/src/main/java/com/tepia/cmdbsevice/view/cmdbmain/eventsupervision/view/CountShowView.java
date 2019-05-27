@@ -21,7 +21,7 @@ import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsActivity.
  */
 public class CountShowView extends ViewBase {
 
-    private TextView tv_alarmNum, tv_faultNum;
+    private TextView tv_alarmNum, tv_faultNum, tv_reportNum;
 
     public CountShowView(Context context) {
         super(context);
@@ -44,13 +44,15 @@ public class CountShowView extends ViewBase {
     public void initData() {
         tv_faultNum = findViewById(R.id.tv_faultNum);
         tv_alarmNum = findViewById(R.id.tv_alarmNum);
+        tv_reportNum = findViewById(R.id.tv_reportNum);
 
         findViewById(R.id.fl_gz).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, FAULT_SITE));
         findViewById(R.id.fl_alarm).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, ALARM_SITE));
     }
 
-    public void setDate(String faultNum, String alarmNum) {
+    public void setDate(String faultNum, String alarmNum, String reportNum) {
         tv_faultNum.setText(faultNum);
         tv_alarmNum.setText(alarmNum);
+        tv_reportNum.setText(reportNum);
     }
 }

@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="19dp"
     android:layout_marginTop="12dp"
+    android:layout_marginRight="19dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_item"
         android:layout_width="match_parent"
-        android:layout_height="118dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginRight="19dp"
-        android:background="@drawable/bg_top_status_list_5">
+        android:background="@drawable/bg_top_status_list_5"
+        android:layout_height="118dp">
 
         <ImageView
             android:id="@+id/img_tag"
@@ -29,31 +29,14 @@
             android:orientation="vertical"
             android:paddingTop="15dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_stnm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_stnm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#191919"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    tools:text="督办单号：2019837376738" />
-
-                <TextView
-                    android:id="@+id/tv_vendorName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:background="@drawable/shape_corner"
-                    android:textColor="#F1891F"
-                    android:textSize="11sp"
-                    tools:text="上海电气" />
-            </LinearLayout>
+                android:textColor="#191919"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                tools:text="督办单号：2019837376738" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -69,13 +52,12 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tv_areaName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:text="崇明区向化镇"
                     android:textColor="@color/color_191919"
-                    android:textSize="12sp"
-                    tools:text="崇明区向化镇" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,7 +67,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_alarmTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="报警地址："
@@ -93,29 +74,12 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tv_alarmType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:textColor="@color/color_191919"
                     android:textSize="12sp"
                     tools:text="某某街xx号xxx" />
-
-                <TextView
-                    android:id="@+id/tv_sttp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:paddingLeft="7dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="7dp"
-                    android:paddingBottom="2dp"
-                    android:text="提升井"
-                    android:textColor="#F46B6D"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -125,7 +89,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_sendTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="督办时间："
@@ -133,7 +96,6 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tv_sendTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -151,7 +113,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/bg_semi_circle_left_top"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="#5C626E"
             android:textSize="13sp"
             tools:text="待反馈" />
 
@@ -165,25 +127,21 @@
             android:src="@mipmap/clear_text" />
 
         <LinearLayout
-            android:id="@+id/ll_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="6dp"
             android:layout_marginBottom="14dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_time_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="剩余时间 "
                 android:textColor="@color/color_888888"
-                android:textSize="12sp"
-                tools:text="剩余时间" />
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_surplusHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -193,4 +151,10 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="8dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="@drawable/bg_bottom_corner" />-->
 </LinearLayout>

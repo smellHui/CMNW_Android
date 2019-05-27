@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ll"
+        android:layout_alignBottom="@+id/ll"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/bg_bottom_corner" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginRight="27dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_statue_title"
+            style="@style/text.15_000000"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:drawableLeft="@mipmap/check_transparent"
+            android:drawablePadding="9dp"
+            android:text="已反馈"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</RelativeLayout>

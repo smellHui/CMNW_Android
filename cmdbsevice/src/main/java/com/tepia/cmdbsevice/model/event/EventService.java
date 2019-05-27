@@ -2,6 +2,7 @@ package com.tepia.cmdbsevice.model.event;
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.model.PageBean;
+import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
 
 import java.util.List;
 
@@ -36,6 +37,26 @@ public interface EventService {
     Observable<BaseCommonResponse<TopTotalBean>> topTotal(@Header("token") String token, @Body RequestBody body);
 
     /**
+     * 【详情】查询事件督办详情
+     *
+     * @param token
+     * @param eventId
+     * @return
+     */
+    @GET("supervise/info")
+    Observable<BaseCommonResponse<WarnDetailBean>> superviseInfo(@Header("token") String token, @Query("eventId") String eventId);
+
+    /**
+     * 【详情】获取群众上报事件详情
+     *
+     * @param token
+     * @param eventId
+     * @return
+     */
+    @GET("eventReport/simpleInfo")
+    Observable<BaseCommonResponse<ReportModel>> simpleInfo(@Header("token") String token, @Query("eventId") String eventId);
+
+    /**
      * 【查询】实时督办-企业报警、故障数
      *
      * @param token
@@ -60,14 +81,16 @@ public interface EventService {
 
     /**
      * 【查询】故障率统计
+     *
      * @param token
      * @return
      */
     @GET("overallStatistics/faultStatistics")
-    Observable<BaseCommonResponse<List<TopTotalBean>>> faultStatistics(@Header("token") String token, @Query("dimension") String dimension,@Query("startDate") String startDate,@Query("endDate") String endDate);
+    Observable<BaseCommonResponse<List<TopTotalBean>>> faultStatistics(@Header("token") String token, @Query("dimension") String dimension, @Query("startDate") String startDate, @Query("endDate") String endDate);
 
     /**
      * 【查询】按企业分析在线水质达标率
+     *
      * @param token
      * @param body
      * @return
@@ -141,6 +164,16 @@ public interface EventService {
     Observable<PageBean<WarnBean>> listByWarning(@Header("token") String token, @Body RequestBody body);
 
     /**
+     * 【审核】事件审核
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("eventReport/examine")
+    Observable<BaseCommonResponse> examine(@Header("token") String token, @Body RequestBody body);
+
+    /**
      * 【查询】实时督办-故障列表
      *
      * @param token
@@ -150,6 +183,17 @@ public interface EventService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("supervise/listByFault")
     Observable<PageBean<WarnBean>> listByFault(@Header("token") String token, @Body RequestBody body);
+
+    /**
+     * 【查询】查询群众上报事件列表
+     *
+     * @param token
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("eventReport/todoReportList")
+    Observable<PageBean<WarnBean>> todoReportList(@Header("token") String token, @Body RequestBody body);
 
     /**
      * 【查询】获取乡镇列表
