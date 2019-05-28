@@ -26,10 +26,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsTwoActivity.ALARM_SITE;
+import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsTwoActivity.FAULT_SITE;
+import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsTwoActivity.REPORT_SITE;
+
 public class SelectEventPopView extends DrawerPopupView {
 
     private static final String[] DATE_TXT = new String[]{"本年", "本季", "本月"};
-    private static final String[] STATE_TXT = new String[]{"已派单", "已完结"};
+    private static final String[] STATE_POLICE_TXT = new String[]{"已派单", "已完结"};
+    private static final String[] STATE_FAULT_TXT = new String[]{"已督办", "待反馈", "已完结"};
+    private static final String[] STATE_REPORT_TXT = new String[]{"已派单", "待审核", "退回中", "已完结"};
+
+    private String[] states;
 
     private TagFlowLayout dateFlowLayout, stateFlowLayout, comptyFlowLayout, townFlowLayout;
     private List<AreaBean> areaBeans, vendorBeans;
@@ -42,6 +50,7 @@ public class SelectEventPopView extends DrawerPopupView {
     private TagAdapter dateAdapter, stateAdapter, comptyAdapter, townAdapter;
     private List<String> areaNames, vendorNames;
     private String stationType;//站点类型（0-提升井，1-处理站）
+    private int stateType;//工单类型 故障，报警，上报
 
     private SelectEventListener listener;
 
@@ -81,9 +90,8 @@ public class SelectEventPopView extends DrawerPopupView {
         dateFlowLayout.setAdapter(dateAdapter);
         dateFlowLayout.setOnSelectListener(this::dateSelect);
 
-        stateAdapter = createTagAdapter(Arrays.asList(STATE_TXT));
+        stateAdapter = createTagAdapter(Arrays.asList(states));
         stateFlowLayout.setAdapter(stateAdapter);
-        stateFlowLayout.setOnSelectListener(this::comptySelect);
 
         comptyAdapter = createTagAdapter(vendorBeans);
         comptyFlowLayout.setAdapter(comptyAdapter);
@@ -95,6 +103,7 @@ public class SelectEventPopView extends DrawerPopupView {
     }
 
     private void dateSelect(Set<Integer> integers) {
+
     }
 
     private void pickDate(View view) {
@@ -185,7 +194,51 @@ public class SelectEventPopView extends DrawerPopupView {
         String status = null;
         Set<Integer> statuses = stateFlowLayout.getSelectedList();
         if (!statuses.isEmpty()) {
-            status = statuses.stream().map(str -> String.valueOf(str + 1)).findFirst().get();
+            status = statuses.stream().map(position -> {
+                String value = null;
+                switch (stateType) {
+                    case FAULT_SITE:
+                        switch (position) {
+                            case 0:
+                                value = "3";
+                                break;
+                            case 1:
+                                value = "4";
+                                break;
+                            case 2:
+                                value = "5";
+                                break;
+                        }
+                        break;
+                    case ALARM_SITE:
+                        switch (position) {
+                            case 0:
+                                value = "1";
+                                break;
+                            case 1:
+                                value = "5";
+                                break;
+                        }
+                        break;
+                    case REPORT_SITE:
+                        switch (position) {
+                            case 0:
+                                value = "1";
+                                break;
+                            case 1:
+                                value = "2";
+                                break;
+                            case 2:
+                                value = "3";
+                                break;
+                            case 3:
+                                value = "4";
+                                break;
+                        }
+                        break;
+                }
+                return value;
+            }).findFirst().get();
         }
 
         //运维企业，行政区划选择
@@ -243,6 +296,26 @@ public class SelectEventPopView extends DrawerPopupView {
 
     public void setVendorData(List<AreaBean> vendorBeans) {
         this.vendorBeans = vendorBeans;
+    }
+
+    /**
+     * 设置工单状态
+     *
+     * @param stateType
+     */
+    public void setStateData(int stateType) {
+        this.stateType = stateType;
+        switch (stateType) {
+            case FAULT_SITE:
+                states = STATE_FAULT_TXT;
+                break;
+            case ALARM_SITE:
+                states = STATE_POLICE_TXT;
+                break;
+            case REPORT_SITE:
+                states = STATE_REPORT_TXT;
+                break;
+        }
     }
 
     public interface SelectEventListener {

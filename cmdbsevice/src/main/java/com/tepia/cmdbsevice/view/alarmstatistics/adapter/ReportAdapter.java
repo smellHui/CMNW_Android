@@ -6,13 +6,12 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.google.common.base.Strings;
 import com.tepia.cmdbsevice.R;
-import com.tepia.cmdbsevice.model.event.WarnBean;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.FlowModel;
+import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
 import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.ImageListView;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,11 +21,11 @@ import java.util.List;
  */
 public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseViewHolder> {
 
-    private String eventId;
+    private ReportModel reportModel;
 
-    public ReportAdapter(List<FlowModel> dates, String eventId) {
-        super(dates);
-        this.eventId = eventId;
+    public ReportAdapter(ReportModel reportModel) {
+        super(reportModel.getFlowList());
+        this.reportModel = reportModel;
         //1-已派单 2-已反馈 3-已审核 4-已完结 10-待反馈 20-待审核
         addItemType(1, R.layout.item_report_dispatched);
 //        addItemType(1, R.layout.item_report_to_review);
@@ -52,6 +51,9 @@ public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseView
                     imageListView.addImages(feedImgUrls);
                     imageListView.setVisibility(View.VISIBLE);
                 }
+                //没有stcd就隐藏站点详情按钮
+                helper.setVisible(R.id.btn_query, !Strings.isNullOrEmpty(reportModel.getStcd()));
+                helper.addOnClickListener(R.id.btn_query);
                 break;
             case 2:
                 helper.setText(R.id.tv_createdTime, String.format("反馈时间：%s", item.getCreatedTime()));
@@ -84,9 +86,8 @@ public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseView
                 tv.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.img_daifankui, 0, 0, 0);
                 break;
             case 20:
-                item.setEventId(this.eventId);
                 helper.addOnClickListener(R.id.btn_back);
-                helper.addOnClickListener(R.id.btn_query);
+                helper.addOnClickListener(R.id.btn_pass);
                 break;
         }
     }

@@ -133,6 +133,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         WarnDetailBean warnDetailBean = (WarnDetailBean) item;
                         helper.setText(R.id.tv_stcd, warnDetailBean.getStcd());
                         helper.setText(R.id.tv_orderCode, warnDetailBean.getOrderCode());
+                        helper.addOnClickListener(R.id.btn_query);
                         break;
                     case PAGE_FAULT:
                         WarnDetailBean warnDetail = (WarnDetailBean) item;
@@ -172,6 +173,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_orderCode, warnDetail.getOrderCode());
                         helper.setText(R.id.tv_handleDes, warnDetail.getHandleDes());
                         helper.setText(R.id.tv_faultTime, String.format("时间：%s", warnDetail.getFaultTime()));
+                        helper.addOnClickListener(R.id.btn_query);
                         break;
                     case PAGE_REPORT:
                         ReportModel reportModel = (ReportModel) item;
@@ -191,6 +193,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_orderCode, warnDetail.getOrderCode());
                         helper.setText(R.id.tv_faultTime, String.format("时间：%s", warnDetail.getFaultTime()));
                         helper.setText(R.id.tv_recoverTime, String.format("时间：%s", warnDetail.getRecoverTime()));
+                        helper.addOnClickListener(R.id.btn_query);
                         break;
                     case PAGE_REPORT:
                         ReportModel reportModel = (ReportModel) item;
@@ -206,6 +209,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_stcd, warnDetailBean.getStcd());
                         helper.setText(R.id.tv_orderCode, warnDetailBean.getOrderCode());
                         helper.setText(R.id.tv_recoverTime, String.format("时间：%s", warnDetailBean.getRecoverTime()));
+                        helper.addOnClickListener(R.id.btn_query);
                         break;
                     case PAGE_FAULT:
                         WarnDetailBean warnDetail = (WarnDetailBean) item;
@@ -223,6 +227,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                             imageLv.addImages(imgUrls);
                             imageLv.setVisibility(View.VISIBLE);
                         }
+                        helper.addOnClickListener(R.id.btn_query);
                         break;
                     case PAGE_REPORT:
 
@@ -233,22 +238,21 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
     }
 
     private void setReportRv(ReportModel reportModel, RecyclerView rv) {
-        ReportAdapter reportAdapter = new ReportAdapter(reportModel.getFlowList(), reportModel.getEventId());
+        ReportAdapter reportAdapter = new ReportAdapter(reportModel);
         rv.setLayoutManager(new WrapLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         int zeroPx = Px2dpUtils.dip2px(mContext, 0);
         rv.setPadding(zeroPx, zeroPx, zeroPx, zeroPx);
         rv.setAdapter(reportAdapter);
-        reportAdapter.setOnItemChildClickListener((baseQuickAdapter, view, position) -> addReportItemChildClick(rv, baseQuickAdapter, view, position));
+        reportAdapter.setOnItemChildClickListener((baseQuickAdapter, view, position) -> addReportItemChildClick(rv, baseQuickAdapter, view, position, reportModel));
     }
 
-    private void addReportItemChildClick(RecyclerView rv, BaseQuickAdapter baseQuickAdapter, View view, int position) {
+    private void addReportItemChildClick(RecyclerView rv, BaseQuickAdapter baseQuickAdapter, View view, int position, ReportModel reportModel) {
         if (reportItemChildClickListener != null) {
-            FlowModel flowModel = (FlowModel) baseQuickAdapter.getItem(position);
             EditText contentEt = (EditText) baseQuickAdapter.getViewByPosition(rv, position, R.id.et_content);
             String content = "";
             if (contentEt != null && contentEt.getText() != null)
                 content = contentEt.getText().toString().trim();
-            reportItemChildClickListener.addReportItemChildClick(view, flowModel, content);
+            reportItemChildClickListener.addReportItemChildClick(view, reportModel, content);
         }
     }
 

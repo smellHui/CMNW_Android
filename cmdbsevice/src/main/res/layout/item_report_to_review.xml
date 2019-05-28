@@ -79,7 +79,7 @@
                 android:textColor="#62C08D" />
 
             <Button
-                android:id="@+id/btn_query"
+                android:id="@+id/btn_pass"
                 style="@style/btn.supervised"
                 android:layout_marginLeft="20dp"
                 android:text="审核通过" />

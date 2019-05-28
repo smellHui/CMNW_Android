@@ -2,7 +2,7 @@ package com.tepia.cmdbsevice.view.alarmstatistics.interfe;
 
 import android.view.View;
 
-import com.tepia.cmdbsevice.view.alarmstatistics.model.FlowModel;
+import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
 
 /**
  * Author:xch
@@ -10,5 +10,5 @@ import com.tepia.cmdbsevice.view.alarmstatistics.model.FlowModel;
  * Description:上报审核按钮回调
  */
 public interface ReportItemChildClickListener {
-    void addReportItemChildClick(View view, FlowModel flowModel, String content);
+    void addReportItemChildClick(View view, ReportModel reportModel, String content);
 }

@@ -1,11 +1,16 @@
 package com.tepia.cmdbsevice.view.alarmstatistics;
 
+import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+
+import androidx.annotation.RequiresApi;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.enums.PopupPosition;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
@@ -31,13 +36,21 @@ import java.util.List;
  */
 public class AlarmStatisticsTwoActivity extends BaseActivity {
 
-    private String[] mTitles_2 = {"报警", "故障", "群众上报"};
+    public final static int REPORT_SITE = 2;//群众上报
+    public final static int ALARM_SITE = REPORT_SITE >> 1;//报警站点
+    public final static int FAULT_SITE = ALARM_SITE >> 1;//故障站点
+
+    private int tabIndex;
+
+    private String[] mTitles_2 = {"故障", "报警", "群众上报"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<AreaBean> areaBeans, vendorBeans;
 
     private SegmentTabLayout tab_layout;
     private ViewPager viewPager;
-    private SelectEventPopView selectEventPopView;
+    private SelectEventPopView selectFaultPopView;
+    private SelectEventPopView selectPolicePopView;
+    private SelectEventPopView selectReportPopView;
     private List<RefreshStatiseListener> refreshStatiseListeners = new ArrayList<>();
 
     @Override
@@ -51,28 +64,47 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
         showBack();
 
         setRightTextEvent("筛选", R.mipmap.icon_shaixun, v -> {
+            BasePopupView basePopupView = null;
+            switch (tabIndex) {
+                case FAULT_SITE:
+                    basePopupView = selectFaultPopView;
+                    break;
+                case ALARM_SITE:
+                    basePopupView = selectPolicePopView;
+                    break;
+                case REPORT_SITE:
+                    basePopupView = selectReportPopView;
+                    break;
+            }
             new XPopup.Builder(getContext())
                     .popupPosition(PopupPosition.Right)//右边
                     .hasStatusBarShadow(true) //启用状态栏阴影
-                    .asCustom(selectEventPopView)
+                    .asCustom(basePopupView)
                     .show();
         });
 
-        selectEventPopView = new SelectEventPopView(getContext());
-        selectEventPopView.setListener(this::SelectEventListener);
+        selectFaultPopView = new SelectEventPopView(getContext());
+        selectFaultPopView.setListener(this::SelectEventListener);
+        selectFaultPopView.setStateData(FAULT_SITE);
+        selectPolicePopView = new SelectEventPopView(getContext());
+        selectPolicePopView.setListener(this::SelectEventListener);
+        selectPolicePopView.setStateData(ALARM_SITE);
+        selectReportPopView = new SelectEventPopView(getContext());
+        selectReportPopView.setListener(this::SelectEventListener);
+        selectReportPopView.setStateData(REPORT_SITE);
 
         tab_layout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.vp);
 
-        WarnFragment warnFragment = WarnFragment.launch(1);
         FaultFragment faultFragment = FaultFragment.launch(1);
+        WarnFragment warnFragment = WarnFragment.launch(1);
         PoliceFragment policeFragment = PoliceFragment.launch(1);
-        refreshStatiseListeners.add(warnFragment);
         refreshStatiseListeners.add(faultFragment);
+        refreshStatiseListeners.add(warnFragment);
         refreshStatiseListeners.add(policeFragment);
 
-        mFragments.add(warnFragment);
         mFragments.add(faultFragment);
+        mFragments.add(warnFragment);
         mFragments.add(policeFragment);
 
         tab_layout.setTabData(mTitles_2);
@@ -81,6 +113,7 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
             @Override
             public void onTabSelect(int position) {
                 viewPager.setCurrentItem(position);
+                tabIndex = position;
             }
 
             @Override
@@ -97,6 +130,7 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
             @Override
             public void onPageSelected(int i) {
                 tab_layout.setCurrentTab(i);
+                tabIndex = i;
             }
 
             @Override
@@ -104,7 +138,7 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
 
             }
         });
-        viewPager.setCurrentItem(0);
+        viewPager.setCurrentItem(tabIndex);
 
         areaList();
         vendorList();
@@ -112,7 +146,10 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            tabIndex = intent.getIntExtra("tabIndex", 0);
+        }
     }
 
     @Override
@@ -125,8 +162,30 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void SelectEventListener(SelectParamModel selectParamModel) {
-        selectEventPopView.dismiss();
+        refreshStatiseListeners.forEach(listener -> {
+            switch (tabIndex) {
+                case FAULT_SITE:
+                    if (listener instanceof FaultFragment) {
+                        listener.refreshList(selectParamModel);
+                        selectFaultPopView.dismiss();
+                    }
+                    break;
+                case ALARM_SITE:
+                    if (listener instanceof WarnFragment) {
+                        listener.refreshList(selectParamModel);
+                        selectPolicePopView.dismiss();
+                    }
+                    break;
+                case REPORT_SITE:
+                    if (listener instanceof PoliceFragment) {
+                        listener.refreshList(selectParamModel);
+                        selectReportPopView.dismiss();
+                    }
+                    break;
+            }
+        });
     }
 
     /**
@@ -139,7 +198,9 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
                     @Override
                     protected void _onNext(BaseCommonResponse<List<AreaBean>> baseCommonResponse) {
                         areaBeans = baseCommonResponse.getData();
-                        selectEventPopView.setAreaData(areaBeans);
+                        selectFaultPopView.setAreaData(areaBeans);
+                        selectPolicePopView.setAreaData(areaBeans);
+                        selectReportPopView.setAreaData(areaBeans);
                     }
 
                     @Override
@@ -159,7 +220,9 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
                     @Override
                     protected void _onNext(BaseCommonResponse<List<AreaBean>> baseCommonResponse) {
                         vendorBeans = baseCommonResponse.getData();
-                        selectEventPopView.setVendorData(vendorBeans);
+                        selectFaultPopView.setVendorData(vendorBeans);
+                        selectPolicePopView.setVendorData(vendorBeans);
+                        selectReportPopView.setVendorData(vendorBeans);
                     }
 
                     @Override

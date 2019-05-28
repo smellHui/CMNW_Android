@@ -13,6 +13,7 @@ import java.util.List;
 public class ReportModel extends AbstractExpandableItem implements MultiItemEntity, Cloneable {
 
     private String stnm;
+    private String stcd;
     private int stationStatus;
     private String content;
     private List<String> imgUrls;
@@ -24,6 +25,14 @@ public class ReportModel extends AbstractExpandableItem implements MultiItemEnti
     public ReportModel(int status, String eventId) {
         this.status = status;
         this.eventId = eventId;
+    }
+
+    public String getStcd() {
+        return stcd;
+    }
+
+    public void setStcd(String stcd) {
+        this.stcd = stcd;
     }
 
     public int getStatus() {
@@ -86,6 +95,7 @@ public class ReportModel extends AbstractExpandableItem implements MultiItemEnti
     public String toString() {
         return "ReportModel{" +
                 "stnm='" + stnm + '\'' +
+                ", stcd='" + stcd + '\'' +
                 ", stationStatus=" + stationStatus +
                 ", content='" + content + '\'' +
                 ", imgUrls=" + imgUrls +

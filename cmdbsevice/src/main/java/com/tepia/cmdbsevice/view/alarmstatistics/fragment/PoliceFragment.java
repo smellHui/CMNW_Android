@@ -2,22 +2,30 @@ package com.tepia.cmdbsevice.view.alarmstatistics.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.common.base.Strings;
+import com.google.gson.Gson;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.WarnBean;
 import com.tepia.cmdbsevice.view.alarmstatistics.adapter.WarnAdapter;
 import com.tepia.cmdbsevice.view.alarmstatistics.interfe.RefreshStatiseListener;
-import com.tepia.cmdbsevice.view.alarmstatistics.model.FlowModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.SelectParamModel;
+import com.tepia.cmnwsevice.model.station.StationBean;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 /**
  * Author:xch
@@ -69,8 +77,14 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
      */
     private void todoReportList() {
         if (selectParamModel == null) selectParamModel = new SelectParamModel();
-        EventManager.getInstance().todoReportList("pageSize", 20, "pageIndex", getPage()
-                , "stationType", selectParamModel.getStationType(), "vendorCodeArray", selectParamModel.getVendorNames(), "areaCodeArray", selectParamModel.getAreaNames())
+        EventManager.getInstance().todoReportList("pageSize", 20
+                , "pageIndex", getPage()
+                , "status", selectParamModel.getStatus()
+                , "stationType", selectParamModel.getStationType()
+                , "vendorCodeArray", selectParamModel.getVendorNames()
+                , "areaCodeArray", selectParamModel.getAreaNames()
+                , "startTime", selectParamModel.getStartDate()
+                , "endTime", selectParamModel.getEndDate())
                 .safeSubscribe(new LoadingSubject<PageBean<WarnBean>>() {
 
                     @Override
@@ -135,13 +149,28 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
         super.refresh();
     }
 
-    public void addReportItemChildClick(View view, FlowModel flowModel, String content) {
+    public void addReportItemChildClick(View view, ReportModel reportModel, String content) {
+        if (reportModel == null) return;
         int id = view.getId();
         if (id == R.id.btn_back) {
-            examine(flowModel.getEventId(), "1", content);
+            examine(reportModel.getEventId(), "1", content);
+        }
+        if (id == R.id.btn_pass) {
+            examine(reportModel.getEventId(), "0", content);
         }
         if (id == R.id.btn_query) {
-            examine(flowModel.getEventId(), "0", content);
+            //跳转站点详情
+            if (Strings.isNullOrEmpty(reportModel.getStcd())) {
+                ToastUtils.shortToast("暂无该站点id");
+                return;
+            }
+            List<StationBean> list = DataSupport.where("code=?", reportModel.getStcd()).find(StationBean.class);
+            if (!CollectionsUtil.isEmpty(list)) {
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
+                        .withString("stationBean", new Gson().toJson(list.get(0))).navigation();
+            } else {
+                ToastUtils.shortToast("没有该站点");
+            }
         }
     }
 
@@ -153,6 +182,7 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
                     @Override
                     protected void _onNext(BaseCommonResponse baseCommonResponse) {
                         ToastUtils.shortToast("提交成功");
+                        PoliceFragment.super.refresh();
                     }
 
                     @Override

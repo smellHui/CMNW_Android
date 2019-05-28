@@ -3,13 +3,17 @@ package com.tepia.cmdbsevice.view.alarmstatistics.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.common.base.Strings;
+import com.google.gson.Gson;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.model.PageBean;
 import com.tepia.base.mvp.BaseListFragment;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.WarnBean;
@@ -19,6 +23,11 @@ import com.tepia.cmdbsevice.view.alarmstatistics.adapter.WarnAdapter;
 import com.tepia.cmdbsevice.view.alarmstatistics.interfe.RefreshStatiseListener;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.FlowModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.SelectParamModel;
+import com.tepia.cmnwsevice.model.station.StationBean;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 /**
  * Author:xch
@@ -64,8 +73,14 @@ public class WarnFragment extends BaseListFragment<WarnBean> implements RefreshS
      */
     private void todoReportList() {
         if (selectParamModel == null) selectParamModel = new SelectParamModel();
-        EventManager.getInstance().listByWarning("pageSize", 20, "pageIndex", getPage()
-                , "stationType", selectParamModel.getStationType(), "vendorCodeArray", selectParamModel.getVendorNames(), "areaCodeArray", selectParamModel.getAreaNames())
+        EventManager.getInstance().listByWarning("pageSize", 20
+                , "pageIndex", getPage()
+                , "status", selectParamModel.getStatus()
+                , "stationType", selectParamModel.getStationType()
+                , "vendorCodeArray", selectParamModel.getVendorNames()
+                , "areaCodeArray", selectParamModel.getAreaNames()
+                , "startTime", selectParamModel.getStartDate()
+                , "endTime", selectParamModel.getEndDate())
                 .safeSubscribe(new LoadingSubject<PageBean<WarnBean>>() {
 
                     @Override
@@ -117,6 +132,23 @@ public class WarnFragment extends BaseListFragment<WarnBean> implements RefreshS
         } else {
             superviseInfo(warnBean.getEventId(), position);
 //            getAdapter().expand(position, false);
+        }
+    }
+
+    @Override
+    public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
+        WarnDetailBean warnDetailBean = (WarnDetailBean) adapter.getItem(position);
+        if (warnDetailBean == null) return;
+        int id = view.getId();
+        if (id == R.id.btn_query) {
+            //跳转站点详情
+            List<StationBean> list = DataSupport.where("code=?", warnDetailBean.getStcd()).find(StationBean.class);
+            if (!CollectionsUtil.isEmpty(list)) {
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
+                        .withString("stationBean", new Gson().toJson(list.get(0))).navigation();
+            } else {
+                ToastUtils.shortToast("没有该站点");
+            }
         }
     }
 

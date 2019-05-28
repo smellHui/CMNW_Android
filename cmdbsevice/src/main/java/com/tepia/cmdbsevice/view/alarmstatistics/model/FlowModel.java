@@ -17,16 +17,7 @@ public class FlowModel implements MultiItemEntity {
     private int resultType;
     private String resultDes;
     private String createdTime;
-    private String eventId;
     private List<String> feedImgUrls;
-
-    public String getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
 
     public int getStepIndex() {
         return stepIndex;
@@ -88,7 +79,6 @@ public class FlowModel implements MultiItemEntity {
                 ", resultType=" + resultType +
                 ", resultDes='" + resultDes + '\'' +
                 ", createdTime='" + createdTime + '\'' +
-                ", eventId='" + eventId + '\'' +
                 ", feedImgUrls=" + feedImgUrls +
                 '}';
     }

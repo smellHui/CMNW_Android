@@ -1,18 +1,17 @@
 package com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.util.UiHelper;
-import com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsActivity;
 import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
-import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsActivity.ALARM_SITE;
-import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsActivity.FAULT_SITE;
+import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsTwoActivity.ALARM_SITE;
+import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsTwoActivity.FAULT_SITE;
+import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsTwoActivity.REPORT_SITE;
 
 /**
  * Author:xch
@@ -48,6 +47,7 @@ public class CountShowView extends ViewBase {
 
         findViewById(R.id.fl_gz).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, FAULT_SITE));
         findViewById(R.id.fl_alarm).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, ALARM_SITE));
+        findViewById(R.id.fl_report).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, REPORT_SITE));
     }
 
     public void setDate(String faultNum, String alarmNum, String reportNum) {

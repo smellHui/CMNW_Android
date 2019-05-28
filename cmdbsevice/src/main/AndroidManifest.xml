@@ -2,7 +2,6 @@
     package="com.tepia.cmdbsevice">
 
     <application>
-        <activity android:name=".view.alarmstatistics.AlarmStatisticsActivity" />
         <!-- 主 tab 页 -->
         <activity
             android:name=".view.cmdbmain.CmdbMainActivity"
