@@ -54,10 +54,10 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
 
     private CommonTabLayout tabLayout;
 
-    private String[] mTitles = {"在线监测", "事件督办", "统计分析", "个人中心", "群众上报"};
+    private String[] mTitles = {"在线监测", "事件督办", "统计分析", "个人中心"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private int[] mIconUnselectIds = {R.mipmap.tab_icn_zxjc_normol, R.mipmap.tab_icn_sjdb_normol, R.mipmap.tab_icn_tjfx_normol, R.mipmap.tab_icn_me_normol, R.mipmap.tab_icn_me_normol};
-    private int[] mIconSelectIds = {R.mipmap.tab_icn_zxjc_selected, R.mipmap.tab_icn_sjdb_selected, R.mipmap.tab_icn_mbkh_selected, R.mipmap.tab_icn_me_selected, R.mipmap.tab_icn_me_selected};
+    private int[] mIconUnselectIds = {R.mipmap.tab_icn_zxjc_normol, R.mipmap.tab_icn_sjdb_normol, R.mipmap.tab_icn_tjfx_normol, R.mipmap.tab_icn_me_normol};
+    private int[] mIconSelectIds = {R.mipmap.tab_icn_zxjc_selected, R.mipmap.tab_icn_sjdb_selected, R.mipmap.tab_icn_mbkh_selected, R.mipmap.tab_icn_me_selected};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private AppBean appBean;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
@@ -163,7 +163,7 @@ public class CmdbMainActivity extends MVPBaseActivity<CmdbMainContract.View, Cmd
         mFragments.add(new EventSupervisionFragment());
         mFragments.add(new TargetAssessmentFragment());
         mFragments.add(new MineFragment());
-        mFragments.add(new ReportToLeadFragment());
+//        mFragments.add(new ReportToLeadFragment());
 
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));

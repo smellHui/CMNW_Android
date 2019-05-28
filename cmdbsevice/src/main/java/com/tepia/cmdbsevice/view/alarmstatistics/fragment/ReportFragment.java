@@ -1,6 +1,7 @@
 package com.tepia.cmdbsevice.view.alarmstatistics.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -153,9 +154,11 @@ public class ReportFragment extends BaseListFragment<WarnBean> implements Refres
         if (reportModel == null) return;
         int id = view.getId();
         if (id == R.id.btn_back) {
+//            refresh();
             examine(reportModel.getEventId(), "1", content);
         }
         if (id == R.id.btn_pass) {
+//            refresh();
             examine(reportModel.getEventId(), "0", content);
         }
         if (id == R.id.btn_query) {
@@ -182,7 +185,8 @@ public class ReportFragment extends BaseListFragment<WarnBean> implements Refres
                     @Override
                     protected void _onNext(BaseCommonResponse baseCommonResponse) {
                         ToastUtils.shortToast("提交成功");
-                        refresh();
+                        //主线程更新
+                        new Handler().postDelayed(() -> refresh(), 100);
                     }
 
                     @Override

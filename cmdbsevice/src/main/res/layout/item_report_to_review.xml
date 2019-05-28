@@ -28,7 +28,7 @@
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:drawableLeft="@mipmap/img_daifankui"
-            android:drawablePadding="9dp"
+            android:drawablePadding="6dp"
             android:gravity="center_vertical"
             android:text="待审核"
             android:textStyle="bold" />

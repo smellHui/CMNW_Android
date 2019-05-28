@@ -120,14 +120,14 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setImageResource(R.id.img_status, R.mipmap.icon_qzsb);
                         helper.setVisible(R.id.tv_sttp, false);
                         helper.setVisible(R.id.ll_time, false);
-                        helper.setText(R.id.tv_stnm, String.format("督办单号：%s", warnBean.getOrderCode()));
+                        helper.setText(R.id.tv_stnm, warnBean.getOrderCode());
                         helper.setText(R.id.tv_areaName, warnBean.getAreaName());
                         helper.setText(R.id.tv_vendorName, warnBean.getVendorName());
                         helper.setVisible(R.id.tv_vendorName, !Strings.isNullOrEmpty(warnBean.getVendorName()));
                         helper.setText(R.id.tv_alarmTitle, "报警地址：");
                         helper.setText(R.id.tv_alarmType, warnBean.getAddr());
                         helper.setVisible(R.id.tv_status, !Strings.isNullOrEmpty(warnBean.getStatus()));
-                        helper.setText(R.id.tv_status, warnBean.getStatus());
+                        helper.setText(R.id.tv_status, warnBean.getReportStatus());
                         helper.setBackgroundRes(R.id.tv_status, warnBean.getIntStatus() == 4 ? R.drawable.bg_semi_circle_left_top_green : R.drawable.bg_semi_circle_left_top);
                         helper.setText(R.id.tv_sendTitle, "督办时间：");
                         helper.setText(R.id.tv_sendTime, warnBean.getSuperviseTime());
