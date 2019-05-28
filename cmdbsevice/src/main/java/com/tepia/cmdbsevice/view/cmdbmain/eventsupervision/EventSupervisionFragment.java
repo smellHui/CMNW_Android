@@ -88,7 +88,7 @@ public class EventSupervisionFragment extends BaseCommonFragment {
                     protected void _onNext(BaseCommonResponse<TopTotalBean> baseCommonResponse) {
                         topTotalBean = baseCommonResponse.getData();
                         if (topTotalBean == null) return;
-                        countShowView.setDate(topTotalBean.getFaultNum(), topTotalBean.getAlarmNum(),topTotalBean.getReportNum());
+                        countShowView.setDate(topTotalBean.getFaultNum(), topTotalBean.getAlarmNum(), topTotalBean.getReportNum());
                     }
 
                     @Override

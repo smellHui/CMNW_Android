@@ -33,7 +33,7 @@
 
         <ImageView
             style="@style/img_statis"
-            android:src="@mipmap/icon_ssdb_baojing" />
+            android:src="@mipmap/icon_baojing" />
 
         <TextView
             style="@style/tv_statis"
@@ -52,7 +52,7 @@
 
         <ImageView
             style="@style/img_statis"
-            android:src="@mipmap/icon_ssdb_baojing" />
+            android:src="@mipmap/icon_qunzhongshangbao" />
 
         <TextView
             style="@style/tv_statis"

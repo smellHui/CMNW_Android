@@ -70,7 +70,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                 switch (pageType) {
                     case PAGE_POLICE:
                         helper.setImageResource(R.id.img_tag, R.mipmap.bkg_police);
-                        helper.setImageResource(R.id.img_status, R.mipmap.icon_baojing);
+                        helper.setImageResource(R.id.img_status, R.mipmap.icon_bj);
                         helper.setText(R.id.tv_time_title, "剩余时间");
                         helper.setTextColor(R.id.tv_sttp, Color.parseColor("#FF934A"));
                         helper.setText(R.id.tv_stationStatus, warnBean.getStationInfo());
