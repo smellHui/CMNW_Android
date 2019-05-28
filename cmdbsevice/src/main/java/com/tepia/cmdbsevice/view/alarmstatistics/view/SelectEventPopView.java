@@ -1,6 +1,7 @@
 package com.tepia.cmdbsevice.view.alarmstatistics.view;
 
 import android.annotation.TargetApi;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -23,6 +25,8 @@ import com.tepia.cmdbsevice.view.alarmstatistics.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -51,6 +55,7 @@ public class SelectEventPopView extends DrawerPopupView {
     private List<String> areaNames, vendorNames;
     private String stationType;//站点类型（0-提升井，1-处理站）
     private int stateType;//工单类型 故障，报警，上报
+    private String startDate = null, endDate = null;
 
     private SelectEventListener listener;
 
@@ -103,11 +108,58 @@ public class SelectEventPopView extends DrawerPopupView {
     }
 
     private void dateSelect(Set<Integer> integers) {
-
+        if (!integers.isEmpty()) {
+            startDateLong = 0L;
+            endDateLong = 0L;
+            startDate = null;
+            endDate = null;
+            startTimeTv.setText(null);
+            endTimeTv.setText(null);
+        }
     }
 
-    private void pickDate(View view) {
+    private long startDateLong, endDateLong;
 
+    private void pickDate(View view) {
+        Calendar ca = Calendar.getInstance();
+        int mYear = ca.get(Calendar.YEAR);
+        int mMonth = ca.get(Calendar.MONTH);
+        int mDay = ca.get(Calendar.DAY_OF_MONTH);
+        int id = view.getId();
+        if (id == R.id.tv_start_time) {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view1, year, month, dayOfMonth) -> {
+                startDate = dealDateFormat(year, month, dayOfMonth);
+                startDateLong = TimeFormatUtils.strToDate(startDate).getTime();
+                startTimeTv.setText(startDate);
+                dateFlowLayout.setCheckAll(true);
+                dateFlowLayout.toggleCheckAll();
+            }, mYear, mMonth, mDay);
+            if (endDateLong != 0L) {
+                DatePicker datePicker = datePickerDialog.getDatePicker();
+                datePicker.setMaxDate(endDateLong);
+            }
+            datePickerDialog.show();
+        }
+        if (id == R.id.tv_end_time) {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view1, year, month, dayOfMonth) -> {
+                endDate = dealDateFormat(year, month, dayOfMonth);
+                endDateLong = TimeFormatUtils.strToDate(endDate).getTime();
+                endTimeTv.setText(endDate);
+                dateFlowLayout.setCheckAll(true);
+                dateFlowLayout.toggleCheckAll();
+            }, mYear, mMonth, mDay);
+            if (startDateLong != 0L) {
+                DatePicker datePicker = datePickerDialog.getDatePicker();
+                datePicker.setMinDate(startDateLong);
+            }
+            datePickerDialog.show();
+        }
+    }
+
+    private String dealDateFormat(int year, int month, int dayOfMonth) {
+        String monthStr = month < 9 ? "0" + (month + 1) : (month + 1) + "";
+        String dayStr = dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth + "";
+        return String.format("%s-%s-%s", year, monthStr, dayStr);
     }
 
     /**
@@ -170,7 +222,6 @@ public class SelectEventPopView extends DrawerPopupView {
     private void queryClick(View view) {
 
         //工单生成时间
-        String startDate = null, endDate = null;
         Set<Integer> startTimes = dateFlowLayout.getSelectedList();
         if (!startTimes.isEmpty()) {
             int dateIndex = startTimes.stream().findFirst().get();
@@ -180,8 +231,8 @@ public class SelectEventPopView extends DrawerPopupView {
                     endDate = TimeFormatUtils.getLastDayOfYear();
                     break;
                 case 1://本季
-                    startDate = String.format("%s  00:00:00", TimeFormatUtils.getThisQuarterStart());
-                    endDate = String.format("%s  23:59:59", TimeFormatUtils.getThisQuarterEnd());
+                    startDate = String.format("%s 00:00:00", TimeFormatUtils.getThisQuarterStart());
+                    endDate = String.format("%s 23:59:59", TimeFormatUtils.getThisQuarterEnd());
                     break;
                 case 2://本月
                     startDate = TimeFormatUtils.getFirstDayOfMonth();
