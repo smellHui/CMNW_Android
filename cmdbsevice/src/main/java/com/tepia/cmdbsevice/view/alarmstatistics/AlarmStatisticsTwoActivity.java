@@ -2,6 +2,8 @@ package com.tepia.cmdbsevice.view.alarmstatistics;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
@@ -15,12 +17,13 @@ import com.lxj.xpopup.enums.PopupPosition;
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
+import com.tepia.base.utils.SoftHideKeyBoardUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.AreaBean;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.view.alarmstatistics.fragment.FaultFragment;
+import com.tepia.cmdbsevice.view.alarmstatistics.fragment.ReportFragment;
 import com.tepia.cmdbsevice.view.alarmstatistics.fragment.PoliceFragment;
-import com.tepia.cmdbsevice.view.alarmstatistics.fragment.WarnFragment;
 import com.tepia.cmdbsevice.view.alarmstatistics.interfe.RefreshStatiseListener;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.SelectParamModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.view.SelectEventPopView;
@@ -52,6 +55,12 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
     private SelectEventPopView selectPolicePopView;
     private SelectEventPopView selectReportPopView;
     private List<RefreshStatiseListener> refreshStatiseListeners = new ArrayList<>();
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SoftHideKeyBoardUtil.assistActivity(this);
+    }
 
     @Override
     public int getLayoutId() {
@@ -97,15 +106,15 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
         viewPager = findViewById(R.id.vp);
 
         FaultFragment faultFragment = FaultFragment.launch(1);
-        WarnFragment warnFragment = WarnFragment.launch(1);
         PoliceFragment policeFragment = PoliceFragment.launch(1);
+        ReportFragment reportFragment = ReportFragment.launch(1);
         refreshStatiseListeners.add(faultFragment);
-        refreshStatiseListeners.add(warnFragment);
         refreshStatiseListeners.add(policeFragment);
+        refreshStatiseListeners.add(reportFragment);
 
         mFragments.add(faultFragment);
-        mFragments.add(warnFragment);
         mFragments.add(policeFragment);
+        mFragments.add(reportFragment);
 
         tab_layout.setTabData(mTitles_2);
         viewPager.setAdapter(new PageAdapter(getSupportFragmentManager(), mFragments, mTitles_2));
@@ -173,13 +182,13 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
                     }
                     break;
                 case ALARM_SITE:
-                    if (listener instanceof WarnFragment) {
+                    if (listener instanceof PoliceFragment) {
                         listener.refreshList(selectParamModel);
                         selectPolicePopView.dismiss();
                     }
                     break;
                 case REPORT_SITE:
-                    if (listener instanceof PoliceFragment) {
+                    if (listener instanceof ReportFragment) {
                         listener.refreshList(selectParamModel);
                         selectReportPopView.dismiss();
                     }

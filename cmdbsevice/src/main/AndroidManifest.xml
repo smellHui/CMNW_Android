@@ -24,6 +24,6 @@
         <service android:name=".service.BackService" />
 
         <!-- 事件督办-->
-        <activity android:name=".view.alarmstatistics.AlarmStatisticsTwoActivity" />
+        <activity android:name=".view.alarmstatistics.AlarmStatisticsTwoActivity"/>
     </application>
 </manifest>

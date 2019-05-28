@@ -80,7 +80,7 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
         baseQuickAdapter.setOnItemChildClickListener(this::setOnItemChildClickListener);
     }
 
-    public void setEmptyDefauleView(){
+    public void setEmptyDefauleView() {
         baseQuickAdapter.setEmptyView(R.layout.view_empty_list_view);
     }
 
@@ -114,6 +114,7 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
                     getList().clear();
                 } else {
                     getList().addAll(list);
+                    baseQuickAdapter.notifyDataSetChanged();
                 }
                 if (list.size() == 20) {
                     page++;

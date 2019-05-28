@@ -17,11 +17,9 @@ import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.WarnBean;
-import com.tepia.cmdbsevice.model.event.WarnDetailBean;
-import com.tepia.cmdbsevice.util.CopyPropertiesUtil;
 import com.tepia.cmdbsevice.view.alarmstatistics.adapter.WarnAdapter;
 import com.tepia.cmdbsevice.view.alarmstatistics.interfe.RefreshStatiseListener;
-import com.tepia.cmdbsevice.view.alarmstatistics.model.FlowModel;
+import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.SelectParamModel;
 import com.tepia.cmnwsevice.model.station.StationBean;
 
@@ -32,21 +30,21 @@ import java.util.List;
 /**
  * Author:xch
  * Date:2019/5/21
- * Description:实时督办-报警列表
+ * Description:
  */
-public class WarnFragment extends BaseListFragment<WarnBean> implements RefreshStatiseListener {
+public class ReportFragment extends BaseListFragment<WarnBean> implements RefreshStatiseListener {
 
     private static final int UNSELECTED = -1;
     private int selectedItem = UNSELECTED;
     private int pageType;
     private SelectParamModel selectParamModel;
 
-    public static WarnFragment launch(int pageType) {
-        WarnFragment policeFragment = new WarnFragment();
+    public static ReportFragment launch(int pageType) {
+        ReportFragment reportFragment = new ReportFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("pageType", pageType);
-        policeFragment.setArguments(bundle);
-        return policeFragment;
+        reportFragment.setArguments(bundle);
+        return reportFragment;
     }
 
     @Override
@@ -59,13 +57,19 @@ public class WarnFragment extends BaseListFragment<WarnBean> implements RefreshS
     }
 
     @Override
+    protected void initView(View view) {
+        super.initView(view);
+        ((WarnAdapter) getAdapter()).setReportItemChildClickListener(this::addReportItemChildClick);
+    }
+
+    @Override
     protected void initRequestData() {
         todoReportList();
     }
 
     @Override
     public BaseQuickAdapter getBaseQuickAdapter() {
-        return new WarnAdapter(WarnAdapter.PAGE_POLICE);
+        return new WarnAdapter(WarnAdapter.PAGE_REPORT);
     }
 
     /**
@@ -73,7 +77,7 @@ public class WarnFragment extends BaseListFragment<WarnBean> implements RefreshS
      */
     private void todoReportList() {
         if (selectParamModel == null) selectParamModel = new SelectParamModel();
-        EventManager.getInstance().listByWarning("pageSize", 20
+        EventManager.getInstance().todoReportList("pageSize", 20
                 , "pageIndex", getPage()
                 , "status", selectParamModel.getStatus()
                 , "stationType", selectParamModel.getStationType()
@@ -95,17 +99,22 @@ public class WarnFragment extends BaseListFragment<WarnBean> implements RefreshS
                 });
     }
 
-    private void superviseInfo(String eventId, int position) {
-        EventManager.getInstance().superviseInfo(eventId)
-                .safeSubscribe(new LoadingSubject<BaseCommonResponse<WarnDetailBean>>(true, "") {
+    private void simpleInfo(String eventId, int position) {
+        EventManager.getInstance().simpleInfo(eventId)
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse<ReportModel>>(true, "") {
 
                     @Override
-                    protected void _onNext(BaseCommonResponse<WarnDetailBean> baseCommonResponse) {
+                    protected void _onNext(BaseCommonResponse<ReportModel> baseCommonResponse) {
                         try {
-                            WarnDetailBean bean = baseCommonResponse.getData();
+                            ReportModel bean = baseCommonResponse.getData();
                             WarnBean warnBean = (WarnBean) getAdapter().getItem(position);
-                            WarnDetailBean warn = (WarnDetailBean) warnBean.getSubItem(0);
-                            CopyPropertiesUtil.copyProperties(bean, warn);
+                            ReportModel warn = (ReportModel) warnBean.getSubItem(0);
+//                            CopyPropertiesUtil.copyProperties(bean, warn);
+                            warn.setStnm(bean.getStnm());
+                            warn.setStationStatus(bean.getStationStatus());
+                            warn.setContent(bean.getContent());
+                            warn.setImgUrls(bean.getImgUrls());
+                            warn.setFlowList(bean.getFlowList());
                             getAdapter().expand(position, false);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -124,31 +133,13 @@ public class WarnFragment extends BaseListFragment<WarnBean> implements RefreshS
         WarnBean warnBean = (WarnBean) adapter.getItem(position);
         if (warnBean == null) return;
         if (!warnBean.hasSubItem()) {
-            WarnDetailBean warnDetailBean = new WarnDetailBean(warnBean.getIntStatus());
-            warnBean.addSubItem(warnDetailBean);
+            ReportModel reportModel = new ReportModel(warnBean.getIntStatus(), warnBean.getEventId());
+            warnBean.addSubItem(reportModel);
         }
         if (warnBean.isExpanded()) {
             getAdapter().collapse(position, false);
         } else {
-            superviseInfo(warnBean.getEventId(), position);
-//            getAdapter().expand(position, false);
-        }
-    }
-
-    @Override
-    public void setOnItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
-        WarnDetailBean warnDetailBean = (WarnDetailBean) adapter.getItem(position);
-        if (warnDetailBean == null) return;
-        int id = view.getId();
-        if (id == R.id.btn_query) {
-            //跳转站点详情
-            List<StationBean> list = DataSupport.where("code=?", warnDetailBean.getStcd()).find(StationBean.class);
-            if (!CollectionsUtil.isEmpty(list)) {
-                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
-                        .withString("stationBean", new Gson().toJson(list.get(0))).navigation();
-            } else {
-                ToastUtils.shortToast("没有该站点");
-            }
+            simpleInfo(warnBean.getEventId(), position);
         }
     }
 
@@ -158,5 +149,46 @@ public class WarnFragment extends BaseListFragment<WarnBean> implements RefreshS
         super.refresh();
     }
 
+    public void addReportItemChildClick(View view, ReportModel reportModel, String content) {
+        if (reportModel == null) return;
+        int id = view.getId();
+        if (id == R.id.btn_back) {
+            examine(reportModel.getEventId(), "1", content);
+        }
+        if (id == R.id.btn_pass) {
+            examine(reportModel.getEventId(), "0", content);
+        }
+        if (id == R.id.btn_query) {
+            //跳转站点详情
+            if (Strings.isNullOrEmpty(reportModel.getStcd())) {
+                ToastUtils.shortToast("暂无该站点id");
+                return;
+            }
+            List<StationBean> list = DataSupport.where("code=?", reportModel.getStcd()).find(StationBean.class);
+            if (!CollectionsUtil.isEmpty(list)) {
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_station_detail)
+                        .withString("stationBean", new Gson().toJson(list.get(0))).navigation();
+            } else {
+                ToastUtils.shortToast("没有该站点");
+            }
+        }
+    }
 
+
+    private void examine(String eventId, String resultType, String content) {
+        EventManager.getInstance().examine("eventId", eventId, "resultType", resultType, "content", content)
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse>(true, "") {
+
+                    @Override
+                    protected void _onNext(BaseCommonResponse baseCommonResponse) {
+                        ToastUtils.shortToast("提交成功");
+                        refresh();
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        error();
+                    }
+                });
+    }
 }

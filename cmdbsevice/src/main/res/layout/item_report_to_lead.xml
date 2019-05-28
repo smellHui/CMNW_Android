@@ -99,6 +99,7 @@
                     android:layout_marginLeft="10dp"
                     android:ellipsize="end"
                     android:singleLine="true"
+                    android:maxWidth="150dp"
                     android:textColor="@color/color_191919"
                     android:textSize="12sp"
                     tools:text="某某街xx号xxx" />
