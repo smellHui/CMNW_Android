@@ -15,7 +15,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingTop="14dp"
-        android:paddingBottom="14dp">
+        android:paddingBottom="10dp">
 
         <TextView
             style="@style/text.bold_16"

@@ -8,8 +8,6 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-import androidx.annotation.RequiresApi;
-
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -25,8 +23,6 @@ import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.inteface.SelectDateLi
 import com.tepia.cmnwsevice.view.main.views.ViewBase;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -41,7 +37,7 @@ public class RealTimeSuperView extends ViewBase {
     protected Typeface tfRegular;
     protected Typeface tfLight;
     private BarChart chart;
-    private BarDataSet set1, set2;
+    private BarDataSet set1, set2, set3;
     private XAxis xAxis;
     private YAxis leftAxis, rightAxis;
 
@@ -81,7 +77,7 @@ public class RealTimeSuperView extends ViewBase {
         chart.setPinchZoom(false);
         chart.setDrawBarShadow(false);
         chart.setDrawGridBackground(false);
-        chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND );
+        chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND);
         initLegend();
         initXAxis();
         initAxisLeft();
@@ -121,6 +117,7 @@ public class RealTimeSuperView extends ViewBase {
         xAxis.setGranularity(1f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setYOffset(10f);
+        xAxis.setDrawGridLines(false);
         xAxis.setCenterAxisLabels(true);
     }
 
@@ -135,7 +132,7 @@ public class RealTimeSuperView extends ViewBase {
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setAxisMaximum(100f);
         leftAxis.setAxisMinimum(0f);
-        leftAxis.setDrawGridLines(false);
+        leftAxis.setDrawGridLines(true);
         leftAxis.setDrawAxisLine(false);
     }
 
@@ -159,12 +156,14 @@ public class RealTimeSuperView extends ViewBase {
      */
     private void initBarData() {
         // create 4 DataSets
-        set1 = new BarDataSet(new ArrayList<>(), "故障数");
+        set1 = new BarDataSet(new ArrayList<>(), "新增故障");
         set1.setColor(Color.parseColor("#F46B6D"));
-        set2 = new BarDataSet(new ArrayList<>(), "报警数");
+        set2 = new BarDataSet(new ArrayList<>(), "新增报警");
         set2.setColor(Color.parseColor("#FEAA18"));
+        set3 = new BarDataSet(new ArrayList<>(), "新增群众上报");
+        set3.setColor(Color.parseColor("#78D8D7"));
 
-        BarData data = new BarData(set1, set2);
+        BarData data = new BarData(set1, set2, set3);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTypeface(tfLight);
         chart.setFitBars(true);
@@ -176,25 +175,29 @@ public class RealTimeSuperView extends ViewBase {
         if (vendorTotals == null || vendorTotals.isEmpty()) return;
         ArrayList<BarEntry> values1 = new ArrayList<>();
         ArrayList<BarEntry> values2 = new ArrayList<>();
+        ArrayList<BarEntry> values3 = new ArrayList<>();
         for (int i = 0; i < vendorTotals.size(); i++) {
             TopTotalBean topTotalBean = vendorTotals.get(i);
             values1.add(new BarEntry(i, Float.valueOf(topTotalBean.getFaultNum())));
             values2.add(new BarEntry(i, Float.valueOf(topTotalBean.getAlarmNum())));
+            values3.add(new BarEntry(i, Float.valueOf(topTotalBean.getReportNum())));
         }
         BarData barData = chart.getData();
         if (barData != null && barData.getDataSetCount() > 0) {
             set1 = (BarDataSet) barData.getDataSetByIndex(0);
             set2 = (BarDataSet) barData.getDataSetByIndex(1);
+            set3 = (BarDataSet) barData.getDataSetByIndex(2);
             set1.setValues(values1);
             set2.setValues(values2);
-            chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND );
+            set3.setValues(values3);
+            chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND);
             barData.notifyDataChanged();
             chart.notifyDataSetChanged();
         }
 
         float groupSpace = 0.54f;
         float barSpace = 0.03f; // x4 DataSet
-        float barWidth = 0.2f; // x4 DataSet
+        float barWidth = 0.12f; // x4 DataSet
         barData.setBarWidth(barWidth);
 
         xAxis.setAxisMinimum(0);
@@ -213,6 +216,7 @@ public class RealTimeSuperView extends ViewBase {
             vendorTotals.forEach((ven) -> {
                 nums.add(Integer.valueOf(ven.getFaultNum()));
                 nums.add(Integer.valueOf(ven.getAlarmNum()));
+                nums.add(Integer.valueOf(ven.getReportNum()));
             });
             int maxNum = nums.stream().max(Integer::compare).get();
             rightAxis.setAxisMaximum(maxNum * 2);
