@@ -5,10 +5,8 @@ import android.graphics.Color;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.common.base.Strings;
-import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.WarnBean;
-import com.tepia.cmnwsevice.utils.StringUtil;
 
 /**
  * Author:xch
@@ -29,7 +27,7 @@ public class AlermStatisAdapter extends BaseQuickAdapter<WarnBean, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, WarnBean item) {
-        helper.setImageResource(R.id.img_tag, isFault ? R.mipmap.bkg_guzhang : R.mipmap.bkg_baojing);
+        helper.setImageResource(R.id.img_tag, isFault ? R.mipmap.bkg_guzhang : R.mipmap.bkg_police);
         helper.setText(R.id.tv_time_title, isFault ? "超出时间" : "剩余时间");
         helper.setTextColor(R.id.tv_alarmType, Color.parseColor(isFault ? "#F46B6D" : "#FF934A"));
         helper.setTextColor(R.id.tv_sttp, Color.parseColor(isFault ? "#F46B6D" : "#FF934A"));

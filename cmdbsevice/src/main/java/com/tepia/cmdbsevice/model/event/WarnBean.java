@@ -38,7 +38,7 @@ public class WarnBean extends AbstractExpandableItem implements MultiItemEntity 
     //站点编码
     private String stcd;
     //站点当前状态(0-正常；1-异常；2-报警；3-故障)
-    private String stationStatus;
+    private int stationStatus;
     //行政区划
     private String areaName;
     //地址
@@ -100,11 +100,25 @@ public class WarnBean extends AbstractExpandableItem implements MultiItemEntity 
         this.sendTime = sendTime;
     }
 
-    public String getStationStatus() {
+    public int getStationStatus() {
         return stationStatus;
     }
 
-    public void setStationStatus(String stationStatus) {
+    public String getStationInfo() {
+        switch (stationStatus) {
+            case 0:
+                return "正常状态";
+            case 1:
+                return "异常状态";
+            case 2:
+                return "报警状态";
+            case 3:
+                return "故障状态";
+        }
+        return "正常状态";
+    }
+
+    public void setStationStatus(int stationStatus) {
         this.stationStatus = stationStatus;
     }
 

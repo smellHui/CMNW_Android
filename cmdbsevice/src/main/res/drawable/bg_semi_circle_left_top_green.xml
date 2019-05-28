@@ -11,8 +11,8 @@
     <!--设置渐变-->
     <gradient
         android:angle="0"
-        android:endColor="#FBA207"
-        android:startColor="#FDC01C" />
+        android:endColor="#62C08D"
+        android:startColor="#77DAA4" />
 
     <size
         android:width="71dp"
