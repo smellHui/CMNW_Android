@@ -219,8 +219,9 @@ public class RealTimeSuperView extends ViewBase {
                 nums.add(Integer.valueOf(ven.getReportNum()));
             });
             int maxNum = nums.stream().max(Integer::compare).get();
-            rightAxis.setAxisMaximum(maxNum * 2);
-            leftAxis.setAxisMaximum(maxNum * 2);
+            if (maxNum == 0) maxNum = 20;
+            rightAxis.setAxisMaximum(maxNum << 1);
+            leftAxis.setAxisMaximum(maxNum << 1);
         }
 
         chart.groupBars(0, groupSpace, barSpace);
