@@ -12,8 +12,7 @@
 
         <activity
             android:name="com.tepia.cmnwsevice.view.splash.SplashActivity"
-            android:configChanges="orientation|screenSize|uiMode|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

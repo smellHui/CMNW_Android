@@ -2,6 +2,7 @@ package com.tepia.cmdbsevice.view.alarmstatistics.model;
 
 import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.google.common.base.Strings;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ReportModel extends AbstractExpandableItem implements MultiItemEnti
     }
 
     public String getStcd() {
-        return stcd;
+        return Strings.nullToEmpty(stcd);
     }
 
     public void setStcd(String stcd) {
@@ -52,7 +53,7 @@ public class ReportModel extends AbstractExpandableItem implements MultiItemEnti
     }
 
     public String getStnm() {
-        return stnm;
+        return Strings.nullToEmpty(stnm);
     }
 
     public void setStnm(String stnm) {
@@ -68,7 +69,7 @@ public class ReportModel extends AbstractExpandableItem implements MultiItemEnti
     }
 
     public String getContent() {
-        return content;
+        return Strings.nullToEmpty(content);
     }
 
     public void setContent(String content) {

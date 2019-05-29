@@ -138,8 +138,10 @@ public class ReportFragment extends BaseListFragment<WarnBean> implements Refres
             List<WarnBean> list = k.getResult();
             if (list != null && !list.isEmpty() && !isShowHistory) {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    //后台数据是已完成排到最后面，所以这里我取未完成的个数做插入索引
                     long count = list.stream().filter(bean -> bean.getIntStatus() != 4).count();
-                    if (count != 20) {
+                    //只有一页数据时，防止最后一项加空历史边界
+                    if (count != list.size()) {
                         isShowHistory = true;
                         list.add((int) count, new WarnBean(ITEM_HISTORY));
                     }

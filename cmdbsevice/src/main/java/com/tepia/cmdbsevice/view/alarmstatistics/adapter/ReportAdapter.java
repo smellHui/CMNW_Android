@@ -42,7 +42,7 @@ public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseView
             case 1:
                 helper.setText(R.id.tv_createdTime, String.format("派单时间：%s", item.getCreatedTime()));
                 helper.setText(R.id.tv_resultDes, String.format("事件描述：%s", item.getResultDes()));
-                helper.setText(R.id.tv_stnm, String.format("站点名称：%s", item.getCreatedTime()));
+                helper.setText(R.id.tv_stnm, String.format("站点名称：%s", reportModel.getStnm()));
                 ImageListView imageListView = helper.getView(R.id.view_imgs);
                 List<String> feedImgUrls = item.getFeedImgUrls();
                 if (feedImgUrls == null || feedImgUrls.isEmpty()) {
