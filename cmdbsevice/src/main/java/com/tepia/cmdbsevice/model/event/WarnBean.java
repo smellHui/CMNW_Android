@@ -15,6 +15,9 @@ import java.util.Map;
  */
 public class WarnBean extends AbstractExpandableItem implements MultiItemEntity {
 
+    public static final int ITEM_NORMAL = -1;
+    public static final int ITEM_HISTORY = ITEM_NORMAL << 1;
+
     //事件id
     private String eventId;
     //站点名称
@@ -48,8 +51,18 @@ public class WarnBean extends AbstractExpandableItem implements MultiItemEntity 
     //督办单号
     private String orderCode;
 
+    private int itemType = ITEM_NORMAL;
+
     public WarnBean() {
 //        addSubItem(new ReportDetailBean(1));
+    }
+
+    public WarnBean(int itemType) {
+        this.itemType = itemType;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 
     public String getOrderCode() {
@@ -249,7 +262,7 @@ public class WarnBean extends AbstractExpandableItem implements MultiItemEntity 
 
     @Override
     public int getItemType() {
-        return -1;
+        return itemType;
     }
 
     @Override

@@ -223,8 +223,8 @@ public abstract class BaseCommonFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         hasFetchData = false;
         isViewPrepared = false;
     }

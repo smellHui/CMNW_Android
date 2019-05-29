@@ -27,6 +27,8 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
+import static com.tepia.cmdbsevice.model.event.WarnBean.ITEM_HISTORY;
+
 /**
  * Author:xch
  * Date:2019/5/21
@@ -117,10 +119,32 @@ public class FaultFragment extends BaseListFragment<WarnBean> implements Refresh
                 });
     }
 
+    private boolean isShowHistory = false;
+
+    @Override
+    public void success(PageBean<WarnBean> k) {
+        if (k != null) {
+            //第一页时把isShowHistory置为false
+            if (page == 1) isShowHistory = false;
+
+            List<WarnBean> list = k.getResult();
+            if (list != null && !list.isEmpty() && !isShowHistory) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    long count = list.stream().filter(bean -> bean.getIntStatus() != 5).count();
+                    if (count != 20) {
+                        isShowHistory = true;
+                        list.add((int) count, new WarnBean(ITEM_HISTORY));
+                    }
+                }
+            }
+        }
+        super.success(k);
+    }
+
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
         WarnBean warnBean = (WarnBean) adapter.getItem(position);
-        if (warnBean == null) return;
+        if (warnBean == null || warnBean.getItemType() == ITEM_HISTORY) return;
         if (!warnBean.hasSubItem()) {
             WarnDetailBean warnDetailBean = new WarnDetailBean(warnBean.getIntStatus());
             warnBean.addSubItem(warnDetailBean);

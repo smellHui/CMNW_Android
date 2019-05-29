@@ -1,8 +1,11 @@
 package com.tepia.cmdbsevice.view.alarmstatistics.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+
+import androidx.annotation.RequiresApi;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,7 +29,10 @@ import com.tepia.cmnwsevice.model.station.StationBean;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.Arrays;
 import java.util.List;
+
+import static com.tepia.cmdbsevice.model.event.WarnBean.ITEM_HISTORY;
 
 /**
  * Author:xch
@@ -73,66 +79,10 @@ public class ReportFragment extends BaseListFragment<WarnBean> implements Refres
         return new WarnAdapter(WarnAdapter.PAGE_REPORT);
     }
 
-    /**
-     * 【查询】查询群众上报事件列表
-     */
-    private void todoReportList() {
-        if (selectParamModel == null) selectParamModel = new SelectParamModel();
-        EventManager.getInstance().todoReportList("pageSize", 20
-                , "pageIndex", getPage()
-                , "status", selectParamModel.getStatus()
-                , "stationType", selectParamModel.getStationType()
-                , "vendorCodeArray", selectParamModel.getVendorNames()
-                , "areaCodeArray", selectParamModel.getAreaNames()
-                , "startTime", selectParamModel.getStartDate()
-                , "endTime", selectParamModel.getEndDate())
-                .safeSubscribe(new LoadingSubject<PageBean<WarnBean>>() {
-
-                    @Override
-                    protected void _onNext(PageBean<WarnBean> baseCommonResponse) {
-                        success(baseCommonResponse);
-                    }
-
-                    @Override
-                    protected void _onError(String message) {
-                        error();
-                    }
-                });
-    }
-
-    private void simpleInfo(String eventId, int position) {
-        EventManager.getInstance().simpleInfo(eventId)
-                .safeSubscribe(new LoadingSubject<BaseCommonResponse<ReportModel>>(true, "") {
-
-                    @Override
-                    protected void _onNext(BaseCommonResponse<ReportModel> baseCommonResponse) {
-                        try {
-                            ReportModel bean = baseCommonResponse.getData();
-                            WarnBean warnBean = (WarnBean) getAdapter().getItem(position);
-                            ReportModel warn = (ReportModel) warnBean.getSubItem(0);
-//                            CopyPropertiesUtil.copyProperties(bean, warn);
-                            warn.setStnm(bean.getStnm());
-                            warn.setStationStatus(bean.getStationStatus());
-                            warn.setContent(bean.getContent());
-                            warn.setImgUrls(bean.getImgUrls());
-                            warn.setFlowList(bean.getFlowList());
-                            getAdapter().expand(position, false);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    protected void _onError(String message) {
-                        error();
-                    }
-                });
-    }
-
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
         WarnBean warnBean = (WarnBean) adapter.getItem(position);
-        if (warnBean == null) return;
+        if (warnBean == null || warnBean.getItemType() == ITEM_HISTORY) return;
         if (!warnBean.hasSubItem()) {
             ReportModel reportModel = new ReportModel(warnBean.getIntStatus(), warnBean.getEventId());
             warnBean.addSubItem(reportModel);
@@ -177,7 +127,97 @@ public class ReportFragment extends BaseListFragment<WarnBean> implements Refres
         }
     }
 
+    private boolean isShowHistory = false;
 
+    @Override
+    public void success(PageBean<WarnBean> k) {
+        if (k != null) {
+            //第一页时把isShowHistory置为false
+            if (page == 1) isShowHistory = false;
+
+            List<WarnBean> list = k.getResult();
+            if (list != null && !list.isEmpty() && !isShowHistory) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    long count = list.stream().filter(bean -> bean.getIntStatus() != 4).count();
+                    if (count != 20) {
+                        isShowHistory = true;
+                        list.add((int) count, new WarnBean(ITEM_HISTORY));
+                    }
+                }
+            }
+        }
+        super.success(k);
+    }
+
+    /**
+     * 【查询】查询群众上报事件列表
+     */
+    private void todoReportList() {
+        if (selectParamModel == null) selectParamModel = new SelectParamModel();
+        EventManager.getInstance().todoReportList("pageSize", 20
+                , "pageIndex", getPage()
+                , "status", selectParamModel.getStatus()
+                , "stationType", selectParamModel.getStationType()
+                , "vendorCodeArray", selectParamModel.getVendorNames()
+                , "areaCodeArray", selectParamModel.getAreaNames()
+                , "startTime", selectParamModel.getStartDate()
+                , "endTime", selectParamModel.getEndDate())
+                .safeSubscribe(new LoadingSubject<PageBean<WarnBean>>() {
+
+                    @Override
+                    protected void _onNext(PageBean<WarnBean> baseCommonResponse) {
+                        success(baseCommonResponse);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        error();
+                    }
+                });
+    }
+
+    /**
+     * 查询详情
+     *
+     * @param eventId
+     * @param position
+     */
+    private void simpleInfo(String eventId, int position) {
+        EventManager.getInstance().simpleInfo(eventId)
+                .safeSubscribe(new LoadingSubject<BaseCommonResponse<ReportModel>>(true, "") {
+
+                    @Override
+                    protected void _onNext(BaseCommonResponse<ReportModel> baseCommonResponse) {
+                        try {
+                            ReportModel bean = baseCommonResponse.getData();
+                            WarnBean warnBean = (WarnBean) getAdapter().getItem(position);
+                            ReportModel warn = (ReportModel) warnBean.getSubItem(0);
+//                            CopyPropertiesUtil.copyProperties(bean, warn);
+                            warn.setStnm(bean.getStnm());
+                            warn.setStationStatus(bean.getStationStatus());
+                            warn.setContent(bean.getContent());
+                            warn.setImgUrls(bean.getImgUrls());
+                            warn.setFlowList(bean.getFlowList());
+                            getAdapter().expand(position, false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        error();
+                    }
+                });
+    }
+
+    /**
+     * 通过，不通过
+     *
+     * @param eventId
+     * @param resultType
+     * @param content
+     */
     private void examine(String eventId, String resultType, String content) {
         EventManager.getInstance().examine("eventId", eventId, "resultType", resultType, "content", content)
                 .safeSubscribe(new LoadingSubject<BaseCommonResponse>(true, "") {

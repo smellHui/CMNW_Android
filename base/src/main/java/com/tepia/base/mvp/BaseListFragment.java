@@ -116,7 +116,7 @@ public abstract class BaseListFragment<K> extends BaseCommonFragment
                     getList().addAll(list);
                     baseQuickAdapter.notifyDataSetChanged();
                 }
-                if (list.size() == 20) {
+                if (list.size() >= 20) {
                     page++;
                     baseQuickAdapter.loadMoreComplete();
                 } else {

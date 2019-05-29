@@ -22,6 +22,8 @@ import com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.ImageListView;
 
 import java.util.List;
 
+import static com.tepia.cmdbsevice.model.event.WarnBean.ITEM_HISTORY;
+
 /**
  * Author:xch
  * Date:2019/5/24
@@ -43,6 +45,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
 
     private void addItemTypes() {
         addItemType(-1, R.layout.item_report_to_lead);
+        addItemType(ITEM_HISTORY, R.layout.item_history_line);
         switch (this.pageType) {
             case PAGE_POLICE:
                 addItemType(1, R.layout.item_has_sent_view);
@@ -65,6 +68,19 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
     @Override
     protected void convert(BaseViewHolder helper, MultiItemEntity item) {
         switch (helper.getItemViewType()) {
+            case ITEM_HISTORY:
+                switch (pageType) {
+                    case PAGE_POLICE:
+                        helper.setText(R.id.tv_history, "历史报警");
+                        break;
+                    case PAGE_FAULT:
+                        helper.setText(R.id.tv_history, "历史故障");
+                        break;
+                    case PAGE_REPORT:
+                        helper.setText(R.id.tv_history, "历史上报");
+                        break;
+                }
+                break;
             case -1:
                 WarnBean warnBean = (WarnBean) item;
                 switch (pageType) {
@@ -253,7 +269,8 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
         reportAdapter.setOnItemChildClickListener((baseQuickAdapter, view, position) -> addReportItemChildClick(rv, baseQuickAdapter, view, position, reportModel));
     }
 
-    private void addReportItemChildClick(RecyclerView rv, BaseQuickAdapter baseQuickAdapter, View view, int position, ReportModel reportModel) {
+    private void addReportItemChildClick(RecyclerView rv, BaseQuickAdapter
+            baseQuickAdapter, View view, int position, ReportModel reportModel) {
         if (reportItemChildClickListener != null) {
             EditText contentEt = (EditText) baseQuickAdapter.getViewByPosition(rv, position, R.id.et_content);
             String content = "";
@@ -265,7 +282,8 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
 
     private ReportItemChildClickListener reportItemChildClickListener;
 
-    public void setReportItemChildClickListener(ReportItemChildClickListener reportItemChildClickListener) {
+    public void setReportItemChildClickListener(ReportItemChildClickListener
+                                                        reportItemChildClickListener) {
         this.reportItemChildClickListener = reportItemChildClickListener;
     }
 }
