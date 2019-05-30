@@ -30,7 +30,7 @@
 
             <TextView
                 style="@style/text.12_07090D"
-                android:text="站点编号:" />
+                android:text="站点编号：" />
 
             <TextView
                 android:id="@+id/tv_stcd"
@@ -87,6 +87,7 @@
             android:layout_marginTop="15dp"
             android:drawableLeft="@mipmap/check_transparent"
             android:drawablePadding="6dp"
+            android:gravity="center_vertical"
             android:text="已督办"
             android:textStyle="bold" />
 
@@ -95,7 +96,12 @@
             style="@style/text.supervised_content"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="8dp"
-            tools:text="事件描述：新河港发现非法排污事件,造成周边居民的用水安全的问题了...... " />
+            android:drawableLeft="@mipmap/icon_gzwjc"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="故障未解除，运维企业不能提交反馈信息"
+            android:textColor="#999999"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btn_query"

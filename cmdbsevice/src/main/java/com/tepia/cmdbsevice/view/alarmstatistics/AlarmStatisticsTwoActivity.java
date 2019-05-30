@@ -40,12 +40,12 @@ import java.util.List;
 public class AlarmStatisticsTwoActivity extends BaseActivity {
 
     public final static int REPORT_SITE = 2;//群众上报
-    public final static int ALARM_SITE = REPORT_SITE >> 1;//报警站点
-    public final static int FAULT_SITE = ALARM_SITE >> 1;//故障站点
+    public final static int FAULT_SITE = REPORT_SITE >> 1;//故障站点
+    public final static int ALARM_SITE = FAULT_SITE >> 1;//报警站点
 
     private int tabIndex;
 
-    private String[] mTitles_2 = {"故障", "报警", "群众上报"};
+    private String[] mTitles_2 = {"报警", "故障", "群众上报"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<AreaBean> areaBeans, vendorBeans;
 
@@ -105,15 +105,15 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
         tab_layout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.vp);
 
-        FaultFragment faultFragment = FaultFragment.launch(1);
         PoliceFragment policeFragment = PoliceFragment.launch(1);
+        FaultFragment faultFragment = FaultFragment.launch(1);
         ReportFragment reportFragment = ReportFragment.launch(1);
-        refreshStatiseListeners.add(faultFragment);
         refreshStatiseListeners.add(policeFragment);
+        refreshStatiseListeners.add(faultFragment);
         refreshStatiseListeners.add(reportFragment);
 
-        mFragments.add(faultFragment);
         mFragments.add(policeFragment);
+        mFragments.add(faultFragment);
         mFragments.add(reportFragment);
 
         tab_layout.setTabData(mTitles_2);
@@ -175,16 +175,16 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
     private void SelectEventListener(SelectParamModel selectParamModel) {
         refreshStatiseListeners.forEach(listener -> {
             switch (tabIndex) {
-                case FAULT_SITE:
-                    if (listener instanceof FaultFragment) {
-                        listener.refreshList(selectParamModel);
-                        selectFaultPopView.dismiss();
-                    }
-                    break;
                 case ALARM_SITE:
                     if (listener instanceof PoliceFragment) {
                         listener.refreshList(selectParamModel);
                         selectPolicePopView.dismiss();
+                    }
+                    break;
+                case FAULT_SITE:
+                    if (listener instanceof FaultFragment) {
+                        listener.refreshList(selectParamModel);
+                        selectFaultPopView.dismiss();
                     }
                     break;
                 case REPORT_SITE:
@@ -207,8 +207,8 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
                     @Override
                     protected void _onNext(BaseCommonResponse<List<AreaBean>> baseCommonResponse) {
                         areaBeans = baseCommonResponse.getData();
-                        selectFaultPopView.setAreaData(areaBeans);
                         selectPolicePopView.setAreaData(areaBeans);
+                        selectFaultPopView.setAreaData(areaBeans);
                         selectReportPopView.setAreaData(areaBeans);
                     }
 
@@ -229,8 +229,8 @@ public class AlarmStatisticsTwoActivity extends BaseActivity {
                     @Override
                     protected void _onNext(BaseCommonResponse<List<AreaBean>> baseCommonResponse) {
                         vendorBeans = baseCommonResponse.getData();
-                        selectFaultPopView.setVendorData(vendorBeans);
                         selectPolicePopView.setVendorData(vendorBeans);
+                        selectFaultPopView.setVendorData(vendorBeans);
                         selectReportPopView.setVendorData(vendorBeans);
                     }
 

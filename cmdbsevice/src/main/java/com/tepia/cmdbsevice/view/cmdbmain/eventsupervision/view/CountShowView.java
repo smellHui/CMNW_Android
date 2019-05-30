@@ -45,8 +45,8 @@ public class CountShowView extends ViewBase {
         tv_alarmNum = findViewById(R.id.tv_alarmNum);
         tv_reportNum = findViewById(R.id.tv_reportNum);
 
-        findViewById(R.id.fl_gz).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, FAULT_SITE));
         findViewById(R.id.fl_alarm).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, ALARM_SITE));
+        findViewById(R.id.fl_gz).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, FAULT_SITE));
         findViewById(R.id.fl_report).setOnClickListener((v) -> UiHelper.goToAlarmStatisticsTwoView(mContext, REPORT_SITE));
     }
 

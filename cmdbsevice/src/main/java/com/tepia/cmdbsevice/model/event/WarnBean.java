@@ -166,6 +166,25 @@ public class WarnBean extends AbstractExpandableItem implements MultiItemEntity 
     }
 
     /**
+     * 故障status
+     *
+     * @return
+     */
+    public String getFaultStatus() {
+        switch (status) {
+            case 1:
+                return "已派单";
+            case 3:
+                return "已督办";
+            case 4:
+                return "待反馈";
+            case 5:
+                return "已完结";
+        }
+        return "已派单";
+    }
+
+    /**
      * 群众上报status
      *
      * @return

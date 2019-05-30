@@ -36,7 +36,7 @@ public class RealTimeSuperView extends ViewBase {
 
     protected Typeface tfRegular;
     protected Typeface tfLight;
-    private BarChart chart;
+    private RoundBarChart chart;
     private BarDataSet set1, set2, set3;
     private XAxis xAxis;
     private YAxis leftAxis, rightAxis;

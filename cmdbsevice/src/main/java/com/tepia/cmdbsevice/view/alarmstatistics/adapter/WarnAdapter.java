@@ -121,15 +121,14 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_areaName, warnBean.getAreaName());
                         helper.setText(R.id.tv_vendorName, warnBean.getVendorName());
                         helper.setVisible(R.id.tv_vendorName, !Strings.isNullOrEmpty(warnBean.getVendorName()));
-                        helper.setText(R.id.tv_alarmTitle, "报警类型：");
+                        helper.setText(R.id.tv_alarmTitle, "故障类型：");
                         helper.setText(R.id.tv_alarmType, warnBean.getAlarmType());
-                        helper.setVisible(R.id.tv_status, !Strings.isNullOrEmpty(warnBean.getStatus()));
-                        helper.setText(R.id.tv_status, warnBean.getStatus());
+                        helper.setText(R.id.tv_status, warnBean.getFaultStatus());
                         helper.setBackgroundRes(R.id.tv_status, warnBean.getIntStatus() == 5 ? R.drawable.bg_semi_circle_left_top_green : R.drawable.bg_semi_circle_left_top);
                         helper.setText(R.id.tv_time_title, "超出时间");
-                        helper.setText(R.id.tv_sendTitle, "报警时间：");
+                        helper.setText(R.id.tv_sendTitle, "故障时间：");
                         helper.setText(R.id.tv_sendTime, warnBean.getSendTime());
-                        helper.setText(R.id.tv_surplusHours, Strings.isNullOrEmpty(warnBean.getSurplusHours()) ? "--" : String.format("%s小时", warnBean.getSurplusHours()));
+                        helper.setText(R.id.tv_surplusHours, Strings.isNullOrEmpty(warnBean.getOverHours()) ? "--" : String.format("%s小时", warnBean.getOverHours()));
                         break;
                     case PAGE_REPORT:
                         helper.setImageResource(R.id.img_tag, R.mipmap.bkg_report);
@@ -194,7 +193,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         WarnDetailBean warnDetail = (WarnDetailBean) item;
                         helper.setText(R.id.tv_stcd, warnDetail.getStcd());
                         helper.setText(R.id.tv_orderCode, warnDetail.getOrderCode());
-                        helper.setText(R.id.tv_handleDes, warnDetail.getHandleDes());
+//                        helper.setText(R.id.tv_handleDes, warnDetail.getHandleDes());
                         helper.setText(R.id.tv_faultTime, String.format("时间：%s", warnDetail.getFaultTime()));
                         helper.addOnClickListener(R.id.btn_query);
                         break;

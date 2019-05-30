@@ -75,6 +75,7 @@
                 android:layout_weight="1"
                 android:drawableLeft="@mipmap/check_transparent"
                 android:drawablePadding="6dp"
+                android:gravity="center_vertical"
                 android:text="已派单"
                 android:textStyle="bold" />
 

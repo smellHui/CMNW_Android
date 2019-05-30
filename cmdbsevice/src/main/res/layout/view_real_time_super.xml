@@ -29,7 +29,7 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <com.github.mikephil.charting.charts.BarChart
+    <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.RoundBarChart
         android:id="@+id/chart1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

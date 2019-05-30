@@ -83,9 +83,10 @@
                     tools:text="站点名称:向化镇1号处理站" />
 
                 <TextView
+                    android:id="@+id/tv_station_status"
                     style="@style/text.12_FEAA18"
                     android:layout_marginTop="12dp"
-                    android:text="报警状态" />
+                    tools:text="报警状态" />
 
             </LinearLayout>
 

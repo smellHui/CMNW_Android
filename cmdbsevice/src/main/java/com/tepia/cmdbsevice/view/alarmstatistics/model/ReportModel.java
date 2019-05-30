@@ -64,6 +64,20 @@ public class ReportModel extends AbstractExpandableItem implements MultiItemEnti
         return stationStatus;
     }
 
+    public String getStationStatusinfo(){
+        switch (stationStatus){
+            case 0:
+                return "正常";
+            case 1:
+                return "异常";
+            case 2:
+                return "报警";
+            case 3:
+                return "故障";
+        }
+        return "正常";
+    }
+
     public void setStationStatus(int stationStatus) {
         this.stationStatus = stationStatus;
     }
