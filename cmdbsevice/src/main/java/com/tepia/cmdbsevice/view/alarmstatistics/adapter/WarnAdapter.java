@@ -127,7 +127,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setBackgroundRes(R.id.tv_status, warnBean.getIntStatus() == 5 ? R.drawable.bg_semi_circle_left_top_green : R.drawable.bg_semi_circle_left_top);
                         helper.setText(R.id.tv_time_title, "超出时间");
                         helper.setText(R.id.tv_sendTitle, "故障时间：");
-                        helper.setText(R.id.tv_sendTime, warnBean.getSendTime());
+                        helper.setText(R.id.tv_sendTime, warnBean.getFaultTime());
                         helper.setText(R.id.tv_surplusHours, Strings.isNullOrEmpty(warnBean.getOverHours()) ? "--" : String.format("%s小时", warnBean.getOverHours()));
                         break;
                     case PAGE_REPORT:
@@ -193,7 +193,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         WarnDetailBean warnDetail = (WarnDetailBean) item;
                         helper.setText(R.id.tv_stcd, warnDetail.getStcd());
                         helper.setText(R.id.tv_orderCode, warnDetail.getOrderCode());
-//                        helper.setText(R.id.tv_handleDes, warnDetail.getHandleDes());
+                        helper.setText(R.id.tv_sendTime, warnDetail.getSendTime());
                         helper.setText(R.id.tv_faultTime, String.format("时间：%s", warnDetail.getFaultTime()));
                         helper.addOnClickListener(R.id.btn_query);
                         break;

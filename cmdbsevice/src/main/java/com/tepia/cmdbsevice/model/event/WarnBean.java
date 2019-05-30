@@ -50,6 +50,8 @@ public class WarnBean extends AbstractExpandableItem implements MultiItemEntity 
     private String superviseTime;
     //督办单号
     private String orderCode;
+    //故障时间
+    private String faultTime;
 
     private int itemType = ITEM_NORMAL;
 
@@ -59,6 +61,14 @@ public class WarnBean extends AbstractExpandableItem implements MultiItemEntity 
 
     public WarnBean(int itemType) {
         this.itemType = itemType;
+    }
+
+    public String getFaultTime() {
+        return Strings.nullToEmpty(faultTime);
+    }
+
+    public void setFaultTime(String faultTime) {
+        this.faultTime = faultTime;
     }
 
     public void setItemType(int itemType) {
@@ -271,11 +281,13 @@ public class WarnBean extends AbstractExpandableItem implements MultiItemEntity 
                 ", startTime='" + startTime + '\'' +
                 ", sttp='" + sttp + '\'' +
                 ", stcd='" + stcd + '\'' +
-                ", stationStatus='" + stationStatus + '\'' +
+                ", stationStatus=" + stationStatus +
                 ", areaName='" + areaName + '\'' +
                 ", addr='" + addr + '\'' +
                 ", superviseTime='" + superviseTime + '\'' +
                 ", orderCode='" + orderCode + '\'' +
+                ", faultTime='" + faultTime + '\'' +
+                ", itemType=" + itemType +
                 '}';
     }
 

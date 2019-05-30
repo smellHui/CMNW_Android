@@ -21,10 +21,19 @@ public class WarnDetailBean extends AbstractExpandableItem implements MultiItemE
     private String id;
     private int status;
     private String backTime;
+    private String sendTime;
     private List<String> backImgUrls;
 
     public WarnDetailBean(int status) {
         this.status = status;
+    }
+
+    public String getSendTime() {
+        return Strings.nullToEmpty(sendTime);
+    }
+
+    public void setSendTime(String sendTime) {
+        this.sendTime = sendTime;
     }
 
     public String getFaultTime() {
@@ -110,6 +119,7 @@ public class WarnDetailBean extends AbstractExpandableItem implements MultiItemE
                 ", id='" + id + '\'' +
                 ", status=" + status +
                 ", backTime='" + backTime + '\'' +
+                ", sendTime='" + sendTime + '\'' +
                 ", backImgUrls=" + backImgUrls +
                 '}';
     }

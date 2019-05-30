@@ -81,6 +81,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:id="@+id/tv_sendTime"
                 style="@style/text.12_333333"
                 android:layout_weight="1"
                 android:text="报警转故障" />
