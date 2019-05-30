@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
+import com.tepia.cmnwsevice.R;
 import com.tepia.cmnwsevice.model.user.UserManager;
 
 /**
@@ -24,14 +25,16 @@ public class SplashActivity extends AppCompatActivity {
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //
-//        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_splash);
 
-        if (!TextUtils.isEmpty(UserManager.getInstance().getToken())) {
-            ARouter.getInstance().build(AppRoutePath.app_cmdb_main_tab).navigation();
-        } else {
-            ARouter.getInstance().build(AppRoutePath.app_cmnw_login).navigation();
-        }
-        finish();
+        new Handler().postDelayed(() -> {
+            if (!TextUtils.isEmpty(UserManager.getInstance().getToken())) {
+                ARouter.getInstance().build(AppRoutePath.app_cmdb_main_tab).navigation();
+            } else {
+                ARouter.getInstance().build(AppRoutePath.app_cmnw_login).navigation();
+            }
+            finish();
+        }, 1000 * 3);
     }
 
     @Override

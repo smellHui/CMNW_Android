@@ -30,7 +30,7 @@
 
             <TextView
                 style="@style/text.12_07090D"
-                android:text="站点编号:" />
+                android:text="站点编号：" />
 
             <TextView
                 android:id="@+id/tv_stcd"

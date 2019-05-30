@@ -49,7 +49,7 @@
             style="@style/text.supervised_content"
             android:layout_marginLeft="28dp"
             android:layout_marginTop="8dp"
-            android:text="事件描述：新河港发现非法排污事件,造成周边居民的用水安全的问题了...... " />
+            tools:text="事件描述：新河港发现非法排污事件,造成周边居民的用水安全的问题了...... " />
 
         <com.tepia.cmdbsevice.view.cmdbmain.eventsupervision.view.ImageListView
             android:id="@+id/view_imgs"
