@@ -60,5 +60,8 @@ public class ConfigConst {
 
     public static final double scale = 9000;
 
-
+    /**
+     *  行政边界图层
+     */
+    public static final String  townMapUrl = "http://47.99.135.198:6080/arcgis/rest/services/ChongMing/chongmingxingzheng3857/MapServer/0";
 }

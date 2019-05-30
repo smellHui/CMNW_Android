@@ -30,10 +30,14 @@
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp">
 
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:background="#F2F2F2"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:text="地图类型"
                         android:textColor="#ff666666"
                         android:textSize="16sp" />
@@ -113,7 +117,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:background="#F2F2F2"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:text="站点"
                         android:textColor="#ff333333"
                         android:textSize="14sp" />
@@ -139,7 +146,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:background="#F2F2F2"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:text="站点状态"
                         android:textColor="#ff333333"
                         android:textSize="14sp" />
@@ -165,7 +175,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:background="#F2F2F2"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -207,17 +221,20 @@
                     android:paddingBottom="6dp">
 
 
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:background="#F2F2F2"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
 
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
                             android:text="行政区划"
                             android:textColor="#ff333333"
                             android:textSize="14sp" />

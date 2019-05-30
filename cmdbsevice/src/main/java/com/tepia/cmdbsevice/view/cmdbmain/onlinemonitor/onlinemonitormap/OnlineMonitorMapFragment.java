@@ -2,6 +2,7 @@ package com.tepia.cmdbsevice.view.cmdbmain.onlinemonitor.onlinemonitormap;
 
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -23,6 +24,7 @@ import com.esri.android.map.ags.ArcGISFeatureLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.event.OnSingleTapListener;
 import com.esri.android.map.event.OnStatusChangedListener;
+import com.esri.android.map.event.OnZoomListener;
 import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
@@ -69,6 +71,10 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
     private TianDiTuTiledMapServiceLayer ciaLayer;
     private ArcGISFeatureLayer riversFeatureLayer;
     private GraphicsLayer logGraphicsLayer;
+
+    private GraphicsLayer townLayer;
+    private GraphicsLayer pointLayer;
+
     /**
      * 附近我所属的河流图层
      */
@@ -165,10 +171,13 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         vecBaseLayer.setVisible(false);
 
         riversFeatureLayer = new ArcGISFeatureLayer(ConfigConst.riversMapUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
+        townLayer = new ArcGISFeatureLayer(ConfigConst.townMapUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
         riversNameGraphicsLayer = new GraphicsLayer();
         selectRiversLayer = new GraphicsLayer();
         logGraphicsLayer = new GraphicsLayer();
-
+        pointLayer = new GraphicsLayer();
+        mBinding.mvArcgisRiverLog.addLayer(townLayer);
+        mBinding.mvArcgisRiverLog.addLayer(pointLayer);
 
         mBinding.mvArcgisRiverLog.addLayer(riversFeatureLayer);
         mBinding.mvArcgisRiverLog.addLayer(selectRiversLayer);
@@ -202,6 +211,27 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         mapView.setOnSingleTapListener((OnSingleTapListener) (x, y) -> {
             handleSingleTap(x, y);
         });
+        mapView.setOnZoomListener(new OnZoomListener() {
+            @Override
+            public void preAction(float v, float v1, double v2) {
+                checkScale();
+            }
+
+            @Override
+            public void postAction(float v, float v1, double v2) {
+                checkScale();
+            }
+        });
+    }
+
+    private void checkScale() {
+        if (mapView.getScale()>400000){
+            logGraphicsLayer.setVisible(false);
+            pointLayer.setVisible(true);
+        }else {
+            logGraphicsLayer.setVisible(true);
+            pointLayer.setVisible(false);
+        }
     }
 
     /**
@@ -256,6 +286,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
 
     private void drawMapPoint(List<StationBean> stationList) {
         LogUtil.d("drawMapPoint ");
+        pointLayer.removeGraphics(pointLayer.getGraphicIDs());
         logGraphicsLayer.removeGraphics(logGraphicsLayer.getGraphicIDs());
         if (!CollectionsUtil.isEmpty(stationList)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -297,6 +328,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         if (TextUtils.isEmpty(bean.getStationType())) {
             return;
         } else {
+            Integer color = Color.parseColor("#4FCFFA");
             Integer imageRes = R.mipmap.icon_clz_0;
             switch (bean.getStationType()) {
                 case "1":
@@ -306,15 +338,19 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                         switch (bean.getStationStatus()) {
                             case "0":
                                 imageRes = R.mipmap.icon_clz_0;
+                                color = Color.parseColor("#4FCFFA");
                                 break;
                             case "1":
                                 imageRes = R.mipmap.icon_clz_1;
+                                color = Color.parseColor("#FFE42D");
                                 break;
                             case "2":
                                 imageRes = R.mipmap.icon_clz_2;
+                                color = Color.parseColor("#FFAA53");
                                 break;
                             case "3":
                                 imageRes = R.mipmap.icon_clz_3;
+                                color = Color.parseColor("#F43334");
                                 break;
                             default:
                                 imageRes = R.mipmap.icon_clz_0;
@@ -330,16 +366,20 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                     } else {
                         switch (bean.getStationStatus()) {
                             case "0":
+                                color = Color.parseColor("#4FCFFA");
                                 imageRes = R.mipmap.icon_gz_0;
                                 break;
                             case "1":
                                 imageRes = R.mipmap.icon_gz_1;
+                                color = Color.parseColor("#FFE42D");
                                 break;
                             case "2":
                                 imageRes = R.mipmap.icon_gz_2;
+                                color = Color.parseColor("#FFAA53");
                                 break;
                             case "3":
                                 imageRes = R.mipmap.icon_gz_3;
+                                color = Color.parseColor("#F43334");
                                 break;
                             default:
                                 imageRes = R.mipmap.icon_gz_0;
@@ -352,6 +392,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                     break;
             }
             LogUtil.d("map");
+            ARCGISUTIL.addPoint(color,point,pointLayer);
             ARCGISUTIL.addPicForPos2(imageRes, point, logGraphicsLayer, new Gson().toJson(bean).toString());
         }
     }
@@ -444,6 +485,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
         } catch (Exception e) {
             e.printStackTrace();
         }
+        checkScale();
     }
 
     /**
@@ -458,6 +500,7 @@ public class OnlineMonitorMapFragment extends MVPBaseFragment<OnlineMonitorMapCo
                 mapView.centerAt(point, true);
                 mapView.setScale(ConfigConst.scale, false);
             }
+            checkScale();
         }
     }
 

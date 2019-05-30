@@ -7,8 +7,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import com.esri.android.map.GraphicsLayer;
+import com.esri.core.geometry.Point;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.PictureMarkerSymbol;
+import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.tepia.base.utils.Utils;
 
 import java.util.HashMap;
@@ -137,5 +139,11 @@ public class ARCGISUTIL {
     private static Drawable bitmap2Drawable(Bitmap bitmap) {
         return new BitmapDrawable(Utils.getContext().getResources(), bitmap);
 
+    }
+
+    public static void addPoint(Integer color, Point point, GraphicsLayer pointLayer) {
+        SimpleMarkerSymbol simpleMarkerSymbol = new SimpleMarkerSymbol( color, 5,SimpleMarkerSymbol.STYLE.CIRCLE);
+        Graphic graphic = new Graphic(point, simpleMarkerSymbol);
+        pointLayer.addGraphic(graphic);
     }
 }
