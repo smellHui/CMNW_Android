@@ -127,7 +127,7 @@ public class SelectEventPopView extends DrawerPopupView {
         int mDay = ca.get(Calendar.DAY_OF_MONTH);
         int id = view.getId();
         if (id == R.id.tv_start_time) {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view1, year, month, dayOfMonth) -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, (view1, year, month, dayOfMonth) -> {
                 startDate = dealDateFormat(year, month, dayOfMonth);
                 startDateLong = TimeFormatUtils.strToDate(startDate).getTime();
                 startTimeTv.setText(startDate);
@@ -141,7 +141,7 @@ public class SelectEventPopView extends DrawerPopupView {
             datePickerDialog.show();
         }
         if (id == R.id.tv_end_time) {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view1, year, month, dayOfMonth) -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, (view1, year, month, dayOfMonth) -> {
                 endDate = dealDateFormat(year, month, dayOfMonth);
                 endDateLong = TimeFormatUtils.strToDate(endDate).getTime();
                 endTimeTv.setText(endDate);
