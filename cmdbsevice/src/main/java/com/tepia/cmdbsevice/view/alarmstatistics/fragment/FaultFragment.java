@@ -145,7 +145,10 @@ public class FaultFragment extends BaseListFragment<WarnBean> implements Refresh
 
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
-        WarnBean warnBean = (WarnBean) adapter.getItem(position);
+        //防止点击展开子布局崩溃
+        Object bean = adapter.getItem(position);
+        if (bean instanceof WarnDetailBean) return;
+        WarnBean warnBean = (WarnBean) bean;
         if (warnBean == null || warnBean.getItemType() == ITEM_HISTORY) return;
         if (!warnBean.hasSubItem()) {
             WarnDetailBean warnDetailBean = new WarnDetailBean(warnBean.getIntStatus());

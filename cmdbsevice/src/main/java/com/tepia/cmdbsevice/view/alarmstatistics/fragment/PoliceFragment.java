@@ -146,7 +146,10 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
 
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
-        WarnBean warnBean = (WarnBean) adapter.getItem(position);
+        //防止点击展开子布局崩溃
+        Object bean = adapter.getItem(position);
+        if (bean instanceof WarnDetailBean) return;
+        WarnBean warnBean = (WarnBean) bean;
         if (warnBean == null || warnBean.getItemType() == ITEM_HISTORY) return;
         if (!warnBean.hasSubItem()) {
             WarnDetailBean warnDetailBean = new WarnDetailBean(warnBean.getIntStatus());
@@ -156,7 +159,6 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
             getAdapter().collapse(position, false);
         } else {
             superviseInfo(warnBean.getEventId(), position);
-//            getAdapter().expand(position, false);
         }
     }
 

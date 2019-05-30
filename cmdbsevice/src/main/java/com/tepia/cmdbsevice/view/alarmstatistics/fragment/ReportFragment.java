@@ -21,6 +21,7 @@ import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.WarnBean;
+import com.tepia.cmdbsevice.model.event.WarnDetailBean;
 import com.tepia.cmdbsevice.view.alarmstatistics.adapter.WarnAdapter;
 import com.tepia.cmdbsevice.view.alarmstatistics.interfe.RefreshStatiseListener;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
@@ -81,7 +82,10 @@ public class ReportFragment extends BaseListFragment<WarnBean> implements Refres
 
     @Override
     public void setOnItemClickListener(BaseQuickAdapter adapter, View view, int position) {
-        WarnBean warnBean = (WarnBean) adapter.getItem(position);
+        //防止点击展开子布局崩溃
+        Object bean = adapter.getItem(position);
+        if (bean instanceof ReportModel) return;
+        WarnBean warnBean = (WarnBean) bean;
         if (warnBean == null || warnBean.getItemType() == ITEM_HISTORY) return;
         if (!warnBean.hasSubItem()) {
             ReportModel reportModel = new ReportModel(warnBean.getIntStatus(), warnBean.getEventId());
