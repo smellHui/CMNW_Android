@@ -55,6 +55,22 @@
                 tools:text="2019736788" />
         </LinearLayout>
 
+        <LinearLayout
+            style="@style/hor_ll"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                style="@style/text.12_07090D"
+                android:text="报警时间：" />
+
+            <TextView
+                android:id="@+id/tv_sendTime"
+                style="@style/text.12_000000"
+                android:layout_marginLeft="3dp"
+                tools:text="2019736788" />
+        </LinearLayout>
+
         <View
             style="@style/line"
             android:layout_marginLeft="27dp"

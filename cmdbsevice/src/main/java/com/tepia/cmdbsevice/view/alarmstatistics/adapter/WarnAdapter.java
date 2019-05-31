@@ -213,6 +213,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         WarnDetailBean warnDetail = (WarnDetailBean) item;
                         helper.setText(R.id.tv_stcd, warnDetail.getStcd());
                         helper.setText(R.id.tv_orderCode, warnDetail.getOrderCode());
+                        helper.setText(R.id.tv_sendTime, warnDetail.getSendTime());
                         helper.setText(R.id.tv_faultTime, String.format("时间：%s", warnDetail.getFaultTime()));
                         helper.setText(R.id.tv_recoverTime, String.format("时间：%s", warnDetail.getRecoverTime()));
                         helper.addOnClickListener(R.id.btn_query);
@@ -238,6 +239,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_stcd, warnDetail.getStcd());
                         helper.setText(R.id.tv_orderCode, warnDetail.getOrderCode());
                         helper.setText(R.id.tv_handleDes, warnDetail.getHandleDes());
+                        helper.setText(R.id.tv_sendTime, warnDetail.getSendTime());
                         helper.setText(R.id.tv_faultTime, String.format("时间：%s", warnDetail.getFaultTime()));
                         helper.setText(R.id.tv_recoverTime, String.format("时间：%s", warnDetail.getRecoverTime()));
                         helper.setText(R.id.tv_backTime, String.format("反馈时间：%s", warnDetail.getBackTime()));
