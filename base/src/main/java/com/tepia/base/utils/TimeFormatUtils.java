@@ -685,7 +685,7 @@ public class TimeFormatUtils {
         String years = dateFormat.format(date);
         int years_value = Integer.parseInt(years);
 
-        String seasonDate = years_value + "-" + start_month + "-" + "01";
+        String seasonDate = years_value + "-" + (start_month < 10 ? "0" + start_month : start_month + "") + "-" + "01";
         return seasonDate;
 
     }
