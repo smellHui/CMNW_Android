@@ -79,7 +79,7 @@ public class ImageListView extends ViewBase {
     }
 
     public void addImages(List<String> imgs) {
-        imageList.clear();
-        imageList.addAll(imgs);
+        imageList = imgs;
+        imageSeeAdapter.setNewData(imageList);
     }
 }
