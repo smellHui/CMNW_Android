@@ -9,12 +9,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.common.base.Strings;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.AppManager;
 import com.tepia.cmdbsevice.R;
 import com.tepia.cmdbsevice.service.BackService;
 import com.tepia.cmnwsevice.model.user.UserBean;
 import com.tepia.cmnwsevice.model.user.UserManager;
+import com.tepia.cmnwsevice.utils.StringUtil;
 import com.tepia.cmnwsevice.view.login.LoginActivity;
 import com.tepia.cmnwsevice.view.setting.view.CircleImageView;
 
@@ -73,8 +75,8 @@ public class MineFragment extends BaseCommonFragment {
                             .priority(Priority.HIGH)
                             .diskCacheStrategy(DiskCacheStrategy.NONE))
                     .into(iv_user);
-            tv_name.setText(userInfo.getUsername().isEmpty() ? "--" : userInfo.getUsername().trim());
-            tv_compty.setText(userInfo.getDescription().isEmpty() ? "--" : userInfo.getNickName().trim());
+            tv_name.setText(StringUtil.nullToDefault(userInfo.getUsername(), "--"));
+            tv_compty.setText(StringUtil.nullToDefault(userInfo.getDescription(), "--"));
         }
     }
 
