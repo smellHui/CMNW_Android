@@ -45,11 +45,11 @@ public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseView
                 helper.setText(R.id.tv_stnm, String.format("站点名称：%s", reportModel.getStnm()));
                 helper.setText(R.id.tv_station_status, String.format("%s状态", reportModel.getStationStatusinfo()));
                 ImageListView imageListView = helper.getView(R.id.view_imgs);
-                List<String> feedImgUrls = item.getFeedImgUrls();
-                if (feedImgUrls == null || feedImgUrls.isEmpty()) {
+                List<String> imgUrls = reportModel.getImgUrls();
+                if (imgUrls == null || imgUrls.isEmpty()) {
                     imageListView.setVisibility(View.GONE);
                 } else {
-                    imageListView.addImages(feedImgUrls);
+                    imageListView.addImages(imgUrls);
                     imageListView.setVisibility(View.VISIBLE);
                 }
                 //没有stcd就隐藏站点详情按钮
@@ -60,11 +60,11 @@ public class ReportAdapter extends BaseMultiItemQuickAdapter<FlowModel, BaseView
                 helper.setText(R.id.tv_createdTime, String.format("反馈时间：%s", item.getCreatedTime()));
                 helper.setText(R.id.tv_resultDes, String.format("反馈描述：%s", item.getResultDes()));
                 ImageListView imageLv = helper.getView(R.id.view_imgs);
-                List<String> imgUrls = item.getFeedImgUrls();
-                if (imgUrls == null || imgUrls.isEmpty()) {
+                List<String> feedImgUrls = item.getFeedImgUrls();
+                if (feedImgUrls == null || feedImgUrls.isEmpty()) {
                     imageLv.setVisibility(View.GONE);
                 } else {
-                    imageLv.addImages(imgUrls);
+                    imageLv.addImages(feedImgUrls);
                     imageLv.setVisibility(View.VISIBLE);
                 }
                 break;

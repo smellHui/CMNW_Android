@@ -24,6 +24,8 @@
         <service android:name=".service.BackService" />
 
         <!-- 事件督办-->
-        <activity android:name=".view.alarmstatistics.AlarmStatisticsTwoActivity"/>
+        <activity android:name=".view.alarmstatistics.AlarmStatisticsTwoActivity" />
+        <!--故障详情-->
+        <activity android:name=".view.alarmstatistics.FaultDetailActivity" />
     </application>
 </manifest>

@@ -136,7 +136,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tv_sendTime"
+                    android:id="@+id/tv_top_sendTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"

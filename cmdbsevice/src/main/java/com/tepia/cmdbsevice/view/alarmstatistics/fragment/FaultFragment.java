@@ -103,9 +103,25 @@ public class FaultFragment extends BaseListFragment<WarnBean> implements Refresh
                     protected void _onNext(BaseCommonResponse<WarnDetailBean> baseCommonResponse) {
                         try {
                             WarnDetailBean bean = baseCommonResponse.getData();
+                            if (bean == null) return;
                             WarnBean warnBean = (WarnBean) getAdapter().getItem(position);
-                            WarnDetailBean warn = (WarnDetailBean) warnBean.getSubItem(0);
-                            CopyPropertiesUtil.copyProperties(bean, warn);
+                            if (warnBean == null) return;
+                            WarnDetailBean warn;
+                            if (warnBean.hasSubItem()) {
+                                warn = (WarnDetailBean) warnBean.getSubItem(0);
+                                warn.setStcd(bean.getStcd());
+                                warn.setBackImgUrls(bean.getBackImgUrls());
+                                warn.setBackTime(bean.getBackTime());
+                                warn.setFaultTime(bean.getFaultTime());
+                                warn.setHandleDes(bean.getHandleDes());
+                                warn.setId(bean.getId());
+                                warn.setOrderCode(bean.getOrderCode());
+                                warn.setRecoverTime(bean.getRecoverTime());
+                                warn.setSendTime(bean.getSendTime());
+                                warn.setStatus(bean.getStatus());
+                            } else {
+                                warnBean.addSubItem(bean);
+                            }
                             getAdapter().expand(position, false);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -150,10 +166,6 @@ public class FaultFragment extends BaseListFragment<WarnBean> implements Refresh
         if (bean instanceof WarnDetailBean) return;
         WarnBean warnBean = (WarnBean) bean;
         if (warnBean == null || warnBean.getItemType() == ITEM_HISTORY) return;
-        if (!warnBean.hasSubItem()) {
-            WarnDetailBean warnDetailBean = new WarnDetailBean(warnBean.getIntStatus());
-            warnBean.addSubItem(warnDetailBean);
-        }
         if (warnBean.isExpanded()) {
             getAdapter().collapse(position, false);
         } else {

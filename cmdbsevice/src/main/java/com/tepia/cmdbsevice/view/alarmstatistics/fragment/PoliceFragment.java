@@ -18,6 +18,7 @@ import com.tepia.cmdbsevice.model.event.EventManager;
 import com.tepia.cmdbsevice.model.event.WarnBean;
 import com.tepia.cmdbsevice.model.event.WarnDetailBean;
 import com.tepia.cmdbsevice.util.CopyPropertiesUtil;
+import com.tepia.cmdbsevice.util.UiHelper;
 import com.tepia.cmdbsevice.view.alarmstatistics.adapter.WarnAdapter;
 import com.tepia.cmdbsevice.view.alarmstatistics.interfe.RefreshStatiseListener;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.SelectParamModel;
@@ -103,9 +104,26 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
                     protected void _onNext(BaseCommonResponse<WarnDetailBean> baseCommonResponse) {
                         try {
                             WarnDetailBean bean = baseCommonResponse.getData();
+                            if (bean == null) return;
                             WarnBean warnBean = (WarnBean) getAdapter().getItem(position);
-                            WarnDetailBean warn = (WarnDetailBean) warnBean.getSubItem(0);
-                            CopyPropertiesUtil.copyProperties(bean, warn);
+                            if (warnBean == null) return;
+                            WarnDetailBean warn;
+                            if (warnBean.hasSubItem()) {
+                                warn = (WarnDetailBean) warnBean.getSubItem(0);
+                                warn.setStcd(bean.getStcd());
+                                warn.setBackImgUrls(bean.getBackImgUrls());
+                                warn.setBackTime(bean.getBackTime());
+                                warn.setFaultTime(bean.getFaultTime());
+                                warn.setHandleDes(bean.getHandleDes());
+                                warn.setId(bean.getId());
+                                warn.setOrderCode(bean.getOrderCode());
+                                warn.setRecoverTime(bean.getRecoverTime());
+                                warn.setSendTime(bean.getSendTime());
+                                warn.setStatus(warnBean.getIntStatus());
+                            } else {
+                                bean.setStatus(warnBean.getIntStatus());
+                                warnBean.addSubItem(bean);
+                            }
                             getAdapter().expand(position, false);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -132,7 +150,7 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                     //后台数据是已完成排到最后面，所以这里我取未完成的个数做插入索引
-                    long count = list.stream().filter(bean -> bean.getIntStatus() != 5).count();
+                    long count = list.stream().filter(bean -> bean.getIntStatus() < 3).count();
                     //只有一页数据时，防止最后一项加空历史边界
                     if (count != list.size()) {
                         isShowHistory = true;
@@ -151,10 +169,6 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
         if (bean instanceof WarnDetailBean) return;
         WarnBean warnBean = (WarnBean) bean;
         if (warnBean == null || warnBean.getItemType() == ITEM_HISTORY) return;
-        if (!warnBean.hasSubItem()) {
-            WarnDetailBean warnDetailBean = new WarnDetailBean(warnBean.getIntStatus());
-            warnBean.addSubItem(warnDetailBean);
-        }
         if (warnBean.isExpanded()) {
             getAdapter().collapse(position, false);
         } else {
@@ -176,6 +190,9 @@ public class PoliceFragment extends BaseListFragment<WarnBean> implements Refres
             } else {
                 ToastUtils.shortToast("没有该站点");
             }
+        }
+        if (id == R.id.tv_look_detail) {
+            UiHelper.goToFaultDetailView(getActivity(), warnDetailBean.getId());
         }
     }
 

@@ -4,6 +4,7 @@ import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.model.PageBean;
 
+import com.tepia.cmdbsevice.view.alarmstatistics.model.FaultInfoModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
 import com.tepia.cmnwsevice.APPConst;
 import com.tepia.cmnwsevice.model.user.UserManager;
@@ -53,6 +54,19 @@ public class EventManager {
     public Observable<BaseCommonResponse<WarnDetailBean>> superviseInfo(String eventId) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.superviseInfo(token, eventId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 【详情】查询故障详情
+     *
+     * @param eventId
+     * @return
+     */
+    public Observable<BaseCommonResponse<FaultInfoModel>> faultInfo(String eventId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.faultInfo(token, eventId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

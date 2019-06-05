@@ -1,10 +1,12 @@
 package com.tepia.cmdbsevice.view.alarmstatistics.adapter;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -49,6 +51,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
         switch (this.pageType) {
             case PAGE_POLICE:
                 addItemType(1, R.layout.item_has_sent_view);
+                addItemType(3, R.layout.item_supervise_view);
                 addItemType(5, R.layout.item_close_view);
                 break;
             case PAGE_FAULT:
@@ -105,13 +108,13 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setBackgroundRes(R.id.tv_status, warnBean.getIntStatus() == 5 ? R.drawable.bg_semi_circle_left_top_green : R.drawable.bg_semi_circle_left_top);
                         helper.setText(R.id.tv_time_title, "剩余时间");
                         helper.setText(R.id.tv_sendTitle, "报警时间：");
-                        helper.setText(R.id.tv_sendTime, warnBean.getSendTime());
+                        helper.setVisible(R.id.ll_time, warnBean.getIntStatus() != 5);
+                        helper.setText(R.id.tv_top_sendTime, warnBean.getSendTime());
                         helper.setText(R.id.tv_surplusHours, Strings.isNullOrEmpty(warnBean.getSurplusHours()) ? "--" : String.format("%s小时", warnBean.getSurplusHours()));
                         break;
                     case PAGE_FAULT:
                         helper.setImageResource(R.id.img_tag, R.mipmap.bkg_fault);
                         helper.setImageResource(R.id.img_status, R.mipmap.icon_guzhang);
-                        helper.setText(R.id.tv_time_title, "剩余时间");
                         helper.setText(R.id.tv_stationStatus, warnBean.getStationInfo());
                         helper.setTextColor(R.id.tv_stationStatus, Color.parseColor(warnBean.getStationStatus() == 0 ? "#62C08D" : "#F46B6D"));
                         helper.setTextColor(R.id.tv_sttp, Color.parseColor("#FF934A"));
@@ -124,10 +127,11 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_alarmTitle, "故障类型：");
                         helper.setText(R.id.tv_alarmType, warnBean.getAlarmType());
                         helper.setText(R.id.tv_status, warnBean.getFaultStatus());
+                        helper.setVisible(R.id.ll_time, warnBean.getIntStatus() != 5);
                         helper.setBackgroundRes(R.id.tv_status, warnBean.getIntStatus() == 5 ? R.drawable.bg_semi_circle_left_top_green : R.drawable.bg_semi_circle_left_top);
                         helper.setText(R.id.tv_time_title, "超出时间");
                         helper.setText(R.id.tv_sendTitle, "故障时间：");
-                        helper.setText(R.id.tv_sendTime, warnBean.getFaultTime());
+                        helper.setText(R.id.tv_top_sendTime, warnBean.getFaultTime());
                         helper.setText(R.id.tv_surplusHours, Strings.isNullOrEmpty(warnBean.getOverHours()) ? "--" : String.format("%s小时", warnBean.getOverHours()));
                         break;
                     case PAGE_REPORT:
@@ -145,7 +149,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_status, warnBean.getReportStatus());
                         helper.setBackgroundRes(R.id.tv_status, warnBean.getIntStatus() == 4 ? R.drawable.bg_semi_circle_left_top_green : R.drawable.bg_semi_circle_left_top);
                         helper.setText(R.id.tv_sendTitle, "督办时间：");
-                        helper.setText(R.id.tv_sendTime, warnBean.getSuperviseTime());
+                        helper.setText(R.id.tv_top_sendTime, warnBean.getSuperviseTime());
                         break;
                 }
                 break;
@@ -187,7 +191,14 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
             case 3://已督办  退回中
                 switch (pageType) {
                     case PAGE_POLICE:
-
+                        WarnDetailBean warnDetai = (WarnDetailBean) item;
+                        helper.setText(R.id.tv_stcd, warnDetai.getStcd());
+                        helper.setText(R.id.tv_orderCode, warnDetai.getOrderCode());
+                        helper.setText(R.id.tv_faultTime, String.format("时间：%s", warnDetai.getFaultTime()));
+                        TextView tv_look_detail = helper.getView(R.id.tv_look_detail);
+                        tv_look_detail.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+                        helper.addOnClickListener(R.id.btn_query);
+                        helper.addOnClickListener(R.id.tv_look_detail);
                         break;
                     case PAGE_FAULT:
                         WarnDetailBean warnDetail = (WarnDetailBean) item;
@@ -244,7 +255,7 @@ public class WarnAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Base
                         helper.setText(R.id.tv_recoverTime, String.format("时间：%s", warnDetail.getRecoverTime()));
                         helper.setText(R.id.tv_backTime, String.format("反馈时间：%s", warnDetail.getBackTime()));
                         ImageListView imageLv = helper.getView(R.id.view_imgs);
-                        List<String> imgUrls = ((WarnDetailBean) item).getBackImgUrls();
+                        List<String> imgUrls = warnDetail.getBackImgUrls();
                         if (imgUrls == null || imgUrls.isEmpty()) {
                             imageLv.setVisibility(View.GONE);
                         } else {

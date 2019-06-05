@@ -24,10 +24,6 @@ public class WarnDetailBean extends AbstractExpandableItem implements MultiItemE
     private String sendTime;
     private List<String> backImgUrls;
 
-    public WarnDetailBean(int status) {
-        this.status = status;
-    }
-
     public String getSendTime() {
         return Strings.nullToEmpty(sendTime);
     }

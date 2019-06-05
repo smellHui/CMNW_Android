@@ -37,7 +37,7 @@ import static com.tepia.cmdbsevice.view.alarmstatistics.AlarmStatisticsTwoActivi
 public class SelectEventPopView extends DrawerPopupView {
 
     private static final String[] DATE_TXT = new String[]{"本年", "本季", "本月"};
-    private static final String[] STATE_POLICE_TXT = new String[]{"已派单", "已完结"};
+    private static final String[] STATE_POLICE_TXT = new String[]{"已派单", "已督办", "已完结"};
     private static final String[] STATE_FAULT_TXT = new String[]{"已督办", "待反馈", "已完结"};
     private static final String[] STATE_REPORT_TXT = new String[]{"已派单", "待审核", "退回中", "已完结"};
 
@@ -263,10 +263,13 @@ public class SelectEventPopView extends DrawerPopupView {
                         break;
                     case ALARM_SITE:
                         switch (position) {
-                            case 0:
+                            case 0://已派单
                                 value = "1";
                                 break;
-                            case 1:
+                            case 1://已督办
+                                value = "3";
+                                break;
+                            case 2://已完结
                                 value = "5";
                                 break;
                         }

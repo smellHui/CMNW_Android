@@ -2,6 +2,7 @@ package com.tepia.cmdbsevice.model.event;
 
 import com.tepia.base.http.BaseCommonResponse;
 import com.tepia.base.model.PageBean;
+import com.tepia.cmdbsevice.view.alarmstatistics.model.FaultInfoModel;
 import com.tepia.cmdbsevice.view.alarmstatistics.model.ReportModel;
 
 import java.util.List;
@@ -45,6 +46,16 @@ public interface EventService {
      */
     @GET("supervise/info")
     Observable<BaseCommonResponse<WarnDetailBean>> superviseInfo(@Header("token") String token, @Query("eventId") String eventId);
+
+    /**
+     * 【详情】查询故障详情
+     *
+     * @param token
+     * @param eventId
+     * @return
+     */
+    @GET("supervise/faultInfo")
+    Observable<BaseCommonResponse<FaultInfoModel>> faultInfo(@Header("token") String token, @Query("eventId") String eventId);
 
     /**
      * 【详情】获取群众上报事件详情
@@ -165,6 +176,7 @@ public interface EventService {
 
     /**
      * 【审核】事件审核
+     *
      * @param token
      * @param body
      * @return
